@@ -95,10 +95,15 @@ img {
 .header-cta {
   border: 1px solid var(--border);
   background: var(--bg-muted);
+  color: var(--zap-black);
 }
 
-.header-cta:hover {
-  background: var(--border);
+.header-cta:hover,
+.header-cta[aria-current='page'] {
+  border-color: var(--zap-black);
+  background: var(--zap-black);
+  color: var(--cream);
+  box-shadow: inset 0 -4px 0 var(--accent);
 }
 
 .hero {
@@ -213,7 +218,8 @@ img {
 
 .btn:active,
 .header-cta:active {
-  background: var(--mid-warm);
+  background: var(--charcoal);
+  color: var(--cream);
 }
 
 .btn-inverse {
@@ -1097,7 +1103,11 @@ img {
 }
 
 .closing .section-inner {
-  max-width: 980px;
+  width: min(1200px, calc(100% - 80px));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.42fr);
+  gap: clamp(40px, 6vw, 80px);
+  align-items: end;
 }
 
 .eyebrow.inverse {
@@ -1120,21 +1130,57 @@ img {
   line-height: 1.82;
 }
 
-@media (min-width: 981px) {
-  html {
-    scroll-snap-type: y proximity;
-  }
+.contact-card {
+  display: grid;
+  gap: 0;
+  border: 1px solid rgba(255, 254, 251, 0.3);
+  border-radius: var(--r-lg);
+  background: rgba(255, 254, 251, 0.04);
+}
 
+.contact-card div {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+}
+
+.contact-card div + div {
+  border-top: 1px solid rgba(255, 254, 251, 0.2);
+}
+
+.contact-card span {
+  color: rgba(255, 254, 251, 0.56);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.contact-card strong,
+.contact-card a {
+  color: var(--cream);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.contact-card a {
+  width: fit-content;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.contact-card a:hover {
+  text-decoration: none;
+}
+
+@media (min-width: 981px) {
   .hero {
     height: calc(100svh - 72px);
     min-height: 640px;
     padding-top: clamp(28px, 4.5vh, 48px);
     padding-bottom: clamp(18px, 3vh, 32px);
-    scroll-snap-align: start;
-  }
-
-  .section {
-    scroll-snap-align: start;
   }
 
   .profile-pass {
@@ -1201,6 +1247,11 @@ img {
   .skills-section .section-inner {
     grid-template-columns: 1fr;
     gap: 36px;
+  }
+
+  .closing .section-inner {
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 
   .skills-section .section-intro h2,

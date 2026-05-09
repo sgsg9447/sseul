@@ -14,7 +14,8 @@ export function Header() {
   const [activeSection, setActiveSection] = useState('top');
 
   useEffect(() => {
-    const sections = navItems
+    const observedItems = [...navItems, { id: 'contact' }];
+    const sections = observedItems
       .map((item) => document.getElementById(item.id))
       .filter((section): section is HTMLElement => Boolean(section));
 
@@ -53,7 +54,7 @@ export function Header() {
           </a>
         ))}
       </nav>
-      <a className="header-cta" href="mailto:hi@sseul.studio">
+      <a className="header-cta" href="#contact" aria-current={activeSection === 'contact' ? 'page' : undefined}>
         <Mail size={16} />
         Contact
       </a>
