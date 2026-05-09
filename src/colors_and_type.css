@@ -1,0 +1,251 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   sseul portfolio — design tokens
+   Inspired by Zapier's warm-cream, border-forward visual system.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Webfonts.
+   NOTE: Degular Display and GT Alpina are commercial. We substitute with the
+   closest Google Fonts matches and surface this to the user.
+     Degular Display  →  Bricolage Grotesque  (wide geometric display)
+     GT Alpina        →  Cormorant Garamond   (thin elegant serif)
+     Inter            →  Inter                (exact)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ── COLOR TOKENS ───────────────────────────────────────────────────── */
+
+  /* Primary */
+  --zap-black: #201515;          /* warm near-black, reddish undertone   */
+  --cream: #fffefb;              /* page bg — paper-like, never pure white */
+  --off-white: #fffdf9;          /* secondary surface tint                */
+
+  /* Brand accent */
+  --orange: #ff4f00;             /* signature, used sparingly             */
+
+  /* Neutral scale (warm) */
+  --charcoal: #36342e;           /* secondary / body text                 */
+  --warm-gray: #939084;          /* muted / tertiary                      */
+  --sand: #c5c0b1;               /* primary border & dividers             */
+  --light-sand: #eceae3;         /* secondary surface, ghost button bg    */
+  --mid-warm: #b5b2aa;           /* alternate border tone                 */
+
+  /* Overlay */
+  --overlay-dark: rgba(45, 45, 46, 0.5);
+
+  /* ── SEMANTIC COLOR ROLES ───────────────────────────────────────────── */
+  --bg: var(--cream);
+  --bg-alt: var(--off-white);
+  --bg-inverse: var(--zap-black);
+  --bg-muted: var(--light-sand);
+
+  --fg: var(--zap-black);                /* heading / strong text         */
+  --fg-body: var(--charcoal);            /* body text                     */
+  --fg-muted: var(--warm-gray);          /* captions, metadata            */
+  --fg-inverse: var(--cream);            /* on dark bg                    */
+
+  --border: var(--sand);                 /* default 1px border            */
+  --border-strong: var(--charcoal);      /* emphasized divider            */
+  --border-muted: var(--mid-warm);
+
+  --accent: var(--orange);
+  --accent-fg: var(--cream);
+
+  --link: var(--zap-black);
+  --focus-ring: var(--orange);
+
+  /* ── TYPE FAMILIES ──────────────────────────────────────────────────── */
+  --font-display: 'Bricolage Grotesque', 'Degular Display', system-ui, sans-serif;
+  --font-sans: 'Inter', Helvetica, Arial, sans-serif;
+  --font-serif: 'Cormorant Garamond', 'GT Alpina', Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ── SPACING (8px base) ─────────────────────────────────────────────── */
+  --s-1: 1px;
+  --s-4: 4px;
+  --s-6: 6px;
+  --s-8: 8px;
+  --s-10: 10px;
+  --s-12: 12px;
+  --s-16: 16px;
+  --s-20: 20px;
+  --s-24: 24px;
+  --s-32: 32px;
+  --s-40: 40px;
+  --s-48: 48px;
+  --s-56: 56px;
+  --s-64: 64px;
+  --s-72: 72px;
+  --s-80: 80px;
+
+  /* ── RADII ──────────────────────────────────────────────────────────── */
+  --r-tight: 3px;       /* small inline spans                             */
+  --r-sm: 4px;          /* orange CTA, tags                               */
+  --r-md: 5px;          /* cards, links, general containers               */
+  --r-lg: 8px;          /* featured cards, large buttons, tabs            */
+  --r-xl: 14px;         /* social icon buttons                            */
+  --r-pill: 20px;       /* play buttons, pill buttons                     */
+
+  /* ── ELEVATION (border-forward, no traditional shadows) ─────────────── */
+  --elev-0: none;
+  --elev-1: 0 0 0 1px var(--sand) inset;          /* equivalent to 1px border */
+  --elev-1b: 0 0 0 1px var(--charcoal) inset;
+  --tab-active: rgb(255, 79, 0) 0px -4px 0px 0px inset;
+  --tab-hover:  rgb(197, 192, 177) 0px -4px 0px 0px inset;
+
+  /* ── CONTAINER / LAYOUT ─────────────────────────────────────────────── */
+  --max-content: 1200px;
+  --section-py: 80px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SEMANTIC TYPE STYLES
+   Apply via class so consumers can mix-and-match.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Reset baseline */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display — Bricolage Grotesque (Degular Display sub) */
+.t-display-xl {
+  font-family: var(--font-display);
+  font-size: 80px; font-weight: 500; line-height: 0.90;
+  letter-spacing: 0;
+  color: var(--fg);
+}
+.t-display { /* hero */
+  font-family: var(--font-display);
+  font-size: 56px; font-weight: 500; line-height: 0.95;
+  letter-spacing: 0;
+  color: var(--fg);
+}
+.t-display-sm {
+  font-family: var(--font-display);
+  font-size: 40px; font-weight: 500; line-height: 0.90;
+  color: var(--fg);
+}
+.t-display-btn {
+  font-family: var(--font-display);
+  font-size: 24px; font-weight: 600; line-height: 1.0;
+  letter-spacing: 1px;
+}
+
+/* Section / sub-headings — Inter */
+.t-h1 {
+  font-family: var(--font-sans);
+  font-size: 48px; font-weight: 500; line-height: 1.04;
+  color: var(--fg);
+}
+.t-h2 {
+  font-family: var(--font-sans);
+  font-size: 36px; font-weight: 500; line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--fg);
+}
+.t-h3 {
+  font-family: var(--font-sans);
+  font-size: 32px; font-weight: 400; line-height: 1.25;
+  color: var(--fg);
+}
+.t-h4 {
+  font-family: var(--font-sans);
+  font-size: 28px; font-weight: 500; line-height: 1.2;
+  color: var(--fg);
+}
+.t-card-title {
+  font-family: var(--font-sans);
+  font-size: 24px; font-weight: 600; line-height: 1.2;
+  letter-spacing: -0.48px;
+  color: var(--fg);
+}
+
+/* Editorial — Cormorant (GT Alpina sub) */
+.t-editorial {
+  font-family: var(--font-serif);
+  font-size: 48px; font-weight: 300; line-height: 1.0;
+  letter-spacing: -1.92px;
+  color: var(--fg);
+}
+.t-editorial-sub {
+  font-family: var(--font-serif);
+  font-size: 40px; font-weight: 300; line-height: 1.08;
+  letter-spacing: -1.6px;
+  color: var(--fg);
+}
+
+/* Body */
+.t-body-lg {
+  font-family: var(--font-sans);
+  font-size: 20px; font-weight: 400; line-height: 1.2;
+  letter-spacing: -0.2px;
+  color: var(--fg-body);
+}
+.t-body-emphasis {
+  font-family: var(--font-sans);
+  font-size: 18px; font-weight: 600; line-height: 1.0;
+  color: var(--fg);
+}
+.t-body {
+  font-family: var(--font-sans);
+  font-size: 16px; font-weight: 400; line-height: 1.5;
+  letter-spacing: -0.16px;
+  color: var(--fg-body);
+}
+.t-body-semibold {
+  font-family: var(--font-sans);
+  font-size: 16px; font-weight: 600; line-height: 1.16;
+  color: var(--fg);
+}
+
+/* Buttons */
+.t-button { font-family: var(--font-sans); font-size: 16px; font-weight: 600; line-height: 1; }
+.t-button-sm { font-family: var(--font-sans); font-size: 14px; font-weight: 600; line-height: 1; }
+
+/* Caption / micro */
+.t-caption {
+  font-family: var(--font-sans);
+  font-size: 14px; font-weight: 500; line-height: 1.4;
+  color: var(--fg-body);
+}
+.t-caption-upper {
+  font-family: var(--font-sans);
+  font-size: 14px; font-weight: 600; line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--fg-body);
+}
+.t-micro {
+  font-family: var(--font-sans);
+  font-size: 12px; font-weight: 600; line-height: 1.0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.t-micro-sm {
+  font-family: var(--font-sans);
+  font-size: 13px; font-weight: 500; line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ELEMENT-LEVEL DEFAULTS — drop this CSS in and basic markup looks right.
+   ────────────────────────────────────────────────────────────────────────── */
+h1 { font-family: var(--font-display); font-size: 56px; font-weight: 500; line-height: 0.95; color: var(--fg); margin: 0 0 24px; }
+h2 { font-family: var(--font-sans); font-size: 36px; font-weight: 500; line-height: 1.1; letter-spacing: -1px; color: var(--fg); margin: 0 0 20px; }
+h3 { font-family: var(--font-sans); font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -0.48px; color: var(--fg); margin: 0 0 12px; }
+h4 { font-family: var(--font-sans); font-size: 18px; font-weight: 600; color: var(--fg); margin: 0 0 8px; }
+p  { font-family: var(--font-sans); font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: -0.16px; color: var(--fg-body); margin: 0 0 16px; }
+a  { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration: none; }
+small { font-size: 13px; color: var(--fg-muted); }
+hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+code, pre { font-family: var(--font-mono); font-size: 14px; }
+::selection { background: var(--orange); color: var(--cream); }
+:focus-visible { outline: 1px solid var(--focus-ring); outline-offset: 2px; }
