@@ -8,8 +8,8 @@ export function ProblemSection() {
         <SectionIntro
           count="01"
           label="Problem"
-          title="제가 반복해서 마주한 문제는 ‘만드는 일’ 이전에 있었습니다."
-          body="서비스 아이디어는 많지만 실제로 만들려면 매번 같은 과정이 필요했습니다. 무엇을 먼저 만들어야 하는지 정리하고, 화면 흐름을 나누고, 개발 TODO와 QA 체크리스트를 만드는 일입니다."
+          title="제가 해결한 문제는 만드는 속도보다 먼저, 실행 가능한 흐름을 만드는 일이었습니다."
+          body="아이디어는 명세로 정리되어야 하고, 명세는 실제 구현으로 검증되어야 하며, 반복 운영은 다시 사용할 수 있는 시스템으로 전환되어야 했습니다."
         />
         <div className="problem-grid">
           {problems.map((problem, index) => (

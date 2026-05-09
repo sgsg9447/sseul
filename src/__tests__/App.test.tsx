@@ -13,7 +13,7 @@ describe('sseul portfolio', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: /흩어진 아이디어와 반복 업무를 실행 가능한 AX 워크플로우로 바꿉니다/i,
+        name: /아이디어를 실행 가능한 명세로 구조화하고, 실제 제품과 운영 워크플로우로 완성합니다/i,
       }),
     ).toBeInTheDocument();
   });
@@ -22,7 +22,7 @@ describe('sseul portfolio', () => {
     render(<App />);
 
     expect(screen.getAllByText('0to100').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('오늘뭐먹었지?').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('FoodieCard').length).toBeGreaterThan(0);
     expect(screen.getAllByText('EnrollOps').length).toBeGreaterThan(0);
   });
 

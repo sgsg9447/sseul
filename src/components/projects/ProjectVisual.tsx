@@ -38,14 +38,14 @@ export function ProjectVisual({ type }: ProjectVisualProps) {
       <div className="artifact-stack">
         <span className="artifact-label">Story card preview</span>
         <div className="mock mock-meal">
-          <strong>오늘뭐먹었지?</strong>
+          <strong>FoodieCard</strong>
           <div className="meal-grid">
             <span />
             <span />
             <span />
             <span />
           </div>
-          <p>11.07 · 하루 식사 카드</p>
+          <p>0to100 spec · MVP preview</p>
         </div>
       </div>
     );

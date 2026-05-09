@@ -2,7 +2,7 @@ import { ArrowDown, ArrowRight } from 'lucide-react';
 import logoMark from '../assets/logo-mark.svg';
 import profile from '../assets/profile.jpg';
 
-const keywords = ['Idea', 'Spec', 'Build', 'Archive', 'Automate'];
+const keywords = ['Idea', 'Spec', 'Build', 'Validate', 'Automate'];
 
 export function HeroSection() {
   return (
@@ -12,10 +12,11 @@ export function HeroSection() {
           <span />
           sseul · AX workflow portfolio
         </p>
-        <h1>흩어진 아이디어와 반복 업무를 실행 가능한 AX 워크플로우로 바꿉니다.</h1>
+        <h1>아이디어를 실행 가능한 명세로 구조화하고, 실제 제품과 운영 워크플로우로 완성합니다.</h1>
         <p className="hero-lede">
-          서비스 아이디어를 명세로 구조화하고, 그 명세를 바탕으로 실제 서비스를 구현하며,
-          오프라인 운영 프로세스를 온라인 자동화 시스템으로 전환한 포트폴리오입니다.
+          0to100으로 아이디어를 명세·화면 흐름·개발 TODO로 구조화하고, FoodieCard로 구현
+          가능성을 검증했으며, EnrollOps로 오프라인 신청 운영을 온라인 접수·문서·리포트 자동화로
+          전환했습니다.
         </p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#flow">
@@ -43,7 +44,7 @@ export function HeroSection() {
           <span>Position</span>
           <strong>AX workflow builder</strong>
           <span>Focus</span>
-          <strong>Idea → Spec → Build</strong>
+          <strong>Idea → Spec → Validate</strong>
         </div>
       </aside>
 
