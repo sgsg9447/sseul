@@ -7,20 +7,27 @@ export function ClosingSection() {
   return (
     <section className="closing" id="contact">
       <div className="section-inner">
-        <div className="closing-copy">
+        <div className="closing-heading">
           <p className="eyebrow inverse">
             <span />
             06 / Contact
           </p>
-          <h2>아이디어를 실행 가능한 제품과 운영 흐름으로 바꾸는 일을 이야기하고 싶습니다.</h2>
-          <p>
-            0to100으로 아이디어를 구현 가능한 명세로 구조화했고, FoodieCard로 그 명세가 실제 제품
-            구현까지 이어질 수 있음을 검증했으며, EnrollOps로 반복 운영을 온라인 워크플로우로
-            전환했습니다.
+          <h2>
+            <span className="closing-title-line">문제를 발견하는 데서 멈추지 않고,</span>
+            <span className="closing-title-line">실행 가능한 서비스 흐름으로</span>
+            <span className="closing-title-line">연결하는 일을 하고 싶습니다.</span>
+          </h2>
+        </div>
+
+        <div className="closing-copy">
+          <p className="closing-lines">
+            <span>EnrollOps로 종이 수강신청서를 온라인 접수와 PDF 저장 흐름으로 전환했고,</span>
+            <span>Waitroom으로 방문 전 확인하기 어려웠던 웨이팅 현황의 접근 경로를 만들었으며,</span>
+            <span>Z100으로 막연한 아이디어를 실행 가능한 작업 단위로 정리했습니다.</span>
           </p>
-          <p>
-            복잡하거나 애매한 문제를 반복 가능한 절차로 바꾸고, 사람이 바로 실행할 수 있는 시스템으로
-            설계하는 역할에 관심이 있습니다.
+          <p className="closing-lines">
+            <span>반복되는 확인과 정리 과정을 줄이고,</span>
+            <span>사용자가 바로 행동할 수 있는 서비스 흐름을 설계하는 역할에 관심이 있습니다.</span>
           </p>
           <div className="closing-actions">
             <a className="btn btn-primary" href={contactHref} target="_blank" rel="noreferrer">
@@ -36,10 +43,11 @@ export function ClosingSection() {
 
         <aside className="contact-card" aria-label="Contact details">
           <div>
-            <span>Open to</span>
-            <strong>Frontend roles</strong>
-            <strong>AX workflow projects</strong>
-            <strong>Product automation</strong>
+            <span>ROLE FIT</span>
+            <strong>서비스기획</strong>
+            <strong>AX 기획 / 업무 개선</strong>
+            <strong>주니어 PO</strong>
+            <strong>B2B SaaS · 백오피스</strong>
           </div>
           <div>
             <span>Contact</span>

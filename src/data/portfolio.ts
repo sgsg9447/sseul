@@ -2,137 +2,154 @@ import type { Approach, CaseStep, Problem, Project, SkillRow } from '../types/po
 
 export const problems: Problem[] = [
   {
-    title: '아이디어의 실행 단위화',
-    body: '서비스 아이디어를 문제 정의, 화면 흐름, 기능 우선순위, 개발 TODO로 나누는 기준이 필요했습니다.',
+    project: 'EnrollOps',
+    title: '다시 정리해야 하는 수강신청서',
+    body: '수강신청서는 종이로 작성된 뒤 다시 스캔해 온라인에 저장해야 했고, 파일명 정리와 보관 과정이 담당자의 수작업에 의존하고 있었습니다.',
   },
   {
-    title: 'AI 산출물의 실효성 검증',
-    body: 'AI가 생성한 명세가 문서에 머무르지 않고 실제 제품 구현까지 이어지는지 확인해야 했습니다.',
+    project: 'Waitroom',
+    title: '방문 전 확인하기 어려운 웨이팅 현황',
+    body: '매장 웨이팅 현황은 직접 방문해야 알 수 있다고 여겨졌고, 지점별 웨이팅 확인 경로도 사용자에게 한곳에 정리되어 있지 않았습니다.',
   },
   {
-    title: '오프라인 운영의 데이터화',
-    body: '종이 신청서 기반 업무를 접수, 상태 관리, 문서 생성, 리포트까지 이어지는 온라인 흐름으로 바꿔야 했습니다.',
+    project: 'ZERO100',
+    title: '시작되지 못하는 아이디어',
+    body: '서비스 아이디어가 있어도 문제 정의, 화면 흐름, 기능 우선순위, 개발 TODO로 나뉘지 않으면 실제 제작으로 이어지기 어려웠습니다.',
   },
 ];
 
 export const approaches: Approach[] = [
   {
-    icon: 'blocks',
-    title: '구조화한다',
-    body: '아이디어와 운영 입력을 문제 정의, 사용자, 기능, 화면, 데이터 구조로 정리합니다.',
+    icon: 'fileCheck',
+    project: 'EnrollOps',
+    title: '온라인화하다',
+    body: '종이 수강신청서를 온라인 접수 → PDF 저장 → 관리자 확인 흐름으로 바꿨습니다.',
   },
   {
-    icon: 'clipboardCheck',
-    title: '검증한다',
-    body: '생성된 명세를 실제 제품으로 구현하며 화면 흐름과 개발 TODO의 유효성을 확인합니다.',
+    icon: 'mapPinned',
+    project: 'Waitroom',
+    title: '확인 가능하게 하다',
+    body: '방문 전 알기 어려웠던 웨이팅 현황을 지점별 확인 경로로 정리했습니다.',
   },
   {
-    icon: 'workflow',
-    title: '전환한다',
-    body: '검증된 구조화 방식을 반복 운영 업무에 적용해 접수, 문서화, 리포트를 자동화합니다.',
+    icon: 'listChecks',
+    project: 'ZERO100',
+    title: '실행 단위로 나누다',
+    body: '막연한 아이디어를 문제정의, 화면흐름, 우선순위, 개발 TODO로 쪼갰습니다.',
   },
 ];
 
 export const projects: Project[] = [
   {
     step: '01',
-    name: '0to100',
-    label: 'Spec engine',
-    title: '아이디어를 개발 가능한 명세와 실행 체크리스트로 변환하는 AI 워크플로우',
+    name: 'EnrollOps',
+    label: 'Operations workflow',
+    title: '종이 수강신청서를 온라인 접수와 PDF 저장 흐름으로 전환한 운영 개선 프로젝트',
     summary:
-      '서비스 아이디어를 입력하면 문제 정의, 타깃 사용자, 핵심 기능, 화면 흐름, 개발 TODO, QA 체크리스트까지 한 번에 생성합니다.',
+      '종이로 작성된 수강신청서를 다시 스캔하고 저장해야 하는 반복 업무를 발견했습니다.',
     role:
-      '생성된 스펙은 FoodieCard 구현에 적용해 실제 개발 단계에서 화면 구성과 기능 우선순위를 정하는 기준으로 검증했습니다.',
-    features: ['문제 정의', '타깃 사용자', 'MVP 범위', '화면 흐름', '개발 TODO', 'QA 체크리스트'],
-    board: {
-      input: '서비스 아이디어 한 문장',
-      output: '구현 가능한 서비스 명세와 작업 단위',
-      automation: '기획 정리, TODO, QA 체크리스트 생성 자동화',
-    },
-    visual: 'spec',
+      'EnrollOps는 온라인 접수, 관리자 확인, PDF 저장까지 이어지는 흐름으로 전환해 신청 정보를 처음부터 관리 가능한 데이터로 남기도록 설계했습니다.',
+    url: 'https://enrollops.vercel.app/',
+    features: ['업무 흐름 분석', '온라인 접수', 'PDF 저장', '관리자 확인', '운영 개선', 'B2B SaaS'],
+    board: [
+      { label: 'Before', value: '종이 작성 · 스캔 · 파일 저장' },
+      { label: 'Flow', value: '온라인 접수 · 관리자 확인 · PDF 저장' },
+      { label: 'Impact', value: '수작업 정리 감소 · 보관 용이' },
+    ],
+    visual: 'ops',
   },
   {
     step: '02',
-    name: 'FoodieCard',
-    label: 'Workflow validation',
-    title: '0to100 산출물이 실제 제품 구현까지 이어짐을 증명한 검증 프로젝트',
+    name: 'Waitroom',
+    label: 'Wait visibility',
+    title: '방문 전 알기 어려운 웨이팅 현황에 확인 경로를 만든 서비스',
     summary:
-      '0to100이 만든 기능 정의, 화면 흐름, 개발 TODO를 기준으로 음식 사진 하루 카드 서비스를 구현해 산출물의 실행 가능성을 검증했습니다.',
+      '매장 웨이팅 현황은 직접 방문해야 알 수 있다고 여겨졌고, 지점별 확인 경로도 사용자에게 한곳에 정리되어 있지 않았습니다.',
     role:
-      '식단 사진과 짧은 메모를 하루 기록 카드로 전환하는 제품을 완성하며, 생성된 스펙이 초기 화면 구성과 기능 우선순위 설정에 유효함을 확인했습니다.',
-    features: ['스펙 기반 구현', '사진 업로드', '메모 입력', '카드 미리보기', '이미지 저장'],
-    board: {
-      input: '0to100이 생성한 서비스 명세',
-      output: '하루 식사 카드 생성 제품',
-      automation: '화면 흐름, 기능 정의, TODO의 구현 적합성 검증',
-    },
+      'Waitroom은 방문 전에도 웨이팅 현황을 확인할 수 있도록 지점별 확인 경로를 모아 사용자가 이동 전 판단할 수 있는 흐름으로 정리했습니다.',
+    url: 'https://waitroom.space/cartier',
+    features: ['웨이팅 확인', '지점별 경로', '방문 전 판단', '정보 구조화', '생활 서비스'],
+    board: [
+      { label: 'Before', value: '직접 방문 후 대기 확인' },
+      { label: 'Flow', value: '지점별 웨이팅 확인 경로 정리' },
+      { label: 'Impact', value: '방문 전 비교와 이동 판단 지원' },
+    ],
     visual: 'meal',
   },
   {
     step: '03',
-    name: 'EnrollOps',
-    label: 'Ops automation',
-    title: '종이 신청서 기반 운영을 데이터 중심 온라인 워크플로우로 전환',
+    name: 'ZERO100',
+    label: 'Execution structure',
+    title: '막연한 아이디어를 체크리스트와 개발 TODO로 구조화한 실행 설계 도구',
     summary:
-      '오프라인 신청서 운영을 온라인 접수, 관리자 상태 관리, 신청서 PDF 생성, 운영 리포트까지 이어지는 시스템으로 전환했습니다.',
+      '서비스 아이디어가 있어도 문제 정의, 화면 흐름, 기능 우선순위, 개발 TODO로 나뉘지 않으면 실제 제작으로 이어지기 어려웠습니다.',
     role:
-      '반복 입력과 수기 집계를 줄이기 위해 접수, 데이터 저장, 상태 관리, 문서화, 리포트 생성을 하나의 운영 흐름으로 연결했습니다.',
-    features: ['온라인 접수', '상태 관리', '신청서 PDF', '운영 리포트', '관리자 대시보드'],
-    board: {
-      input: '종이 신청서와 반복 집계 업무',
-      output: '관리자 대시보드, 신청서 PDF, 운영 리포트',
-      automation: '접수, 보관, 상태 관리, 문서 생성, 리포트 자동화',
-    },
-    visual: 'ops',
+      'ZERO100은 막연한 아이디어를 문제 정의, 화면 흐름, 기능 우선순위, 개발 TODO로 쪼개 실제 제작 가능한 단위로 정리했습니다.',
+    url: 'https://zero100-mu.vercel.app/',
+    features: ['문제 정의', '화면 흐름', '기능 우선순위', '개발 TODO', '체크리스트'],
+    board: [
+      { label: 'Before', value: '막연한 서비스 아이디어' },
+      { label: 'Flow', value: '문제정의 · 화면흐름 · 우선순위' },
+      { label: 'Impact', value: '실행 가능한 체크리스트와 개발 TODO' },
+    ],
+    visual: 'spec',
   },
 ];
 
 export const caseSteps: CaseStep[] = [
   {
     step: 'Step 1',
-    title: '검증 주제 선정',
-    body: '음식 사진과 짧은 메모를 하루 기록 카드로 바꾸는 작은 서비스를 0to100 검증 대상으로 선정했습니다.',
+    title: '문제 확인',
+    body: '종이 수강신청서를 다시 스캔하고 저장하는 반복 업무를 발견했습니다.',
   },
   {
     step: 'Step 2',
-    title: '0to100 산출물 생성',
-    body: '문제 정의, 핵심 사용자, MVP 기능, 화면 목록, 사용자 플로우, 개발 TODO, QA 체크리스트를 생성했습니다.',
+    title: '흐름 분해',
+    body: '작성, 수거, 스캔, 파일명 정리, 온라인 저장 과정을 단계별로 나눴습니다.',
   },
   {
     step: 'Step 3',
-    title: 'FoodieCard 제품 구현',
-    body: '사진 업로드, 음식 정보 입력, 카드 미리보기, 이미지 저장 흐름을 실제 제품 화면으로 구현했습니다.',
+    title: '접수 설계',
+    body: '온라인 입력, PDF 저장, 관리자 확인이 이어지는 구조로 바꿨습니다.',
   },
   {
     step: 'Step 4',
-    title: '검증 결과 반영',
-    body: '초기 화면 구성과 기능 우선순위에는 생성 산출물이 유효했고, 이미지 저장과 예외 상태는 구현 과정에서 추가 정의가 필요함을 확인했습니다.',
+    title: '확장 검토',
+    body: '학원 외 공방, 클래스, 스튜디오에도 적용 가능한 접수 흐름으로 정리했습니다.',
   },
 ];
 
 export const skills: SkillRow[] = [
   {
-    area: 'Frontend',
-    detail: 'React, Vite, TypeScript 기반으로 명세 생성, 카드 제작, 관리자 운영 화면의 상태 흐름을 구현했습니다.',
+    area: 'GenON',
+    title: 'AI 기반 편집형 서비스의 핵심 흐름 설계와 구현',
+    detail: [
+      'AI가 생성한 결과물을 사용자가 직접 수정하고 보완할 수 있도록',
+      '편집, 미리보기, 결과 반영이 이어지는 서비스 흐름을 설계하고 구현했습니다.',
+    ],
   },
   {
-    area: 'AI Workflow',
-    detail: '아이디어 입력값을 문제 정의, 기능 목록, 화면 흐름, 개발 TODO, QA 체크리스트로 변환하는 흐름을 설계했습니다.',
+    area: 'Sling',
+    title: '콘텐츠 제작 백오피스와 운영 프로세스 개선',
+    detail: [
+      '문제 제작, 편집, 배포 업무의 병목을 줄이기 위해',
+      '콘텐츠 제작 백오피스와 운영 도구를 구축했습니다.',
+    ],
   },
   {
-    area: 'File · Image',
-    detail: 'FoodieCard에서 사진 업로드와 카드 미리보기를 구현하며 0to100 산출물의 실행 가능성을 검증했습니다.',
+    area: 'Danggeun',
+    title: '사용자 경험 개선과 데이터 기반 검증 경험',
+    detail: [
+      '검색 탭 전환 과정의 사용성 문제를 분석하고,',
+      '관련검색어 UI와 A/B 테스트를 위한 데이터 로깅 작업에 참여했습니다.',
+    ],
   },
   {
-    area: 'Data Modeling',
-    detail: '아이디어, 명세, 식사 기록, 신청서, 운영 상태 데이터를 도메인별로 구조화했습니다.',
-  },
-  {
-    area: 'Export',
-    detail: '카드 이미지, 신청서 PDF, 운영 리포트처럼 공유와 보관이 가능한 결과물을 생성했습니다.',
-  },
-  {
-    area: 'UX',
-    detail: '자동 생성 결과를 사용자가 검토하고 수정할 수 있도록 단계별 입력과 확인 흐름을 설계했습니다.',
+    area: 'KOSSA',
+    title: '교육기획과 운영 프로세스 설계 경험',
+    detail: [
+      'SW·AI 교육 과정과 해커톤을 기획·운영하며',
+      '교육 대상자, 공공기관, 운영진 사이의 요구사항을 조율했습니다.',
+    ],
   },
 ];

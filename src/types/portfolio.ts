@@ -7,22 +7,24 @@ export type Project = {
   title: string;
   summary: string;
   role: string;
+  url: string;
   features: string[];
   board: {
-    input: string;
-    output: string;
-    automation: string;
-  };
+    label: string;
+    value: string;
+  }[];
   visual: ProjectVisualType;
 };
 
 export type Problem = {
+  project: string;
   title: string;
   body: string;
 };
 
 export type Approach = {
-  icon: 'blocks' | 'clipboardCheck' | 'workflow';
+  icon: 'fileCheck' | 'mapPinned' | 'listChecks';
+  project: string;
   title: string;
   body: string;
 };
@@ -35,5 +37,6 @@ export type CaseStep = {
 
 export type SkillRow = {
   area: string;
-  detail: string;
+  title: string;
+  detail: string[];
 };

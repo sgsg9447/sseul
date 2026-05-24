@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react';
+
 type SectionIntroProps = {
   count: string;
   label: string;
-  title: string;
-  body: string;
+  title: ReactNode;
+  body: ReactNode;
 };
 
 export function SectionIntro({ count, label, title, body }: SectionIntroProps) {

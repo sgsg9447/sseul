@@ -1,69 +1,55 @@
-import { Camera, FileText } from 'lucide-react';
 import type { ProjectVisualType } from '../../types/portfolio';
+import enrollOpsScreen from '../../assets/enrollops-screen.png';
+import waitroomScreen from '../../assets/waitroom-screen.png';
+import zero100Screen from '../../assets/zero100-screen.png';
 
 type ProjectVisualProps = {
   type: ProjectVisualType;
+  onOpen: () => void;
 };
 
-export function ProjectVisual({ type }: ProjectVisualProps) {
+export function getProjectScreenshot(type: ProjectVisualType) {
   if (type === 'spec') {
-    return (
-      <div className="artifact-stack">
-        <span className="artifact-label">Generated spec</span>
-        <div className="mock mock-spec">
-          <FileText size={22} />
-          <strong>0to100 · Spec sheet</strong>
-          <section>
-            <p>Problem</p>
-            <span />
-            <span />
-          </section>
-          <section>
-            <p>Screens</p>
-            <span />
-            <span />
-          </section>
-          <div>
-            <i>FLOW</i>
-            <i>TODO</i>
-            <i>QA</i>
-          </div>
-        </div>
-      </div>
-    );
+    return {
+      src: zero100Screen,
+      label: 'ZERO100 live screen',
+      alt: 'ZERO100 서비스 화면',
+      frame: 'desktop',
+    };
   }
 
   if (type === 'meal') {
-    return (
-      <div className="artifact-stack">
-        <span className="artifact-label">Story card preview</span>
-        <div className="mock mock-meal">
-          <strong>FoodieCard</strong>
-          <div className="meal-grid">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-          <p>0to100 spec · MVP preview</p>
-        </div>
-      </div>
-    );
+    return {
+      src: waitroomScreen,
+      label: 'Waitroom live screen',
+      alt: 'Waitroom 서비스 화면',
+      frame: 'mobile',
+    };
   }
 
+  return {
+    src: enrollOpsScreen,
+    label: 'EnrollOps live screen',
+    alt: 'EnrollOps 서비스 화면',
+    frame: 'mobile',
+  };
+}
+
+export function ProjectVisual({ type, onOpen }: ProjectVisualProps) {
+  const screenshot = getProjectScreenshot(type);
+
   return (
-    <div className="artifact-stack">
-      <span className="artifact-label">Admin + PDF</span>
-      <div className="mock mock-ops">
-        <Camera size={20} />
-        <strong>EnrollOps</strong>
-        {['온라인 접수', 'DB 저장', 'PDF 생성', '리포트'].map((item) => (
-          <div className="ops-row" key={item}>
-            <span>{item}</span>
-            <i />
-          </div>
-        ))}
-      </div>
+    <div className={`artifact-stack screenshot-stack ${screenshot.frame}-shot`}>
+      <span className="artifact-label">{screenshot.label}</span>
+      <button
+        className={`screenshot-frame screenshot-frame-${screenshot.frame}`}
+        type="button"
+        onClick={onOpen}
+        aria-label={`${screenshot.alt} 크게 보기`}
+      >
+        <img src={screenshot.src} alt={screenshot.alt} />
+        <span className="screenshot-zoom">크게 보기</span>
+      </button>
     </div>
   );
 }

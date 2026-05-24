@@ -6,8 +6,8 @@ const navItems = [
   { href: '#problem', id: 'problem', label: 'Problem' },
   { href: '#approach', id: 'approach', label: 'Approach' },
   { href: '#flow', id: 'flow', label: 'Projects' },
-  { href: '#case', id: 'case', label: 'Case study' },
-  { href: '#skills', id: 'skills', label: 'Skills' },
+  { href: '#case', id: 'case', label: 'Featured' },
+  { href: '#skills', id: 'skills', label: 'Experience' },
 ];
 
 export function Header() {

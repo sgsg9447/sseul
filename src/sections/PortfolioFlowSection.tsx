@@ -8,9 +8,23 @@ export function PortfolioFlowSection() {
       <div className="section-inner">
         <SectionIntro
           count="03"
-          label="Portfolio flow"
-          title="3개의 프로젝트는 하나의 AX 제작 흐름으로 연결됩니다."
-          body="0to100은 아이디어를 개발 가능한 명세로 바꾸고, FoodieCard는 그 명세가 실제 제품 구현으로 이어짐을 검증했으며, EnrollOps는 같은 방식을 반복 운영 업무에 적용한 전환 사례입니다."
+          label="Selected projects"
+          title={
+            <>
+              반복되던 운영 문제에서 시작해,
+              <br />
+              확인과 실행의 흐름을
+              <br />
+              서비스로 바꿨습니다.
+            </>
+          }
+          body={
+            <span className="project-lines">
+              <span>EnrollOps는 종이 수강신청서를 온라인 접수와 PDF 저장 흐름으로 전환했고,</span>
+              <span>Waitroom은 방문 전 확인하기 어려웠던 웨이팅 현황에 접근 경로를 만들었으며,</span>
+              <span>ZERO100은 막연한 아이디어를 실행 체크리스트와 개발 TODO로 구조화했습니다.</span>
+            </span>
+          }
         />
         <div className="project-flow" id="projects">
           {projects.map((project) => (

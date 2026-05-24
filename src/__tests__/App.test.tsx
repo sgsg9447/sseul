@@ -13,7 +13,7 @@ describe('sseul portfolio', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: /아이디어를 실행 가능한 명세로 구조화하고, 실제 제품과 운영 워크플로우로 완성합니다/i,
+        name: /그냥 지나칠 수 있는 불편에서\s+서비스의 시작점을 찾습니다/i,
       }),
     ).toBeInTheDocument();
   });
@@ -21,24 +21,24 @@ describe('sseul portfolio', () => {
   it('presents the three projects as one connected flow', () => {
     render(<App />);
 
-    expect(screen.getAllByText('0to100').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('FoodieCard').length).toBeGreaterThan(0);
     expect(screen.getAllByText('EnrollOps').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Waitroom').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('ZERO100').length).toBeGreaterThan(0);
   });
 
   it('shows concrete project artifacts instead of abstract cards', () => {
     render(<App />);
 
-    expect(screen.getByText('Generated spec')).toBeInTheDocument();
-    expect(screen.getByText('Story card preview')).toBeInTheDocument();
-    expect(screen.getByText('Admin + PDF')).toBeInTheDocument();
+    expect(screen.getByText('ZERO100 live screen')).toBeInTheDocument();
+    expect(screen.getByText('Waitroom live screen')).toBeInTheDocument();
+    expect(screen.getByText('EnrollOps live screen')).toBeInTheDocument();
   });
 
-  it('summarizes each project as input output and automation', () => {
+  it('summarizes each project as before flow and impact', () => {
     render(<App />);
 
-    expect(screen.getAllByText('Input').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Output').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Automation').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Before').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Flow').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Impact').length).toBeGreaterThan(0);
   });
 });

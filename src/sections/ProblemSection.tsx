@@ -8,13 +8,28 @@ export function ProblemSection() {
         <SectionIntro
           count="01"
           label="Problem"
-          title="제가 해결한 문제는 만드는 속도보다 먼저, 실행 가능한 흐름을 만드는 일이었습니다."
-          body="아이디어는 명세로 정리되어야 하고, 명세는 실제 구현으로 검증되어야 하며, 반복 운영은 다시 사용할 수 있는 시스템으로 전환되어야 했습니다."
+          title={
+            <>
+              불편은 대부분,
+              <br />
+              다시 확인하고 다시 정리해야 하는 순간에서 시작됐습니다.
+            </>
+          }
+          body={
+            <span className="problem-lines">
+              <span>종이로 받은 수강신청서는 다시 스캔해 온라인에 저장해야 했고,</span>
+              <span>웨이팅 현황은 직접 방문하기 전에는 확인하기 어려웠으며,</span>
+              <span>아이디어는 구체적인 실행 단위로 나뉘지 못해 시작이 늦어지고 있었습니다.</span>
+            </span>
+          }
         />
         <div className="problem-grid">
           {problems.map((problem, index) => (
             <article className="problem-card" key={problem.title}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div className="problem-card-top">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <small>{problem.project}</small>
+              </div>
               <h3>{problem.title}</h3>
               <p>{problem.body}</p>
             </article>
