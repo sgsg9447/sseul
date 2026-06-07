@@ -1,4 +1,4 @@
-export type ProjectVisualType = 'spec' | 'meal' | 'ops';
+export type ProjectVisualType = 'gena' | 'pipeline' | 'spec' | 'meal' | 'ops';
 
 export type Project = {
   step: string;
@@ -7,7 +7,9 @@ export type Project = {
   title: string;
   summary: string;
   role: string;
-  url: string;
+  details?: string[];
+  url?: string;
+  linkLabel?: string;
   features: string[];
   board: {
     label: string;
@@ -18,19 +20,6 @@ export type Project = {
 
 export type Problem = {
   project: string;
-  title: string;
-  body: string;
-};
-
-export type Approach = {
-  icon: 'fileCheck' | 'mapPinned' | 'listChecks';
-  project: string;
-  title: string;
-  body: string;
-};
-
-export type CaseStep = {
-  step: string;
   title: string;
   body: string;
 };

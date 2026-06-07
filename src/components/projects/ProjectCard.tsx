@@ -9,7 +9,12 @@ type ProjectCardProps = {
 export function ProjectCard({ project }: ProjectCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalTitleId = useId();
-  const screenshot = getProjectScreenshot(project.visual);
+  const canOpenScreenshot = project.visual !== 'pipeline';
+  const screenshot = canOpenScreenshot ? getProjectScreenshot(project.visual) : null;
+  const detailParagraphs = project.details ?? [project.role];
+  const linkLabel = project.linkLabel ?? '서비스 보기 ↗';
+  const isExternalUrl = project.url ? /^https?:\/\//.test(project.url) : false;
+  const linkProps = isExternalUrl ? { target: '_blank', rel: 'noreferrer' } : {};
 
   useEffect(() => {
     if (!isModalOpen) return;
@@ -31,9 +36,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <>
-      <article className="project-card">
+      <article className={`project-card project-card-${project.visual}`}>
         <div className={`project-visual ${project.visual}`}>
-          <ProjectVisual type={project.visual} onOpen={() => setIsModalOpen(true)} />
+          <ProjectVisual type={project.visual} onOpen={() => canOpenScreenshot && setIsModalOpen(true)} />
         </div>
         <div className="project-body">
           <div className="project-kicker">
@@ -43,7 +48,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <h3>{project.name}</h3>
           <p className="project-title">{project.title}</p>
           <p>{project.summary}</p>
-          <p className="project-role">{project.role}</p>
+          {detailParagraphs.map((detail, index) => (
+            <p className={index === 0 ? 'project-role' : undefined} key={detail}>
+              {detail}
+            </p>
+          ))}
           <dl className="project-board">
             {project.board.map((item) => (
               <div key={item.label}>
@@ -57,13 +66,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <span key={feature}>{feature}</span>
             ))}
           </div>
-          <a className="project-link" href={project.url} target="_blank" rel="noreferrer">
-            서비스 보기 ↗
-          </a>
+          {project.url ? (
+            <a className="project-link" href={project.url} {...linkProps}>
+              {linkLabel}
+            </a>
+          ) : null}
         </div>
       </article>
 
-      {isModalOpen ? (
+      {isModalOpen && screenshot ? (
         <div
           className="screenshot-modal"
           role="dialog"
@@ -75,7 +86,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             }
           }}
         >
-          <div className={`screenshot-modal-panel ${screenshot.frame}-modal`}>
+          <div
+            className={`screenshot-modal-panel ${screenshot.frame}-modal${
+              screenshot.secondarySrc ? ' wide-modal image-heavy-modal' : ''
+            }`}
+          >
             <div className="screenshot-modal-top">
               <div>
                 <span>{project.step} / {project.label}</span>
@@ -86,10 +101,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </button>
             </div>
             <div className="screenshot-modal-image">
-              <img src={screenshot.src} alt={screenshot.alt} />
+              {screenshot.secondarySrc ? (
+                <div className="screenshot-modal-pair screenshot-modal-spread">
+                  <img src={screenshot.src} alt={screenshot.alt} />
+                  <img src={screenshot.secondarySrc} alt={screenshot.secondaryAlt ?? screenshot.alt} />
+                </div>
+              ) : (
+                <img src={screenshot.src} alt={screenshot.alt} />
+              )}
             </div>
-            <a className="project-link modal-link" href={project.url} target="_blank" rel="noreferrer">
-              서비스 보기 ↗
+            <a className="project-link modal-link" href={project.url} {...linkProps}>
+              {linkLabel}
             </a>
           </div>
         </div>

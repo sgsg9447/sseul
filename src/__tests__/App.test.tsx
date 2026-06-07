@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 import App from '../App';
 
@@ -6,32 +6,432 @@ afterEach(() => {
   cleanup();
 });
 
+const hasParagraphText =
+  (expected: string) =>
+  (_content: string, element: Element | null): boolean =>
+    element?.tagName.toLowerCase() === 'p' &&
+    element.textContent?.replace(/\s+/g, '') === expected.replace(/\s+/g, '');
+
 describe('sseul portfolio', () => {
-  it('introduces the AX workflow positioning in the hero', () => {
+  it('introduces the frontend product positioning in the hero', () => {
     render(<App />);
 
+    expect(screen.getByText('SSEUL · FRONTEND & PRODUCT PORTFOLIO')).toBeInTheDocument();
     expect(
       screen.getByRole('heading', {
         level: 1,
         name: /그냥 지나칠 수 있는 불편에서\s+서비스의 시작점을 찾습니다/i,
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        hasParagraphText(
+          '복잡한 요구를 구조로 정리하고, 사용자 경험과 운영 효율을 함께 고려해 실제 동작하는 화면으로 만듭니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        hasParagraphText(
+          'GenA, Orzo, Waitroom을 통해 편집 경험을 구현하고, 반복 업무를 자동화하고, 작은 불편을 서비스로 만들었습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /대표 프로젝트 보기/i })).toHaveAttribute('href', '#projects');
+    expect(screen.getByRole('link', { name: /경력 요약 보기/i })).toHaveAttribute('href', '#experience');
+    expect(screen.getByText('Frontend Engineer · Product Planning')).toBeInTheDocument();
+    expect(screen.getByText('Problem → Structure → Build')).toBeInTheDocument();
+  });
+
+  it('keeps the hero flow and top navigation aligned to existing sections', () => {
+    render(<App />);
+
+    const heroFlow = screen.getByLabelText('Portfolio workflow keywords');
+    expect(within(heroFlow).getAllByText(/Problem|Structure|Build|Improve/)).toHaveLength(4);
+    expect(within(heroFlow).queryByText('MVP')).not.toBeInTheDocument();
+
+    const nav = screen.getByRole('navigation', { name: /main navigation/i });
+    expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '#top');
+    expect(within(nav).getByRole('link', { name: 'Starting Points' })).toHaveAttribute(
+      'href',
+      '#starting-points',
+    );
+    expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '#projects');
+    expect(within(nav).getByRole('link', { name: 'Capabilities' })).toHaveAttribute('href', '#skills');
+    expect(within(nav).getByRole('link', { name: 'Experience' })).toHaveAttribute('href', '#experience');
+    expect(within(nav).queryByRole('link', { name: 'Approach' })).not.toBeInTheDocument();
+    expect(within(nav).queryByRole('link', { name: 'Problem' })).not.toBeInTheDocument();
+    expect(within(nav).queryByRole('link', { name: 'Featured' })).not.toBeInTheDocument();
+  });
+
+  it('frames the current project starting points around GenA, content automation, and Waitroom', () => {
+    const { container } = render(<App />);
+    const startingPointsSection = container.querySelector('#starting-points');
+    expect(startingPointsSection).toBeInTheDocument();
+    expect(container.querySelector('#problem')).toBeInTheDocument();
+    const problem = within(startingPointsSection as HTMLElement);
+
+    expect(problem.getByText('01 / STARTING POINTS')).toBeInTheDocument();
+    expect(startingPointsSection?.querySelectorAll('.section-intro > p')).toHaveLength(1);
+    expect(
+      problem.getByRole('heading', {
+        level: 2,
+        name: /편집되지 않고,\s+반복되고,\s+흩어진 문제에서\s+시작했습니다\./i,
+      }),
+    ).toBeInTheDocument();
+    expect(problem.queryByText('01 / PROBLEM')).not.toBeInTheDocument();
+    expect(
+      problem.queryByText('AI가 만든 슬라이드는 사용자가 직접 수정할 수 있는 편집 흐름이 필요했고,'),
+    ).not.toBeInTheDocument();
+    expect(problem.getByText('AI SLIDE EDITOR')).toBeInTheDocument();
+    expect(problem.getByText('편집 가능한 AI 슬라이드')).toBeInTheDocument();
+    expect(
+      problem.getByText(
+        hasParagraphText(
+          'AI가 생성한 슬라이드를 사용자가 직접 수정할 수 있도록, 편집 대상과 화면 상태를 분리한 안정적인 편집 흐름이 필요했습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(problem.getByText('CONTENT IMAGE PIPELINE')).toBeInTheDocument();
+    expect(problem.getByText('반복되는 콘텐츠 배포 병목')).toBeInTheDocument();
+    expect(problem.getByText('WAITROOM')).toBeInTheDocument();
+    expect(problem.getByText('흩어진 웨이팅 확인 경로')).toBeInTheDocument();
+    expect(problem.queryByText('EnrollOps')).not.toBeInTheDocument();
+    expect(problem.queryByText('ZERO100')).not.toBeInTheDocument();
+  });
+
+  it('removes the approach section so projects follow the starting points', () => {
+    const { container } = render(<App />);
+    expect(container.querySelector('#approach')).not.toBeInTheDocument();
+    expect(container.querySelector('#case')).not.toBeInTheDocument();
+    expect(screen.queryByText('02 / APPROACH')).not.toBeInTheDocument();
+    expect(screen.queryByText('04 / Featured project')).not.toBeInTheDocument();
+  });
+
+  it('introduces selected projects with a concise headline only', () => {
+    const { container } = render(<App />);
+    const projectsSection = container.querySelector('#flow');
+    expect(projectsSection).toBeInTheDocument();
+    const intro = projectsSection?.querySelector('.section-intro') as HTMLElement;
+    const projectsIntro = within(intro);
+
+    expect(projectsIntro.getByText('02 / Selected projects')).toBeInTheDocument();
+    expect(intro).toHaveClass('section-intro-compact');
+    expect(intro.querySelectorAll('p')).toHaveLength(1);
+    expect(
+      projectsIntro.getByRole('heading', {
+        level: 2,
+        name: /편집은 다시 가능하게,\s+반복은 자동화하고,\s+흩어진 정보는\s+한곳에 모았습니다\./i,
+      }),
+    ).toBeInTheDocument();
+    expect(intro.querySelector('h2')?.querySelectorAll('br')).toHaveLength(2);
+    expect(projectsIntro.queryByText(/GenA에서는 AI가 만든 슬라이드/)).not.toBeInTheDocument();
+    expect(projectsIntro.queryByText(/Orzo에서는/)).not.toBeInTheDocument();
+    expect(projectsIntro.queryByText(/Waitroom에서는 매장별 웨이팅/)).not.toBeInTheDocument();
+    expect(projectsIntro.queryByText(/EnrollOps|ZERO100/)).not.toBeInTheDocument();
+  });
+
+  it('presents capabilities as the third section', () => {
+    const { container } = render(<App />);
+    const capabilitiesSection = container.querySelector('#skills');
+    expect(capabilitiesSection).toBeInTheDocument();
+    const capabilities = within(capabilitiesSection as HTMLElement);
+
+    expect(capabilities.getByText('03 / CAPABILITIES')).toBeInTheDocument();
+    expect(
+      capabilities.getByRole('heading', {
+        level: 2,
+        name: /요구사항을 구조로 정리하고,\s+실제로 동작하는 화면으로 만듭니다\./i,
+      }),
+    ).toBeInTheDocument();
+    expect(capabilitiesSection?.querySelectorAll('.capability-card')).toHaveLength(4);
+    expect(capabilitiesSection?.querySelectorAll('.approach-card')).toHaveLength(4);
+
+    [
+      [
+        '구현을 고려한 기획',
+        '기획 단계에서 화면 흐름, 상태 변화, 예외 상황과 구현 가능성을 함께 검토합니다.',
+      ],
+      [
+        '흐름 구조화',
+        '요구사항을 기능, 데이터, 상태, 사용자 흐름으로 나누어 정리합니다.',
+      ],
+      [
+        '반복 작업 자동화',
+        '반복되는 작업을 발견하고, 다시 사용할 수 있는 도구와 흐름으로 바꿉니다.',
+      ],
+      [
+        '협업 기준 정리',
+        '기획·디자인·개발 사이의 모호한 요구를 동작 기준으로 정리합니다.',
+      ],
+    ].forEach(([title, detail]) => {
+      expect(capabilities.getByText(title)).toBeInTheDocument();
+      expect(capabilities.getByText(hasParagraphText(detail))).toBeInTheDocument();
+    });
+
+    expect(capabilities.queryByText(/CAPABILITY 0[1-4]/)).not.toBeInTheDocument();
+    expect(capabilities.queryByText('Implementation-Aware Planning')).not.toBeInTheDocument();
+    expect(capabilities.queryByText('Product Structure')).not.toBeInTheDocument();
+    expect(capabilities.queryByText('Automation')).not.toBeInTheDocument();
+    expect(capabilities.queryByText('Collaboration')).not.toBeInTheDocument();
+    expect(capabilities.queryByText('GenON')).not.toBeInTheDocument();
+  });
+
+  it('restores work experience as the fourth section', () => {
+    const { container } = render(<App />);
+    const experienceSection = container.querySelector('#experience');
+    expect(experienceSection).toBeInTheDocument();
+    const intro = experienceSection?.querySelector('.section-intro') as HTMLElement;
+    const experience = within(experienceSection as HTMLElement);
+
+    expect(experience.getByText('04 / WORK EXPERIENCE')).toBeInTheDocument();
+    expect(intro).toHaveClass('section-intro-compact');
+    expect(intro.querySelectorAll('p')).toHaveLength(1);
+    expect(
+      experience.getByRole('heading', {
+        level: 2,
+        name: /복잡한 요구를\s+기능과 화면 흐름으로\s+구체화해왔습니다\./i,
+      }),
+    ).toBeInTheDocument();
+    expect(experience.queryByText('관리자 도구, 편집 기능, 콘텐츠 제작 백오피스처럼')).not.toBeInTheDocument();
+    expect(experience.queryByText('운영 흐름이 중요한 기능을 구현해왔습니다.')).not.toBeInTheDocument();
+    expect(experienceSection?.querySelectorAll('.skill-row')).toHaveLength(4);
+
+    [
+      [
+        'GENON',
+        'AI 슬라이드 편집기 프론트엔드 개발',
+        'React UI와 iframe Stage를 분리하고, DOM 편집 결과가 상태와 미리보기에 이어지는 편집 흐름을 구현했습니다.',
+      ],
+      [
+        'SLING',
+        '콘텐츠 제작 도구와 이미지 자동화 파이프라인',
+        '문제 제작·편집·배포 흐름을 백오피스로 통합하고, JSON 데이터를 이미지로 변환하는 자동화 구조를 만들었습니다.',
+      ],
+      [
+        'DAANGN',
+        '검색 경험 개선과 A/B 테스트 구현',
+        '검색 탭 전환 성능을 개선하고, 연관검색어 UI와 데이터 로깅을 구현했습니다.',
+      ],
+      [
+        'KOSSA',
+        '교육기획과 운영 프로세스 설계',
+        '국방 SW·AI 교육 과정과 해커톤을 기획하고, 기관·참여자·운영진 사이의 요구사항을 조율했습니다.',
+      ],
+    ].forEach(([company, title, detail]) => {
+      expect(experience.getByText(company)).toBeInTheDocument();
+      expect(experience.getByText(title)).toBeInTheDocument();
+      expect(experience.getByText(hasParagraphText(detail))).toBeInTheDocument();
+    });
+    expect(experience.queryByText('GenON')).not.toBeInTheDocument();
+    expect(experience.queryByText('Sling')).not.toBeInTheDocument();
+    expect(experience.queryByText('Danggeun')).not.toBeInTheDocument();
   });
 
   it('presents the three projects as one connected flow', () => {
-    render(<App />);
+    const { container } = render(<App />);
+    const projectCards = Array.from(container.querySelectorAll('#projects .project-card'));
 
-    expect(screen.getAllByText('EnrollOps').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('GenA').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Orzo').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Waitroom').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('ZERO100').length).toBeGreaterThan(0);
+    expect(projectCards).toHaveLength(3);
+    expect(projectCards.map((card) => card.querySelector('h3')?.textContent)).toEqual([
+      'GenA',
+      'Orzo',
+      'Waitroom',
+    ]);
+    expect(screen.queryByText('ZERO100')).not.toBeInTheDocument();
+  });
+
+  it('presents the first selected project as the GenA slide editor frontend work', () => {
+    const { container } = render(<App />);
+    const firstProject = container.querySelector('#projects .project-card');
+    expect(firstProject).toBeInTheDocument();
+    const card = within(firstProject as HTMLElement);
+
+    expect(card.getByText('01')).toBeInTheDocument();
+    expect(card.getByText('PROFESSIONAL PROJECT')).toBeInTheDocument();
+    expect(card.queryByText('EDITING EXPERIENCE')).not.toBeInTheDocument();
+    expect(card.getByRole('heading', { level: 3, name: 'GenA' })).toBeInTheDocument();
+    expect(card.getByText('AI Slide Editor')).toBeInTheDocument();
+    expect(
+      card.getByText(
+        hasParagraphText(
+          'AI가 생성한 슬라이드를 사용자가 직접 수정하고 저장할 수 있도록, 슬라이드 에디터의 프론트엔드 전반을 구현한 프로젝트',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      card.getByText(
+        hasParagraphText(
+          'AI가 만든 슬라이드를 단순히 확인하는 데서 끝내지 않고, 사용자가 직접 편집 화면으로 이동해 텍스트와 스타일을 수정하고 저장할 수 있는 흐름을 만들었습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      card.getByText(
+        hasParagraphText(
+          '편집 화면 라우팅, 슬라이드 수정 UI, 편집 상태 반영, 저장 API 연동까지 프론트엔드에서 연결해 생성 결과가 다시 활용 가능한 콘텐츠가 되도록 구현했습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(card.getByText('생성된 슬라이드를 사용자가 직접 다듬는 편집 흐름 필요')).toBeInTheDocument();
+    expect(card.getByText('슬라이드 생성 → 직접 편집 → 수정 작업 → 저장')).toBeInTheDocument();
+    expect(card.getByText('AI 결과물을 사용자가 완성해가는 콘텐츠로 전환')).toBeInTheDocument();
+    expect(card.getByText('서비스 보기 ↗')).toHaveAttribute('href', 'https://gena.kr/');
+    expect(card.getByText('GenA editor flow')).toBeInTheDocument();
+    expect(card.getByAltText('GenA 서비스 화면')).toBeInTheDocument();
+    expect(card.getByAltText('GenA 슬라이드 편집 화면')).toBeInTheDocument();
+    expect(card.getByRole('button', { name: 'GenA 서비스 화면 크게 보기' })).toHaveClass('screenshot-frame-stack');
+    expect(firstProject?.querySelector('.project-title + p')?.textContent).toBe(
+      'AI가 생성한 슬라이드를 사용자가 직접 수정하고 저장할 수 있도록,\n슬라이드 에디터의 프론트엔드 전반을 구현한 프로젝트',
+    );
+    expect(firstProject?.querySelectorAll('.project-body p')[3]?.textContent).toBe(
+      '편집 화면 라우팅, 슬라이드 수정 UI, 편집 상태 반영, 저장 API 연동까지\n프론트엔드에서 연결해 생성 결과가 다시 활용 가능한 콘텐츠가 되도록 구현했습니다.',
+    );
+
+    ['AI Slide', 'Editing Experience', 'Editor Flow', 'Save Flow', 'Frontend'].forEach((tag) => {
+      expect(card.getByText(tag)).toBeInTheDocument();
+    });
+
+    ['React', 'TypeScript', 'Slide Editor', 'WYSIWYG', 'HTML Editing', 'API Integration'].forEach((tag) => {
+      expect(card.queryByText(tag)).not.toBeInTheDocument();
+    });
+
+    expect(card.queryByText(/EnrollOps|종이 수강신청서|PDF 저장|운영 개선 프로젝트|B2B SaaS/)).not.toBeInTheDocument();
+
+    fireEvent.click(card.getByRole('button', { name: 'GenA 서비스 화면 크게 보기' }));
+
+    const modal = screen.getByRole('dialog', { name: 'GenA' });
+    expect(modal.querySelector('.screenshot-modal-panel')).toHaveClass('wide-modal');
+    expect(modal.querySelector('.screenshot-modal-panel')).toHaveClass('image-heavy-modal');
+    expect(modal.querySelector('.screenshot-modal-pair')).toHaveClass('screenshot-modal-spread');
+  });
+
+  it('presents the second selected project as a content image automation pipeline', () => {
+    const { container } = render(<App />);
+    const projectCards = container.querySelectorAll('#projects .project-card');
+    const secondProject = projectCards[1];
+    expect(secondProject).toBeInTheDocument();
+    const card = within(secondProject as HTMLElement);
+
+    expect(card.getByText('02')).toBeInTheDocument();
+    expect(card.getByText('PROFESSIONAL PROJECT')).toBeInTheDocument();
+    expect(card.queryByText('AUTOMATION SYSTEM')).not.toBeInTheDocument();
+    expect(
+      card.getByRole('heading', { level: 3, name: 'Orzo' }),
+    ).toBeInTheDocument();
+    expect(card.getByText('Content Image Automation')).toBeInTheDocument();
+    expect(
+      card.getByText(
+        hasParagraphText(
+          '대량의 학습 콘텐츠를 빠르게 반영하기 위해, JSON 데이터를 웹에서 렌더링하고 이미지로 변환하는 자동화 파이프라인을 구축했습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      card.getByText(
+        hasParagraphText(
+          '시험 시즌마다 많은 학습 콘텐츠를 빠르게 앱에 반영해야 했지만, iOS와 Android에서 동일 데이터를 각각 구현하는 방식은 개발 리소스와 유지보수 부담이 컸습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      card.getByText(
+        hasParagraphText(
+          '이를 해결하기 위해 JSON 데이터를 웹에서 렌더링한 뒤 이미지로 변환하고, 앱에서는 변환된 이미지를 공통 리소스로 활용할 수 있는 구조를 만들었습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(card.getByText('iOS와 Android에서 동일 콘텐츠를 각각 구현해야 하는 구조')).toBeInTheDocument();
+    expect(card.getByText('JSON 업로드 → 웹 렌더링 → PNG 변환 → DB 저장 → 앱 반영')).toBeInTheDocument();
+    expect(card.getByText('앱 릴리즈 없이 콘텐츠 변경에 빠르게 대응')).toBeInTheDocument();
+    expect(card.queryByText('프로젝트 보기 ↗')).not.toBeInTheDocument();
+
+    ['Frontend', 'Automation', 'Content Pipeline', 'Admin Tool'].forEach((tag) => {
+      expect(card.getByText(tag)).toBeInTheDocument();
+    });
+    ['html2canvas', 'Puppeteer'].forEach((tag) => {
+      expect(card.queryByText(tag)).not.toBeInTheDocument();
+    });
+
+    ['AUTOMATION FLOW', 'JSON Upload', 'Hidden Web Render', 'PNG Export', 'DB Save', 'iOS / Android App'].forEach(
+      (label) => {
+        expect(card.getByText(label)).toBeInTheDocument();
+      },
+    );
+    expect(card.getByText('No app release needed')).toBeInTheDocument();
+    expect(secondProject?.querySelector('.pipeline-code')?.textContent).toContain('"type": "question"');
+    expect(card.queryByRole('button')).not.toBeInTheDocument();
+    expect(card.queryByText(/Waitroom|ZERO100|이미지 없음|캡처 없음/)).not.toBeInTheDocument();
+  });
+
+  it('moves Waitroom to the third selected project as a personal project', () => {
+    const { container } = render(<App />);
+    const thirdProject = container.querySelectorAll('#projects .project-card')[2];
+    expect(thirdProject).toBeInTheDocument();
+    const card = within(thirdProject as HTMLElement);
+
+    expect(card.getByText('03')).toBeInTheDocument();
+    expect(card.getByText('PERSONAL PROJECT')).toBeInTheDocument();
+    expect(card.getByRole('heading', { level: 3, name: 'Waitroom' })).toBeInTheDocument();
+    expect(card.getByText('Waitroom live screen')).toBeInTheDocument();
+    expect(card.queryByText('Execution structure')).not.toBeInTheDocument();
   });
 
   it('shows concrete project artifacts instead of abstract cards', () => {
     render(<App />);
 
-    expect(screen.getByText('ZERO100 live screen')).toBeInTheDocument();
+    expect(screen.getByText('GenA editor flow')).toBeInTheDocument();
+    expect(screen.getByText('AUTOMATION FLOW')).toBeInTheDocument();
     expect(screen.getByText('Waitroom live screen')).toBeInTheDocument();
-    expect(screen.getByText('EnrollOps live screen')).toBeInTheDocument();
+  });
+
+  it('closes with the current frontend product positioning in contact', () => {
+    const { container } = render(<App />);
+    const contactSection = container.querySelector('#contact');
+    expect(contactSection).toBeInTheDocument();
+    const contact = within(contactSection as HTMLElement);
+
+    expect(contact.getByText('05 / CONTACT')).toBeInTheDocument();
+    expect(
+      contact.getByRole('heading', {
+        level: 2,
+        name: /복잡한 요구를 구조로 정리하고,\s+실제로 동작하는 화면으로\s+만드는 일을 하고 싶습니다\./i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      contact.getByText(
+        hasParagraphText(
+          'GenA에서는 AI 슬라이드 편집 흐름을 구현했고, Orzo에서는 반복되는 콘텐츠 배포를 자동화했으며, Waitroom에서는 흩어진 웨이팅 확인 경로를 한 화면에 모았습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      contact.getByText(
+        hasParagraphText(
+          '프론트엔드 구현 경험을 바탕으로, 사용자 경험과 운영 효율을 함께 고려하는 팀에서 일하고 싶습니다.',
+        ),
+      ),
+    ).toBeInTheDocument();
+    expect(contact.getByRole('link', { name: /메일 보내기/i })).toBeInTheDocument();
+    expect(contact.getByRole('link', { name: /프로젝트 보기/i })).toHaveAttribute('href', '#flow');
+    expect(contact.queryByRole('link', { name: /프로젝트 다시 보기/i })).not.toBeInTheDocument();
+
+    ['Frontend Engineer', 'Product-minded Frontend', '서비스기획 / 업무 개선', 'B2B SaaS · 백오피스'].forEach(
+      (role) => {
+        expect(contact.getByText(role)).toBeInTheDocument();
+      },
+    );
+    ['EnrollOps', 'Z100', 'AX 기획 / 업무 개선', '주니어 PO'].forEach((oldText) => {
+      expect(contact.queryByText(oldText)).not.toBeInTheDocument();
+    });
+    expect(contact.getByText('sgsg9447@gmail.com')).toHaveAttribute(
+      'href',
+      'https://mail.google.com/mail/?view=cm&fs=1&to=sgsg9447@gmail.com',
+    );
+    expect(contact.getByText('Seoul, Korea')).toBeInTheDocument();
   });
 
   it('summarizes each project as before flow and impact', () => {

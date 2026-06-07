@@ -3,43 +3,48 @@ import { Mail } from 'lucide-react';
 import logo from '../../assets/logo.svg';
 
 const navItems = [
-  { href: '#problem', id: 'problem', label: 'Problem' },
-  { href: '#approach', id: 'approach', label: 'Approach' },
-  { href: '#flow', id: 'flow', label: 'Projects' },
-  { href: '#case', id: 'case', label: 'Featured' },
-  { href: '#skills', id: 'skills', label: 'Experience' },
+  { href: '#top', id: 'top', sectionId: 'top', label: 'About' },
+  { href: '#starting-points', id: 'starting-points', sectionId: 'starting-points', label: 'Starting Points' },
+  { href: '#projects', id: 'projects', sectionId: 'flow', label: 'Projects' },
+  { href: '#skills', id: 'skills', sectionId: 'skills', label: 'Capabilities' },
+  { href: '#experience', id: 'experience', sectionId: 'experience', label: 'Experience' },
 ];
 
 export function Header() {
   const [activeSection, setActiveSection] = useState('top');
 
   useEffect(() => {
-    const observedItems = [...navItems, { id: 'contact' }];
-    const sections = observedItems
-      .map((item) => document.getElementById(item.id))
-      .filter((section): section is HTMLElement => Boolean(section));
+    // Map each nav item to its actual <section> element, plus the contact section.
+    const tracked = [
+      ...navItems.map((item) => ({ id: item.id, sectionId: item.sectionId })),
+      { id: 'contact', sectionId: 'contact' },
+    ];
 
-    if (!('IntersectionObserver' in window)) return;
+    const updateActiveSection = () => {
+      // The active section is the last one whose top has scrolled past 40% of
+      // the viewport — i.e. the section you're actually looking at.
+      const line = window.innerHeight * 0.4;
+      let current = tracked[0].id;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visibleEntry) {
-          setActiveSection(visibleEntry.target.id);
+      for (const item of tracked) {
+        const section = document.getElementById(item.sectionId);
+        if (!section) continue;
+        if (section.getBoundingClientRect().top <= line) {
+          current = item.id;
         }
-      },
-      {
-        rootMargin: '-34% 0px -52% 0px',
-        threshold: [0.08, 0.2, 0.45],
-      },
-    );
+      }
 
-    sections.forEach((section) => observer.observe(section));
+      setActiveSection(current);
+    };
 
-    return () => observer.disconnect();
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection);
+      window.removeEventListener('resize', updateActiveSection);
+    };
   }, []);
 
   return (

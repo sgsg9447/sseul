@@ -2,7 +2,7 @@ import { ArrowDown, ArrowRight } from 'lucide-react';
 import logoMark from '../assets/logo-mark.svg';
 import profile from '../assets/profile.jpg';
 
-const keywords = ['Problem', 'Flow', 'MVP', 'Validate', 'Workflow'];
+const keywords = ['Problem', 'Structure', 'Build', 'Improve'];
 
 export function HeroSection() {
   return (
@@ -10,29 +10,29 @@ export function HeroSection() {
       <div className="hero-copy">
         <p className="eyebrow">
           <span />
-          SSEUL · PRODUCT & SERVICE PORTFOLIO
+          SSEUL · FRONTEND & PRODUCT PORTFOLIO
         </p>
         <h1>
           <span>그냥 지나칠 수 있는 불편에서</span>
           <span>서비스의 시작점을 찾습니다.</span>
         </h1>
         <p className="hero-lede">
-          문제를 발견하는 데서 멈추지 않고,
+          복잡한 요구를 구조로 정리하고,
           <br />
-          기획과 구현을 오가며 작게 만들고 검증할 수 있는 흐름으로 구체화합니다.
+          사용자 경험과 운영 효율을 함께 고려해 실제 동작하는 화면으로 만듭니다.
         </p>
         <p className="hero-proof">
-          ZERO100, Waitroom, EnrollOps를 통해
+          GenA, Orzo, Waitroom을 통해
           <br />
-          아이디어 구조화, MVP 검증, 운영 흐름 개선까지 직접 연결했습니다.
+          편집 경험을 구현하고, 반복 업무를 자동화하고, 작은 불편을 서비스로 만들었습니다.
         </p>
         <div className="hero-actions">
-          <a className="btn btn-primary" href="#flow">
-            문제 해결 방식 보기
+          <a className="btn btn-primary" href="#projects">
+            대표 프로젝트 보기
             <ArrowDown size={17} />
           </a>
-          <a className="btn btn-secondary" href="#projects">
-            대표 프로젝트 보기
+          <a className="btn btn-secondary" href="#experience">
+            경력 요약 보기
             <ArrowRight size={17} />
           </a>
         </div>
@@ -50,9 +50,9 @@ export function HeroSection() {
           <span>Name</span>
           <strong>Kim Seul Gi</strong>
           <span>Position</span>
-          <strong>Product & Service Planner</strong>
+          <strong>Frontend Engineer · Product Planning</strong>
           <span>Focus</span>
-          <strong>Problem → MVP → Workflow</strong>
+          <strong>Problem → Structure → Build</strong>
         </div>
       </aside>
 
