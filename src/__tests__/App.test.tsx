@@ -39,7 +39,7 @@ describe('sseul portfolio', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /대표 프로젝트 보기/i })).toHaveAttribute('href', '#projects');
     expect(screen.getByRole('link', { name: /경력 요약 보기/i })).toHaveAttribute('href', '#experience');
-    expect(screen.getByText('Frontend Engineer · Product Planning')).toBeInTheDocument();
+    expect(screen.getByText('서비스기획자 | PM | PO')).toBeInTheDocument();
     expect(screen.getByText('Problem → Structure → Build')).toBeInTheDocument();
   });
 
@@ -416,10 +416,11 @@ describe('sseul portfolio', () => {
       ),
     ).toBeInTheDocument();
     expect(contact.getByRole('link', { name: /메일 보내기/i })).toBeInTheDocument();
-    expect(contact.getByRole('link', { name: /프로젝트 보기/i })).toHaveAttribute('href', '#flow');
+    expect(contact.getByRole('link', { name: /이력서/i })).toHaveAttribute('href', '/resume');
+    expect(contact.getByRole('link', { name: /경력기술서/i })).toHaveAttribute('href', '/career');
     expect(contact.queryByRole('link', { name: /프로젝트 다시 보기/i })).not.toBeInTheDocument();
 
-    ['Frontend Engineer', 'Product-minded Frontend', '서비스기획 / 업무 개선', 'B2B SaaS · 백오피스'].forEach(
+    ['Frontend Engineer', 'Product-minded Frontend', '서비스기획 / PM / PO', 'B2B SaaS · 백오피스'].forEach(
       (role) => {
         expect(contact.getByText(role)).toBeInTheDocument();
       },

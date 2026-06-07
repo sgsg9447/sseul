@@ -1,4 +1,4 @@
-import { ArrowRight, Mail } from 'lucide-react';
+import { FileText, Mail, ScrollText } from 'lucide-react';
 
 const contactEmail = 'sgsg9447@gmail.com';
 const contactHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${contactEmail}`;
@@ -34,9 +34,13 @@ export function ClosingSection() {
               메일 보내기
               <Mail size={17} />
             </a>
-            <a className="btn btn-inverse" href="#flow">
-              프로젝트 보기
-              <ArrowRight size={17} />
+            <a className="btn btn-inverse" href="/resume">
+              이력서
+              <FileText size={17} />
+            </a>
+            <a className="btn btn-inverse" href="/career">
+              경력기술서
+              <ScrollText size={17} />
             </a>
           </div>
         </div>
@@ -46,7 +50,7 @@ export function ClosingSection() {
             <span>ROLE FIT</span>
             <strong>Frontend Engineer</strong>
             <strong>Product-minded Frontend</strong>
-            <strong>서비스기획 / 업무 개선</strong>
+            <strong>서비스기획 / PM / PO</strong>
             <strong>B2B SaaS · 백오피스</strong>
           </div>
           <div>

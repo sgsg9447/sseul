@@ -1978,3 +1978,777 @@ img {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RESUME PAGE  (/resume)
+   A4 sheet composed in the portfolio design system, exportable to PDF
+   one page at a time via native print.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.resume-page {
+  min-height: 100vh;
+  padding-top: 64px;
+}
+
+/* Sticky toolbar (screen only) */
+.resume-toolbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: 64px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  background: rgba(255, 254, 251, 0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.resume-toolbar-title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--fg);
+}
+
+.resume-back,
+.resume-print-all,
+.resume-sheet-export {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  color: var(--fg-body);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.resume-back {
+  justify-self: start;
+}
+
+.resume-back:hover,
+.resume-sheet-export:hover {
+  border-color: var(--border-strong);
+  color: var(--fg);
+}
+
+.resume-print-all {
+  justify-self: end;
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--cream);
+}
+
+.resume-print-all:hover {
+  background: #000;
+}
+
+/* Document = vertical stack of A4 sheets */
+.resume-doc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: 44px 16px 80px;
+}
+
+.resume-sheet-wrap {
+  width: 210mm;
+  max-width: 100%;
+}
+
+.resume-sheet-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+
+.resume-sheet-tag {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+}
+
+.resume-sheet-export {
+  min-height: 34px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+/* A4 sheet — 210 × 297 mm, full-bleed canvas (content controls padding) */
+.resume-sheet {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  max-width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 50px rgba(32, 21, 21, 0.12);
+  overflow: hidden;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.resume-topbar {
+  height: 9px;
+  background: var(--fg);
+}
+
+.resume-main {
+  padding: 13mm 16mm 10mm;
+}
+
+/* ── Identity header ────────────────────────────────────────── */
+.resume-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  column-gap: 22px;
+  padding-bottom: 18px;
+}
+
+.resume-avatar {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ff8033; /* matches the photo's own orange backdrop */
+  flex: none;
+}
+
+.resume-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.resume-name {
+  margin: 4px 0 0;
+  font-family: var(--font-korean-heading);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--fg);
+}
+
+.resume-title {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--fg);
+}
+
+.resume-intro {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--fg-body);
+}
+
+.resume-keywords {
+  margin: 9px 0 0;
+  font-size: 11.5px;
+  letter-spacing: 0.1px;
+  color: var(--fg-muted);
+}
+
+.resume-highlight {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--fg-body);
+}
+
+.resume-contact {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.resume-contact li {
+  font-size: 12px;
+  color: var(--fg-body);
+}
+
+.resume-contact span {
+  margin-right: 5px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.resume-contact a {
+  color: var(--fg-body);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+.resume-section {
+  margin-top: 16px;
+}
+
+.resume-section-title {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--fg);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--fg);
+}
+
+.resume-job {
+  margin-bottom: 14px;
+}
+
+.resume-job-head {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--fg-body);
+}
+
+.resume-job-head strong {
+  font-family: var(--font-korean-heading);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.resume-job-sep {
+  margin: 0 9px;
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.resume-job-focus {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.resume-period {
+  margin: 5px 0 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+/* Nested bullet lists */
+.resume-list {
+  margin: 8px 0 0;
+  padding-left: 14px;
+  list-style: none;
+}
+
+.resume-list li {
+  position: relative;
+  padding-left: 13px;
+  margin-bottom: 4px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--fg-body);
+}
+
+.resume-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--fg);
+}
+
+/* level 2+ */
+.resume-list ul {
+  margin: 4px 0 6px;
+  padding-left: 12px;
+  list-style: none;
+}
+
+.resume-list ul li {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--charcoal);
+}
+
+.resume-list ul li strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.resume-list ul li::before {
+  width: 3px;
+  height: 3px;
+  background: var(--warm-gray);
+}
+
+.resume-list ul ul li::before {
+  width: 4px;
+  height: 1.5px;
+  border-radius: 0;
+  top: 0.7em;
+}
+
+.resume-list li.is-lead {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* Two-column blocks */
+.resume-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+  align-items: start;
+}
+
+.resume-bottom {
+  margin-top: 18px;
+}
+
+/* ── Detail pages (배경 / 주요 수행 / 결과) ──────────────────── */
+.resume-detail {
+  padding: 14mm 16mm 12mm;
+}
+
+.resume-d-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--fg);
+}
+
+.resume-d-title {
+  margin: 0;
+  font-family: var(--font-korean-heading);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--fg);
+}
+
+.resume-d-kicker {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.resume-d-sub {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+.resume-d-date {
+  margin: 9px 0 0;
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--fg-body);
+}
+
+.resume-d-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--border);
+}
+
+.resume-d-meta div {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.resume-d-meta dt {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.resume-d-meta dd {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--fg-body);
+}
+
+.resume-d-meta dd a {
+  color: var(--fg-body);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.resume-d-proj {
+  margin-top: 22px;
+}
+
+.resume-d-proj:first-of-type {
+  margin-top: 20px;
+}
+
+.resume-d-proj-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  line-height: 1.4;
+  color: var(--fg);
+}
+
+.resume-d-keys {
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+
+.resume-d-keys::before {
+  content: '–';
+  margin: 0 7px;
+  color: var(--warm-gray);
+  font-weight: 400;
+}
+
+.resume-d-block {
+  margin-top: 11px;
+}
+
+.resume-d-label {
+  position: relative;
+  margin: 0;
+  padding-left: 13px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.resume-d-label::before {
+  content: '•';
+  position: absolute;
+  left: 1px;
+  color: var(--accent);
+}
+
+.resume-d-list {
+  margin: 5px 0 0 13px;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-d-list li {
+  position: relative;
+  padding-left: 13px;
+  margin-top: 4px;
+  font-size: 12.3px;
+  line-height: 1.5;
+  color: var(--charcoal);
+}
+
+.resume-d-list li::before {
+  content: '•';
+  position: absolute;
+  left: 2px;
+  top: 0.5px;
+  font-size: 10px;
+  color: var(--warm-gray);
+}
+
+.resume-d-metric {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.resume-d-lit {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Print / PDF export ─────────────────────────────────────── */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  .resume-toolbar,
+  .resume-sheet-actions {
+    display: none !important;
+  }
+
+  .resume-page {
+    padding: 0;
+  }
+
+  .resume-doc {
+    gap: 0;
+    padding: 0;
+  }
+
+  .resume-sheet-wrap {
+    width: 210mm;
+    max-width: none;
+  }
+
+  .resume-sheet {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .resume-sheet-wrap:last-child .resume-sheet {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  /* Single-page export: keep only the targeted sheet */
+  body.is-printing-single .resume-sheet:not(.is-print-target) {
+    display: none;
+  }
+
+  body.is-printing-single .resume-sheet.is-print-target {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   CAREER HISTORY PAGE  (/career)
+   Continuous A4-flow document (경력기술서) in the portfolio design system.
+   Prints across multiple A4 pages; projects avoid splitting mid-block.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.career-page {
+  min-height: 100vh;
+  padding-top: 64px;
+}
+
+.career-doc {
+  width: 210mm;
+  max-width: 100%;
+  margin: 44px auto 80px;
+  padding: 18mm 18mm 16mm;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 50px rgba(32, 21, 21, 0.12);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.career-title {
+  margin: 0;
+  font-family: var(--font-korean-heading);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--fg);
+}
+
+.career-title span {
+  margin-left: 9px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+
+.career-summary {
+  max-width: 660px;
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--fg-body);
+}
+
+.career-kw {
+  margin: 9px 0 0;
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.career-kw b {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.career-divider {
+  height: 2px;
+  margin: 18px 0 4px;
+  background: var(--fg);
+}
+
+.career-company {
+  margin-top: 24px;
+}
+
+.career-co-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+.career-co-name {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--fg);
+}
+
+.career-co-meta {
+  font-size: 12.5px;
+  color: var(--fg-muted);
+}
+
+.career-proj {
+  margin-top: 16px;
+  break-inside: avoid;
+}
+
+.career-proj-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--fg);
+}
+
+.career-proj-n {
+  margin-right: 6px;
+  color: var(--accent);
+}
+
+.career-proj-keys {
+  margin: 1px 0 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+.career-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.career-row-lab {
+  padding-top: 1px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fg-muted);
+}
+
+.career-row-val {
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.career-row-decision {
+  grid-template-columns: 84px 1fr;
+  margin-left: -4px;
+  padding: 9px 12px;
+  border-radius: 7px;
+  background: rgba(255, 79, 0, 0.06);
+}
+
+.career-row-decision .career-row-lab {
+  color: var(--accent);
+}
+
+.career-em {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.career-lit {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.career-skills {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.career-skills h2 {
+  margin: 0 0 7px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.career-skills p {
+  margin: 0;
+  font-size: 12.8px;
+  line-height: 1.7;
+  color: var(--fg-body);
+}
+
+/* ── Career print ───────────────────────────────────────────── */
+@media print {
+  /* @page margin is overridden to 14mm by the scoped <style> in CareerPage */
+  .career-page {
+    padding: 0;
+  }
+
+  .career-doc {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: #fff;
+  }
+}

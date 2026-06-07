@@ -50,7 +50,7 @@ export function HeroSection() {
           <span>Name</span>
           <strong>Kim Seul Gi</strong>
           <span>Position</span>
-          <strong>Frontend Engineer · Product Planning</strong>
+          <strong>서비스기획자 | PM | PO</strong>
           <span>Focus</span>
           <strong>Problem → Structure → Build</strong>
         </div>
