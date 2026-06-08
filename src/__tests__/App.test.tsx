@@ -418,6 +418,7 @@ describe('sseul portfolio', () => {
     expect(contact.getByRole('link', { name: /메일 보내기/i })).toBeInTheDocument();
     expect(contact.getByRole('link', { name: /이력서/i })).toHaveAttribute('href', '/resume');
     expect(contact.getByRole('link', { name: /경력기술서/i })).toHaveAttribute('href', '/career');
+    expect(contact.getByRole('link', { name: /포트폴리오 PDF/i })).toHaveAttribute('href', '/portfolio-pdf');
     expect(contact.queryByRole('link', { name: /프로젝트 다시 보기/i })).not.toBeInTheDocument();
 
     ['Frontend Engineer', 'Product-minded Frontend', '서비스기획 / PM / PO', 'B2B SaaS · 백오피스'].forEach(

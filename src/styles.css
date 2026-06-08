@@ -2622,6 +2622,10 @@ img {
   background: var(--fg);
 }
 
+.career-print-page + .career-print-page {
+  margin-top: 28px;
+}
+
 .career-company {
   margin-top: 24px;
 }
@@ -2650,6 +2654,10 @@ img {
 .career-proj {
   margin-top: 16px;
   break-inside: avoid;
+}
+
+.career-proj + .career-proj {
+  margin-top: 28px;
 }
 
 .career-proj-title {
@@ -2737,7 +2745,12 @@ img {
 
 /* ── Career print ───────────────────────────────────────────── */
 @media print {
-  /* @page margin is overridden to 14mm by the scoped <style> in CareerPage */
+  /* @page margin is overridden to 0 by the scoped <style> in CareerPage. */
+  html,
+  body {
+    margin: 0 !important;
+  }
+
   .career-page {
     padding: 0;
   }
@@ -2751,4 +2764,569 @@ img {
     box-shadow: none;
     background: #fff;
   }
+
+  .career-print-page {
+    width: 210mm;
+    min-height: 297mm;
+    box-sizing: border-box;
+    padding: 11mm 10mm 12mm;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .career-print-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .career-print-page + .career-print-page {
+    margin-top: 0;
+  }
+
+  .career-print-page-second {
+    padding-top: 14mm;
+    padding-bottom: 13mm;
+  }
+
+  .career-print-page-second .career-company:first-child {
+    margin-top: 0;
+  }
+
+  .career-title {
+    font-size: 22px;
+  }
+
+  .career-title span {
+    margin-left: 7px;
+    font-size: 12px;
+  }
+
+  .career-summary {
+    max-width: none;
+    margin-top: 8px;
+    font-size: 10.8px;
+    line-height: 1.42;
+  }
+
+  .career-kw {
+    margin-top: 6px;
+    font-size: 10.4px;
+  }
+
+  .career-divider {
+    margin: 12px 0 2px;
+  }
+
+  .career-company {
+    margin-top: 17px;
+  }
+
+  .career-company + .career-company {
+    margin-top: 90px;
+  }
+
+  .career-co-head {
+    gap: 7px;
+    padding-bottom: 4px;
+  }
+
+  .career-co-name {
+    font-size: 15px;
+  }
+
+  .career-co-meta {
+    font-size: 10.7px;
+  }
+
+  .career-proj {
+    margin-top: 8px;
+  }
+
+  .career-proj + .career-proj {
+    margin-top: 18px;
+  }
+
+  .career-proj-title {
+    font-size: 12.3px;
+  }
+
+  .career-proj-keys {
+    font-size: 10.3px;
+  }
+
+  .career-row {
+    grid-template-columns: 72px 1fr;
+    gap: 8px;
+    margin-top: 3px;
+    font-size: 10.5px;
+  }
+
+  .career-row-lab {
+    font-size: 9.8px;
+  }
+
+  .career-row-val {
+    line-height: 1.35;
+  }
+
+  .career-row-decision {
+    grid-template-columns: 70px 1fr;
+    margin-left: 0;
+    padding: 5px 8px;
+    border-radius: 5px;
+  }
+
+  .career-skills {
+    margin-top: 16px;
+    padding-top: 9px;
+  }
+
+  .career-skills h2 {
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+
+  .career-skills p {
+    font-size: 10.4px;
+    line-height: 1.45;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   PORTFOLIO PDF  (/portfolio-pdf)
+   Reuses the résumé A4 sheet / toolbar / print infrastructure.
+   ────────────────────────────────────────────────────────────────────────── */
+.pf-main {
+  padding: 14mm 16mm 12mm;
+}
+
+.pf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.pf-eyebrow span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+/* ── Cover ──────────────────────────────────────────────────── */
+.pf-cover {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--fg);
+}
+
+.pf-cover-title {
+  margin: 0;
+  font-family: var(--font-korean-heading);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.5px;
+  color: var(--fg);
+}
+
+.pf-cover-lede {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: nowrap;
+  color: var(--fg-body);
+}
+
+.pf-cover-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 22px;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--off-white);
+}
+
+.pf-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ff8033;
+  flex: none;
+}
+
+.pf-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.pf-id {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 28px;
+  margin: 0;
+  flex: 1;
+}
+
+.pf-id div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pf-id dt {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.pf-id dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.pf-cover-proof {
+  margin: auto 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+}
+
+/* ── Section heads ──────────────────────────────────────────── */
+.pf-section + .pf-section {
+  margin-top: 26px;
+}
+
+.pf-section-head {
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--fg);
+}
+
+.pf-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--fg);
+}
+
+.pf-num {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.pf-section-lede {
+  margin: 7px 0 0;
+  font-size: 13.5px;
+  color: var(--fg-body);
+}
+
+/* ── Problems ───────────────────────────────────────────────── */
+.pf-problems {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+}
+
+.pf-problem {
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--cream);
+}
+
+.pf-problem-tag {
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--accent);
+}
+
+.pf-problem h3 {
+  margin: 9px 0 7px;
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.pf-problem p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--fg-body);
+}
+
+/* ── Projects ───────────────────────────────────────────────── */
+.pf-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pf-project {
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.pf-project-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pf-project-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--fg);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pf-project-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--fg-muted);
+}
+
+.pf-project-headline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.pf-project-name {
+  margin: 0;
+  font-family: var(--font-korean-heading);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--fg);
+}
+
+.pf-project-link {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pf-project-title {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.pf-project-summary {
+  margin: 8px 0 0;
+  font-size: 12.8px;
+  line-height: 1.65;
+  color: var(--fg-body);
+}
+
+.pf-project-detail {
+  margin: 6px 0 0;
+  font-size: 12.3px;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.pf-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 14px 0 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.pf-board dt {
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pf-board dd {
+  margin: 5px 0 0;
+  font-size: 11.8px;
+  line-height: 1.5;
+  color: var(--fg-body);
+}
+
+.pf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.pf-tags span {
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--off-white);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--fg-body);
+}
+
+/* ── Capabilities / Experience grids ────────────────────────── */
+.pf-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.pf-cap,
+.pf-exp {
+  padding: 15px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.pf-cap {
+  position: relative;
+  padding-left: 18px;
+}
+
+.pf-cap::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15px;
+  bottom: 15px;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.pf-cap-index {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--accent);
+}
+
+.pf-cap h3 {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.pf-cap p {
+  margin: 7px 0 0;
+  font-size: 12.3px;
+  line-height: 1.6;
+  color: var(--fg-body);
+  white-space: pre-line;
+}
+
+.pf-exp-tag {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+}
+
+.pf-exp h3 {
+  margin: 6px 0 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.pf-exp p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--fg-body);
+}
+
+/* ── Contact ────────────────────────────────────────────────── */
+.pf-contact {
+  margin-top: 18px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: var(--fg);
+  color: var(--cream);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.pf-contact h2 {
+  margin: 0;
+  font-family: var(--font-korean-heading);
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: -0.3px;
+  color: var(--cream);
+}
+
+.pf-contact-lines {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255, 254, 251, 0.82);
+}
+
+.pf-contact-email {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  letter-spacing: 0.3px;
+  color: rgba(255, 254, 251, 0.7);
+}
+
+.pf-contact a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

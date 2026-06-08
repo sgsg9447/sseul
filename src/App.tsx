@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { HomePage } from './pages/HomePage';
 import { ResumePage } from './pages/ResumePage';
 import { CareerPage } from './pages/CareerPage';
+import { PortfolioPdfPage } from './pages/PortfolioPdfPage';
 
 function normalize(pathname: string) {
   return pathname.replace(/\/+$/, '') || '/';
@@ -22,6 +23,10 @@ function App() {
 
   if (path === '/career') {
     return <CareerPage />;
+  }
+
+  if (path === '/portfolio-pdf') {
+    return <PortfolioPdfPage />;
   }
 
   return (

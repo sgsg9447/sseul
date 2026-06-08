@@ -1,4 +1,4 @@
-import { FileText, Mail, ScrollText } from 'lucide-react';
+import { FileDown, FileText, Mail, ScrollText } from 'lucide-react';
 
 const contactEmail = 'sgsg9447@gmail.com';
 const contactHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${contactEmail}`;
@@ -41,6 +41,10 @@ export function ClosingSection() {
             <a className="btn btn-inverse" href="/career">
               경력기술서
               <ScrollText size={17} />
+            </a>
+            <a className="btn btn-inverse" href="/portfolio-pdf">
+              포트폴리오 PDF
+              <FileDown size={17} />
             </a>
           </div>
         </div>

@@ -3,6 +3,9 @@ import { ArrowLeft, Printer } from 'lucide-react';
 import { CareerCompany } from '../components/career/CareerCompany';
 import { careerCompanies, careerKeywords, careerSkills, careerSummary } from '../data/careerHistory';
 
+const firstPrintPageCompanies = careerCompanies.slice(0, 2);
+const secondPrintPageCompanies = careerCompanies.slice(2);
+
 export function CareerPage() {
   const handlePrint = useCallback(() => window.print(), []);
 
@@ -10,10 +13,11 @@ export function CareerPage() {
     <div className="career-page">
       {/*
         The résumé sets `@page { margin: 0 }` (its sheets are full-bleed A4).
-        This document flows continuously, so it needs real page margins.
+        Career keeps the browser margin area at 0 to avoid default print
+        headers/footers; document padding creates the visible page margins.
         Mounted only on /career, this scoped override wins while present.
       */}
-      <style>{`@media print { @page { size: A4; margin: 14mm; } }`}</style>
+      <style>{`@media print { @page { size: A4; margin: 0; } }`}</style>
 
       <header className="resume-toolbar">
         <a className="resume-back" href="/">
@@ -28,22 +32,32 @@ export function CareerPage() {
       </header>
 
       <main className="career-doc">
-        <div className="career-head">
-          <h1 className="career-title">
-            경력기술서<span>김슬기 · 서비스기획 | PM | PO</span>
-          </h1>
-          <p className="career-summary">{careerSummary}</p>
-          <p className="career-kw">{careerKeywords}</p>
-        </div>
-        <div className="career-divider" />
+        <section className="career-print-page career-print-page-first" aria-label="경력기술서 1페이지">
+          <div className="career-head">
+            <h1 className="career-title">
+              경력기술서<span>김슬기 · 서비스기획 | PM | PO</span>
+            </h1>
+            <p className="career-summary">{careerSummary}</p>
+            <p className="career-kw">{careerKeywords}</p>
+          </div>
+          <div className="career-divider" />
 
-        {careerCompanies.map((company) => (
-          <CareerCompany key={company.name} company={company} />
-        ))}
+          {firstPrintPageCompanies.map((company) => (
+            <CareerCompany key={company.name} company={company} />
+          ))}
+        </section>
 
-        <section className="career-skills">
-          <h2>보유 역량</h2>
-          <p>{careerSkills}</p>
+        <section className="career-print-page career-print-page-second" aria-label="경력기술서 2페이지">
+          <div className="career-print-page-body">
+            {secondPrintPageCompanies.map((company) => (
+              <CareerCompany key={company.name} company={company} />
+            ))}
+
+            <section className="career-skills">
+              <h2>보유 역량</h2>
+              <p>{careerSkills}</p>
+            </section>
+          </div>
         </section>
       </main>
     </div>
