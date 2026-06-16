@@ -22,12 +22,12 @@ export function HeroSection() {
           사용자 경험과 운영 효율을 함께 고려해 실제 동작하는 화면으로 만듭니다.
         </p>
         <p className="hero-proof">
-          GenA, Orzo, Waitroom을 통해
+          실제 운영 중인 목공 직업훈련기관 사이트를
           <br />
-          편집 경험을 구현하고, 반복 업무를 자동화하고, 작은 불편을 서비스로 만들었습니다.
+          문제 정의부터 데이터 구조·화면 설계·구현까지 다시 설계했습니다.
         </p>
         <div className="hero-actions">
-          <a className="btn btn-primary" href="#projects">
+          <a className="btn btn-primary" href="#case-study">
             대표 프로젝트 보기
             <ArrowDown size={17} />
           </a>

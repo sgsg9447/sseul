@@ -7,6 +7,8 @@ const revealSelector = [
   '.project-card',
   '.case-card',
   '.skill-row',
+  '.cs-summary-card',
+  '.cs-chapter',
 ].join(', ');
 
 export function useScrollReveal() {

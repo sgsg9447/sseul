@@ -21,9 +21,8 @@ export function ClosingSection() {
 
         <div className="closing-copy">
           <p className="closing-lines">
-            <span>GenA에서는 AI 슬라이드 편집 흐름을 구현했고,</span>
-            <span>Orzo에서는 반복되는 콘텐츠 배포를 자동화했으며,</span>
-            <span>Waitroom에서는 흩어진 웨이팅 확인 경로를 한 화면에 모았습니다.</span>
+            <span>목공 직업훈련기관 리뉴얼에서는 문제 정의부터 데이터 구조·화면 설계·구현까지 한 흐름으로 설계했고,</span>
+            <span>GenA·Orzo·Waitroom에서는 편집 경험을 구현하고, 반복 업무를 자동화하고, 흩어진 정보를 한곳에 모았습니다.</span>
           </p>
           <p className="closing-lines">
             <span>프론트엔드 구현 경험을 바탕으로,</span>

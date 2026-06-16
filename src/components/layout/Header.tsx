@@ -4,7 +4,7 @@ import logo from '../../assets/logo.svg';
 
 const navItems = [
   { href: '#top', id: 'top', sectionId: 'top', label: 'About' },
-  { href: '#starting-points', id: 'starting-points', sectionId: 'starting-points', label: 'Starting Points' },
+  { href: '#case-study', id: 'case-study', sectionId: 'case-study', label: 'Case Study' },
   { href: '#projects', id: 'projects', sectionId: 'flow', label: 'Projects' },
   { href: '#skills', id: 'skills', sectionId: 'skills', label: 'Capabilities' },
   { href: '#experience', id: 'experience', sectionId: 'experience', label: 'Experience' },

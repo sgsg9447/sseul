@@ -8,7 +8,7 @@ export function PortfolioFlowSection() {
       <div className="section-inner">
         <SectionIntro
           count="02"
-          label="Selected projects"
+          label="OTHER PROJECTS"
           title={
             <>
               편집은 다시 가능하게,

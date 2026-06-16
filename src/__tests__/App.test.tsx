@@ -33,11 +33,11 @@ describe('sseul portfolio', () => {
     expect(
       screen.getByText(
         hasParagraphText(
-          'GenA, Orzo, Waitroom을 통해 편집 경험을 구현하고, 반복 업무를 자동화하고, 작은 불편을 서비스로 만들었습니다.',
+          '실제 운영 중인 목공 직업훈련기관 사이트를 문제 정의부터 데이터 구조·화면 설계·구현까지 다시 설계했습니다.',
         ),
       ),
     ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /대표 프로젝트 보기/i })).toHaveAttribute('href', '#projects');
+    expect(screen.getByRole('link', { name: /대표 프로젝트 보기/i })).toHaveAttribute('href', '#case-study');
     expect(screen.getByRole('link', { name: /경력 요약 보기/i })).toHaveAttribute('href', '#experience');
     expect(screen.getByText('서비스기획자 | PM | PO')).toBeInTheDocument();
     expect(screen.getByText('Problem → Structure → Build')).toBeInTheDocument();
@@ -52,10 +52,11 @@ describe('sseul portfolio', () => {
 
     const nav = screen.getByRole('navigation', { name: /main navigation/i });
     expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '#top');
-    expect(within(nav).getByRole('link', { name: 'Starting Points' })).toHaveAttribute(
+    expect(within(nav).getByRole('link', { name: 'Case Study' })).toHaveAttribute(
       'href',
-      '#starting-points',
+      '#case-study',
     );
+    expect(within(nav).queryByRole('link', { name: 'Starting Points' })).not.toBeInTheDocument();
     expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '#projects');
     expect(within(nav).getByRole('link', { name: 'Capabilities' })).toHaveAttribute('href', '#skills');
     expect(within(nav).getByRole('link', { name: 'Experience' })).toHaveAttribute('href', '#experience');
@@ -64,43 +65,40 @@ describe('sseul portfolio', () => {
     expect(within(nav).queryByRole('link', { name: 'Featured' })).not.toBeInTheDocument();
   });
 
-  it('frames the current project starting points around GenA, content automation, and Waitroom', () => {
+  it('leads with the woodworking academy case study as the flagship first section', () => {
     const { container } = render(<App />);
-    const startingPointsSection = container.querySelector('#starting-points');
-    expect(startingPointsSection).toBeInTheDocument();
-    expect(container.querySelector('#problem')).toBeInTheDocument();
-    const problem = within(startingPointsSection as HTMLElement);
+    const caseStudySection = container.querySelector('#case-study');
+    expect(caseStudySection).toBeInTheDocument();
+    const study = within(caseStudySection as HTMLElement);
 
-    expect(problem.getByText('01 / STARTING POINTS')).toBeInTheDocument();
-    expect(startingPointsSection?.querySelectorAll('.section-intro > p')).toHaveLength(1);
+    expect(study.getByText('01 / MAIN PROJECT · 목공 직업훈련기관 리뉴얼')).toBeInTheDocument();
     expect(
-      problem.getByRole('heading', {
+      study.getByRole('heading', {
         level: 2,
-        name: /편집되지 않고,\s+반복되고,\s+흩어진 문제에서\s+시작했습니다\./i,
+        name: /이미지·게시판으로 흩어진 직업훈련기관 사이트를,\s+데이터와 동선으로 다시 설계했습니다\./i,
       }),
     ).toBeInTheDocument();
-    expect(problem.queryByText('01 / PROBLEM')).not.toBeInTheDocument();
-    expect(
-      problem.queryByText('AI가 만든 슬라이드는 사용자가 직접 수정할 수 있는 편집 흐름이 필요했고,'),
-    ).not.toBeInTheDocument();
-    expect(problem.getByText('AI SLIDE EDITOR')).toBeInTheDocument();
-    expect(problem.getByText('편집 가능한 AI 슬라이드')).toBeInTheDocument();
-    expect(
-      problem.getByText(
-        hasParagraphText(
-          'AI가 생성한 슬라이드를 사용자가 직접 수정할 수 있도록, 편집 대상과 화면 상태를 분리한 안정적인 편집 흐름이 필요했습니다.',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(problem.getByText('CONTENT IMAGE PIPELINE')).toBeInTheDocument();
-    expect(problem.getByText('반복되는 콘텐츠 배포 병목')).toBeInTheDocument();
-    expect(problem.getByText('WAITROOM')).toBeInTheDocument();
-    expect(problem.getByText('흩어진 웨이팅 확인 경로')).toBeInTheDocument();
-    expect(problem.queryByText('EnrollOps')).not.toBeInTheDocument();
-    expect(problem.queryByText('ZERO100')).not.toBeInTheDocument();
+
+    // the four root causes are surfaced as data, not images
+    ['콘텐츠가 데이터가 아님', '행동·전환 흐름 미설계', '게시판 전용', '정보 우선순위·시각 위계 실패'].forEach(
+      (cause) => {
+        expect(study.getByText(cause)).toBeInTheDocument();
+      },
+    );
+
+    // the seven chapters of the case study
+    ['PROBLEM', 'USERS', 'GOALS & PRINCIPLES', 'INFORMATION ARCHITECTURE', 'USER FLOW', 'SCREEN DESIGN', 'SCOPE'].forEach(
+      (chapter) => {
+        expect(study.getByText(chapter)).toBeInTheDocument();
+      },
+    );
+
+    // the starting-points section it replaced is gone
+    expect(container.querySelector('#starting-points')).not.toBeInTheDocument();
+    expect(study.queryByText('01 / STARTING POINTS')).not.toBeInTheDocument();
   });
 
-  it('removes the approach section so projects follow the starting points', () => {
+  it('removes the approach section so the case study leads into projects', () => {
     const { container } = render(<App />);
     expect(container.querySelector('#approach')).not.toBeInTheDocument();
     expect(container.querySelector('#case')).not.toBeInTheDocument();
@@ -115,7 +113,7 @@ describe('sseul portfolio', () => {
     const intro = projectsSection?.querySelector('.section-intro') as HTMLElement;
     const projectsIntro = within(intro);
 
-    expect(projectsIntro.getByText('02 / Selected projects')).toBeInTheDocument();
+    expect(projectsIntro.getByText('02 / OTHER PROJECTS')).toBeInTheDocument();
     expect(intro).toHaveClass('section-intro-compact');
     expect(intro.querySelectorAll('p')).toHaveLength(1);
     expect(
@@ -404,7 +402,7 @@ describe('sseul portfolio', () => {
     expect(
       contact.getByText(
         hasParagraphText(
-          'GenA에서는 AI 슬라이드 편집 흐름을 구현했고, Orzo에서는 반복되는 콘텐츠 배포를 자동화했으며, Waitroom에서는 흩어진 웨이팅 확인 경로를 한 화면에 모았습니다.',
+          '목공 직업훈련기관 리뉴얼에서는 문제 정의부터 데이터 구조·화면 설계·구현까지 한 흐름으로 설계했고, GenA·Orzo·Waitroom에서는 편집 경험을 구현하고, 반복 업무를 자동화하고, 흩어진 정보를 한곳에 모았습니다.',
         ),
       ),
     ).toBeInTheDocument();
