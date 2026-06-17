@@ -27,5 +27,10 @@ export type Problem = {
 export type SkillRow = {
   area: string;
   title: string;
+  /** Optional role badges shown next to the company/area label. */
+  tags?: string[];
   detail: string[];
+  /** Optional in-page anchor linking the capability to its supporting evidence. */
+  evidenceHref?: string;
+  evidenceLabel?: string;
 };

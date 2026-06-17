@@ -111,14 +111,16 @@ export const workExperiences: SkillRow[] = [
   {
     area: 'GENON',
     title: 'AI 슬라이드 편집기 프론트엔드 개발',
+    tags: ['frontend'],
     detail: [
-      'React UI와 iframe Stage를 분리하고,',
-      'DOM 편집 결과가 상태와 미리보기에 이어지는 편집 흐름을 구현했습니다.',
+      '편집 화면과 미리보기 영역의 역할을 나누고,',
+      '사용자의 편집 동작이 상태와 결과 화면까지 이어지는 편집 흐름을 설계했습니다.',
     ],
   },
   {
     area: 'SLING',
     title: '콘텐츠 제작 도구와 이미지 자동화 파이프라인',
+    tags: ['frontend'],
     detail: [
       '문제 제작·편집·배포 흐름을 백오피스로 통합하고,',
       'JSON 데이터를 이미지로 변환하는 자동화 구조를 만들었습니다.',
@@ -127,6 +129,7 @@ export const workExperiences: SkillRow[] = [
   {
     area: 'DAANGN',
     title: '검색 경험 개선과 A/B 테스트 구현',
+    tags: ['frontend'],
     detail: [
       '검색 탭 전환 성능을 개선하고,',
       '연관검색어 UI와 데이터 로깅을 구현했습니다.',
@@ -135,6 +138,7 @@ export const workExperiences: SkillRow[] = [
   {
     area: 'KOSSA',
     title: '교육기획과 운영 프로세스 설계',
+    tags: ['교육기획', '서비스기획'],
     detail: [
       '국방 SW·AI 교육 과정과 해커톤을 기획하고,',
       '기관·참여자·운영진 사이의 요구사항을 조율했습니다.',
