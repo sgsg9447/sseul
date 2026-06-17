@@ -19,36 +19,41 @@ afterEach(() => {
 });
 
 describe('CareerPage', () => {
-  it('groups career companies into two print pages for PDF export', () => {
+  it('groups career companies into three print pages for PDF export', () => {
     const { container } = render(<CareerPage />);
     const pages = container.querySelectorAll('.career-print-page');
 
-    expect(pages).toHaveLength(2);
+    expect(pages).toHaveLength(3);
 
     const firstPage = within(pages[0] as HTMLElement);
     expect(firstPage.getByText('GenON')).toBeInTheDocument();
     expect(firstPage.getByText('슬링 (Sling)')).toBeInTheDocument();
     expect(firstPage.queryByText('당근')).not.toBeInTheDocument();
-    expect(firstPage.queryByText('Waitroom')).not.toBeInTheDocument();
 
     const secondPage = within(pages[1] as HTMLElement);
     expect(secondPage.getByText('당근')).toBeInTheDocument();
-    expect(secondPage.getByText('Waitroom')).toBeInTheDocument();
+    expect(secondPage.getByText('목공 직업훈련기관 리뉴얼')).toBeInTheDocument();
     expect(secondPage.queryByText('GenON')).not.toBeInTheDocument();
-    expect(secondPage.queryByText('슬링 (Sling)')).not.toBeInTheDocument();
+    expect(secondPage.queryByText('Waitroom')).not.toBeInTheDocument();
+
+    const thirdPage = within(pages[2] as HTMLElement);
+    expect(thirdPage.getByText('Waitroom')).toBeInTheDocument();
+    expect(thirdPage.queryByText('당근')).not.toBeInTheDocument();
 
     expect(screen.getByText('보유 역량')).toBeInTheDocument();
   });
 
-  it('places skills directly after Waitroom on the second print page', () => {
+  it('places skills directly after Waitroom on the last print page', () => {
     const { container } = render(<CareerPage />);
-    const secondPageBody = container.querySelector('.career-print-page-second .career-print-page-body');
-    const secondPageItems = Array.from(secondPageBody?.children ?? []);
+    const lastPageBody = container.querySelector(
+      '.career-print-page:last-child .career-print-page-body',
+    );
+    const lastPageItems = Array.from(lastPageBody?.children ?? []);
 
-    expect(secondPageItems).toHaveLength(3);
-    expect(secondPageItems[1]).toHaveTextContent('Waitroom');
-    expect(secondPageItems[2]).toHaveClass('career-skills');
-    expect(secondPageItems[2]).toHaveTextContent('보유 역량');
+    expect(lastPageItems).toHaveLength(2);
+    expect(lastPageItems[0]).toHaveTextContent('Waitroom');
+    expect(lastPageItems[1]).toHaveClass('career-skills');
+    expect(lastPageItems[1]).toHaveTextContent('보유 역량');
   });
 
   it('keeps a larger print gap between companies than between projects', () => {

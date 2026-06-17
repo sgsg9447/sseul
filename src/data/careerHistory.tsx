@@ -6,11 +6,17 @@ const Em = ({ children }: { children: ReactNode }) => <span className="career-em
 const Lit = ({ children }: { children: ReactNode }) => <span className="career-lit">{children}</span>;
 
 export type CareerRow = { label: string; value: ReactNode; decision?: boolean };
-export type CareerProject = { n: string; title: string; keys: string; rows: CareerRow[] };
+export type CareerProject = {
+  n: string;
+  title: string;
+  keys: string;
+  rows: CareerRow[];
+  flow?: ReactNode[];
+};
 export type CareerCompany = { name: string; meta: string; projects: CareerProject[] };
 
 export const careerSummary =
-  '프론트엔드 개발 경험을 바탕으로, 구현 가능성까지 고려해 제품을 설계하는 기획자입니다. AI 편집 서비스 구조 설계, 콘텐츠 운영 백오피스 기획, 데이터 기반 UX 검증을 수행하며 모호한 요구를 구조로 정리하고 의사결정으로 연결하는 역량을 쌓았습니다.';
+  '프론트엔드 개발 경험을 바탕으로, 구현 가능성까지 고려해 제품을 설계하는 기획자입니다. AI 편집 서비스 구조 설계, 콘텐츠 운영 백오피스 기획, 데이터 기반 UX 검증을 수행했고, 직업훈련기관 리뉴얼에서는 문제 정의부터 정보구조·화면설계·구현까지 단독으로 끝내며 모호한 요구를 구조로 정리하고 의사결정으로 연결하는 역량을 쌓았습니다.';
 
 export const careerKeywords: ReactNode = (
   <>
@@ -132,16 +138,16 @@ export const careerCompanies: CareerCompany[] = [
       },
       {
         n: '02',
-        title: '대량 콘텐츠 자동화 운영 설계',
-        keys: '앱 릴리즈 의존도 절감 · 적시 공급',
+        title: '앱 릴리즈 없이 대량 콘텐츠를 공급하는 구조 설계',
+        keys: '운영 병목 진단 · 공급 구조 전환',
         rows: [
-          { label: '담당 역할', value: '① 운영 부담 분석 ② 자동화 운영 방식 설계 ③ 시즌 운영·데이터 정책 수립' },
+          { label: '담당 역할', value: '① 운영 병목 진단 ② 공급 구조 전환 설계 ③ 시즌 운영·데이터 정책 수립' },
           {
             label: '문제·배경',
             value: (
               <>
-                iOS/Android에 동일 콘텐츠를 각각 반영해야 해 부담이 크고, 시험 시즌 <Em>약 10만 건</Em>을 단기간에
-                처리 필요
+                같은 콘텐츠를 iOS·Android에 각각 반영해야 해 콘텐츠 하나를 바꾸는 데도 앱 릴리즈가 필요했고, 시험 시즌엔{' '}
+                <Em>약 10만 건</Em>을 단기간에 반영해야 해 공급 속도가 한계
               </>
             ),
           },
@@ -150,8 +156,8 @@ export const careerCompanies: CareerCompany[] = [
             decision: true,
             value: (
               <>
-                네이티브 개별 구현 대신 <Em>웹 렌더링 결과를 이미지로 활용하는 방식</Em>을 택해 앱 릴리즈 의존도를
-                낮추고, 대량 처리 성능·저장 이슈를 고려해 시즌 중심 운영·삭제 정책을 함께 설계
+                화면을 각각 만드는 대신 <Em>웹에서 한 번 만든 결과를 이미지로 공통 사용하는 구조로 전환</Em>해 앱 릴리즈
+                의존을 끊는 것을 목표로 잡고, 대량 적재의 성능·용량 문제를 미리 보고 시즌 중심 운영·삭제 정책을 함께 설계
               </>
             ),
           },
@@ -159,12 +165,13 @@ export const careerCompanies: CareerCompany[] = [
             label: '성과',
             value: (
               <>
-                앱 릴리즈 없이 데이터 변경에 즉시 대응(출시 주기 단축·리소스 절감), 적시 공급으로{' '}
+                콘텐츠 변경에 앱 출시가 불필요해져 출시 주기 단축·리소스 절감, 시즌 대량 콘텐츠 적시 공급으로{' '}
                 <Em>월 구독 이용자 수 증가</Em> 기여
               </>
             ),
           },
         ],
+        flow: ['JSON 업로드', '웹 렌더링', '이미지 변환', '저장', 'iOS·Android 공통'],
       },
     ],
   },
@@ -229,6 +236,80 @@ export const careerCompanies: CareerCompany[] = [
                 탭 전환 반응 속도 개선(<Em>13 Frame → 8 Frame</Em>), 검색 화면 체감 사용성 향상
               </>
             ),
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: '목공 직업훈련기관 리뉴얼',
+    meta: '실무형 프로젝트 · 기획·설계·디자인·개발 단독 진행',
+    projects: [
+      {
+        n: '01',
+        title: '이미지·게시판으로 흩어진 사이트를 데이터·동선으로 재설계',
+        keys: '문제 정의 · 데이터 모델링 · 동선 설계',
+        rows: [
+          {
+            label: '담당 역할',
+            value: '① AS-IS 휴리스틱 평가·운영자 인터뷰 ② 정보구조·유저플로우 설계 ③ 화면설계·구현',
+          },
+          {
+            label: '문제·배경',
+            value: (
+              <>
+                콘텐츠가 데이터가 아닌 이미지·게시글이고 신청 동선·정보 위계가 미설계된 실제 운영 사이트. 직접 사용하며
+                이탈 지점 <Em>20개</Em>를 기록해 <Em>4개 근본 원인</Em>으로 수렴
+              </>
+            ),
+          },
+          {
+            label: '접근·의사결정',
+            decision: true,
+            value: (
+              <>
+                과정을 <Em>데이터로 모델링</Em>하고 지원 유형(경기도 무료·국비·자부담)을 속성으로 담아 과정명만으로
+                신청하면 절차가 자동 분기되도록 설계. 탐색→판단→신청 동선과 신청 후 피드백을 함께 설계해{' '}
+                <Lit>확신이 형성되는 지점 직후에 신청을 배치</Lit>
+              </>
+            ),
+          },
+          {
+            label: '성과',
+            value: (
+              <>
+                보여주기용 사이트를 <Em>신청·운영까지 잇는 업무 도구</Em>로 재정의, 신청을 종이가 아니라 상태관리되는
+                데이터로 전환
+              </>
+            ),
+          },
+        ],
+        flow: ['문제 20개', '근본 원인 4개', '데이터 모델링', '동선 설계', '화면·구현'],
+      },
+      {
+        n: '02',
+        title: "취업률 없이 '확신'을 만든 핵심 설계 판단",
+        keys: '사용자 정의 · 신뢰 신호 · 범위 의사결정',
+        rows: [
+          {
+            label: '문제·배경',
+            value: '1순위 니즈는 "진짜 취업되나"였지만, 기관은 취업률을 집계하지 않아 가장 강력한 증거가 없는 상황',
+          },
+          {
+            label: '접근·의사결정',
+            decision: true,
+            value: (
+              <>
+                취업을 "보장"하지 않고 스스로 판단할 <Em>근거를 제공</Em> — 없는 수치 대신 보유 자산(커리큘럼·자격증
+                경로·현장 증거·기관 인증)으로 확신을 구성. 회원제·결제·실시간 채팅 등 흔한 기본값을 사용자 정의에 근거해
+                의심하고 걷어냄
+              </>
+            ),
+          },
+          {
+            label: '성과',
+            value:
+              '집계되지 않는 수치는 성과로 과장하지 않고 "측정 설계"로 분리. 사용자 정의→목표→범위가 한 줄기로 이어지는 기획을 산출물 5종으로 문서화',
           },
         ],
       },

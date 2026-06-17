@@ -2,11 +2,17 @@ import { useCallback } from 'react';
 import { ArrowLeft, Printer } from 'lucide-react';
 import { ResumeSheet } from '../components/resume/ResumeSheet';
 import { PortfolioProject } from '../components/portfolio-pdf/PortfolioProject';
-import { problems, projects, skills, workExperiences } from '../data/portfolio';
+import { flagshipProject, problems, projects, skills, workExperiences } from '../data/portfolio';
 import profile from '../assets/profile.jpg';
 
-const TOTAL_PAGES = 3;
+const TOTAL_PAGES = 4;
 const contactEmail = 'sgsg9447@gmail.com';
+
+// 대표 프로젝트(목공)를 선두로, 나머지 프로젝트를 이어 붙이고 순번을 다시 매긴다.
+const pdfProjects = [flagshipProject, ...projects].map((project, index) => ({
+  ...project,
+  step: String(index + 1).padStart(2, '0'),
+}));
 
 export function PortfolioPdfPage() {
   const handlePrint = useCallback((sheetId?: string) => {
@@ -122,7 +128,7 @@ export function PortfolioPdfPage() {
           </div>
         </ResumeSheet>
 
-        {/* ── Page 2 · Selected Projects (01 · 02) ───────────── */}
+        {/* ── Page 2 · Selected Projects (01 목공 · 02 GenA) ──── */}
         <ResumeSheet id="pf-2" pageNumber={2} totalPages={TOTAL_PAGES} onPrint={handlePrint}>
           <div className="resume-topbar" />
           <div className="pf-main">
@@ -131,10 +137,12 @@ export function PortfolioPdfPage() {
                 <h2 className="pf-section-title">
                   <span className="pf-num">02</span> Selected Projects
                 </h2>
-                <p className="pf-section-lede">편집은 다시 가능하게, 반복은 자동화하고, 흩어진 정보는 한곳에 모았습니다.</p>
+                <p className="pf-section-lede">
+                  흩어진 사이트는 데이터와 동선으로, 편집은 다시 가능하게, 반복은 자동화하고, 흩어진 정보는 한곳에 모았습니다.
+                </p>
               </div>
               <div className="pf-projects">
-                {projects.slice(0, 2).map((project) => (
+                {pdfProjects.slice(0, 2).map((project) => (
                   <PortfolioProject project={project} key={project.name} />
                 ))}
               </div>
@@ -142,18 +150,24 @@ export function PortfolioPdfPage() {
           </div>
         </ResumeSheet>
 
-        {/* ── Page 3 · Project 03 + Experience + Contact ─────── */}
+        {/* ── Page 3 · Projects 03 · 04 ──────────────────────── */}
         <ResumeSheet id="pf-3" pageNumber={3} totalPages={TOTAL_PAGES} onPrint={handlePrint}>
           <div className="resume-topbar" />
           <div className="pf-main">
             <section className="pf-section">
               <div className="pf-projects">
-                {projects.slice(2).map((project) => (
+                {pdfProjects.slice(2).map((project) => (
                   <PortfolioProject project={project} key={project.name} />
                 ))}
               </div>
             </section>
+          </div>
+        </ResumeSheet>
 
+        {/* ── Page 4 · Experience + Contact ──────────────────── */}
+        <ResumeSheet id="pf-4" pageNumber={4} totalPages={TOTAL_PAGES} onPrint={handlePrint}>
+          <div className="resume-topbar" />
+          <div className="pf-main">
             <section className="pf-section">
               <div className="pf-section-head">
                 <h2 className="pf-section-title">
@@ -182,9 +196,9 @@ export function PortfolioPdfPage() {
                 만드는 일을 하고 싶습니다.
               </h2>
               <p className="pf-contact-lines">
-                GenA에서는 AI 슬라이드 편집 흐름을 구현했고,
+                직업훈련기관 리뉴얼에서는 흩어진 사이트를 데이터와 동선으로 다시 설계했고,
                 <br />
-                Orzo에서는 반복되는 콘텐츠 배포를 자동화했으며,
+                GenA에서는 AI 슬라이드 편집 흐름을, Orzo에서는 반복되는 콘텐츠 배포 자동화를 구현했으며,
                 <br />
                 Waitroom에서는 흩어진 웨이팅 확인 경로를 한 화면에 모았습니다.
               </p>
