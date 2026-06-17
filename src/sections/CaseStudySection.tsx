@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { ChevronDown, ImageIcon, X } from 'lucide-react';
 import { SectionIntro } from '../components/common/SectionIntro';
 import asisMain from '../assets/asis-main.png';
@@ -9,6 +9,22 @@ import asisSchedule from '../assets/asis-schedule.png';
 import asisInquiry from '../assets/asis-inquiry.png';
 import asisIaDiagram from '../assets/asis-ia-notion.png';
 import tobeIaDiagram from '../assets/tobe-ia-notion.png';
+import studentFlowDiagram from '../assets/student-user-flow-notion.png';
+import adminFlowDiagram from '../assets/admin-user-flow-notion.png';
+import screenHome from '../assets/screen-home.png';
+import screenCourses from '../assets/screen-courses.png';
+import screenApply from '../assets/screen-apply.png';
+import screenSupport from '../assets/screen-support.png';
+import screenInquiry from '../assets/screen-inquiry.png';
+import screenGallery from '../assets/screen-gallery.png';
+import screenError from '../assets/screen-error.png';
+import screenMHome from '../assets/screen-m-home.png';
+import screenMCourses from '../assets/screen-m-courses.png';
+import screenMApply from '../assets/screen-m-apply.png';
+import screenMSupport from '../assets/screen-m-support.png';
+import screenMInquiry from '../assets/screen-m-inquiry.png';
+import screenMGallery from '../assets/screen-m-gallery.png';
+import screenMError from '../assets/screen-m-error.png';
 import {
   csAdminFlow,
   csAsIsShots,
@@ -35,30 +51,30 @@ const asisImages: Record<string, string> = {
   inquiry: asisInquiry,
 };
 
-type FigureProps = {
-  badge: string;
-  title: string;
-  note: string;
-  ratio?: 'wide' | 'tall' | 'square';
+const screenImages: Record<string, string> = {
+  home: screenHome,
+  courses: screenCourses,
+  apply: screenApply,
+  support: screenSupport,
+  inquiry: screenInquiry,
+  gallery: screenGallery,
+  error: screenError,
 };
 
-// 사진/문서 캡처를 붙일 자리. 첨부 전에는 무엇을 넣을지 안내가 보인다.
-function FigurePlaceholder({ badge, title, note, ratio = 'wide' }: FigureProps) {
-  return (
-    <figure className={`cs-figure cs-figure-${ratio}`}>
-      <span className="cs-figure-badge">
-        <ImageIcon size={14} />
-        {badge}
-      </span>
-      <div className="cs-figure-body">
-        <strong>{title}</strong>
-        <p>{note}</p>
-      </div>
-    </figure>
-  );
-}
+type LightboxItem = { src: string | string[]; label: string; note?: string };
 
-function ChapterHead({ no, label, title }: { no: string; label: string; title: string }) {
+// 모바일 반응형 시안 — 클릭하면 한 번에 스크롤로 보여줄 페이지들
+const mobileScreens = [
+  screenMHome,
+  screenMCourses,
+  screenMApply,
+  screenMSupport,
+  screenMInquiry,
+  screenMGallery,
+  screenMError,
+];
+
+function ChapterHead({ no, label, title }: { no: string; label: string; title: ReactNode }) {
   return (
     <header className="cs-chapter-head">
       <span className="cs-chapter-no">{no}</span>
@@ -71,16 +87,29 @@ function ChapterHead({ no, label, title }: { no: string; label: string; title: s
 }
 
 export function CaseStudySection() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [lightbox, setLightbox] = useState<{ items: LightboxItem[]; index: number } | null>(null);
+  const openLightbox = (items: LightboxItem[], index: number) => setLightbox({ items, index });
+  const closeLightbox = () => setLightbox(null);
   const showPrev = () =>
-    setLightboxIndex((i) => (i === null ? null : (i - 1 + csAsIsShots.length) % csAsIsShots.length));
+    setLightbox((lb) => (lb ? { ...lb, index: (lb.index - 1 + lb.items.length) % lb.items.length } : lb));
   const showNext = () =>
-    setLightboxIndex((i) => (i === null ? null : (i + 1) % csAsIsShots.length));
+    setLightbox((lb) => (lb ? { ...lb, index: (lb.index + 1) % lb.items.length } : lb));
+
+  const asisItems: LightboxItem[] = csAsIsShots.map((s) => ({
+    src: asisImages[s.key],
+    label: s.label,
+    note: s.note,
+  }));
+  const screenItems: LightboxItem[] = csScreens.map((s) => ({
+    src: screenImages[s.key],
+    label: s.name,
+    note: s.note,
+  }));
 
   useEffect(() => {
-    if (lightboxIndex === null) return;
+    if (!lightbox) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setLightboxIndex(null);
+      if (e.key === 'Escape') closeLightbox();
       else if (e.key === 'ArrowLeft') showPrev();
       else if (e.key === 'ArrowRight') showNext();
     };
@@ -90,9 +119,9 @@ export function CaseStudySection() {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', onKey);
     };
-  }, [lightboxIndex]);
+  }, [lightbox]);
 
-  const activeShot = lightboxIndex === null ? null : csAsIsShots[lightboxIndex];
+  const activeShot = lightbox ? lightbox.items[lightbox.index] : null;
 
   return (
     <section className="section case-study" id="case-study">
@@ -163,7 +192,7 @@ export function CaseStudySection() {
                   type="button"
                   className="cs-asis-thumb"
                   key={shot.key}
-                  onClick={() => setLightboxIndex(i)}
+                  onClick={() => openLightbox(asisItems, i)}
                   aria-label={`${shot.label} 화면 크게 보기`}
                 >
                   <img src={asisImages[shot.key]} alt={`기존 사이트 ${shot.label} 화면`} loading="lazy" />
@@ -250,7 +279,9 @@ export function CaseStudySection() {
               </span>
             </div>
             <p className="cs-keyproblem-result">
-              사용자는 <strong>판단·실행에서 이탈</strong>, 운영자는 <strong>반복 수작업</strong>.
+              사용자는 <strong>판단·실행에서 이탈</strong>,{' '}
+              <br className="br-mobile" />
+              운영자는 <strong>반복 수작업</strong>.
             </p>
           </div>
         </div>
@@ -414,46 +445,95 @@ export function CaseStudySection() {
             </div>
           </div>
 
-          <FigurePlaceholder
-            badge="유저플로우 다이어그램"
-            title="전환 흐름 & 운영자 워크플로우"
-            note="예비 수강생 전환 흐름(신뢰 접점 🔵 표기)과 신청 유형별 분기(A·B·C), 운영자 워크플로우 다이어그램 캡처"
-          />
+          <div className="cs-ia-diagrams">
+            <figure className="cs-ia-fig">
+              <span className="cs-ia-label">예비 수강생 전환 흐름</span>
+              <img src={studentFlowDiagram} alt="예비 수강생 전환 흐름 다이어그램" loading="lazy" />
+            </figure>
+            <figure className="cs-ia-fig">
+              <span className="cs-ia-label cs-ia-label-tobe">운영자 워크플로우</span>
+              <img src={adminFlowDiagram} alt="운영자 워크플로우 다이어그램" loading="lazy" />
+            </figure>
+          </div>
         </div>
 
         {/* ── 06 화면설계 ── */}
         <div className="cs-chapter">
-          <ChapterHead no="06" label="SCREEN DESIGN" title="화면을 정의한 사람이 구현 가능성을 알고 정의했습니다" />
-          <p className="cs-prose">
-            모바일 우선 반응형으로, 40~50대 가독성을 위한 큰 글씨·명확한 터치 영역을 기준으로 했습니다. 모든 주요 영역에
-            기본 / 로딩(스켈레톤) / 빈(Empty) / 에러 상태를 정의하고, 에러 상태에서도 전화 CTA를 유지해 전환 경로가 끊기지
-            않게 했습니다.
-          </p>
+          <ChapterHead
+            no="06"
+            label="SCREEN DESIGN"
+            title={
+              <>
+                화면을 정의한 사람이{' '}
+                <br className="br-mobile" />
+                구현 가능성을 알고{' '}
+                <br className="br-mobile" />
+                정의했습니다
+              </>
+            }
+          />
+          <ul className="cs-summary-points cs-prose-points">
+            <li>모바일 우선 반응형 · 40~50대 가독성(큰 글씨·넉넉한 터치 영역)</li>
+            <li>로딩·빈 화면·에러 상태는 모든 화면에 일괄로 넣지 않고 필요한 곳에만</li>
+            <li>대부분 화면은 즉시 떠서, 로딩 화면은 검색·필터처럼 기다림이 생기는 곳에만 적용</li>
+            <li>에러·없는 페이지에서도 홈으로 돌아가는 길을 남겨 경로가 끊기지 않게</li>
+          </ul>
           <div className="cs-screen-grid">
-            {csScreens.map((screen) => (
-              <article className="cs-screen-card" key={screen.id}>
-                <span className="cs-screen-id">{screen.id}</span>
-                <strong>{screen.name}</strong>
-                <p>{screen.note}</p>
-                <div className="cs-screen-shot">
-                  <ImageIcon size={16} />
-                  <span>화면 캡처 영역</span>
-                </div>
-              </article>
+            {csScreens.map((screen, i) => (
+              <figure className="cs-screen-card" key={screen.id}>
+                <button
+                  type="button"
+                  className="cs-screen-thumb"
+                  onClick={() => openLightbox(screenItems, i)}
+                  aria-label={`${screen.name} 화면 크게 보기`}
+                >
+                  <img src={screenImages[screen.key]} alt={`${screen.name} 화면`} loading="lazy" />
+                  <span className="cs-screen-id">{screen.id}</span>
+                </button>
+                <figcaption>
+                  <strong>{screen.name}</strong>
+                  <p>{screen.note}</p>
+                </figcaption>
+              </figure>
             ))}
+            <figure className="cs-screen-card">
+              <button
+                type="button"
+                className="cs-screen-thumb"
+                onClick={() =>
+                  openLightbox(
+                    [{ src: mobileScreens, label: '모바일 반응형', note: '같은 화면들의 모바일 버전 — 스크롤로 전체를 볼 수 있습니다.' }],
+                    0,
+                  )
+                }
+                aria-label="모바일 반응형 화면 크게 보기"
+              >
+                <img src={screenMHome} alt="모바일 반응형 화면" loading="lazy" />
+                <span className="cs-screen-id">MOBILE</span>
+              </button>
+              <figcaption>
+                <strong>모바일</strong>
+                <p>같은 화면들의 모바일 반응형</p>
+              </figcaption>
+            </figure>
           </div>
-          <p className="cs-callout cs-callout-muted">
-            화면 캡처 영역에는 완성된 TO-BE 디자인 시안(또는 화면설계서 캡처)을 화면별로 붙여 주세요. 가장 임팩트가 큰
-            HOME·과정 상세·수강신청(유형 분기) 화면을 우선 권장합니다.
-          </p>
         </div>
 
         {/* ── 07 범위 의사결정 ── */}
         <div className="cs-chapter">
-          <ChapterHead no="07" label="SCOPE" title="무엇을, 왜 만들지 않았는가" />
-          <p className="cs-prose">
-            모든 범위 결정은 사용자·목표 정의에서 도출됐고, 집계되지 않는 수치나 외부 시스템의 결과를 과장하지 않는 선에서
-            그어졌습니다. "없어서 안 넣은 것"이 아니라 <strong>의심하고 걷어낸 것</strong>입니다.
+          <ChapterHead
+            no="07"
+            label="SCOPE"
+            title={
+              <>
+                무엇을, 왜{' '}
+                <br className="br-mobile" />
+                만들지 않았는가
+              </>
+            }
+          />
+          <p className="cs-prose cs-prose-tight">
+            "없어서 안 넣은 것"이 아니라 <strong>의심하고 걷어낸 결정</strong>입니다.
           </p>
           <div className="cs-scope-list">
             {csScope.map((row) => (
@@ -469,36 +549,44 @@ export function CaseStudySection() {
         </div>
       </div>
 
-      {activeShot ? (
+      {activeShot && lightbox ? (
         <div
           className="cs-lightbox"
           role="dialog"
           aria-modal="true"
           aria-label={`${activeShot.label} 화면`}
           onMouseDown={(e) => {
-            if (e.target === e.currentTarget) setLightboxIndex(null);
+            if (e.target === e.currentTarget) closeLightbox();
           }}
         >
           <div className="cs-lightbox-panel">
             <div className="cs-lightbox-top">
               <div>
                 <span className="cs-asis-label">{activeShot.label}</span>
-                <p>{activeShot.note}</p>
+                {activeShot.note ? <p>{activeShot.note}</p> : null}
               </div>
-              <button type="button" onClick={() => setLightboxIndex(null)} aria-label="닫기">
+              <button type="button" onClick={closeLightbox} aria-label="닫기">
                 <X size={18} />
               </button>
             </div>
-            <div className="cs-lightbox-image">
-              <img src={asisImages[activeShot.key]} alt={`기존 사이트 ${activeShot.label} 화면`} />
+            <div className={`cs-lightbox-image${Array.isArray(activeShot.src) ? ' cs-lightbox-stack' : ''}`}>
+              {Array.isArray(activeShot.src) ? (
+                activeShot.src.map((s, idx) => (
+                  <img key={s} src={s} alt={`${activeShot.label} ${idx + 1}`} />
+                ))
+              ) : (
+                <img src={activeShot.src} alt={`${activeShot.label} 화면`} />
+              )}
             </div>
-            <div className="cs-lightbox-nav">
-              <button type="button" onClick={showPrev}>← 이전</button>
-              <span>
-                {(lightboxIndex ?? 0) + 1} / {csAsIsShots.length}
-              </span>
-              <button type="button" onClick={showNext}>다음 →</button>
-            </div>
+            {lightbox.items.length > 1 ? (
+              <div className="cs-lightbox-nav">
+                <button type="button" onClick={showPrev}>← 이전</button>
+                <span>
+                  {lightbox.index + 1} / {lightbox.items.length}
+                </span>
+                <button type="button" onClick={showNext}>다음 →</button>
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}

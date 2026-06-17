@@ -218,21 +218,22 @@ export const csAdminFlow: string[] = [
 ];
 
 // 핵심 화면
-export const csScreens: { id: string; name: string; note: string }[] = [
-  { id: 'HOME', name: '홈', note: '신뢰 신호 + 모집중 과정 + 전화/신청 CTA. 위→아래 "궁금 → 증거 → 결정" 동선.' },
-  { id: 'COURSE', name: '과정 안내 / 상세', note: '이미지가 아닌 데이터 카드(비교 가능) + NCS 회차별 커리큘럼·자격증 경로.' },
-  { id: 'APPLY', name: '수강신청', note: '모집안내 → 가등록/문의 → 접수완료. 유형(A·B·C)별 페이지 내용 분기.' },
-  { id: 'SUPPORT', name: '국비지원', note: '제도 안내를 텍스트·표(지원율 45~85%·대상)로. 하단에서 전화 상담 연결.' },
-  { id: 'INQUIRY', name: '상담문의', note: '게시판이 아닌 목적 전용 Q&A. 상태(답변대기→답변완료)로 처리 투명성.' },
-  { id: 'GALLERY', name: '훈련 사진', note: '라벨 붙은 큰 그리드 + 라이트박스 확대. 기존에 확대 안 되던 문제 해결.' },
+export const csScreens: { id: string; key: string; name: string; note: string }[] = [
+  { id: 'HOME', key: 'home', name: '홈', note: '신뢰 신호 → 모집중 과정 → 신청까지 한 동선' },
+  { id: 'COURSE', key: 'courses', name: '과정 안내', note: '이미지가 아닌 데이터 카드로 과정 비교' },
+  { id: 'APPLY', key: 'apply', name: '수강신청', note: '모집안내 → 작성 → 접수, 절차 자동 안내' },
+  { id: 'SUPPORT', key: 'support', name: '국비지원', note: '제도 안내를 이미지가 아닌 텍스트·표로' },
+  { id: 'INQUIRY', key: 'inquiry', name: '상담문의', note: '게시판 대신 목적 전용 Q&A·답변 상태' },
+  { id: 'GALLERY', key: 'gallery', name: '훈련 사진', note: '라벨 그리드 + 확대 보기' },
+  { id: 'ERROR', key: 'error', name: '에러 페이지', note: '홈으로 돌아가는 길을 남겨 경로 유지' },
 ];
 
 // 범위 의사결정 — 무엇을, 왜 만들지 않았나
 export const csScope: { decision: string; choice: string; reason: string }[] = [
-  { decision: '회원제', choice: '미도입', reason: '주 사용자 40~50대·1회성·디지털 장벽 민감 → 회원은 전환 장벽. 신청자 관리는 관리자 측 상태관리로 해결.' },
-  { decision: 'Type A 온라인 폼', choice: '미구현', reason: '신청서 자필 필수 + 연 1회 1회성 → 디지털화 가치 낮음. 이메일 접수 유지.' },
-  { decision: 'B·C 외부 연동', choice: '2차로 연기', reason: '결정적 단계가 외부 정부 시스템(고용24·큐넷). 웹은 "안내+가등록"까지만, "신청 완료"를 흉내내지 않음.' },
-  { decision: '취업률·잔여석 표시', choice: '미표시', reason: '집계되지 않는 수치는 만들지 않음(신뢰·윤리). 보장이 아니라 판단 근거를 제공.' },
+  { decision: '회원제', choice: '미도입', reason: '1회성 사용자에게 로그인은 전환 장벽' },
+  { decision: '경기도 무료 온라인 폼', choice: '미구현', reason: '자필 필수·연 1회 → 디지털화 가치 낮음' },
+  { decision: '고용24·큐넷 연동', choice: '2차로 연기', reason: '결정적 단계가 외부 정부 시스템' },
+  { decision: '취업률·잔여석 표시', choice: '미표시', reason: '집계 안 되는 수치는 만들지 않음' },
 ];
 
 // 이미지/문서 캡처를 붙일 자리 — value가 비어 있으면 placeholder로 렌더

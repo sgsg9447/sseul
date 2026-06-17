@@ -46,9 +46,7 @@ describe('sseul portfolio', () => {
   it('keeps the hero flow and top navigation aligned to existing sections', () => {
     render(<App />);
 
-    const heroFlow = screen.getByLabelText('Portfolio workflow keywords');
-    expect(within(heroFlow).getAllByText(/Problem|Structure|Build|Improve/)).toHaveLength(4);
-    expect(within(heroFlow).queryByText('MVP')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Portfolio workflow keywords')).not.toBeInTheDocument();
 
     const nav = screen.getByRole('navigation', { name: /main navigation/i });
     expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '#top');

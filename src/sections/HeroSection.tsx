@@ -2,8 +2,6 @@ import { ArrowDown, ArrowRight } from 'lucide-react';
 import logoMark from '../assets/logo-mark.svg';
 import profile from '../assets/profile.jpg';
 
-const keywords = ['Problem', 'Structure', 'Build', 'Improve'];
-
 export function HeroSection() {
   return (
     <section className="hero" id="top">
@@ -55,15 +53,6 @@ export function HeroSection() {
           <strong>Problem → Structure → Build</strong>
         </div>
       </aside>
-
-      <div className="keyword-strip" aria-label="Portfolio workflow keywords">
-        {keywords.map((item, index) => (
-          <span key={item}>
-            {item}
-            {index < keywords.length - 1 ? <i>→</i> : null}
-          </span>
-        ))}
-      </div>
     </section>
   );
 }
