@@ -46,6 +46,18 @@ export function ResumeDetailSheet({ page }: ResumeDetailSheetProps) {
                 </ul>
               </div>
             ))}
+
+            {project.flow ? (
+              <ol className="resume-d-flow" aria-label="운영 흐름">
+                {project.flow.map((step, index) => (
+                  <li className="resume-d-flow-step" key={index}>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            ) : null}
+
+            {project.stack ? <p className="resume-d-stack">Stack · {project.stack}</p> : null}
           </section>
         ))}
       </div>

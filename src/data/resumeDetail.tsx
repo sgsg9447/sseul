@@ -6,7 +6,13 @@ const M = ({ children }: { children: ReactNode }) => <span className="resume-d-m
 const L = ({ children }: { children: ReactNode }) => <span className="resume-d-lit">{children}</span>;
 
 export type DetailBlock = { label: string; items: ReactNode[] };
-export type DetailProject = { title: string; keys?: string; blocks: DetailBlock[] };
+export type DetailProject = {
+  title: string;
+  keys?: string;
+  blocks: DetailBlock[];
+  flow?: ReactNode[];
+  stack?: string;
+};
 export type DetailMeta = { label: string; value: ReactNode };
 export type DetailPage = {
   id: string;
@@ -126,35 +132,41 @@ export const resumeDetailPages: DetailPage[] = [
         ],
       },
       {
-        title: '대량 콘텐츠 자동화 운영 설계',
-        keys: '앱 릴리즈 의존도 절감 · 적시 공급',
+        title: '앱 릴리즈 없이 대량 콘텐츠를 공급하는 구조 설계',
+        keys: '운영 병목 진단 · 공급 구조 전환',
         blocks: [
           {
             label: '배경',
             items: [
+              '같은 콘텐츠를 iOS·Android에 각각 반영해야 해, 콘텐츠 하나를 바꾸는 데도 앱 릴리즈가 필요',
               <>
-                iOS/Android에 동일 콘텐츠를 각각 반영해야 해 리소스 부담이 크고, 시험 시즌 <M>약 10만 건</M>을
-                단기간에 처리 필요
+                시험 시즌에는 <M>약 10만 건</M>을 단기간에 반영해야 해, 기존 방식으로는 공급 속도가 따라가지 못함
               </>,
             ],
           },
           {
-            label: '주요 수행',
+            label: '판단·설계',
             items: [
-              '앱 릴리즈 없이 콘텐츠를 반영할 수 있도록, 웹 렌더링 결과를 이미지로 활용하는 자동화 운영 방식 설계',
-              '대량 처리 시 성능·저장 이슈를 고려해 시험 시즌 중심의 운영·데이터 정책 수립',
+              <>
+                화면을 각각 만드는 대신 <M>웹에서 한 번 만든 결과를 이미지로 공통 사용하는 구조로 전환</M>해, 앱 릴리즈
+                의존을 끊는 것을 목표로 설정
+              </>,
+              '어드민 업로드 → 자동 변환 → 앱 반영까지 사람 개입이 없는 운영 흐름으로 설계',
+              '대량 적재로 생길 성능·용량 문제를 미리 보고, 시즌 중심 보관·삭제 정책을 함께 정의',
             ],
           },
           {
             label: '결과',
             items: [
-              '별도 앱 릴리즈 없이 데이터 변경에 즉시 대응, 출시 주기 단축·리소스 절감',
+              '콘텐츠를 바꿔도 앱 출시가 불필요 → 출시 주기 단축·개발 리소스 절감',
               <>
-                시험 시즌 대량 콘텐츠를 적시 공급해 <M>월 구독 이용자 수 증가</M>에 기여
+                시즌 대량 콘텐츠를 적시 공급해 <M>월 구독 이용자 수 증가</M>에 기여
               </>,
             ],
           },
         ],
+        flow: ['JSON 업로드', '웹 렌더링', '이미지 변환', '저장', 'iOS·Android 공통'],
+        stack: 'html2canvas · Puppeteer',
       },
     ],
   },

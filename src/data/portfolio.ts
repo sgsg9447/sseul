@@ -53,7 +53,7 @@ export const projects: Project[] = [
       '시험 시즌마다 많은 학습 콘텐츠를 빠르게 앱에 반영해야 했지만, iOS와 Android에서 동일 데이터를 각각 구현하는 방식은 개발 리소스와 유지보수 부담이 컸습니다.',
     details: [
       '시험 시즌마다 많은 학습 콘텐츠를 빠르게 앱에 반영해야 했지만, iOS와 Android에서 동일 데이터를 각각 구현하는 방식은 개발 리소스와 유지보수 부담이 컸습니다.',
-      '이를 해결하기 위해 JSON 데이터를 웹에서 렌더링한 뒤 이미지로 변환하고, 앱에서는 변환된 이미지를 공통 리소스로 활용할 수 있는 구조를 만들었습니다.',
+      '화면을 각각 구현하던 방식 대신, 웹에서 한 번 렌더링한 결과를 이미지로 공통 사용하는 구조로 전환해 앱 릴리즈 의존도를 낮췄습니다.',
     ],
     features: ['Frontend', 'Automation', 'Content Pipeline', 'Admin Tool'],
     board: [
@@ -72,12 +72,16 @@ export const projects: Project[] = [
       '매장 웨이팅 현황은 직접 방문해야 알 수 있다고 여겨졌고, 지점별 확인 경로도 사용자에게 한곳에 정리되어 있지 않았습니다.',
     role:
       'Waitroom은 방문 전에도 웨이팅 현황을 확인할 수 있도록 지점별 확인 경로를 모아 사용자가 이동 전 판단할 수 있는 흐름으로 정리했습니다.',
+    details: [
+      '직접 겪은 불편에서 출발해, 문제 정의부터 정보 구조 설계와 배포까지 혼자 끝낸 개인 프로젝트입니다. 전국에 흩어진 까르띠에 부티크의 공식 웨이팅 경로를 한 화면에 모아 방문 전에 지점을 비교할 수 있게 했습니다.',
+      '지점마다 따로 들어가야 했던 공식 진입 링크와 주소를 지역별로 구조화하고,\n사용자가 이동 전에 어디로 갈지 판단할 수 있는 흐름으로 정리했습니다.',
+    ],
     url: 'https://waitroom.space/cartier',
-    features: ['웨이팅 확인', '지점별 경로', '방문 전 판단', '정보 구조화', '생활 서비스'],
+    features: ['웨이팅 확인', '정보 구조화', '생활 서비스'],
     board: [
-      { label: 'Before', value: '직접 방문 후 대기 확인' },
-      { label: 'Flow', value: '지점별 웨이팅 확인 경로 정리' },
-      { label: 'Impact', value: '방문 전 비교와 이동 판단 지원' },
+      { label: 'Before', value: '지점마다 흩어진 경로로 방문 전 비교 불가' },
+      { label: 'Flow', value: '지점 공식 경로 수집 → 지역별 구조화 → 한 화면 비교' },
+      { label: 'Impact', value: '전국 13개 지점을 한 화면에서 비교·이동 판단' },
     ],
     visual: 'meal',
   },
@@ -89,21 +93,29 @@ export const skills: SkillRow[] = [
     title:
       '기획 단계에서 화면 흐름, 상태 변화,\n예외 상황과 구현 가능성을 함께 검토합니다.',
     detail: [],
+    evidenceHref: '#projects',
+    evidenceLabel: '프로젝트에서 보기',
+  },
+  {
+    area: '요구사항 기준화',
+    title: '모호한 요구사항을 화면 상태와 예외까지 정의된 동작 기준으로 정리합니다.',
+    detail: [],
+    evidenceHref: '/deliverables',
+    evidenceLabel: '산출물에서 보기',
   },
   {
     area: '흐름 구조화',
     title: '요구사항을 기능, 데이터, 상태,\n사용자 흐름으로 나누어 정리합니다.',
     detail: [],
+    evidenceHref: '#case-study',
+    evidenceLabel: '케이스 스터디에서 보기',
   },
   {
     area: '반복 작업 자동화',
     title: '반복되는 작업을 발견하고,\n다시 사용할 수 있는 도구와 흐름으로 바꿉니다.',
     detail: [],
-  },
-  {
-    area: '협업 기준 정리',
-    title: '기획·디자인·개발 사이의\n모호한 요구를 동작 기준으로 정리합니다.',
-    detail: [],
+    evidenceHref: '#projects',
+    evidenceLabel: '프로젝트에서 보기',
   },
 ];
 
@@ -111,14 +123,16 @@ export const workExperiences: SkillRow[] = [
   {
     area: 'GENON',
     title: 'AI 슬라이드 편집기 프론트엔드 개발',
+    tags: ['frontend'],
     detail: [
-      'React UI와 iframe Stage를 분리하고,',
-      'DOM 편집 결과가 상태와 미리보기에 이어지는 편집 흐름을 구현했습니다.',
+      '편집 화면과 미리보기 영역의 역할을 나누고,',
+      '사용자의 편집 동작이 상태와 결과 화면까지 이어지는 편집 흐름을 설계했습니다.',
     ],
   },
   {
     area: 'SLING',
     title: '콘텐츠 제작 도구와 이미지 자동화 파이프라인',
+    tags: ['frontend'],
     detail: [
       '문제 제작·편집·배포 흐름을 백오피스로 통합하고,',
       'JSON 데이터를 이미지로 변환하는 자동화 구조를 만들었습니다.',
@@ -127,6 +141,7 @@ export const workExperiences: SkillRow[] = [
   {
     area: 'DAANGN',
     title: '검색 경험 개선과 A/B 테스트 구현',
+    tags: ['frontend'],
     detail: [
       '검색 탭 전환 성능을 개선하고,',
       '연관검색어 UI와 데이터 로깅을 구현했습니다.',
@@ -135,6 +150,7 @@ export const workExperiences: SkillRow[] = [
   {
     area: 'KOSSA',
     title: '교육기획과 운영 프로세스 설계',
+    tags: ['교육기획', '서비스기획'],
     detail: [
       '국방 SW·AI 교육 과정과 해커톤을 기획하고,',
       '기관·참여자·운영진 사이의 요구사항을 조율했습니다.',

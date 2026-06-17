@@ -12,6 +12,33 @@ const hasParagraphText =
     element?.tagName.toLowerCase() === 'p' &&
     element.textContent?.replace(/\s+/g, '') === expected.replace(/\s+/g, '');
 
+const nonEmpty = (el: Element | null | undefined): boolean => !!el && (el.textContent ?? '').trim().length > 0;
+
+/**
+ * Structural check for a project case-study card. Asserts the card has a
+ * non-empty summary, role/detail paragraph, a Before/Flow/Impact board with
+ * filled values, and non-empty tags — without pinning the exact Korean prose,
+ * which is iterated frequently.
+ */
+const expectProjectCardCopy = (
+  cardEl: Element,
+  { boardLabels = ['Before', 'Flow', 'Impact'], minTags = 1 }: { boardLabels?: string[]; minTags?: number } = {},
+) => {
+  expect(nonEmpty(cardEl.querySelector('.project-title + p'))).toBe(true);
+  expect(nonEmpty(cardEl.querySelector('.project-role'))).toBe(true);
+
+  const boardRows = [...cardEl.querySelectorAll('.project-board > div')];
+  expect(boardRows.length).toBe(boardLabels.length);
+  boardLabels.forEach((label, index) => {
+    expect(boardRows[index].querySelector('dt')?.textContent?.trim()).toBe(label);
+    expect(nonEmpty(boardRows[index].querySelector('dd'))).toBe(true);
+  });
+
+  const tags = [...cardEl.querySelectorAll('.tag-row span')];
+  expect(tags.length).toBeGreaterThanOrEqual(minTags);
+  tags.forEach((tag) => expect(nonEmpty(tag)).toBe(true));
+};
+
 describe('sseul portfolio', () => {
   it('introduces the frontend product positioning in the hero', () => {
     render(<App />);
@@ -149,16 +176,16 @@ describe('sseul portfolio', () => {
         '기획 단계에서 화면 흐름, 상태 변화, 예외 상황과 구현 가능성을 함께 검토합니다.',
       ],
       [
+        '요구사항 기준화',
+        '모호한 요구사항을 화면 상태와 예외까지 정의된 동작 기준으로 정리합니다.',
+      ],
+      [
         '흐름 구조화',
         '요구사항을 기능, 데이터, 상태, 사용자 흐름으로 나누어 정리합니다.',
       ],
       [
         '반복 작업 자동화',
         '반복되는 작업을 발견하고, 다시 사용할 수 있는 도구와 흐름으로 바꿉니다.',
-      ],
-      [
-        '협업 기준 정리',
-        '기획·디자인·개발 사이의 모호한 요구를 동작 기준으로 정리합니다.',
       ],
     ].forEach(([title, detail]) => {
       expect(capabilities.getByText(title)).toBeInTheDocument();
@@ -197,7 +224,7 @@ describe('sseul portfolio', () => {
       [
         'GENON',
         'AI 슬라이드 편집기 프론트엔드 개발',
-        'React UI와 iframe Stage를 분리하고, DOM 편집 결과가 상태와 미리보기에 이어지는 편집 흐름을 구현했습니다.',
+        '편집 화면과 미리보기 영역의 역할을 나누고, 사용자의 편집 동작이 상태와 결과 화면까지 이어지는 편집 흐름을 설계했습니다.',
       ],
       [
         'SLING',
@@ -251,45 +278,14 @@ describe('sseul portfolio', () => {
     expect(card.queryByText('EDITING EXPERIENCE')).not.toBeInTheDocument();
     expect(card.getByRole('heading', { level: 3, name: 'GenA' })).toBeInTheDocument();
     expect(card.getByText('AI Slide Editor')).toBeInTheDocument();
-    expect(
-      card.getByText(
-        hasParagraphText(
-          'AI가 생성한 슬라이드를 사용자가 직접 수정하고 저장할 수 있도록, 슬라이드 에디터의 프론트엔드 전반을 구현한 프로젝트',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(
-      card.getByText(
-        hasParagraphText(
-          'AI가 만든 슬라이드를 단순히 확인하는 데서 끝내지 않고, 사용자가 직접 편집 화면으로 이동해 텍스트와 스타일을 수정하고 저장할 수 있는 흐름을 만들었습니다.',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(
-      card.getByText(
-        hasParagraphText(
-          '편집 화면 라우팅, 슬라이드 수정 UI, 편집 상태 반영, 저장 API 연동까지 프론트엔드에서 연결해 생성 결과가 다시 활용 가능한 콘텐츠가 되도록 구현했습니다.',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(card.getByText('생성된 슬라이드를 사용자가 직접 다듬는 편집 흐름 필요')).toBeInTheDocument();
-    expect(card.getByText('슬라이드 생성 → 직접 편집 → 수정 작업 → 저장')).toBeInTheDocument();
-    expect(card.getByText('AI 결과물을 사용자가 완성해가는 콘텐츠로 전환')).toBeInTheDocument();
     expect(card.getByText('서비스 보기 ↗')).toHaveAttribute('href', 'https://gena.kr/');
     expect(card.getByText('GenA editor flow')).toBeInTheDocument();
     expect(card.getByAltText('GenA 서비스 화면')).toBeInTheDocument();
     expect(card.getByAltText('GenA 슬라이드 편집 화면')).toBeInTheDocument();
     expect(card.getByRole('button', { name: 'GenA 서비스 화면 크게 보기' })).toHaveClass('screenshot-frame-stack');
-    expect(firstProject?.querySelector('.project-title + p')?.textContent).toBe(
-      'AI가 생성한 슬라이드를 사용자가 직접 수정하고 저장할 수 있도록,\n슬라이드 에디터의 프론트엔드 전반을 구현한 프로젝트',
-    );
-    expect(firstProject?.querySelectorAll('.project-body p')[3]?.textContent).toBe(
-      '편집 화면 라우팅, 슬라이드 수정 UI, 편집 상태 반영, 저장 API 연동까지\n프론트엔드에서 연결해 생성 결과가 다시 활용 가능한 콘텐츠가 되도록 구현했습니다.',
-    );
 
-    ['AI Slide', 'Editing Experience', 'Editor Flow', 'Save Flow', 'Frontend'].forEach((tag) => {
-      expect(card.getByText(tag)).toBeInTheDocument();
-    });
+    // Case-study copy is iterated frequently — assert structure, not exact prose.
+    expectProjectCardCopy(firstProject as Element);
 
     ['React', 'TypeScript', 'Slide Editor', 'WYSIWYG', 'HTML Editing', 'API Integration'].forEach((tag) => {
       expect(card.queryByText(tag)).not.toBeInTheDocument();
@@ -319,30 +315,9 @@ describe('sseul portfolio', () => {
       card.getByRole('heading', { level: 3, name: 'Orzo' }),
     ).toBeInTheDocument();
     expect(card.getByText('Content Image Automation')).toBeInTheDocument();
-    expect(
-      card.getByText(
-        hasParagraphText(
-          '대량의 학습 콘텐츠를 빠르게 반영하기 위해, JSON 데이터를 웹에서 렌더링하고 이미지로 변환하는 자동화 파이프라인을 구축했습니다.',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(
-      card.getByText(
-        hasParagraphText(
-          '시험 시즌마다 많은 학습 콘텐츠를 빠르게 앱에 반영해야 했지만, iOS와 Android에서 동일 데이터를 각각 구현하는 방식은 개발 리소스와 유지보수 부담이 컸습니다.',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(
-      card.getByText(
-        hasParagraphText(
-          '이를 해결하기 위해 JSON 데이터를 웹에서 렌더링한 뒤 이미지로 변환하고, 앱에서는 변환된 이미지를 공통 리소스로 활용할 수 있는 구조를 만들었습니다.',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(card.getByText('iOS와 Android에서 동일 콘텐츠를 각각 구현해야 하는 구조')).toBeInTheDocument();
-    expect(card.getByText('JSON 업로드 → 웹 렌더링 → PNG 변환 → DB 저장 → 앱 반영')).toBeInTheDocument();
-    expect(card.getByText('앱 릴리즈 없이 콘텐츠 변경에 빠르게 대응')).toBeInTheDocument();
+
+    // Case-study copy is iterated frequently — assert structure, not exact prose.
+    expectProjectCardCopy(secondProject as Element);
     expect(card.queryByText('프로젝트 보기 ↗')).not.toBeInTheDocument();
 
     ['Frontend', 'Automation', 'Content Pipeline', 'Admin Tool'].forEach((tag) => {
@@ -400,14 +375,7 @@ describe('sseul portfolio', () => {
     expect(
       contact.getByText(
         hasParagraphText(
-          '목공 직업훈련기관 리뉴얼에서는 문제 정의부터 데이터 구조·화면 설계·구현까지 한 흐름으로 설계했고, GenA·Orzo·Waitroom에서는 편집 경험을 구현하고, 반복 업무를 자동화하고, 흩어진 정보를 한곳에 모았습니다.',
-        ),
-      ),
-    ).toBeInTheDocument();
-    expect(
-      contact.getByText(
-        hasParagraphText(
-          '프론트엔드 구현 경험을 바탕으로, 사용자 경험과 운영 효율을 함께 고려하는 팀에서 일하고 싶습니다.',
+          '프론트엔드 구현 경험을 바탕으로, 복잡한 요구를 구조로 정리하고 화면으로 만들어 왔습니다.',
         ),
       ),
     ).toBeInTheDocument();
@@ -417,14 +385,15 @@ describe('sseul portfolio', () => {
     expect(contact.getByRole('link', { name: /포트폴리오 PDF/i })).toHaveAttribute('href', '/portfolio-pdf');
     expect(contact.queryByRole('link', { name: /프로젝트 다시 보기/i })).not.toBeInTheDocument();
 
-    ['Frontend Engineer', 'Product-minded Frontend', '서비스기획 / PM / PO', 'B2B SaaS · 백오피스'].forEach(
-      (role) => {
-        expect(contact.getByText(role)).toBeInTheDocument();
+    expect(contact.getByText('ROLE FIT')).toBeInTheDocument();
+    ['서비스기획 / PM / PO', '데이터·화면 설계', '프로덕트 운영·자동화', 'Seoul, Korea'].forEach((role) => {
+      expect(contact.getByText(role)).toBeInTheDocument();
+    });
+    ['EnrollOps', 'Z100', 'AX 기획 / 업무 개선', '주니어 PO', 'Frontend Engineer', 'B2B SaaS · 백오피스'].forEach(
+      (oldText) => {
+        expect(contact.queryByText(oldText)).not.toBeInTheDocument();
       },
     );
-    ['EnrollOps', 'Z100', 'AX 기획 / 업무 개선', '주니어 PO'].forEach((oldText) => {
-      expect(contact.queryByText(oldText)).not.toBeInTheDocument();
-    });
     expect(contact.getByText('sgsg9447@gmail.com')).toHaveAttribute(
       'href',
       'https://mail.google.com/mail/?view=cm&fs=1&to=sgsg9447@gmail.com',

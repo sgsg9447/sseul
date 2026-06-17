@@ -6,7 +6,13 @@ const Em = ({ children }: { children: ReactNode }) => <span className="career-em
 const Lit = ({ children }: { children: ReactNode }) => <span className="career-lit">{children}</span>;
 
 export type CareerRow = { label: string; value: ReactNode; decision?: boolean };
-export type CareerProject = { n: string; title: string; keys: string; rows: CareerRow[] };
+export type CareerProject = {
+  n: string;
+  title: string;
+  keys: string;
+  rows: CareerRow[];
+  flow?: ReactNode[];
+};
 export type CareerCompany = { name: string; meta: string; projects: CareerProject[] };
 
 export const careerSummary =
@@ -132,16 +138,16 @@ export const careerCompanies: CareerCompany[] = [
       },
       {
         n: '02',
-        title: '대량 콘텐츠 자동화 운영 설계',
-        keys: '앱 릴리즈 의존도 절감 · 적시 공급',
+        title: '앱 릴리즈 없이 대량 콘텐츠를 공급하는 구조 설계',
+        keys: '운영 병목 진단 · 공급 구조 전환',
         rows: [
-          { label: '담당 역할', value: '① 운영 부담 분석 ② 자동화 운영 방식 설계 ③ 시즌 운영·데이터 정책 수립' },
+          { label: '담당 역할', value: '① 운영 병목 진단 ② 공급 구조 전환 설계 ③ 시즌 운영·데이터 정책 수립' },
           {
             label: '문제·배경',
             value: (
               <>
-                iOS/Android에 동일 콘텐츠를 각각 반영해야 해 부담이 크고, 시험 시즌 <Em>약 10만 건</Em>을 단기간에
-                처리 필요
+                같은 콘텐츠를 iOS·Android에 각각 반영해야 해 콘텐츠 하나를 바꾸는 데도 앱 릴리즈가 필요했고, 시험 시즌엔{' '}
+                <Em>약 10만 건</Em>을 단기간에 반영해야 해 공급 속도가 한계
               </>
             ),
           },
@@ -150,8 +156,8 @@ export const careerCompanies: CareerCompany[] = [
             decision: true,
             value: (
               <>
-                네이티브 개별 구현 대신 <Em>웹 렌더링 결과를 이미지로 활용하는 방식</Em>을 택해 앱 릴리즈 의존도를
-                낮추고, 대량 처리 성능·저장 이슈를 고려해 시즌 중심 운영·삭제 정책을 함께 설계
+                화면을 각각 만드는 대신 <Em>웹에서 한 번 만든 결과를 이미지로 공통 사용하는 구조로 전환</Em>해 앱 릴리즈
+                의존을 끊는 것을 목표로 잡고, 대량 적재의 성능·용량 문제를 미리 보고 시즌 중심 운영·삭제 정책을 함께 설계
               </>
             ),
           },
@@ -159,12 +165,13 @@ export const careerCompanies: CareerCompany[] = [
             label: '성과',
             value: (
               <>
-                앱 릴리즈 없이 데이터 변경에 즉시 대응(출시 주기 단축·리소스 절감), 적시 공급으로{' '}
+                콘텐츠 변경에 앱 출시가 불필요해져 출시 주기 단축·리소스 절감, 시즌 대량 콘텐츠 적시 공급으로{' '}
                 <Em>월 구독 이용자 수 증가</Em> 기여
               </>
             ),
           },
         ],
+        flow: ['JSON 업로드', '웹 렌더링', '이미지 변환', '저장', 'iOS·Android 공통'],
       },
     ],
   },

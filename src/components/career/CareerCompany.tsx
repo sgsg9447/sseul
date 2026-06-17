@@ -29,6 +29,16 @@ export function CareerCompany({ company }: CareerCompanyProps) {
               <div className="career-row-val">{row.value}</div>
             </div>
           ))}
+
+          {project.flow ? (
+            <ol className="career-flow" aria-label="운영 흐름">
+              {project.flow.map((step, index) => (
+                <li className="career-flow-step" key={index}>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          ) : null}
         </div>
       ))}
     </section>

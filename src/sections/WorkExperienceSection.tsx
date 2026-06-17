@@ -22,6 +22,15 @@ export function WorkExperienceSection() {
               <div className="skill-head">
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <strong>{skill.area}</strong>
+                {skill.tags && skill.tags.length > 0 && (
+                  <div className="skill-tags">
+                    {skill.tags.map((tag) => (
+                      <span className="skill-tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="skill-copy">
                 <h3>{skill.title}</h3>
