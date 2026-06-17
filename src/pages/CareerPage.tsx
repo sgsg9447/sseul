@@ -3,8 +3,10 @@ import { ArrowLeft, Printer } from 'lucide-react';
 import { CareerCompany } from '../components/career/CareerCompany';
 import { careerCompanies, careerKeywords, careerSkills, careerSummary } from '../data/careerHistory';
 
+// 출력(PDF) 페이지 구성 — 1p: 재직 이력 2곳, 2p: 인턴+대표 프로젝트, 3p: 사이드 프로젝트 + 보유 역량
 const firstPrintPageCompanies = careerCompanies.slice(0, 2);
-const secondPrintPageCompanies = careerCompanies.slice(2);
+const secondPrintPageCompanies = careerCompanies.slice(2, 4);
+const thirdPrintPageCompanies = careerCompanies.slice(4);
 
 export function CareerPage() {
   const handlePrint = useCallback(() => window.print(), []);
@@ -47,9 +49,17 @@ export function CareerPage() {
           ))}
         </section>
 
-        <section className="career-print-page career-print-page-second" aria-label="경력기술서 2페이지">
+        <section className="career-print-page career-print-page-cont" aria-label="경력기술서 2페이지">
           <div className="career-print-page-body">
             {secondPrintPageCompanies.map((company) => (
+              <CareerCompany key={company.name} company={company} />
+            ))}
+          </div>
+        </section>
+
+        <section className="career-print-page career-print-page-cont" aria-label="경력기술서 3페이지">
+          <div className="career-print-page-body">
+            {thirdPrintPageCompanies.map((company) => (
               <CareerCompany key={company.name} company={company} />
             ))}
 

@@ -2979,12 +2979,12 @@ img {
     margin-top: 0;
   }
 
-  .career-print-page-second {
+  .career-print-page-cont {
     padding-top: 14mm;
     padding-bottom: 13mm;
   }
 
-  .career-print-page-second .career-company:first-child {
+  .career-print-page-cont .career-company:first-child {
     margin-top: 0;
   }
 
