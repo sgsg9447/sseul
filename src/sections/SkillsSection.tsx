@@ -21,6 +21,12 @@ export function SkillsSection() {
               <span className="icon-wrap">{String(index + 1).padStart(2, '0')}</span>
               <h3>{skill.area}</h3>
               <p>{skill.title}</p>
+              {skill.evidenceHref && (
+                <a className="capability-evidence" href={skill.evidenceHref}>
+                  {skill.evidenceLabel ?? '근거 보기'}
+                  <span aria-hidden="true">→</span>
+                </a>
+              )}
             </article>
           ))}
         </div>

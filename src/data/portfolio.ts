@@ -89,21 +89,29 @@ export const skills: SkillRow[] = [
     title:
       '기획 단계에서 화면 흐름, 상태 변화,\n예외 상황과 구현 가능성을 함께 검토합니다.',
     detail: [],
+    evidenceHref: '#projects',
+    evidenceLabel: '프로젝트에서 보기',
+  },
+  {
+    area: '요구사항 기준화',
+    title: '모호한 요구사항을 화면 상태와 예외까지 정의된 동작 기준으로 정리합니다.',
+    detail: [],
+    evidenceHref: '/deliverables',
+    evidenceLabel: '산출물에서 보기',
   },
   {
     area: '흐름 구조화',
     title: '요구사항을 기능, 데이터, 상태,\n사용자 흐름으로 나누어 정리합니다.',
     detail: [],
+    evidenceHref: '#case-study',
+    evidenceLabel: '케이스 스터디에서 보기',
   },
   {
     area: '반복 작업 자동화',
     title: '반복되는 작업을 발견하고,\n다시 사용할 수 있는 도구와 흐름으로 바꿉니다.',
     detail: [],
-  },
-  {
-    area: '협업 기준 정리',
-    title: '기획·디자인·개발 사이의\n모호한 요구를 동작 기준으로 정리합니다.',
-    detail: [],
+    evidenceHref: '#projects',
+    evidenceLabel: '프로젝트에서 보기',
   },
 ];
 

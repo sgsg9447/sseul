@@ -546,6 +546,81 @@ img {
 
 .capabilities-section {
   background: var(--cream);
+  min-height: auto;
+  align-items: stretch;
+  padding: clamp(56px, 7vh, 88px) 0;
+}
+
+/* Compact, supporting-section treatment: smaller header, tighter cards,
+   no forced full-viewport height so it doesn't out-shout the hero/case study. */
+.capabilities-section.overview-section .section-inner {
+  min-height: auto;
+  justify-content: flex-start;
+}
+
+.capabilities-section .section-intro h2 {
+  max-width: 720px;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.3;
+}
+
+.overview-section .capabilities-section .capability-grid,
+.capabilities-section.overview-section .capability-grid {
+  margin-top: clamp(28px, 3.4vh, 44px);
+  gap: 16px;
+}
+
+.capabilities-section .capability-card {
+  min-height: 0;
+  padding: clamp(20px, 1.8vw, 26px);
+}
+
+.capabilities-section .capability-card .icon-wrap {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 18px;
+}
+
+.capabilities-section .capability-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.capabilities-section .capability-card p {
+  font-size: 14px;
+  line-height: 1.66;
+}
+
+.capability-evidence {
+  margin-top: auto;
+  padding-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  color: var(--fg-muted);
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  transition: color 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.capability-evidence span {
+  transition: transform 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.capability-card:hover .capability-evidence {
+  color: var(--fg);
+}
+
+.capability-evidence:hover {
+  color: var(--accent);
+}
+
+.capability-evidence:hover span {
+  transform: translateX(3px);
 }
 
 .problem.section,
