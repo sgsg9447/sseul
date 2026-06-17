@@ -1655,8 +1655,20 @@ img {
 }
 
 .closing-heading {
-  grid-column: 1 / -1;
+  grid-column: 1;
+  grid-row: 1;
   max-width: 920px;
+}
+
+.closing-copy {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.contact-card {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
 }
 
 .eyebrow.inverse {
@@ -1837,6 +1849,13 @@ img {
   .closing .section-inner {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+
+  .closing-heading,
+  .closing-copy,
+  .contact-card {
+    grid-column: 1;
+    grid-row: auto;
   }
 
   .skills-section .section-intro h2,

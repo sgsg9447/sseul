@@ -21,12 +21,8 @@ export function ClosingSection() {
 
         <div className="closing-copy">
           <p className="closing-lines">
-            <span>목공 직업훈련기관 리뉴얼에서는 문제 정의부터 데이터 구조·화면 설계·구현까지 한 흐름으로 설계했고,</span>
-            <span>GenA·Orzo·Waitroom에서는 편집 경험을 구현하고, 반복 업무를 자동화하고, 흩어진 정보를 한곳에 모았습니다.</span>
-          </p>
-          <p className="closing-lines">
             <span>프론트엔드 구현 경험을 바탕으로,</span>
-            <span>사용자 경험과 운영 효율을 함께 고려하는 팀에서 일하고 싶습니다.</span>
+            <span>복잡한 요구를 구조로 정리하고 화면으로 만들어 왔습니다.</span>
           </p>
           <div className="closing-actions">
             <a className="btn btn-primary" href={contactHref} target="_blank" rel="noreferrer">
@@ -51,10 +47,9 @@ export function ClosingSection() {
         <aside className="contact-card" aria-label="Contact details">
           <div>
             <span>ROLE FIT</span>
-            <strong>Frontend Engineer</strong>
-            <strong>Product-minded Frontend</strong>
             <strong>서비스기획 / PM / PO</strong>
-            <strong>B2B SaaS · 백오피스</strong>
+            <strong>데이터·화면 설계</strong>
+            <strong>프로덕트 운영·자동화</strong>
           </div>
           <div>
             <span>Contact</span>
