@@ -3866,7 +3866,7 @@ img {
 }
 
 /* 근본 원인 */
-/* 14개 증상 — 접이식 표 */
+/* 20개 증상 — 접이식 표 */
 .cs-symptoms {
   margin-top: 28px;
   border: 1px solid var(--border);
@@ -4719,13 +4719,12 @@ img {
   word-break: keep-all;
 }
 
-.dlv-lede {
-  max-width: 720px;
+.dlv-docs-line {
   margin: 18px 0 0;
   color: var(--fg-body);
-  font-size: clamp(15px, 1.3vw, 17px);
-  font-weight: 500;
-  line-height: 1.8;
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.1px;
 }
 
 .dlv-list {
@@ -4783,7 +4782,267 @@ img {
   line-height: 1.8;
 }
 
+/* ── 산출물 A4 문서 ───────────────────────────────────────────── */
+.doc-sheet {
+  position: relative;
+  background: var(--bg-muted);
+  padding: clamp(14px, 3vw, 36px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+/* 미리보기(접힘): 앞부분만 보여주고 클릭하면 모달로 전체 표시 */
+.doc-sheet-preview {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.doc-sheet-preview:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.doc-sheet-preview:hover {
+  border-color: var(--border-strong);
+}
+
+.doc-sheet.is-collapsed .doc-preview-clip {
+  max-height: 520px;
+  overflow: hidden;
+}
+
+.doc-sheet.is-collapsed::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 230px;
+  background: linear-gradient(to bottom, rgba(236, 234, 227, 0) 0%, var(--bg-muted) 74%);
+  border-radius: 0 0 14px 14px;
+  pointer-events: none;
+}
+
+/* '전체 보기' 단서 — 페이드 위 중앙 하단 */
+.doc-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--cream);
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.doc-toggle-expand {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 3vw, 30px);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.doc-sheet-preview:hover .doc-toggle-expand,
+.doc-sheet-preview:focus-visible .doc-toggle-expand {
+  background: var(--fg);
+  color: var(--cream);
+}
+
+/* 문서 모달 */
+.doc-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 3vw, 40px);
+  background: rgba(32, 21, 21, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.doc-modal-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(940px, 100%);
+  max-height: 92vh;
+  background: var(--bg-muted);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.doc-modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px 13px 20px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+}
+
+.doc-modal-title {
+  font-family: var(--font-korean-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.doc-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.doc-modal-close:hover {
+  background: var(--fg);
+  color: var(--cream);
+}
+
+.doc-modal-scroll {
+  overflow-y: auto;
+  padding: clamp(16px, 3vw, 32px);
+  -webkit-overflow-scrolling: touch;
+}
+
+.doc-modal-scroll .doc-page {
+  margin: 0 auto;
+}
+
+.doc-page {
+  max-width: 794px; /* A4 폭(@96dpi) */
+  margin: 0 auto;
+  padding: clamp(26px, 6%, 64px);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  box-shadow: 0 10px 34px rgba(32, 21, 21, 0.1);
+  color: var(--fg-body);
+  font-size: 13.5px;
+  line-height: 1.78;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.doc-page > :first-child { margin-top: 0; }
+.doc-page > :last-child { margin-bottom: 0; }
+
+.doc-page h1 {
+  margin: 0 0 22px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-strong);
+  font-family: var(--font-korean-heading);
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.doc-page h2 {
+  margin: 40px 0 16px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-korean-heading);
+  font-size: clamp(16px, 1.8vw, 19px);
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.doc-page h3 {
+  margin: 26px 0 10px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.doc-page p { margin: 0 0 14px; }
+
+.doc-page strong { font-weight: 700; color: var(--fg); }
+
+.doc-page ul,
+.doc-page ol {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+
+.doc-page li { margin: 4px 0; }
+
+.doc-page code {
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  font-family: 'SFMono-Regular', ui-monospace, Menlo, monospace;
+  font-size: 0.86em;
+  letter-spacing: 0.3px;
+}
+
+.doc-page hr {
+  margin: 28px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.doc-page blockquote {
+  margin: 18px 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background: var(--bg-muted);
+  color: var(--fg-body);
+}
+.doc-page blockquote p:last-child { margin-bottom: 0; }
+
+.doc-table-wrap {
+  margin: 0 0 18px;
+  overflow-x: auto;
+}
+
+.doc-page table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.doc-page th,
+.doc-page td {
+  padding: 8px 11px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-page th {
+  background: var(--bg-muted);
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+.doc-img {
+  width: 100%;
+  max-width: 560px;
+  margin: 14px auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
 @media (max-width: 680px) {
   .dlv-item-head { gap: 12px; }
   .dlv-no { width: 40px; height: 40px; font-size: 14px; }
+  .doc-page { font-size: 13px; }
+  .doc-page th { white-space: normal; }
 }

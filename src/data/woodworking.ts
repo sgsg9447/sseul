@@ -89,13 +89,13 @@ export const csAsIsShots: { key: string; label: string; note: string }[] = [
   { key: 'inquiry', label: '상담문의 게시판', note: '게시판으로 받아 응답 시점·피드백이 없음' },
 ];
 
-// 14개 증상 (직접 사용하며 기록한 이탈 지점) → 4개 근본 원인으로 수렴
+// 20개 증상 (직접 사용하며 기록한 이탈 지점) → 4개 근본 원인으로 수렴
 export const csSymptoms: { no: number; area: string; problem: string; who: string; cause: string }[] = [
   { no: 1, area: '메인(PC)', problem: '큰 이미지 배너만 있고 다음에 무엇을 눌러야 할지 알 수 없음(행동 위계 부재)', who: '유저', cause: 'B' },
   { no: 2, area: '메인(모바일)', problem: 'CTA는 비교적 명확하나 실시간문의 위젯이 화면을 가림', who: '유저', cause: 'B' },
-  { no: 3, area: '학원소개', problem: '연혁·소개가 이미지로만 구성되어 스캔 불가', who: '유저', cause: 'A' },
-  { no: 4, area: '국비지원', problem: '제도 안내가 이미지여서 읽기·이해가 어려움', who: '유저', cause: 'A' },
-  { no: 5, area: '운영중인 과정', problem: '이미지로 제공되어 어떤 과정이 있는지·비교가 어려움', who: '유저', cause: 'A' },
+  { no: 3, area: '학원소개', problem: '연혁·소개가 이미지로만 — 유저는 스캔 불가, 운영자는 수정 시 재제작', who: '둘 다', cause: 'A' },
+  { no: 4, area: '국비지원', problem: '제도 안내가 이미지 — 유저는 읽기·이해, 운영자는 수정이 어려움', who: '둘 다', cause: 'A' },
+  { no: 5, area: '운영중인 과정', problem: '이미지로 제공 — 유저는 과정 비교가, 운영자는 추가·수정이 어려움', who: '둘 다', cause: 'A' },
   { no: 6, area: '과정 일정표', problem: '일정표가 이미지여서 수정 시 재제작·재업로드, 유저도 읽기 힘듦', who: '둘 다', cause: 'A' },
   { no: 7, area: '개강일정', problem: '모집 가능 여부 불명확, 클릭하면 게시글로 이동해 이메일 접수', who: '유저', cause: 'A·C' },
   { no: 8, area: '훈련사진', problem: '썸네일이 작고 상세에서도 확대 안 됨, 콘텐츠 가치 낮음', who: '유저', cause: 'A·C' },
@@ -105,33 +105,39 @@ export const csSymptoms: { no: number; area: string; problem: string; who: strin
   { no: 12, area: '메인', problem: '시각적 완성도·위계가 낮아 신뢰 기관인지 의심하게 만듦', who: '유저', cause: 'D' },
   { no: 13, area: '메인', problem: '배너·사진·영상이 전부, 과정 실질 정보가 메인에 없음', who: '유저', cause: 'D·A' },
   { no: 14, area: '학원소개', problem: '경영원칙·미션·비전이 큰 영역 차지, 핵심 정체성이 안 드러남', who: '유저', cause: 'D' },
+  { no: 15, area: '개강일정(운영)', problem: '게시글에 표 삽입이 안 돼 매월 일정을 이미지로 다시 만들어 수정글로 올림', who: '운영자', cause: 'A·C' },
+  { no: 16, area: '메인·과정(운영)', problem: '과정·모집마다 배너 이미지를 매번 직접 제작해야 함', who: '운영자', cause: 'A·D' },
+  { no: 17, area: '전체(운영)', problem: '과정별 클릭·관심 데이터가 없어 무엇이 효과 있는지 측정 불가', who: '운영자', cause: 'A·C' },
+  { no: 18, area: '공지사항', problem: '공지 탭이 없어 개강일정 게시판에 공지를 섞음 → 유저가 공지를 놓침', who: '둘 다', cause: 'C' },
+  { no: 19, area: '개강일정', problem: "유저에게 '작성하기' 버튼이 노출돼 클릭하면 작성이 안 되고 얼럿만 뜸", who: '유저', cause: 'B·C' },
+  { no: 20, area: '과정 상세', problem: '커리큘럼이 교육소개 페이지에 따로 있어 과정에서 바로 못 보고 찾아가야 함', who: '유저', cause: 'B·D' },
 ];
 
-// 4개 근본 원인 (14개 증상 → 4개 원인)
+// 4개 근본 원인 (20개 증상 → 4개 원인)
 export const csRootCauses: { code: string; title: string; body: string; symptoms: string }[] = [
   {
     code: 'A',
     title: '콘텐츠가 데이터가 아님',
     body: '과정·일정·소개·비용이 이미지/게시글로만 존재해 비교·수정·상태관리·검색이 불가능.',
-    symptoms: '증상 3·4·5·6·7·8·11·13',
+    symptoms: '증상 3·4·5·6·7·8·11·13·15·16·17',
   },
   {
     code: 'B',
     title: '행동·전환 흐름 미설계',
     body: '탐색→판단→신청 동선·CTA 위계·신청 후 피드백이 모두 없음.',
-    symptoms: '증상 1·2·9·10',
+    symptoms: '증상 1·2·9·10·19·20',
   },
   {
     code: 'C',
     title: '게시판 전용',
-    body: '신청·문의·일정에 목적이 다른 게시판을 억지로 사용.',
-    symptoms: '증상 7·8·9',
+    body: '신청·문의·일정·공지에 목적이 다른 게시판을 억지로 사용, 계측도 안 됨.',
+    symptoms: '증상 7·8·9·15·17·18·19',
   },
   {
     code: 'D',
     title: '정보 우선순위·시각 위계 실패',
     body: '핵심(과정·정체성·신뢰)은 작고 부차적 정보가 크게 노출 → 첫인상 신뢰 실패.',
-    symptoms: '증상 12·13·14',
+    symptoms: '증상 12·13·14·20',
   },
 ];
 

@@ -177,7 +177,7 @@ export function CaseStudySection() {
         <div className="cs-chapter">
           <ChapterHead no="01" label="PROBLEM" title="정보는 있지만, 제 역할을 못 하던 사이트였습니다" />
           <p className="cs-prose cs-prose-lead">
-            메인→과정→국비지원→일정→신청까지 직접 사용하며 <strong>이탈 지점 14개</strong>를 기록,{' '}
+            메인→과정→국비지원→일정→신청까지 직접 사용하며 <strong>이탈 지점 20개</strong>를 기록,{' '}
             <strong>4개 근본 원인</strong>으로 수렴했습니다.
           </p>
 
@@ -204,7 +204,7 @@ export function CaseStudySection() {
 
           <details className="cs-symptoms">
             <summary>
-              <span>직접 사용하며 기록한 이탈 지점 14개</span>
+              <span>직접 사용하며 기록한 이탈 지점 20개</span>
               <span className="cs-symptoms-toggle">
                 전체 보기
                 <ChevronDown size={16} />
@@ -244,7 +244,7 @@ export function CaseStudySection() {
             </div>
           </details>
 
-          <p className="cs-cause-intro">14개 증상은 4개의 근본 원인으로 수렴합니다.</p>
+          <p className="cs-cause-intro">20개 증상은 4개의 근본 원인으로 수렴합니다.</p>
           <div className="cs-cause-grid">
             {csRootCauses.map((cause) => (
               <article className="cs-cause-card" key={cause.code}>
