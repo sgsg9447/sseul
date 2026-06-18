@@ -16,9 +16,13 @@ export function Header() {
   const handleContactClick = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
+    const contactSection = document.getElementById('contact');
+    const headerHeight = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 0;
+    if (!contactSection) return;
+
     window.history.pushState(null, '', '#contact');
     window.scrollTo({
-      top: document.documentElement.scrollHeight - window.innerHeight,
+      top: window.scrollY + contactSection.getBoundingClientRect().top - headerHeight,
       behavior: 'smooth',
     });
     setActiveSection('contact');

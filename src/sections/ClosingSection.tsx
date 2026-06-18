@@ -24,7 +24,7 @@ export function ClosingSection() {
         <div className="closing-copy">
           <p className="closing-lines">
             <span>프론트엔드 구현 경험을 바탕으로,</span>
-            <span>복잡한 요구를 구조로 정리하고 화면으로 만들어 왔습니다.</span>
+            <span>복잡한 요구를 기능·데이터·화면 흐름으로 구조화해 왔습니다.</span>
           </p>
           <div className="closing-actions">
             <a className="btn btn-primary" href={contactHref} target="_blank" rel="noreferrer">
@@ -49,7 +49,7 @@ export function ClosingSection() {
         <aside className="contact-card" aria-label="Contact details">
           <div>
             <span>ROLE FIT</span>
-            <strong>서비스기획 / PM / PO</strong>
+            <strong>서비스기획 / 프로덕트 기획</strong>
             <strong>데이터·화면 설계</strong>
             <strong>프로덕트 운영·자동화</strong>
           </div>

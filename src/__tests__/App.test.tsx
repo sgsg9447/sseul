@@ -17,13 +17,13 @@ const nonEmpty = (el: Element | null | undefined): boolean => !!el && (el.textCo
 
 /**
  * Structural check for a project case-study card. Asserts the card has a
- * non-empty summary, role/detail paragraph, a Before/Flow/Impact board with
+ * non-empty summary, role/detail paragraph, a Before/Decision/Impact board with
  * filled values, and non-empty tags — without pinning the exact Korean prose,
  * which is iterated frequently.
  */
 const expectProjectCardCopy = (
   cardEl: Element,
-  { boardLabels = ['Before', 'Flow', 'Impact'], minTags = 1 }: { boardLabels?: string[]; minTags?: number } = {},
+  { boardLabels = ['Before', 'Decision', 'Impact'], minTags = 1 }: { boardLabels?: string[]; minTags?: number } = {},
 ) => {
   expect(nonEmpty(cardEl.querySelector('.project-title + p'))).toBe(true);
   expect(nonEmpty(cardEl.querySelector('.project-role'))).toBe(true);
@@ -41,10 +41,10 @@ const expectProjectCardCopy = (
 };
 
 describe('sseul portfolio', () => {
-  it('introduces the frontend product positioning in the hero', () => {
+  it('introduces the service planning positioning in the hero', () => {
     render(<App />);
 
-    expect(screen.getByText('SSEUL · FRONTEND & PRODUCT PORTFOLIO')).toBeInTheDocument();
+    expect(screen.getByText('SSEUL · SERVICE PLANNING PORTFOLIO')).toBeInTheDocument();
     expect(
       screen.getByRole('heading', {
         level: 1,
@@ -54,7 +54,7 @@ describe('sseul portfolio', () => {
     expect(
       screen.getByText(
         hasParagraphText(
-          '복잡한 요구를 구조로 정리하고, 사용자 경험과 운영 효율을 함께 고려해 실제 동작하는 화면으로 만듭니다.',
+          '프론트엔드 구현 경험을 바탕으로 복잡한 요구를 기능·데이터·화면 흐름으로 구조화하고, 사용자 경험과 운영 효율을 함께 고려한 실행 가능한 기획으로 연결합니다.',
         ),
       ),
     ).toBeInTheDocument();
@@ -67,7 +67,7 @@ describe('sseul portfolio', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /대표 프로젝트 보기/i })).toHaveAttribute('href', '#case-study');
     expect(screen.getByRole('link', { name: /경력 요약 보기/i })).toHaveAttribute('href', '#experience');
-    expect(screen.getByText('서비스기획자 | PM | PO')).toBeInTheDocument();
+    expect(screen.getByText('구현 가능성을 아는 서비스기획자')).toBeInTheDocument();
     expect(screen.getByText('Problem → Structure → Build')).toBeInTheDocument();
   });
 
@@ -358,7 +358,7 @@ describe('sseul portfolio', () => {
     expect(screen.getByText('Waitroom live screen')).toBeInTheDocument();
   });
 
-  it('closes with the current frontend product positioning in contact', () => {
+  it('closes with the current service planning positioning in contact', () => {
     const { container } = render(<App />);
     const contactSection = container.querySelector('#contact');
     expect(contactSection).toBeInTheDocument();
@@ -374,7 +374,7 @@ describe('sseul portfolio', () => {
     expect(
       contact.getByText(
         hasParagraphText(
-          '프론트엔드 구현 경험을 바탕으로, 복잡한 요구를 구조로 정리하고 화면으로 만들어 왔습니다.',
+          '프론트엔드 구현 경험을 바탕으로, 복잡한 요구를 기능·데이터·화면 흐름으로 구조화해 왔습니다.',
         ),
       ),
     ).toBeInTheDocument();
@@ -385,10 +385,10 @@ describe('sseul portfolio', () => {
     expect(contact.queryByRole('link', { name: /프로젝트 다시 보기/i })).not.toBeInTheDocument();
 
     expect(contact.getByText('ROLE FIT')).toBeInTheDocument();
-    ['서비스기획 / PM / PO', '데이터·화면 설계', '프로덕트 운영·자동화', 'Seoul, Korea'].forEach((role) => {
+    ['서비스기획 / 프로덕트 기획', '데이터·화면 설계', '프로덕트 운영·자동화', 'Seoul, Korea'].forEach((role) => {
       expect(contact.getByText(role)).toBeInTheDocument();
     });
-    ['EnrollOps', 'Z100', 'AX 기획 / 업무 개선', '주니어 PO', 'Frontend Engineer', 'B2B SaaS · 백오피스'].forEach(
+    ['EnrollOps', 'Z100', 'AX 기획 / 업무 개선', '서비스기획 / PM / PO', '주니어 PO', 'Frontend Engineer', 'B2B SaaS · 백오피스'].forEach(
       (oldText) => {
         expect(contact.queryByText(oldText)).not.toBeInTheDocument();
       },
@@ -400,11 +400,11 @@ describe('sseul portfolio', () => {
     expect(contact.getByText('Seoul, Korea')).toBeInTheDocument();
   });
 
-  it('summarizes each project as before flow and impact', () => {
+  it('summarizes each project as before decision and impact', () => {
     render(<App />);
 
     expect(screen.getAllByText('Before').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Flow').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Decision').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Impact').length).toBeGreaterThan(0);
   });
 
