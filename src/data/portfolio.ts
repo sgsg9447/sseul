@@ -1,22 +1,27 @@
 import type { Problem, Project, SkillRow } from '../types/portfolio';
+import {
+  csDeliverables,
+  csIntro,
+  csPrinciples,
+  csRootCauses,
+  csScreens,
+  csSummary,
+  csUserFlow,
+} from './woodworking';
 
-export const problems: Problem[] = [
-  {
-    project: 'AI SLIDE EDITOR',
-    title: '편집 가능한 AI 슬라이드',
-    body: 'AI가 생성한 슬라이드를 사용자가 직접 수정할 수 있도록, 편집 대상과 화면 상태를 분리한 안정적인 편집 흐름이 필요했습니다.',
-  },
-  {
-    project: 'CONTENT IMAGE PIPELINE',
-    title: '반복되는 콘텐츠 배포 병목',
-    body: '시험 시즌마다 대량의 학습 콘텐츠를 빠르게 반영해야 했지만, 앱 릴리즈와 중복 구현 구조가 운영 속도를 늦추고 있었습니다.',
-  },
-  {
-    project: 'WAITROOM',
-    title: '흩어진 웨이팅 확인 경로',
-    body: '매장별 웨이팅 현황은 각각 따로 확인해야 했고, 사용자가 방문 전 지점을 비교하기 어려웠습니다.',
-  },
-];
+const summaryPoints = (points: string[]) => points.join(' · ');
+const [problemSummary, , resultSummary] = csSummary;
+const rootCauseSummary = csRootCauses.map((cause) => `${cause.code}. ${cause.title}`).join(' · ');
+const principleSummary = csPrinciples.map((principle) => principle.title).join(' · ');
+const userFlowSummary = csUserFlow
+  .map((flow) => flow.step.replace(/\s+\(.+\)$/, ''))
+  .join(' → ');
+
+export const mainProjectSummaries: Problem[] = csSummary.map((item) => ({
+  project: `MAIN PROJECT · ${item.tag}`,
+  title: item.title,
+  body: summaryPoints(item.points),
+}));
 
 // 대표(메인) 프로젝트 — 목공 직업훈련기관 리뉴얼. 홈에서는 케이스 스터디 섹션으로
 // 다루므로 'OTHER PROJECTS' 목록(projects)에는 넣지 않고, 포트폴리오 PDF에서만 선두로 사용한다.
@@ -25,21 +30,19 @@ export const flagshipProject: Project = {
   name: '목공 직업훈련기관',
   label: 'MAIN PROJECT',
   title: '국비지원 직업훈련기관 웹사이트 리뉴얼',
-  summary:
-    '이미지·게시판으로 흩어진 직업훈련기관 사이트를, 콘텐츠는 데이터로·화면은 사용자 동선으로 다시 설계한 기획·설계·디자인·개발 단독 프로젝트',
-  role:
-    '실제 운영 중인 사이트와 운영자를 대상으로, 문제 정의부터 정보구조·유저플로우·화면설계까지 산출물로 정리하고 구현으로 이었습니다.',
+  summary: csIntro.titleLines.join(' '),
+  role: csIntro.body,
   details: [
-    '메인→과정→국비지원→일정→신청까지 직접 사용하며 이탈 지점 20개를 기록하고 4개 근본 원인으로 수렴했습니다. 콘텐츠가 데이터가 아닌 이미지·게시글이고, 탐색→판단→신청 동선과 신청 후 피드백이 설계되지 않은 것이 핵심 문제였습니다.',
-    '과정을 데이터로 모델링하고 지원 유형(경기도 무료·국비·자부담)을 속성으로 담아, 수강생은 과정명만으로 신청하면 절차가 자동으로 갈라지게 했습니다. 취업률이 집계되지 않는 상황에서, 없는 수치 대신 보유 자산(커리큘럼·자격증 경로·현장 증거)으로 확신을 구성하는 것을 핵심 설계 판단으로 삼았습니다.',
+    `${summaryPoints(problemSummary.points)}에서 출발해 ${csRootCauses.length}개 근본 원인으로 정리했습니다.`,
+    `${principleSummary} 원칙으로 과정을 데이터화하고, ${userFlowSummary}까지 끊기지 않는 전환 흐름으로 재설계했습니다.`,
   ],
   url: '/deliverables',
   linkLabel: '산출물 보기 ↗',
-  features: ['문제 정의', '정보구조 설계', '유저플로우', '화면설계', '단독 진행'],
+  features: [...csDeliverables.map((deliverable) => deliverable.title), '단독 진행'],
   board: [
-    { label: 'Before', value: '콘텐츠가 이미지·게시판, 신청 동선·정보 위계가 미설계' },
-    { label: 'Flow', value: '증상 20개 → 근본 원인 4개 → 데이터 모델링 + 동선 재설계' },
-    { label: 'Impact', value: '보여주기용 사이트를 신청·운영까지 잇는 업무 도구로 재정의' },
+    { label: 'Before', value: summaryPoints(problemSummary.points) },
+    { label: 'Flow', value: `${rootCauseSummary} → ${principleSummary}` },
+    { label: 'Impact', value: `${summaryPoints(resultSummary.points)} · 핵심 화면 ${csScreens.length}종 설계` },
   ],
   visual: 'spec',
 };
@@ -81,7 +84,7 @@ export const projects: Project[] = [
       '시험 시즌마다 많은 학습 콘텐츠를 빠르게 앱에 반영해야 했지만, iOS와 Android에서 동일 데이터를 각각 구현하는 방식은 개발 리소스와 유지보수 부담이 컸습니다.',
       '화면을 각각 구현하던 방식 대신, 웹에서 한 번 렌더링한 결과를 이미지로 공통 사용하는 구조로 전환해 앱 릴리즈 의존도를 낮췄습니다.',
     ],
-    features: ['Frontend', 'Automation', 'Content Pipeline', 'Admin Tool'],
+    features: ['프론트엔드 구현', '자동화 파이프라인', '콘텐츠 배포', '백오피스 도구'],
     board: [
       { label: 'Before', value: 'iOS와 Android에서 동일 콘텐츠를 각각 구현해야 하는 구조' },
       { label: 'Flow', value: 'JSON 업로드 → 웹 렌더링 → PNG 변환 → DB 저장 → 앱 반영' },

@@ -2,11 +2,13 @@ import { useCallback } from 'react';
 import { ArrowLeft, Printer } from 'lucide-react';
 import { ResumeSheet } from '../components/resume/ResumeSheet';
 import { PortfolioProject } from '../components/portfolio-pdf/PortfolioProject';
-import { flagshipProject, problems, projects, skills, workExperiences } from '../data/portfolio';
+import { flagshipProject, mainProjectSummaries, projects, skills, workExperiences } from '../data/portfolio';
 import profile from '../assets/profile.jpg';
 
 const TOTAL_PAGES = 4;
 const contactEmail = 'sgsg9447@gmail.com';
+const portfolioSite = 'sseul.me';
+const portfolioSiteHref = 'https://sseul.me/';
 
 // 대표 프로젝트(목공)를 선두로, 나머지 프로젝트를 이어 붙이고 순번을 다시 매긴다.
 const pdfProjects = [flagshipProject, ...projects].map((project, index) => ({
@@ -33,7 +35,7 @@ export function PortfolioPdfPage() {
   }, []);
 
   return (
-    <div className="resume-page">
+    <div className="resume-page portfolio-pdf-page">
       <header className="resume-toolbar">
         <a className="resume-back" href="/">
           <ArrowLeft size={16} />
@@ -52,10 +54,15 @@ export function PortfolioPdfPage() {
           <div className="resume-topbar" />
           <div className="pf-main">
             <div className="pf-cover">
-              <p className="pf-eyebrow">
-                <span />
-                SSEUL · FRONTEND &amp; PRODUCT PORTFOLIO
-              </p>
+              <div className="pf-cover-meta">
+                <p className="pf-eyebrow">
+                  <span />
+                  SSEUL · FRONTEND &amp; PRODUCT PORTFOLIO
+                </p>
+                <a className="pf-site-link" href={portfolioSiteHref}>
+                  {portfolioSite}
+                </a>
+              </div>
               <h1 className="pf-cover-title">
                 그냥 지나칠 수 있는 불편에서
                 <br />
@@ -76,7 +83,7 @@ export function PortfolioPdfPage() {
                   </div>
                   <div>
                     <dt>Role</dt>
-                    <dd>서비스기획 | PM | PO</dd>
+                    <dd>서비스기획자 | PM | PO</dd>
                   </div>
                   <div>
                     <dt>Focus</dt>
@@ -86,6 +93,12 @@ export function PortfolioPdfPage() {
                     <dt>Email</dt>
                     <dd>{contactEmail}</dd>
                   </div>
+                  <div>
+                    <dt>Website</dt>
+                    <dd>
+                      <a href={portfolioSiteHref}>{portfolioSite}</a>
+                    </dd>
+                  </div>
                 </dl>
               </div>
             </div>
@@ -93,12 +106,12 @@ export function PortfolioPdfPage() {
             <section className="pf-section">
               <div className="pf-section-head">
                 <h2 className="pf-section-title">
-                  <span className="pf-num">01</span> Starting Points
+                  <span className="pf-num">01</span> Main Project
                 </h2>
-                <p className="pf-section-lede">편집되지 않고, 반복되고, 흩어진 문제에서 시작했습니다.</p>
+                <p className="pf-section-lede">{flagshipProject.role}</p>
               </div>
               <div className="pf-problems">
-                {problems.map((problem) => (
+                {mainProjectSummaries.map((problem) => (
                   <div className="pf-problem" key={problem.title}>
                     <span className="pf-problem-tag">{problem.project}</span>
                     <h3>{problem.title}</h3>
@@ -196,16 +209,9 @@ export function PortfolioPdfPage() {
                 만드는 일을 하고 싶습니다.
               </h2>
               <p className="pf-contact-lines">
-                직업훈련기관 리뉴얼에서는 흩어진 사이트를 데이터와 동선으로 다시 설계했고,
-                <br />
-                GenA에서는 AI 슬라이드 편집 흐름을, Orzo에서는 반복되는 콘텐츠 배포 자동화를 구현했으며,
-                <br />
-                Waitroom에서는 흩어진 웨이팅 확인 경로를 한 화면에 모았습니다.
-              </p>
-              <p className="pf-contact-lines">
                 프론트엔드 구현 경험을 바탕으로,
                 <br />
-                사용자 경험과 운영 효율을 함께 고려하는 팀에서 일하고 싶습니다.
+                복잡한 요구를 구조로 정리하고 화면으로 만들어 왔습니다.
               </p>
               <p className="pf-contact-email">
                 Email <a href={`mailto:${contactEmail}`}>{contactEmail}</a>

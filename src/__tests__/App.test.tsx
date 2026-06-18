@@ -4,6 +4,7 @@ import App from '../App';
 
 afterEach(() => {
   cleanup();
+  window.history.pushState(null, '', '/');
 });
 
 const hasParagraphText =
@@ -320,19 +321,17 @@ describe('sseul portfolio', () => {
     expectProjectCardCopy(secondProject as Element);
     expect(card.queryByText('프로젝트 보기 ↗')).not.toBeInTheDocument();
 
-    ['Frontend', 'Automation', 'Content Pipeline', 'Admin Tool'].forEach((tag) => {
+    ['프론트엔드 구현', '자동화 파이프라인', '콘텐츠 배포', '백오피스 도구'].forEach((tag) => {
       expect(card.getByText(tag)).toBeInTheDocument();
     });
     ['html2canvas', 'Puppeteer'].forEach((tag) => {
       expect(card.queryByText(tag)).not.toBeInTheDocument();
     });
 
-    ['AUTOMATION FLOW', 'JSON Upload', 'Hidden Web Render', 'PNG Export', 'DB Save', 'iOS / Android App'].forEach(
-      (label) => {
-        expect(card.getByText(label)).toBeInTheDocument();
-      },
-    );
-    expect(card.getByText('No app release needed')).toBeInTheDocument();
+    ['자동화 흐름', 'JSON 업로드', '웹 렌더링', 'PNG 변환', 'DB 저장', '앱 반영'].forEach((label) => {
+      expect(card.getByText(label)).toBeInTheDocument();
+    });
+    expect(card.getByText('앱 릴리즈 없이 반영')).toBeInTheDocument();
     expect(secondProject?.querySelector('.pipeline-code')?.textContent).toContain('"type": "question"');
     expect(card.queryByRole('button')).not.toBeInTheDocument();
     expect(card.queryByText(/Waitroom|ZERO100|이미지 없음|캡처 없음/)).not.toBeInTheDocument();
@@ -355,7 +354,7 @@ describe('sseul portfolio', () => {
     render(<App />);
 
     expect(screen.getByText('GenA editor flow')).toBeInTheDocument();
-    expect(screen.getByText('AUTOMATION FLOW')).toBeInTheDocument();
+    expect(screen.getByText('자동화 흐름')).toBeInTheDocument();
     expect(screen.getByText('Waitroom live screen')).toBeInTheDocument();
   });
 
@@ -407,5 +406,24 @@ describe('sseul portfolio', () => {
     expect(screen.getAllByText('Before').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Flow').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Impact').length).toBeGreaterThan(0);
+  });
+
+  it('keeps the portfolio PDF route aligned with the main case study', () => {
+    window.history.pushState(null, '', '/portfolio-pdf');
+    const { container } = render(<App />);
+
+    expect(container.querySelector('.portfolio-pdf-page')).toBeInTheDocument();
+    expect(screen.getByText('Portfolio')).toBeInTheDocument();
+    expect(screen.getAllByText('sseul.me').length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByRole('link', { name: 'sseul.me' })[0]).toHaveAttribute('href', 'https://sseul.me/');
+    expect(screen.getByText('서비스기획자 | PM | PO')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: /01\s+Main Project/i })).toBeInTheDocument();
+    expect(screen.getByText('MAIN PROJECT · 문제')).toBeInTheDocument();
+    expect(screen.getByText('있는데, 제 역할을 못 하던 사이트')).toBeInTheDocument();
+    expect(screen.getByText('데이터로 모델링하고, 동선으로 설계')).toBeInTheDocument();
+    expect(screen.getByText('보여주기가 아니라 업무 도구')).toBeInTheDocument();
+    expect(container.textContent).toContain('이미지·게시판으로 흩어진 직업훈련기관 사이트를');
+    expect(container.textContent).toContain('콘텐츠가 데이터가 아닌 이미지·게시글');
+    expect(screen.queryByText('Starting Points')).not.toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import { ChevronDown, ImageIcon, X } from 'lucide-react';
 import { SectionIntro } from '../components/common/SectionIntro';
 import asisMain from '../assets/asis-main.png';
@@ -31,6 +31,7 @@ import {
   csFunding,
   csSymptoms,
   csGoals,
+  csIntro,
   csMeta,
   csPrinciples,
   csRootCauses,
@@ -128,15 +129,18 @@ export function CaseStudySection() {
       <div className="section-inner">
         <SectionIntro
           count="01"
-          label="MAIN PROJECT · 목공 직업훈련기관 리뉴얼"
+          label={csIntro.label}
           title={
             <>
-              이미지·게시판으로 흩어진 직업훈련기관 사이트를,
-              <br />
-              데이터와 동선으로 다시 설계했습니다.
+              {csIntro.titleLines.map((line, index) => (
+                <Fragment key={line}>
+                  {line}
+                  {index < csIntro.titleLines.length - 1 ? <br /> : null}
+                </Fragment>
+              ))}
             </>
           }
-          body="운영자를 인터뷰하고 예비 수강생 입장에서 직접 써보며 이탈 지점을 찾아, 문제 정의부터 구현까지 한 흐름으로 이었습니다."
+          body={csIntro.body}
         />
 
         {/* 메타 */}

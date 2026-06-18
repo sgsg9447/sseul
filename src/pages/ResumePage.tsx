@@ -28,7 +28,7 @@ export function ResumePage() {
   }, []);
 
   return (
-    <div className="resume-page">
+    <div className="resume-page resume-view-page">
       <header className="resume-toolbar">
         <a className="resume-back" href="/">
           <ArrowLeft size={16} />
@@ -79,7 +79,7 @@ export function ResumePage() {
                 </li>
                 <li>
                   <span>Portfolio.</span>
-                  <a href="https://sseul.me" target="_blank" rel="noreferrer">
+                  <a href="https://sseul.me/" target="_blank" rel="noreferrer">
                     sseul.me
                   </a>
                 </li>

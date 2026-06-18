@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { Mail } from 'lucide-react';
 import logo from '../../assets/logo.svg';
 
@@ -12,6 +12,17 @@ const navItems = [
 
 export function Header() {
   const [activeSection, setActiveSection] = useState('top');
+
+  const handleContactClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    window.history.pushState(null, '', '#contact');
+    window.scrollTo({
+      top: document.documentElement.scrollHeight - window.innerHeight,
+      behavior: 'smooth',
+    });
+    setActiveSection('contact');
+  };
 
   useEffect(() => {
     // Map each nav item to its actual <section> element, plus the contact section.
@@ -59,7 +70,12 @@ export function Header() {
           </a>
         ))}
       </nav>
-      <a className="header-cta" href="#contact" aria-current={activeSection === 'contact' ? 'page' : undefined}>
+      <a
+        className="header-cta"
+        href="#contact"
+        aria-current={activeSection === 'contact' ? 'page' : undefined}
+        onClick={handleContactClick}
+      >
         <Mail size={16} />
         Contact
       </a>

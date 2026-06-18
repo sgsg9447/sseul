@@ -59,12 +59,12 @@ export function getProjectScreenshot(type: ProjectVisualType): ProjectScreenshot
 
 export function ProjectVisual({ type, onOpen }: ProjectVisualProps) {
   if (type === 'pipeline') {
-    const steps = ['JSON Upload', 'Hidden Web Render', 'PNG Export', 'DB Save', 'iOS / Android App'];
+    const steps = ['JSON 업로드', '웹 렌더링', 'PNG 변환', 'DB 저장', '앱 반영'];
 
     return (
       <div className="artifact-stack pipeline-artifact">
-        <span className="artifact-label">AUTOMATION FLOW</span>
-        <div className="pipeline-board" aria-label="Content image automation flow">
+        <span className="artifact-label">자동화 흐름</span>
+        <div className="pipeline-board" aria-label="콘텐츠 이미지 자동화 흐름">
           <div className="pipeline-steps">
             {steps.map((step, index) => (
               <div className="pipeline-step-wrap" key={step}>
@@ -73,7 +73,7 @@ export function ProjectVisual({ type, onOpen }: ProjectVisualProps) {
               </div>
             ))}
           </div>
-          <p className="pipeline-note">No app release needed</p>
+          <p className="pipeline-note">앱 릴리즈 없이 반영</p>
           <pre className="pipeline-code" aria-label="Sample JSON payload">{`{
   "type": "question",
   "subject": "math",

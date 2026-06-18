@@ -1737,9 +1737,13 @@ img {
 }
 
 .closing {
+  min-height: calc(100svh - 72px);
+  display: flex;
+  align-items: center;
   padding: 112px 0 64px;
   background: var(--zap-black);
   color: var(--cream);
+  scroll-margin-top: 72px;
 }
 
 .closing .section-inner {
@@ -1969,6 +1973,11 @@ img {
 
   html {
     scroll-padding-top: 64px;
+  }
+
+  .closing {
+    min-height: calc(100svh - 64px);
+    scroll-margin-top: 64px;
   }
 
   .brand img {
@@ -2717,6 +2726,347 @@ img {
   }
 }
 
+@media screen and (max-width: 760px) {
+  .resume-view-page,
+  .career-page {
+    padding-top: 112px;
+  }
+
+  .resume-view-page .resume-toolbar,
+  .career-page .resume-toolbar {
+    height: auto;
+    min-height: 64px;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .resume-view-page .resume-back,
+  .career-page .resume-back {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .resume-view-page .resume-toolbar-title,
+  .career-page .resume-toolbar-title {
+    justify-self: end;
+    font-size: 13px;
+  }
+
+  .resume-view-page .resume-print-all,
+  .career-page .resume-print-all {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 38px;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .resume-view-page .resume-doc {
+    align-items: stretch;
+    gap: 24px;
+    padding: 24px 12px 56px;
+  }
+
+  .resume-view-page .resume-sheet-wrap {
+    width: 100%;
+  }
+
+  .resume-view-page .resume-sheet-actions {
+    flex-wrap: wrap;
+  }
+
+  .resume-view-page .resume-sheet-export {
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .resume-view-page .resume-sheet {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(32, 21, 21, 0.1);
+  }
+
+  .resume-view-page .resume-main,
+  .resume-view-page .resume-detail {
+    padding: 22px 18px 24px;
+  }
+
+  .resume-view-page .resume-header {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .resume-view-page .resume-avatar {
+    width: 78px;
+    height: 78px;
+  }
+
+  .resume-view-page .resume-name {
+    font-size: 26px;
+  }
+
+  .resume-view-page .resume-title {
+    font-size: 21px;
+    line-height: 1.25;
+  }
+
+  .resume-view-page .resume-intro br {
+    display: none;
+  }
+
+  .resume-view-page .resume-contact {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 14px;
+    margin-top: 4px;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .resume-view-page .resume-contact li,
+  .resume-view-page .resume-contact a {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .resume-view-page .resume-two-col {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .resume-view-page .resume-section {
+    margin-top: 18px;
+  }
+
+  .resume-view-page .resume-section-title {
+    font-size: 17px;
+  }
+
+  .resume-view-page .resume-job-head {
+    font-size: 15.5px;
+    line-height: 1.45;
+  }
+
+  .resume-view-page .resume-job-head strong {
+    font-size: 17px;
+  }
+
+  .resume-view-page .resume-list li,
+  .resume-view-page .resume-list ul li,
+  .resume-view-page .resume-d-list li {
+    font-size: 12.3px;
+    line-height: 1.6;
+  }
+
+  .resume-view-page .resume-d-head {
+    gap: 6px 10px;
+  }
+
+  .resume-view-page .resume-d-title {
+    width: 100%;
+    font-size: 22px;
+    line-height: 1.25;
+  }
+
+  .resume-view-page .resume-d-sub,
+  .resume-view-page .resume-d-date {
+    font-size: 12px;
+  }
+
+  .resume-view-page .resume-d-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .resume-view-page .resume-d-meta div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .resume-view-page .resume-d-proj {
+    margin-top: 18px;
+  }
+
+  .resume-view-page .resume-d-keys {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+  }
+
+  .resume-view-page .resume-d-keys::before {
+    content: none;
+  }
+
+  .resume-view-page .resume-d-flow {
+    gap: 6px;
+  }
+
+  .resume-view-page .resume-d-flow-step {
+    white-space: normal;
+  }
+
+  .resume-view-page .resume-d-flow-step:not(:last-child)::after {
+    display: none;
+  }
+
+  .career-page .career-doc {
+    width: auto;
+    max-width: none;
+    margin: 24px 12px 56px;
+    padding: 22px 18px 24px;
+    border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(32, 21, 21, 0.1);
+  }
+
+  .career-page .career-title {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
+  .career-page .career-title span {
+    display: block;
+    margin: 6px 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .career-page .career-summary {
+    max-width: none;
+    font-size: 12.8px;
+    line-height: 1.65;
+  }
+
+  .career-page .career-kw {
+    font-size: 11.8px;
+    line-height: 1.55;
+  }
+
+  .career-page .career-print-page + .career-print-page {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .career-page .career-company {
+    margin-top: 22px;
+  }
+
+  .career-page .career-co-head {
+    display: grid;
+    gap: 4px;
+  }
+
+  .career-page .career-co-name {
+    font-size: 17px;
+  }
+
+  .career-page .career-co-meta {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .career-page .career-proj-title {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .career-page .career-proj-keys {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .career-page .career-row,
+  .career-page .career-row-decision {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    margin-left: 0;
+  }
+
+  .career-page .career-row {
+    font-size: 12.7px;
+  }
+
+  .career-page .career-row-decision {
+    gap: 4px;
+    padding: 9px 10px;
+  }
+
+  .career-page .career-row-lab {
+    padding-top: 0;
+    font-size: 11.5px;
+  }
+
+  .career-page .career-flow {
+    gap: 6px;
+  }
+
+  .career-page .career-flow-step {
+    white-space: normal;
+  }
+
+  .career-page .career-flow-step:not(:last-child)::after {
+    display: none;
+  }
+
+  .career-page .career-skills p {
+    font-size: 12.5px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .resume-view-page,
+  .career-page {
+    padding-top: 108px;
+  }
+
+  .resume-view-page .resume-toolbar,
+  .career-page .resume-toolbar {
+    padding-inline: 12px;
+  }
+
+  .resume-view-page .resume-doc {
+    padding-inline: 10px;
+  }
+
+  .resume-view-page .resume-main,
+  .resume-view-page .resume-detail {
+    padding: 20px 14px 22px;
+  }
+
+  .resume-view-page .resume-header {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-view-page .resume-avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .resume-view-page .resume-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-view-page .resume-title {
+    font-size: 19px;
+  }
+
+  .career-page .career-doc {
+    margin-inline: 10px;
+    padding: 20px 14px 22px;
+  }
+
+  .career-page .career-title {
+    font-size: 22px;
+  }
+}
+
 /* ──────────────────────────────────────────────────────────────────────────
    CAREER HISTORY PAGE  (/career)
    Continuous A4-flow document (경력기술서) in the portfolio design system.
@@ -3100,7 +3450,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin: 0 0 18px;
+  margin: 0;
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 600;
@@ -3117,6 +3467,24 @@ img {
 }
 
 /* ── Cover ──────────────────────────────────────────────────── */
+.pf-cover-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.pf-site-link {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 .pf-cover {
   display: flex;
   flex-direction: column;
@@ -3198,6 +3566,11 @@ img {
   font-size: 14px;
   font-weight: 600;
   color: var(--fg);
+}
+
+.pf-id a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .pf-cover-proof {
@@ -3525,6 +3898,251 @@ img {
   color: var(--cream);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+@media screen and (max-width: 760px) {
+  .portfolio-pdf-page {
+    padding-top: 112px;
+  }
+
+  .portfolio-pdf-page .resume-toolbar {
+    height: auto;
+    min-height: 64px;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .portfolio-pdf-page .resume-back {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .portfolio-pdf-page .resume-toolbar-title {
+    justify-self: end;
+    font-size: 13px;
+  }
+
+  .portfolio-pdf-page .resume-print-all {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 38px;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .portfolio-pdf-page .resume-doc {
+    align-items: stretch;
+    gap: 24px;
+    padding: 24px 12px 56px;
+  }
+
+  .portfolio-pdf-page .resume-sheet-wrap {
+    width: 100%;
+  }
+
+  .portfolio-pdf-page .resume-sheet-actions {
+    flex-wrap: wrap;
+  }
+
+  .portfolio-pdf-page .resume-sheet-export {
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .portfolio-pdf-page .resume-sheet {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(32, 21, 21, 0.1);
+  }
+
+  .portfolio-pdf-page .pf-main {
+    padding: 22px 18px 24px;
+  }
+
+  .portfolio-pdf-page .pf-cover {
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+  }
+
+  .portfolio-pdf-page .pf-eyebrow {
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+  }
+
+  .portfolio-pdf-page .pf-cover-meta {
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .portfolio-pdf-page .pf-site-link {
+    font-size: 11px;
+  }
+
+  .portfolio-pdf-page .pf-cover-title {
+    font-size: 26px;
+    line-height: 1.28;
+    letter-spacing: 0;
+  }
+
+  .portfolio-pdf-page .pf-cover-lede {
+    white-space: normal;
+    font-size: 13px;
+  }
+
+  .portfolio-pdf-page .pf-cover-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .portfolio-pdf-page .pf-avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .portfolio-pdf-page .pf-id {
+    min-width: 0;
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .portfolio-pdf-page .pf-id dd {
+    font-size: 13px;
+  }
+
+  .portfolio-pdf-page .pf-section + .pf-section {
+    margin-top: 22px;
+  }
+
+  .portfolio-pdf-page .pf-section-head {
+    margin-bottom: 14px;
+  }
+
+  .portfolio-pdf-page .pf-section-title {
+    flex-wrap: wrap;
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .portfolio-pdf-page .pf-section-lede {
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+
+  .portfolio-pdf-page .pf-problems,
+  .portfolio-pdf-page .pf-grid2,
+  .portfolio-pdf-page .pf-board {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-pdf-page .pf-problems,
+  .portfolio-pdf-page .pf-grid2 {
+    gap: 10px;
+  }
+
+  .portfolio-pdf-page .pf-problem,
+  .portfolio-pdf-page .pf-project,
+  .portfolio-pdf-page .pf-cap,
+  .portfolio-pdf-page .pf-exp,
+  .portfolio-pdf-page .pf-contact {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .portfolio-pdf-page .pf-project {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .portfolio-pdf-page .pf-project-headline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .portfolio-pdf-page .pf-project-name {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .portfolio-pdf-page .pf-project-link {
+    white-space: normal;
+  }
+
+  .portfolio-pdf-page .pf-project-summary,
+  .portfolio-pdf-page .pf-project-detail {
+    font-size: 12.2px;
+    line-height: 1.6;
+  }
+
+  .portfolio-pdf-page .pf-board {
+    gap: 10px;
+    padding: 12px 0;
+  }
+
+  .portfolio-pdf-page .pf-tags span {
+    font-size: 11px;
+  }
+
+  .portfolio-pdf-page .pf-contact {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .portfolio-pdf-page .pf-contact h2 {
+    font-size: 19px;
+    line-height: 1.45;
+  }
+
+  .portfolio-pdf-page .pf-contact-lines {
+    font-size: 12.5px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .portfolio-pdf-page {
+    padding-top: 108px;
+  }
+
+  .portfolio-pdf-page .resume-toolbar {
+    padding-inline: 12px;
+  }
+
+  .portfolio-pdf-page .resume-doc {
+    padding-inline: 10px;
+  }
+
+  .portfolio-pdf-page .pf-main {
+    padding: 20px 14px 22px;
+  }
+
+  .portfolio-pdf-page .pf-cover-title {
+    font-size: 24px;
+  }
+
+  .portfolio-pdf-page .pf-cover-card {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-pdf-page .pf-cover-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .portfolio-pdf-page .pf-avatar {
+    width: 68px;
+    height: 68px;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
