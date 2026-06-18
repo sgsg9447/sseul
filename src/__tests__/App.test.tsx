@@ -54,7 +54,7 @@ describe('sseul portfolio', () => {
     expect(
       screen.getByText(
         hasParagraphText(
-          '프론트엔드 구현 경험을 바탕으로 복잡한 요구를 기능·데이터·화면 흐름으로 구조화하고, 사용자 경험과 운영 효율을 함께 고려한 실행 가능한 기획으로 연결합니다.',
+          '프론트엔드 구현 경험을 바탕으로 복잡한 요구사항을 기능·데이터·화면 흐름으로 구조화하고, 사용자 경험과 운영 효율을 함께 고려한 실행 가능한 기획으로 연결합니다.',
         ),
       ),
     ).toBeInTheDocument();
@@ -214,7 +214,7 @@ describe('sseul portfolio', () => {
     expect(
       experience.getByRole('heading', {
         level: 2,
-        name: /복잡한 요구를\s+기능과 화면 흐름으로\s+구체화해왔습니다\./i,
+        name: /복잡한 요구사항을\s+기능과 화면 흐름으로\s+구체화해왔습니다\./i,
       }),
     ).toBeInTheDocument();
     expect(experience.queryByText('관리자 도구, 편집 기능, 콘텐츠 제작 백오피스처럼')).not.toBeInTheDocument();
@@ -368,13 +368,13 @@ describe('sseul portfolio', () => {
     expect(
       contact.getByRole('heading', {
         level: 2,
-        name: /복잡한 요구를 구조로 정리하고,\s+실제로 동작하는 화면으로\s+만드는 일을 하고 싶습니다\./i,
+        name: /복잡한 요구사항을 구조로 정리하고,\s+실제로 동작하는 화면으로\s+만드는 일을 하고 싶습니다\./i,
       }),
     ).toBeInTheDocument();
     expect(
       contact.getByText(
         hasParagraphText(
-          '프론트엔드 구현 경험을 바탕으로, 복잡한 요구를 기능·데이터·화면 흐름으로 구조화해 왔습니다.',
+          '프론트엔드 구현 경험을 바탕으로, 복잡한 요구사항을 기능·데이터·화면 흐름으로 구조화해 왔습니다.',
         ),
       ),
     ).toBeInTheDocument();

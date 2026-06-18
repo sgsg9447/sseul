@@ -10,7 +10,7 @@ export function WorkExperienceSection() {
           label="WORK EXPERIENCE"
           title={
             <>
-              <span className="intro-title-line">복잡한 요구를</span>
+              <span className="intro-title-line">복잡한 요구사항을</span>
               <span className="intro-title-line">기능과 화면 흐름으로</span>
               <span className="intro-title-line">구체화해왔습니다.</span>
             </>
