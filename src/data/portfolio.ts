@@ -52,11 +52,12 @@ export const projects: Project[] = [
     step: '01',
     name: 'GenA',
     label: 'PROFESSIONAL PROJECT',
+    company: '@Genon',
     title: 'AI Slide Editor',
     summary:
       'AI가 만든 결과물을 어디까지 편집 가능하게 할지와 저장 기준을 먼저 정하고,\n사용자가 직접 다듬어 완성하는 편집 경험을 설계·구현한 프로젝트',
     role:
-      '핵심 판단은 생성 결과를 보여주는 화면이 아니라, 수정 대상·화면 상태·저장 기준이 분리된 편집 흐름으로 정의하는 것이었습니다.',
+      "핵심 판단은 '생성 결과를 보여주는 화면'이 아니라, 수정 대상·화면 상태·저장 기준을 분리한 '편집 흐름'으로 문제를 다시 정의한 것이었습니다.",
     details: [
       'AI 결과물은 다시 만질 수 있어야 실제 콘텐츠로 활용된다고 보고, 편집 가능 범위와 저장 기준을 먼저 정했습니다. 그 기준에 맞춰 편집에서 저장까지 이어지는 흐름을 정의하고 화면으로 구현했습니다.',
       '편집 대상과 화면 상태를 분리해 수정이 안정적으로 반영되도록 구조를 잡고,\n편집 화면 라우팅 · 수정 UI · 상태 반영 · 저장 API 연동까지 연결해 AI 결과물이 다시 활용 가능한 콘텐츠가 되도록 만들었습니다.',
@@ -75,11 +76,12 @@ export const projects: Project[] = [
     step: '02',
     name: 'Orzo',
     label: 'PROFESSIONAL PROJECT',
+    company: '@Sling',
     title: 'Content Image Automation',
     summary:
       '앱별 화면 구현을 늘리는 대신, 웹 렌더링 결과를 이미지로 공통 공급하는 구조를 선택해 콘텐츠 반영 병목을 줄였습니다.',
     role:
-      '핵심 판단은 iOS·Android에 같은 화면을 각각 구현하지 않고, 한 번 만든 웹 결과물을 공통 자산으로 쓰는 구조로 전환하는 것이었습니다.',
+      '핵심 판단은 같은 화면을 iOS·Android에 각각 만드는 대신, 웹에서 한 번 렌더링한 결과를 두 앱의 공통 자산으로 쓰는 구조로 전환한 것이었습니다.',
     details: [
       '시험 시즌에는 많은 학습 콘텐츠를 빠르게 반영해야 했지만, 앱별로 같은 화면을 각각 구현하면 출시 주기와 유지보수 비용이 계속 늘어나는 구조였습니다.',
       '화면을 각각 구현하던 방식 대신, 웹에서 한 번 렌더링한 결과를 이미지로 공통 사용하는 구조로 전환해 앱 릴리즈 의존도를 낮췄습니다.',
@@ -88,7 +90,7 @@ export const projects: Project[] = [
     board: [
       { label: 'Before', value: 'iOS와 Android에서 동일 콘텐츠를 각각 구현해야 하는 구조' },
       { label: 'Decision', value: '앱별 구현을 늘리지 않고 웹 렌더링 이미지를 공통 공급 자산으로 사용' },
-      { label: 'Impact', value: '앱 릴리즈 없이 콘텐츠 변경에 빠르게 대응' },
+      { label: 'Impact', value: '앱 스토어 심사·릴리즈 없이 콘텐츠 교체 — 시험 시즌 반영 병목 해소' },
     ],
     visual: 'pipeline',
   },
@@ -150,7 +152,7 @@ export const skills: SkillRow[] = [
 
 export const workExperiences: SkillRow[] = [
   {
-    area: 'GENON',
+    area: 'Genon',
     title: 'AI 슬라이드 편집기 프론트엔드 개발',
     tags: ['frontend'],
     detail: [
@@ -159,7 +161,7 @@ export const workExperiences: SkillRow[] = [
     ],
   },
   {
-    area: 'SLING',
+    area: 'Sling',
     title: '콘텐츠 제작 도구와 이미지 자동화 파이프라인',
     tags: ['frontend'],
     detail: [
@@ -168,7 +170,7 @@ export const workExperiences: SkillRow[] = [
     ],
   },
   {
-    area: 'DAANGN',
+    area: 'Daangn',
     title: '검색 경험 개선과 A/B 테스트 구현',
     tags: ['frontend'],
     detail: [

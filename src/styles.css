@@ -941,6 +941,23 @@ img {
   background: var(--accent);
 }
 
+/* 회사 핸들(@Genon 등) — step 번호 pill과 달리 본문성 인라인 텍스트 */
+.project-company {
+  display: inline-flex;
+  align-items: center;
+  color: var(--fg-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.project-company::before {
+  content: '·';
+  margin-right: 8px;
+  color: var(--border-strong);
+}
+
 .project-body h3 {
   margin: 0;
   color: var(--fg);
@@ -1682,7 +1699,6 @@ img {
   font-family: var(--font-display);
   font-size: clamp(16px, 1.15vw, 18px);
   line-height: 1.08;
-  text-transform: uppercase;
 }
 
 .skill-tags {
@@ -2077,15 +2093,18 @@ img {
 @media (prefers-reduced-motion: no-preference) {
   .reveal-item {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
+    will-change: opacity, transform;
     transition:
-      opacity 520ms cubic-bezier(0.2, 0, 0, 1) var(--reveal-delay, 0ms),
-      transform 520ms cubic-bezier(0.2, 0, 0, 1) var(--reveal-delay, 0ms);
+      opacity 360ms cubic-bezier(0.2, 0, 0, 1) var(--reveal-delay, 0ms),
+      transform 360ms cubic-bezier(0.2, 0, 0, 1) var(--reveal-delay, 0ms);
   }
 
   .reveal-item.is-visible {
     opacity: 1;
     transform: translateY(0);
+    /* 합성 힌트는 애니메이션이 끝나면 해제해 메모리 점유를 남기지 않는다 */
+    will-change: auto;
   }
 }
 
@@ -2639,10 +2658,7 @@ img {
 .resume-d-flow-step {
   display: inline-flex;
   align-items: center;
-  padding: 3.5px 9px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--cream);
+  padding: 3.5px 0;
   font-size: 11px;
   font-weight: 600;
   color: var(--charcoal);
@@ -2650,7 +2666,6 @@ img {
 }
 
 .resume-d-flow-step:last-child {
-  border-color: var(--charcoal);
   color: var(--fg);
 }
 
@@ -2912,10 +2927,6 @@ img {
     white-space: normal;
   }
 
-  .resume-view-page .resume-d-flow-step:not(:last-child)::after {
-    display: none;
-  }
-
   .career-page .career-doc {
     width: auto;
     max-width: none;
@@ -3009,10 +3020,6 @@ img {
 
   .career-page .career-flow-step {
     white-space: normal;
-  }
-
-  .career-page .career-flow-step:not(:last-child)::after {
-    display: none;
   }
 
   .career-page .career-skills p {
@@ -3236,10 +3243,7 @@ img {
 .career-flow-step {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--cream);
+  padding: 4px 0;
   font-size: 11.5px;
   font-weight: 600;
   color: var(--charcoal);
@@ -3247,7 +3251,6 @@ img {
 }
 
 .career-flow-step:last-child {
-  border-color: var(--charcoal);
   color: var(--fg);
 }
 
@@ -5419,8 +5422,98 @@ img {
   word-break: keep-all;
 }
 
+/* 기대 결과 (오픈 전) */
+.cs-outcome-status {
+  display: inline-flex;
+  align-items: center;
+  margin: 4px 0 22px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  background: var(--bg-muted);
+  border: 1px dashed var(--border-strong);
+  color: var(--fg-muted);
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.cs-outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.cs-outcome-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(20px, 2.4vw, 28px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--bg-card, var(--cream));
+}
+
+.cs-outcome-who {
+  align-self: flex-start;
+  padding: 4px 11px;
+  border-radius: var(--r-pill);
+  background: var(--zap-black);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.cs-outcome-change {
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font-korean-heading);
+  font-size: clamp(15px, 1.4vw, 17px);
+  font-weight: 700;
+  line-height: 1.55;
+  word-break: keep-all;
+  /* 데이터의 \n을 줄바꿈으로 살린다 (예비 수강생 카드 2줄 표시) */
+  white-space: pre-line;
+}
+
+.cs-outcome-from {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--fg-muted);
+  font-size: 13px;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+.cs-outcome-from span {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cs-measure {
+  margin-top: 24px;
+  padding: clamp(20px, 2.4vw, 28px);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  background: var(--bg-muted);
+}
+
+.cs-measure-points {
+  margin-top: 14px;
+}
+
 /* responsive */
 @media (max-width: 980px) {
+  .cs-outcome-grid { grid-template-columns: 1fr; }
   .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cs-meta div { padding: 18px 16px; }
   .cs-meta div:nth-child(odd) { border-left: 0; padding-left: 0; }

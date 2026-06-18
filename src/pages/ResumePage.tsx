@@ -85,7 +85,11 @@ export function ResumePage() {
                 </li>
                 <li>
                   <span>SNS.</span>
-                  <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+                  <a
+                    href="https://www.linkedin.com/in/seulgi-kim-28534b23b"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     LinkedIn
                   </a>
                 </li>
@@ -96,10 +100,10 @@ export function ResumePage() {
             <section className="resume-section">
               <h2 className="resume-section-title">Work Experience</h2>
 
-              {/* GenON — full width */}
+              {/* 제논 — full width */}
               <article className="resume-job">
                 <h3 className="resume-job-head">
-                  <strong>GenON</strong>
+                  <strong>제논</strong>
                   <span className="resume-job-sep">/</span>
                   Frontend Engineer<span className="resume-job-focus"> · 제품 구조 설계</span>
                 </h3>
@@ -143,15 +147,22 @@ export function ResumePage() {
                     <li className="is-lead">
                       콘텐츠 운영 백오피스 기획·구조화
                       <ul>
-                        <li>매월 반복되던 제작·편집·배포 병목을 분석해 통합 운영 도구로 기획</li>
-                        <li>문제 데이터를 대/중/소단원 트리로 모델링, 에디션 운영 기준 수립</li>
+                        <li>
+                          매월 반복되던 제작·편집·배포 병목을 <br />
+                          분석해 통합 운영 도구로 기획
+                        </li>
+                        <li>
+                          문제 데이터를 대/중/소단원 트리로 모델링, <br />
+                          에디션 운영 기준 수립
+                        </li>
                       </ul>
                     </li>
                     <li className="is-lead">
                       대량 콘텐츠 자동화 운영 설계
                       <ul>
                         <li>
-                          앱 릴리즈 의존도를 낮춘 파이프라인 기획 → 시험 시즌 <strong>약 10만건</strong> 적시 공급, 월 구독자 증가 기여
+                          앱 릴리즈 의존도를 낮춘 파이프라인 기획 <br />→ 시험 시즌 <strong>약 10만건</strong>{' '}
+                        적시 공급, 출시 주기 단축
                         </li>
                       </ul>
                     </li>
@@ -169,7 +180,10 @@ export function ResumePage() {
                     <li className="is-lead">
                       연관검색어 기능 구현·데이터 검증 참여
                       <ul>
-                        <li>연관검색어 UI·5개 시안을 직접 구현, A/B 데이터 로깅·QA에 참여</li>
+                        <li>
+                          연관검색어 UI·5개 시안을 직접 구현, <br />
+                          A/B 데이터 로깅·QA에 참여
+                        </li>
                         <li>
                           결과: <strong>검색 유저당 검색 전환율</strong> 상승 기여
                         </li>
@@ -179,7 +193,7 @@ export function ResumePage() {
                       검색 사용성 병목 분석·성능 개선
                       <ul>
                         <li>
-                          탭 전환 버벅임 원인 분석 → 렌더링 개선 (<strong>13 → 8 Frame</strong>)
+                          탭 전환 버벅임 원인 분석 <br />→ 렌더링 개선 (<strong>13 → 8 Frame</strong>)
                         </li>
                       </ul>
                     </li>

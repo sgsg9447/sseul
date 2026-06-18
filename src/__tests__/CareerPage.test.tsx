@@ -26,13 +26,14 @@ describe('CareerPage', () => {
     expect(pages).toHaveLength(2);
 
     const firstPage = within(pages[0] as HTMLElement);
-    expect(firstPage.getByText('GenON')).toBeInTheDocument();
-    expect(firstPage.getByText('슬링 (Sling)')).toBeInTheDocument();
+    expect(firstPage.getByText('제논')).toBeInTheDocument();
+    expect(firstPage.getByText('슬링')).toBeInTheDocument();
     expect(firstPage.queryByText('당근')).not.toBeInTheDocument();
 
     const secondPage = within(pages[1] as HTMLElement);
     expect(secondPage.getByText('당근')).toBeInTheDocument();
-    expect(secondPage.queryByText('GenON')).not.toBeInTheDocument();
+    expect(secondPage.getByText('KOSSA')).toBeInTheDocument();
+    expect(secondPage.queryByText('제논')).not.toBeInTheDocument();
     expect(secondPage.queryByText('Waitroom')).not.toBeInTheDocument();
     expect(secondPage.queryByText('목공 직업훈련기관 리뉴얼')).not.toBeInTheDocument();
 
@@ -49,10 +50,11 @@ describe('CareerPage', () => {
     );
     const lastPageItems = Array.from(lastPageBody?.children ?? []);
 
-    expect(lastPageItems).toHaveLength(2);
+    expect(lastPageItems).toHaveLength(3);
     expect(lastPageItems[0]).toHaveTextContent('당근');
-    expect(lastPageItems[1]).toHaveClass('career-skills');
-    expect(lastPageItems[1]).toHaveTextContent('보유 역량');
+    expect(lastPageItems[1]).toHaveTextContent('KOSSA');
+    expect(lastPageItems[2]).toHaveClass('career-skills');
+    expect(lastPageItems[2]).toHaveTextContent('보유 역량');
   });
 
   it('keeps a larger print gap between companies than between projects', () => {

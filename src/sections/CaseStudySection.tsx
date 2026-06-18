@@ -33,6 +33,7 @@ import {
   csGoals,
   csIntro,
   csMeta,
+  csOutcome,
   csPrinciples,
   csRootCauses,
   csScope,
@@ -476,11 +477,19 @@ export function CaseStudySection() {
               </>
             }
           />
+          <p className="cs-prose cs-prose-tight">
+            구현 비용을 알기에, 화면을 정의하는 단계에서 무엇을 넣고 뺄지 미리 결정했습니다.
+          </p>
           <ul className="cs-summary-points cs-prose-points">
-            <li>모바일 우선 반응형 · 40~50대 가독성(큰 글씨·넉넉한 터치 영역)</li>
-            <li>로딩·빈 화면·에러 상태는 모든 화면에 일괄로 넣지 않고 필요한 곳에만</li>
-            <li>대부분 화면은 즉시 떠서, 로딩 화면은 검색·필터처럼 기다림이 생기는 곳에만 적용</li>
-            <li>에러·없는 페이지에서도 홈으로 돌아가는 길을 남겨 경로가 끊기지 않게</li>
+            <li>
+              <strong>사용자 기준</strong> — 40~50대·모바일 우선, 큰 글씨와 넉넉한 터치 영역
+            </li>
+            <li>
+              <strong>상태는 필요한 곳에만</strong> — 검색·필터처럼 지연이 생기는 화면에만 로딩, 나머지는 즉시 표시
+            </li>
+            <li>
+              <strong>경로를 끊지 않기</strong> — 에러·없는 페이지에도 홈으로 돌아가는 길을 남김
+            </li>
           </ul>
           <div className="cs-screen-grid">
             {csScreens.map((screen, i) => (
@@ -549,6 +558,44 @@ export function CaseStudySection() {
                 <p>{row.reason}</p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* ── 08 기대 결과 (오픈 전) ── */}
+        <div className="cs-chapter">
+          <ChapterHead
+            no="08"
+            label="EXPECTED IMPACT"
+            title={
+              <>
+                아직 오픈 전 —{' '}
+                <br className="br-mobile" />
+                수치 대신, 설계로 의도한 변화를 적습니다
+              </>
+            }
+          />
+          <span className="cs-outcome-status">{csOutcome.status}</span>
+          <div className="cs-outcome-grid">
+            {csOutcome.intended.map((row) => (
+              <article className="cs-outcome-card" key={row.who}>
+                <span className="cs-outcome-who">{row.who}</span>
+                <p className="cs-outcome-change">{row.change}</p>
+                <p className="cs-outcome-from">
+                  <span>기존</span>
+                  {row.from}
+                </p>
+              </article>
+            ))}
+          </div>
+          <div className="cs-measure">
+            <span className="cs-chapter-label">출시 후 측정 예정 — 데이터가 들어오는 지점을 미리 심어 둠</span>
+            <ul className="cs-summary-points cs-measure-points">
+              {csOutcome.measure.map((m) => (
+                <li key={m.metric}>
+                  <strong>{m.metric}</strong> — {m.why}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

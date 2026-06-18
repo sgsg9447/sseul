@@ -15,16 +15,16 @@ export function ClosingSection() {
             05 / CONTACT
           </p>
           <h2>
-            <span className="closing-title-line">복잡한 요구사항을 구조로 정리하고,</span>
-            <span className="closing-title-line">실제로 동작하는 화면으로</span>
-            <span className="closing-title-line">만드는 일을 하고 싶습니다.</span>
+            <span className="closing-title-line">기획에서 멈추지 않고,</span>
+            <span className="closing-title-line">동작하는 화면까지 책임지는</span>
+            <span className="closing-title-line">자리를 찾고 있습니다.</span>
           </h2>
         </div>
 
         <div className="closing-copy">
           <p className="closing-lines">
-            <span>프론트엔드 구현 경험을 바탕으로,</span>
-            <span>복잡한 요구사항을 기능·데이터·화면 흐름으로 구조화해 왔습니다.</span>
+            <span>기획자와 개발자 사이에서 통역이 필요 없는 사람,</span>
+            <span>요구사항을 동작하는 화면까지 직접 끌고 가는 사람을 지향합니다.</span>
           </p>
           <div className="closing-actions">
             <a className="btn btn-primary" href={contactHref} target="_blank" rel="noreferrer">

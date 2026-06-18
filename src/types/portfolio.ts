@@ -4,6 +4,8 @@ export type Project = {
   step: string;
   name: string;
   label: string;
+  /** Optional company/org handle shown next to the label (e.g. "@Genon"). */
+  company?: string;
   title: string;
   summary: string;
   role: string;

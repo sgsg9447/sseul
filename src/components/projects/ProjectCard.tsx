@@ -44,6 +44,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <div className="project-kicker">
             <span>{project.step}</span>
             {project.label}
+            {project.company ? <small className="project-company">{project.company}</small> : null}
           </div>
           <h3>{project.name}</h3>
           <p className="project-title">{project.title}</p>
@@ -93,7 +94,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
           >
             <div className="screenshot-modal-top">
               <div>
-                <span>{project.step} / {project.label}</span>
+                <span>
+                  {project.step} / {project.label}
+                  {project.company ? ` · ${project.company}` : ''}
+                </span>
                 <h3 id={modalTitleId}>{project.name}</h3>
               </div>
               <button type="button" onClick={() => setIsModalOpen(false)} aria-label="스크린샷 닫기">

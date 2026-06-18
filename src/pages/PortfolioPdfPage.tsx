@@ -83,7 +83,7 @@ export function PortfolioPdfPage() {
                   </div>
                   <div>
                     <dt>Role</dt>
-                    <dd>구현 가능성을 아는 서비스기획자</dd>
+                    <dd>구현을 아는 서비스기획자</dd>
                   </div>
                   <div>
                     <dt>Focus</dt>

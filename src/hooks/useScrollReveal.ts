@@ -8,7 +8,8 @@ const revealSelector = [
   '.case-card',
   '.skill-row',
   '.cs-summary-card',
-  '.cs-chapter',
+  // NOTE: 거대한 .cs-chapter 블록(~2000px)은 reveal 대상에서 제외한다.
+  // 통째로 opacity+transform 합성을 돌리면 스크롤과 겹쳐 버벅임이 생김.
 ].join(', ');
 
 export function useScrollReveal() {

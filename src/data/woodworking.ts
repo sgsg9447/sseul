@@ -252,6 +252,31 @@ export const csScope: { decision: string; choice: string; reason: string }[] = [
   { decision: '취업률·잔여석 표시', choice: '미표시', reason: '집계 안 되는 수치는 만들지 않음' },
 ];
 
+// 결과 — 아직 오픈 전(pre-launch). 로그 기반 수치 대신, 설계로 의도한 변화와
+// 출시 후 측정할 지표를 정직하게 구분해 적는다. 오픈 후 실제 수치로 교체 예정.
+export const csOutcome = {
+  status: 'PRE-LAUNCH · 오픈 직전, 수치 지표는 출시 후 업데이트',
+  intended: [
+    {
+      who: '예비 수강생',
+      from: '이미지·게시판을 오가며 판단 정보를 못 모아 신청 전 이탈',
+      change: '과정·비용·모집 여부·신청 방법을 한 흐름에서 확인하고,\n확신이 형성되는 지점 바로 직후에 신청',
+    },
+    {
+      who: '운영자',
+      from: '종이 신청서 보관·일정 이미지 재제작 등 반복 수작업',
+      change: '신청·문의 데이터로 접수 → 상담 → 등록확인을 사이트 안에서 처리',
+    },
+  ],
+  // 데이터가 들어오는 지점을 미리 심어, 오픈 직후 바로 집계할 수 있도록 설계해 둠
+  measure: [
+    { metric: '과정 상세 → 신청 전환율', why: '확신 형성 동선이 실제로 작동하는지' },
+    { metric: '신청 시작 → 완료율', why: '신청 흐름·피드백 설계의 효과' },
+    { metric: '운영자 접수 처리 시간', why: '사이트가 업무 도구가 됐는지' },
+    { metric: '상담문의 응답까지 걸린 시간', why: '피드백 부재 문제의 해소 여부' },
+  ],
+};
+
 // 이미지/문서 캡처를 붙일 자리 — value가 비어 있으면 placeholder로 렌더
 export type CsFigure = {
   badge: string;

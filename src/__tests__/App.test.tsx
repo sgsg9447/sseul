@@ -53,21 +53,19 @@ describe('sseul portfolio', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        hasParagraphText(
-          '프론트엔드 구현 경험을 바탕으로 복잡한 요구사항을 기능·데이터·화면 흐름으로 구조화하고, 사용자 경험과 운영 효율을 함께 고려한 실행 가능한 기획으로 연결합니다.',
-        ),
+        hasParagraphText('불편을 구조로 바꾸고, 그 구조가 화면에서 실제로 동작하게 만듭니다.'),
       ),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
         hasParagraphText(
-          '실제 운영 중인 목공 직업훈련기관 사이트를 문제 정의부터 데이터 구조·화면 설계·구현까지 다시 설계했습니다.',
+          '직업훈련기관 사이트를 문제 정의부터 데이터 구조·화면 설계·구현까지 단독으로 다시 설계했습니다.',
         ),
       ),
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /대표 프로젝트 보기/i })).toHaveAttribute('href', '#case-study');
     expect(screen.getByRole('link', { name: /경력 요약 보기/i })).toHaveAttribute('href', '#experience');
-    expect(screen.getByText('구현 가능성을 아는 서비스기획자')).toBeInTheDocument();
+    expect(screen.getByText('구현을 아는 서비스기획자')).toBeInTheDocument();
     expect(screen.getByText('Problem → Structure → Build')).toBeInTheDocument();
   });
 
@@ -113,7 +111,7 @@ describe('sseul portfolio', () => {
     );
 
     // the seven chapters of the case study
-    ['PROBLEM', 'USERS', 'GOALS & PRINCIPLES', 'INFORMATION ARCHITECTURE', 'USER FLOW', 'SCREEN DESIGN', 'SCOPE'].forEach(
+    ['PROBLEM', 'USERS', 'GOALS & PRINCIPLES', 'INFORMATION ARCHITECTURE', 'USER FLOW', 'SCREEN DESIGN', 'SCOPE', 'EXPECTED IMPACT'].forEach(
       (chapter) => {
         expect(study.getByText(chapter)).toBeInTheDocument();
       },
@@ -214,7 +212,7 @@ describe('sseul portfolio', () => {
     expect(
       experience.getByRole('heading', {
         level: 2,
-        name: /복잡한 요구사항을\s+기능과 화면 흐름으로\s+구체화해왔습니다\./i,
+        name: /맡은 자리마다\s+요구사항을 동작하는 결과물까지\s+끌고 갔습니다\./i,
       }),
     ).toBeInTheDocument();
     expect(experience.queryByText('관리자 도구, 편집 기능, 콘텐츠 제작 백오피스처럼')).not.toBeInTheDocument();
@@ -223,17 +221,17 @@ describe('sseul portfolio', () => {
 
     [
       [
-        'GENON',
+        'Genon',
         'AI 슬라이드 편집기 프론트엔드 개발',
         '편집 화면과 미리보기 영역의 역할을 나누고, 사용자의 편집 동작이 상태와 결과 화면까지 이어지는 편집 흐름을 설계했습니다.',
       ],
       [
-        'SLING',
+        'Sling',
         '콘텐츠 제작 도구와 이미지 자동화 파이프라인',
         '문제 제작·편집·배포 흐름을 백오피스로 통합하고, JSON 데이터를 이미지로 변환하는 자동화 구조를 만들었습니다.',
       ],
       [
-        'DAANGN',
+        'Daangn',
         '검색 경험 개선과 A/B 테스트 구현',
         '검색 탭 전환 성능을 개선하고, 연관검색어 UI와 데이터 로깅을 구현했습니다.',
       ],
@@ -248,7 +246,6 @@ describe('sseul portfolio', () => {
       expect(experience.getByText(hasParagraphText(detail))).toBeInTheDocument();
     });
     expect(experience.queryByText('GenON')).not.toBeInTheDocument();
-    expect(experience.queryByText('Sling')).not.toBeInTheDocument();
     expect(experience.queryByText('Danggeun')).not.toBeInTheDocument();
   });
 
@@ -276,6 +273,7 @@ describe('sseul portfolio', () => {
 
     expect(card.getByText('01')).toBeInTheDocument();
     expect(card.getByText('PROFESSIONAL PROJECT')).toBeInTheDocument();
+    expect(card.getByText('@Genon')).toBeInTheDocument();
     expect(card.queryByText('EDITING EXPERIENCE')).not.toBeInTheDocument();
     expect(card.getByRole('heading', { level: 3, name: 'GenA' })).toBeInTheDocument();
     expect(card.getByText('AI Slide Editor')).toBeInTheDocument();
@@ -311,6 +309,7 @@ describe('sseul portfolio', () => {
 
     expect(card.getByText('02')).toBeInTheDocument();
     expect(card.getByText('PROFESSIONAL PROJECT')).toBeInTheDocument();
+    expect(card.getByText('@Sling')).toBeInTheDocument();
     expect(card.queryByText('AUTOMATION SYSTEM')).not.toBeInTheDocument();
     expect(
       card.getByRole('heading', { level: 3, name: 'Orzo' }),
@@ -368,13 +367,13 @@ describe('sseul portfolio', () => {
     expect(
       contact.getByRole('heading', {
         level: 2,
-        name: /복잡한 요구사항을 구조로 정리하고,\s+실제로 동작하는 화면으로\s+만드는 일을 하고 싶습니다\./i,
+        name: /기획에서 멈추지 않고,\s+동작하는 화면까지 책임지는\s+자리를 찾고 있습니다\./i,
       }),
     ).toBeInTheDocument();
     expect(
       contact.getByText(
         hasParagraphText(
-          '프론트엔드 구현 경험을 바탕으로, 복잡한 요구사항을 기능·데이터·화면 흐름으로 구조화해 왔습니다.',
+          '기획자와 개발자 사이에서 통역이 필요 없는 사람, 요구사항을 동작하는 화면까지 직접 끌고 가는 사람을 지향합니다.',
         ),
       ),
     ).toBeInTheDocument();
@@ -417,7 +416,7 @@ describe('sseul portfolio', () => {
     expect(screen.getByText('SSEUL · SERVICE PLANNING PORTFOLIO')).toBeInTheDocument();
     expect(screen.getAllByText('sseul.me').length).toBeGreaterThanOrEqual(2);
     expect(screen.getAllByRole('link', { name: 'sseul.me' })[0]).toHaveAttribute('href', 'https://sseul.me/');
-    expect(screen.getByText('구현 가능성을 아는 서비스기획자')).toBeInTheDocument();
+    expect(screen.getByText('구현을 아는 서비스기획자')).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: /01\s+Main Project/i })).toBeInTheDocument();
     expect(screen.getByText('MAIN PROJECT · 문제')).toBeInTheDocument();
     expect(screen.getByText('있는데, 제 역할을 못 하던 사이트')).toBeInTheDocument();
