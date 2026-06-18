@@ -19,11 +19,11 @@ afterEach(() => {
 });
 
 describe('CareerPage', () => {
-  it('groups career companies into three print pages for PDF export', () => {
+  it('groups only career companies into two print pages for PDF export', () => {
     const { container } = render(<CareerPage />);
     const pages = container.querySelectorAll('.career-print-page');
 
-    expect(pages).toHaveLength(3);
+    expect(pages).toHaveLength(2);
 
     const firstPage = within(pages[0] as HTMLElement);
     expect(firstPage.getByText('GenON')).toBeInTheDocument();
@@ -32,18 +32,17 @@ describe('CareerPage', () => {
 
     const secondPage = within(pages[1] as HTMLElement);
     expect(secondPage.getByText('당근')).toBeInTheDocument();
-    expect(secondPage.getByText('목공 직업훈련기관 리뉴얼')).toBeInTheDocument();
     expect(secondPage.queryByText('GenON')).not.toBeInTheDocument();
     expect(secondPage.queryByText('Waitroom')).not.toBeInTheDocument();
-
-    const thirdPage = within(pages[2] as HTMLElement);
-    expect(thirdPage.getByText('Waitroom')).toBeInTheDocument();
-    expect(thirdPage.queryByText('당근')).not.toBeInTheDocument();
+    expect(secondPage.queryByText('목공 직업훈련기관 리뉴얼')).not.toBeInTheDocument();
 
     expect(screen.getByText('보유 역량')).toBeInTheDocument();
+    expect(screen.queryByText('Waitroom')).not.toBeInTheDocument();
+    expect(screen.queryByText('이미지·게시판으로 흩어진 사이트를 데이터·동선으로 재설계')).not.toBeInTheDocument();
+    expect(screen.queryByText(/직업훈련기관 리뉴얼에서는/)).not.toBeInTheDocument();
   });
 
-  it('places skills directly after Waitroom on the last print page', () => {
+  it('places skills directly after the last career company on the second print page', () => {
     const { container } = render(<CareerPage />);
     const lastPageBody = container.querySelector(
       '.career-print-page:last-child .career-print-page-body',
@@ -51,7 +50,7 @@ describe('CareerPage', () => {
     const lastPageItems = Array.from(lastPageBody?.children ?? []);
 
     expect(lastPageItems).toHaveLength(2);
-    expect(lastPageItems[0]).toHaveTextContent('Waitroom');
+    expect(lastPageItems[0]).toHaveTextContent('당근');
     expect(lastPageItems[1]).toHaveClass('career-skills');
     expect(lastPageItems[1]).toHaveTextContent('보유 역량');
   });
