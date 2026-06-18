@@ -367,14 +367,12 @@ describe('sseul portfolio', () => {
     expect(
       contact.getByRole('heading', {
         level: 2,
-        name: /기획에서 멈추지 않고,\s+동작하는 화면까지 책임지는\s+자리를 찾고 있습니다\./i,
+        name: /시작은 작은 질문에서,\s+끝은 달라진 경험에서\./i,
       }),
     ).toBeInTheDocument();
     expect(
       contact.getByText(
-        hasParagraphText(
-          '기획자와 개발자 사이에서 통역이 필요 없는 사람, 요구사항을 동작하는 화면까지 직접 끌고 가는 사람을 지향합니다.',
-        ),
+        hasParagraphText('흩어진 요구사항을 기능과 흐름으로 구조화하고, 그 흐름이 실제로 동작하는 화면이 되게 만듭니다.'),
       ),
     ).toBeInTheDocument();
     expect(contact.getByRole('link', { name: /메일 보내기/i })).toBeInTheDocument();
@@ -418,12 +416,23 @@ describe('sseul portfolio', () => {
     expect(screen.getAllByRole('link', { name: 'sseul.me' })[0]).toHaveAttribute('href', 'https://sseul.me/');
     expect(screen.getByText('구현을 아는 서비스기획자')).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: /01\s+Main Project/i })).toBeInTheDocument();
-    expect(screen.getByText('MAIN PROJECT · 문제')).toBeInTheDocument();
     expect(screen.getByText('있는데, 제 역할을 못 하던 사이트')).toBeInTheDocument();
     expect(screen.getByText('데이터로 모델링하고, 동선으로 설계')).toBeInTheDocument();
     expect(screen.getByText('보여주기가 아니라 업무 도구')).toBeInTheDocument();
     expect(container.textContent).toContain('이미지·게시판으로 흩어진 직업훈련기관 사이트를');
     expect(container.textContent).toContain('콘텐츠가 데이터가 아닌 이미지·게시글');
+
+    // full case study chapters + images now live in the PDF
+    ['PROBLEM', 'USERS', 'INFORMATION ARCHITECTURE', 'SCREEN DESIGN', 'EXPECTED IMPACT'].forEach((chapter) => {
+      expect(screen.getByText(chapter)).toBeInTheDocument();
+    });
+    expect(container.querySelector('.pf-cs-shots img')).toBeInTheDocument();
+    expect(container.querySelector('.pf-cs-screens img')).toBeInTheDocument();
+    expect(container.querySelectorAll('.pf-cs-figs img').length).toBeGreaterThanOrEqual(4);
+    expect(container.querySelectorAll('.pf-cs-table-symptoms tbody tr')).toHaveLength(20);
+
+    // other projects still present, flagship (목공) excluded from that list
+    expect(screen.getByRole('heading', { level: 3, name: 'GenA' })).toBeInTheDocument();
     expect(screen.queryByText('Starting Points')).not.toBeInTheDocument();
   });
 });

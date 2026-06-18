@@ -1982,6 +1982,12 @@ img {
 }
 
 @media (max-width: 680px) {
+  /* 클로징 서브 — 좁은 폰에서 각 절이 한 줄씩(총 2줄)에 들어가도록 축소 */
+  .closing p.closing-lines {
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
   .site-header {
     height: 64px;
     padding: 0 18px;
@@ -3901,6 +3907,627 @@ img {
   color: var(--cream);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+/* ── Portfolio PDF · Case study blocks (A4 print-tuned) ───────── */
+.pf-cs-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 0 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.pf-cs-meta div {
+  padding: 9px 11px;
+  border-left: 1px solid var(--border);
+}
+
+.pf-cs-meta div:first-child {
+  border-left: 0;
+}
+
+.pf-cs-meta dt {
+  margin: 0 0 3px;
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.pf-cs-meta dd {
+  margin: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--fg);
+  white-space: pre-line;
+}
+
+.pf-cs-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.pf-cs-sum-card {
+  padding: 12px 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--bg-muted);
+}
+
+.pf-cs-sum-tag {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pf-cs-sum-card h4 {
+  margin: 0 0 7px;
+  font-family: var(--font-korean-heading);
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--fg);
+  word-break: keep-all;
+}
+
+.pf-cs-sum-card ul {
+  margin: 0;
+  padding-left: 13px;
+}
+
+.pf-cs-sum-card li {
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: var(--fg-body);
+  word-break: keep-all;
+}
+
+/* chapter head */
+.pf-cs-chap-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 9px;
+}
+
+.pf-cs-chap-no {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.pf-cs-chap-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.pf-cs-chap-title {
+  margin: 2px 0 0;
+  font-family: var(--font-korean-heading);
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--fg);
+}
+
+.pf-cs-lead {
+  margin: 0 0 11px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--fg-body);
+}
+
+.pf-cs-lead b {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* AS-IS capture grid */
+.pf-cs-shots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.pf-cs-shots figure {
+  margin: 0;
+}
+
+.pf-cs-shots img {
+  display: block;
+  width: 100%;
+  height: 158px;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border);
+  border-radius: var(--r-tight);
+}
+
+.pf-cs-shots figcaption {
+  margin-top: 5px;
+}
+
+.pf-cs-shots figcaption strong {
+  display: block;
+  font-family: var(--font-korean-heading);
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.pf-cs-shots figcaption span {
+  display: block;
+  margin-top: 1px;
+  font-size: 8.5px;
+  line-height: 1.4;
+  color: var(--fg-muted);
+  word-break: keep-all;
+}
+
+.pf-cs-cause-intro {
+  margin: 16px 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* root causes */
+.pf-cs-causes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.pf-cs-cause {
+  display: flex;
+  gap: 9px;
+  padding: 10px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.pf-cs-cause-code {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.pf-cs-cause h4 {
+  margin: 0 0 4px;
+  font-family: var(--font-korean-heading);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.pf-cs-cause p {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: var(--fg-body);
+}
+
+/* users */
+.pf-cs-users {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.pf-cs-user {
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.pf-cs-user-kind {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pf-cs-user strong {
+  display: block;
+  font-family: var(--font-korean-heading);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.pf-cs-user-need {
+  margin: 5px 0 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.pf-cs-user-pain {
+  margin: 4px 0 0;
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+.pf-cs-mini-label {
+  display: block;
+  margin-bottom: 7px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* tables */
+.pf-cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5px;
+}
+
+.pf-cs-table th,
+.pf-cs-table td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.45;
+  vertical-align: top;
+}
+
+.pf-cs-table th {
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  background: var(--bg-muted);
+}
+
+.pf-cs-table td {
+  color: var(--fg-body);
+}
+
+/* 이탈 지점 20개 표 — 한 페이지에서 읽기 좋게 */
+.pf-cs-table-symptoms {
+  font-size: 9.5px;
+}
+
+.pf-cs-table-symptoms th,
+.pf-cs-table-symptoms td {
+  padding: 7px 8px;
+  line-height: 1.5;
+}
+
+.pf-cs-table-symptoms td:nth-child(1) {
+  width: 22px;
+  text-align: center;
+  color: var(--fg-muted);
+}
+
+.pf-cs-table-symptoms td:nth-child(2) {
+  width: 100px;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.pf-cs-table-symptoms td:nth-child(4) {
+  width: 46px;
+  white-space: nowrap;
+}
+
+.pf-cs-table-symptoms td:nth-child(5) {
+  width: 54px;
+  white-space: nowrap;
+}
+
+.pf-cs-cause-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 14px;
+  padding: 1px 4px;
+  margin-right: 3px;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: 800;
+}
+
+/* goals & principles */
+.pf-cs-goals,
+.pf-cs-principles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.pf-cs-goals {
+  margin-bottom: 9px;
+}
+
+.pf-cs-goal,
+.pf-cs-principle {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.pf-cs-principle {
+  background: var(--bg-muted);
+}
+
+.pf-cs-goal-no,
+.pf-cs-principle-meta {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pf-cs-goal h4,
+.pf-cs-principle h4 {
+  margin: 0 0 4px;
+  font-family: var(--font-korean-heading);
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--fg);
+}
+
+.pf-cs-goal p,
+.pf-cs-principle p {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: var(--fg-body);
+  white-space: pre-line;
+}
+
+/* IA / flow diagrams */
+.pf-cs-figs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 11px 0;
+}
+
+.pf-cs-figs figure {
+  margin: 0;
+}
+
+.pf-cs-fig-label {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 2px 7px;
+  border-radius: var(--r-pill);
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.pf-cs-fig-tobe {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--cream);
+}
+
+.pf-cs-figs img {
+  display: block;
+  width: 100%;
+  /* 좌우(및 두 쌍) 테두리 높이를 통일 — 다이어그램 전체는 contain으로 보존 */
+  height: 210px;
+  object-fit: contain;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--r-tight);
+}
+
+/* flow text */
+.pf-cs-flow-text {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.pf-cs-flow-text p {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.55;
+  color: var(--fg-body);
+}
+
+/* screen design grid */
+.pf-cs-screens {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+
+.pf-cs-screens figure {
+  margin: 0;
+}
+
+.pf-cs-screens img {
+  display: block;
+  width: 100%;
+  height: 116px;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border);
+  border-radius: var(--r-tight);
+}
+
+.pf-cs-screens figcaption {
+  margin-top: 5px;
+}
+
+.pf-cs-screens figcaption strong {
+  display: block;
+  font-family: var(--font-korean-heading);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.pf-cs-screens figcaption span {
+  display: block;
+  margin-top: 2px;
+  font-size: 8.5px;
+  line-height: 1.4;
+  color: var(--fg-muted);
+}
+
+/* scope */
+.pf-cs-scope {
+  display: grid;
+  gap: 0;
+}
+
+.pf-cs-scope-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.42fr) 1fr;
+  gap: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.pf-cs-scope-row > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pf-cs-scope-row strong {
+  min-width: 130px;
+  font-family: var(--font-korean-heading);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+.pf-cs-scope-choice {
+  flex: none;
+  padding: 2px 7px;
+  border-radius: var(--r-pill);
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  font-size: 8.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pf-cs-scope-row p {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: var(--fg-body);
+}
+
+/* expected impact */
+.pf-cs-status {
+  display: inline-block;
+  margin-bottom: 9px;
+  padding: 4px 9px;
+  border-radius: var(--r-pill);
+  background: var(--bg-muted);
+  border: 1px dashed var(--border-strong);
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--fg-muted);
+}
+
+.pf-cs-outcome {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.pf-cs-outcome article {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.pf-cs-outcome-who {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  background: var(--zap-black);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 800;
+}
+
+.pf-cs-outcome p {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--fg);
+  white-space: pre-line;
+}
+
+.pf-cs-measure {
+  margin: 0;
+  padding: 9px 12px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--r-tight) var(--r-tight) 0;
+  background: var(--bg-muted);
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: var(--fg-body);
 }
 
 @media screen and (max-width: 760px) {
