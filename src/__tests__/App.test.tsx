@@ -414,9 +414,10 @@ describe('sseul portfolio', () => {
 
     expect(container.querySelector('.portfolio-pdf-page')).toBeInTheDocument();
     expect(screen.getByText('Portfolio')).toBeInTheDocument();
+    expect(screen.getByText('SSEUL · SERVICE PLANNING PORTFOLIO')).toBeInTheDocument();
     expect(screen.getAllByText('sseul.me').length).toBeGreaterThanOrEqual(2);
     expect(screen.getAllByRole('link', { name: 'sseul.me' })[0]).toHaveAttribute('href', 'https://sseul.me/');
-    expect(screen.getByText('서비스기획자 | PM | PO')).toBeInTheDocument();
+    expect(screen.getByText('구현 가능성을 아는 서비스기획자')).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: /01\s+Main Project/i })).toBeInTheDocument();
     expect(screen.getByText('MAIN PROJECT · 문제')).toBeInTheDocument();
     expect(screen.getByText('있는데, 제 역할을 못 하던 사이트')).toBeInTheDocument();

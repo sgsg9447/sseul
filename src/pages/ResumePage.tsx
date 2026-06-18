@@ -54,7 +54,7 @@ export function ResumePage() {
 
               <div className="resume-id">
                 <h1 className="resume-name">김슬기</h1>
-                <p className="resume-title">서비스기획 | PM | PO</p>
+                <p className="resume-title">서비스기획 / 프로덕트 기획</p>
                 <p className="resume-intro">
                   프론트엔드 개발 경험을 바탕으로,
                   <br />

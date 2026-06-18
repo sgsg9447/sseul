@@ -36,7 +36,7 @@ export function CareerPage() {
         <section className="career-print-page career-print-page-first" aria-label="경력기술서 1페이지">
           <div className="career-head">
             <h1 className="career-title">
-              경력기술서<span>김슬기 · 서비스기획 | PM | PO</span>
+              경력기술서<span>김슬기 · 서비스기획 / 프로덕트 기획</span>
             </h1>
             <p className="career-summary">{careerSummary}</p>
             <p className="career-kw">{careerKeywords}</p>

@@ -57,7 +57,7 @@ export function PortfolioPdfPage() {
               <div className="pf-cover-meta">
                 <p className="pf-eyebrow">
                   <span />
-                  SSEUL · FRONTEND &amp; PRODUCT PORTFOLIO
+                  SSEUL · SERVICE PLANNING PORTFOLIO
                 </p>
                 <a className="pf-site-link" href={portfolioSiteHref}>
                   {portfolioSite}
@@ -69,7 +69,7 @@ export function PortfolioPdfPage() {
                 서비스의 시작점을 찾습니다.
               </h1>
               <p className="pf-cover-lede">
-                복잡한 요구를 구조로 정리하고, 사용자 경험과 운영 효율을 함께 고려해 실제 동작하는 화면으로 만듭니다.
+                복잡한 요구를 기능·데이터·화면 흐름으로 구조화하고, 사용자 경험과 운영 효율을 함께 고려한 실행 가능한 기획으로 연결합니다.
               </p>
 
               <div className="pf-cover-card">
@@ -83,7 +83,7 @@ export function PortfolioPdfPage() {
                   </div>
                   <div>
                     <dt>Role</dt>
-                    <dd>서비스기획자 | PM | PO</dd>
+                    <dd>구현 가능성을 아는 서비스기획자</dd>
                   </div>
                   <div>
                     <dt>Focus</dt>
@@ -211,7 +211,7 @@ export function PortfolioPdfPage() {
               <p className="pf-contact-lines">
                 프론트엔드 구현 경험을 바탕으로,
                 <br />
-                복잡한 요구를 구조로 정리하고 화면으로 만들어 왔습니다.
+                복잡한 요구를 기능·데이터·화면 흐름으로 구조화해 왔습니다.
               </p>
               <p className="pf-contact-email">
                 Email <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
