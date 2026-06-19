@@ -6829,6 +6829,13 @@ img {
   line-height: 1.8;
 }
 
+/* 피드백·대표 사례 도입부는 웹에서 한 줄로 보이도록 폭 제한을 푼다.
+   모바일에서는 .br-mobile 이 문장을 끊는다. */
+.work-feedback .work-intro,
+.work-case .work-intro {
+  max-width: none;
+}
+
 /* ── Before / After ───────────────────────────────────────────────────── */
 .work-ba-list {
   display: grid;
@@ -7519,7 +7526,7 @@ img {
 }
 
 .work-contact-body {
-  max-width: 620px;
+  max-width: 680px;
   margin: 24px 0 0;
   color: rgba(255, 254, 251, 0.78);
   font-size: 17px;

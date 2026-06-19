@@ -37,7 +37,11 @@ function WorkHero() {
             <span key={line}>{line}</span>
           ))}
         </h1>
-        <p className="work-hero-lede">{workHero.lede}</p>
+        <p className="work-hero-lede">
+          {workHero.ledeLines[0]}
+          <br />
+          {workHero.ledeLines[1]}
+        </p>
         <p className="work-hero-proof">{workHero.proof}</p>
         <div className="work-hero-actions">
           <a className="btn btn-primary" href={MAIL_HREF}>
@@ -132,7 +136,11 @@ function FeedbackSection() {
             {feedbackIntro.eyebrow}
           </p>
           <h2>{feedbackIntro.title}</h2>
-          <p className="work-intro-body">{feedbackIntro.body}</p>
+          <p className="work-intro-body">
+            {feedbackIntro.bodyLines[0]}{' '}
+            <br className="br-mobile" />
+            {feedbackIntro.bodyLines[1]}
+          </p>
         </div>
 
         <div className="work-fb">
@@ -251,7 +259,11 @@ function CaseSection() {
             {caseIntro.eyebrow}
           </p>
           <h2>{caseIntro.title}</h2>
-          <p className="work-intro-body">{caseIntro.body}</p>
+          <p className="work-intro-body">
+            {caseIntro.bodyLines[0]}{' '}
+            <br className="br-mobile" />
+            {caseIntro.bodyLines[1]}
+          </p>
         </div>
 
         <div className="work-case-stats">
@@ -335,7 +347,11 @@ function ContactSection() {
               <span key={line}>{line}</span>
             ))}
           </h2>
-          <p className="work-contact-body">{workContact.body}</p>
+          <p className="work-contact-body">
+            {workContact.bodyLines[0]}
+            <br />
+            {workContact.bodyLines[1]}
+          </p>
           <div className="work-contact-actions">
             <a className="btn btn-primary" href={MAIL_HREF}>
               이메일로 문의하기

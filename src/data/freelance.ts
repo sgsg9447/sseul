@@ -11,7 +11,11 @@ export const DELIVERABLES_HREF = '/work/deliverables';
 export const workHero = {
   eyebrow: 'WEB RENEWAL · 웹사이트 리뉴얼 외주',
   titleLines: ['안 되던 웹사이트를,', '다시 일하게 만듭니다.'],
-  lede: '오래된 사이트를 데이터와 동선으로 다시 설계합니다. 보기 좋은 화면이 아니라, 실제로 문제를 푸는 사이트를 만듭니다.',
+  // 항상 2줄로 끊어 보여준다.
+  ledeLines: [
+    '오래된 사이트를 데이터와 동선으로 다시 설계합니다.',
+    '보기 좋은 화면이 아니라, 실제로 문제를 푸는 사이트를 만듭니다.',
+  ],
   proof: '랜딩페이지 한 장, 작은 예약·문의 도구 같은 작은 작업도 편하게 요청하세요.',
   card: {
     topline: 'FREELANCE · SEOUL',
@@ -88,7 +92,11 @@ export const notionBoard: { name: string; tone: 'todo' | 'doing' | 'done'; items
 export const feedbackIntro = {
   eyebrow: 'FEEDBACK · 피드백 반영',
   title: '느낌으로 말 안 하셔도 됩니다',
-  body: '화면별로 요청사항·유형·우선순위를 정리하는 검수 요청서로 의견을 받습니다. 어떤 의견도 묻히지 않고, 무엇부터 고칠지 함께 정합니다.',
+  // 웹: 한 줄 / 모바일: 두 문장으로 끊어 보여준다.
+  bodyLines: [
+    '화면별로 요청사항·유형·우선순위를 정리하는 검수 요청서로 의견을 받습니다.',
+    '어떤 의견도 묻히지 않고, 무엇부터 고칠지 함께 정합니다.',
+  ],
 };
 
 export const feedbackTypes = ['오류', '개선', '취향', '질문'];
@@ -122,7 +130,11 @@ export const deliverColumns: { label: string; tag: string; items: string[]; href
 export const caseIntro = {
   eyebrow: 'CASE STUDY · 대표 사례',
   title: '문제 정의부터 구현까지, 끝까지 해냅니다',
-  body: '국비지원 목공 직업훈련기관 웹사이트 리뉴얼 — 운영자를 인터뷰하고 직접 써보며 이탈 지점을 찾아, 기획·설계·디자인·개발을 단독으로 진행했습니다.',
+  // 웹: 한 줄 / 모바일: 두 줄로 끊어 보여준다.
+  bodyLines: [
+    '국비지원 목공 직업훈련기관 웹사이트 리뉴얼 — 운영자를 인터뷰하고 직접 써보며 이탈 지점을 찾아,',
+    '기획·설계·디자인·개발을 단독으로 진행했습니다.',
+  ],
 };
 
 // 강조 지표 — 일주일 이내 단독 완성 + 문제 분석의 밀도
@@ -154,7 +166,11 @@ export const scopeItems: { tag: string; title: string; desc: string }[] = [
 export const workContact = {
   eyebrow: 'START · 시작하기',
   titleLines: ['작은 질문부터', '편하게 시작하세요.'],
-  body: '문의는 이메일로 편하게 주세요. 계약이 되면 노션 채널에서 문서와 소통을 한 곳에 모아 함께 작업합니다.',
+  // 항상 2줄로 끊어 보여준다.
+  bodyLines: [
+    '문의는 이메일로 편하게 주세요.',
+    '계약이 되면 노션 채널에서 문서와 소통을 한 곳에 모아 함께 작업합니다.',
+  ],
   card: [
     { label: '문의', value: '이메일' },
     { label: '작업 소통', value: '노션 채널 (계약 후)' },
