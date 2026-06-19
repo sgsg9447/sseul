@@ -2,6 +2,7 @@ import { ArrowRight, Check, Mail } from 'lucide-react';
 import { WorkHeader } from '../components/layout/WorkHeader';
 import { BeforeAfter } from '../sections/work/BeforeAfter';
 import screenHome from '../assets/screen-home.png';
+import profile from '../assets/profile.jpg';
 import {
   CASE_STUDY_HREF,
   CONTACT_EMAIL,
@@ -10,6 +11,7 @@ import {
   caseIntro,
   casePoints,
   caseStats,
+  caseStatsNote,
   deliverColumns,
   deliverIntro,
   feedbackIntro,
@@ -57,7 +59,11 @@ function WorkHero() {
 
       <aside className="work-hero-card" aria-label="작업 소개 요약">
         <div className="work-hero-card-top">
-          <span>{workHero.card.topline}</span>
+          <img className="work-hero-avatar" src={profile} alt="김슬기 프로필 사진" />
+          <div className="work-hero-id">
+            <strong>{workHero.profileName}</strong>
+            <span>{workHero.card.topline}</span>
+          </div>
         </div>
         <strong className="work-hero-card-title">{workHero.card.title}</strong>
         <dl className="work-hero-card-grid">
@@ -163,15 +169,15 @@ function FeedbackSection() {
                 <tbody>
                   {feedbackRows.map((row) => (
                     <tr key={`${row.screen}-${row.element}`}>
-                      <td>
+                      <td data-label="화면">
                         <span className="work-fb-screen">{row.screen}</span>
                       </td>
-                      <td>{row.element}</td>
-                      <td>{row.request}</td>
-                      <td>
+                      <td data-label="요소">{row.element}</td>
+                      <td data-label="요청사항">{row.request}</td>
+                      <td data-label="유형">
                         <span className={`work-fb-type type-${row.type}`}>{row.type}</span>
                       </td>
-                      <td>
+                      <td data-label="우선순위">
                         <span className={`work-fb-prio prio-${row.priority}`}>{row.priority}</span>
                       </td>
                     </tr>
@@ -274,6 +280,7 @@ function CaseSection() {
             </div>
           ))}
         </div>
+        <p className="work-case-note">{caseStatsNote}</p>
 
         <div className="work-case-body">
           <div className="work-case-visual">

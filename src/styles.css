@@ -6733,7 +6733,37 @@ img {
   z-index: 1;
 }
 
-.work-hero-card-top span {
+.work-hero-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.work-hero-avatar {
+  width: 54px;
+  height: 54px;
+  flex: none;
+  object-fit: cover;
+  object-position: 50% 18%;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--orange);
+}
+
+.work-hero-id {
+  display: grid;
+  gap: 4px;
+}
+
+.work-hero-id strong {
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.work-hero-id span {
   color: var(--fg-muted);
   font-family: var(--font-display);
   font-size: 11px;
@@ -7351,6 +7381,13 @@ img {
   font-weight: 600;
 }
 
+.work-case-note {
+  margin: 14px 0 0;
+  color: var(--fg-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .work-case-body {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
@@ -7706,5 +7743,45 @@ img {
   .work-hero-actions .btn,
   .work-contact-actions .btn {
     width: 100%;
+  }
+
+  /* 피드백 표: 모바일에서는 가로 스크롤/잘림 대신 행을 카드로 쌓는다. */
+  .work-fb-table thead {
+    display: none;
+  }
+
+  .work-fb-table,
+  .work-fb-table tbody,
+  .work-fb-table tr,
+  .work-fb-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .work-fb-table tr {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .work-fb-table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .work-fb-table td {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 16px;
+    border-bottom: 0;
+  }
+
+  .work-fb-table td::before {
+    content: attr(data-label);
+    flex: 0 0 60px;
+    color: var(--fg-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
   }
 }

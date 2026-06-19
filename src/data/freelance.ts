@@ -17,6 +17,7 @@ export const workHero = {
     '보기 좋은 화면이 아니라, 실제로 문제를 푸는 사이트를 만듭니다.',
   ],
   proof: '랜딩페이지 한 장, 작은 예약·문의 도구 같은 작은 작업도 편하게 요청하세요.',
+  profileName: 'Kim Seul Gi',
   card: {
     topline: 'FREELANCE · SEOUL',
     title: '기획부터 개발까지 한 사람이',
@@ -139,10 +140,14 @@ export const caseIntro = {
 
 // 강조 지표 — 일주일 이내 단독 완성 + 문제 분석의 밀도
 export const caseStats: { value: string; label: string }[] = [
-  { value: '1주 이내', label: '기획·디자인·개발 단독 완성' },
+  { value: '1주 이내', label: '이 사례 기준 · 기획·디자인·개발 단독' },
   { value: '20개', label: '직접 쓰며 찾은 문제점' },
   { value: '4개', label: '근본 원인으로 압축' },
 ];
+
+// 기간이 모든 프로젝트에 동일하다는 오해를 막는 한 줄.
+export const caseStatsNote =
+  '*작업 기간은 기능·페이지 수에 따라 달라집니다. 위 “1주 이내”는 이 예시 프로젝트(목공학원) 기준입니다.';
 
 export const casePoints: { tag: string; title: string; desc: string }[] = [
   { tag: '문제', title: '있는데, 제 역할을 못 하던 사이트', desc: '과정·일정·비용이 전부 이미지·게시글. 비교도, 신청도, 운영도 막혀 있었습니다.' },
