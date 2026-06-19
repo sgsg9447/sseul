@@ -88,8 +88,12 @@ function ChapterHead({ no, label, title }: { no: string; label: string; title: R
   );
 }
 
-export function CaseStudySection() {
+export function CaseStudySection({
+  deliverablesHref = '/deliverables',
+  symptomsOpen = false,
+}: { deliverablesHref?: string; symptomsOpen?: boolean } = {}) {
   const [lightbox, setLightbox] = useState<{ items: LightboxItem[]; index: number } | null>(null);
+  const [symptomsExpanded, setSymptomsExpanded] = useState(symptomsOpen);
   const openLightbox = (items: LightboxItem[], index: number) => setLightbox({ items, index });
   const closeLightbox = () => setLightbox(null);
   const showPrev = () =>
@@ -151,7 +155,7 @@ export function CaseStudySection() {
               <dt>{item.label}</dt>
               {item.href ? (
                 <dd>
-                  <a href={item.href} aria-label={`${item.label} 문서 보기`}>
+                  <a href={deliverablesHref} aria-label={`${item.label} 문서 보기`}>
                     {item.value}
                     <span className="cs-meta-hint" aria-hidden="true">→</span>
                   </a>
@@ -207,7 +211,11 @@ export function CaseStudySection() {
             </div>
           </div>
 
-          <details className="cs-symptoms">
+          <details
+            className="cs-symptoms"
+            open={symptomsExpanded}
+            onToggle={(e) => setSymptomsExpanded((e.currentTarget as HTMLDetailsElement).open)}
+          >
             <summary>
               <span>직접 사용하며 기록한 이탈 지점 20개</span>
               <span className="cs-symptoms-toggle">

@@ -3,11 +3,11 @@ import { csDeliverables } from '../data/woodworking';
 import { deliverableContent } from '../content/deliverables';
 import { DeliverableSheet } from '../components/DeliverableSheet';
 
-export function DeliverablesPage() {
+export function DeliverablesPage({ backHref = '/' }: { backHref?: string } = {}) {
   return (
     <div className="deliverables-page">
       <header className="resume-toolbar">
-        <a className="resume-back" href="/">
+        <a className="resume-back" href={backHref}>
           <ArrowLeft size={16} />
           포트폴리오로
         </a>

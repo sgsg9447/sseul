@@ -21,8 +21,9 @@ describe('freelance work landing (/work)', () => {
       screen.getByRole('heading', { level: 1, name: /안 되던 웹사이트를,\s+다시 일하게 만듭니다\./i }),
     ).toBeInTheDocument();
 
-    const heroCtas = screen.getAllByRole('link', { name: /상담 신청/i });
-    expect(heroCtas.length).toBeGreaterThan(0);
+    const inquiryCtas = screen.getAllByRole('link', { name: /이메일.*문의/i });
+    expect(inquiryCtas.length).toBeGreaterThan(0);
+    inquiryCtas.forEach((cta) => expect(cta.getAttribute('href')).toMatch(/^mailto:/));
     expect(screen.getByRole('link', { name: /작업 사례 보기/i })).toHaveAttribute('href', '#before-after');
   });
 
@@ -70,11 +71,11 @@ describe('freelance work landing (/work)', () => {
     });
     expect(within(section as HTMLElement).getByRole('link', { name: /실제 산출물 보기/i })).toHaveAttribute(
       'href',
-      '/deliverables',
+      '/work/deliverables',
     );
   });
 
-  it('invites small jobs and closes with a notion-first contact', () => {
+  it('invites small jobs and closes with an email-first contact', () => {
     const { container } = render(<App />);
 
     const scope = container.querySelector('#scope');
@@ -82,7 +83,54 @@ describe('freelance work landing (/work)', () => {
 
     const contact = container.querySelector('#contact');
     expect(contact).toBeInTheDocument();
-    expect(within(contact as HTMLElement).getByRole('link', { name: /노션으로 문의하기/i })).toBeInTheDocument();
+    const inquiry = within(contact as HTMLElement).getByRole('link', { name: /이메일로 문의하기/i });
+    expect(inquiry.getAttribute('href')).toMatch(/^mailto:sgsg9447@gmail.com/);
     expect(within(contact as HTMLElement).getByText('sgsg9447@gmail.com')).toBeInTheDocument();
+  });
+
+  it('emphasises the one-week build with a stats strip', () => {
+    const { container } = render(<App />);
+    const stats = container.querySelector('.work-case-stats');
+    expect(stats).toBeInTheDocument();
+    expect(within(stats as HTMLElement).getByText('1주 이내')).toBeInTheDocument();
+  });
+});
+
+describe('woodworking-only case page (/work/case)', () => {
+  afterEach(() => {
+    cleanup();
+    window.history.pushState(null, '', '/');
+  });
+
+  it('shows only the woodworking case study with the 20-problem table, not the company portfolio', () => {
+    window.history.pushState(null, '', '/work/case');
+    const { container } = render(<App />);
+
+    expect(container.querySelector('.work-case-page')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /작업 소개로/i })).toHaveAttribute('href', '/work');
+    expect(container.querySelector('#case-study')).toBeInTheDocument();
+    // the 20 recorded problems render as a table
+    expect(container.querySelectorAll('.cs-table-symptoms tbody tr')).toHaveLength(20);
+    // the deliverables link stays inside the /work universe
+    expect(screen.getByRole('link', { name: /산출물 문서 보기/i })).toHaveAttribute('href', '/work/deliverables');
+    // the company "other projects" are NOT shown here
+    expect(screen.queryByText('GenA')).not.toBeInTheDocument();
+    expect(screen.queryByText('Orzo')).not.toBeInTheDocument();
+  });
+});
+
+describe('scoped deliverables page (/work/deliverables)', () => {
+  afterEach(() => {
+    cleanup();
+    window.history.pushState(null, '', '/');
+  });
+
+  it('renders the deliverables and routes its back link to /work', () => {
+    window.history.pushState(null, '', '/work/deliverables');
+    const { container } = render(<App />);
+
+    expect(container.querySelector('.deliverables-page')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /포트폴리오로/i })).toHaveAttribute('href', '/work');
+    expect(screen.getByText('서비스 기획서')).toBeInTheDocument();
   });
 });

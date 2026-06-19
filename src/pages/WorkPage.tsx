@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Check, Mail } from 'lucide-react';
+import { ArrowRight, Check, Mail } from 'lucide-react';
 import { WorkHeader } from '../components/layout/WorkHeader';
 import { BeforeAfter } from '../sections/work/BeforeAfter';
 import screenHome from '../assets/screen-home.png';
@@ -6,9 +6,10 @@ import {
   CASE_STUDY_HREF,
   CONTACT_EMAIL,
   DELIVERABLES_HREF,
-  NOTION_CONTACT_URL,
+  MAIL_HREF,
   caseIntro,
   casePoints,
+  caseStats,
   deliverColumns,
   deliverIntro,
   feedbackIntro,
@@ -22,8 +23,6 @@ import {
   workContact,
   workHero,
 } from '../data/freelance';
-
-const mailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}`;
 
 function WorkHero() {
   return (
@@ -41,9 +40,9 @@ function WorkHero() {
         <p className="work-hero-lede">{workHero.lede}</p>
         <p className="work-hero-proof">{workHero.proof}</p>
         <div className="work-hero-actions">
-          <a className="btn btn-primary" href={NOTION_CONTACT_URL} target="_blank" rel="noreferrer">
-            상담 신청
-            <ArrowUpRight size={17} />
+          <a className="btn btn-primary" href={MAIL_HREF}>
+            이메일로 문의하기
+            <Mail size={17} />
           </a>
           <a className="btn btn-secondary" href="#before-after">
             작업 사례 보기
@@ -255,6 +254,15 @@ function CaseSection() {
           <p className="work-intro-body">{caseIntro.body}</p>
         </div>
 
+        <div className="work-case-stats">
+          {caseStats.map((stat) => (
+            <div className="work-case-stat" key={stat.label}>
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </div>
+          ))}
+        </div>
+
         <div className="work-case-body">
           <div className="work-case-visual">
             <img src={screenHome} alt="목공 직업훈련기관 리뉴얼 메인 화면" loading="lazy" />
@@ -269,7 +277,7 @@ function CaseSection() {
             ))}
             <div className="work-case-links">
               <a className="btn btn-secondary" href={CASE_STUDY_HREF}>
-                전체 케이스 보기
+                케이스 자세히 보기
                 <ArrowRight size={16} />
               </a>
               <a className="work-deliver-link" href={DELIVERABLES_HREF}>
@@ -299,7 +307,10 @@ function ScopeSection() {
         <div className="work-scope-grid">
           {scopeItems.map((item) => (
             <article className={`work-scope-card${item.tag === '메인' ? ' is-main' : ''}`} key={item.title}>
-              <span className="work-scope-tag">{item.tag}</span>
+              <span className="work-scope-tag">
+                {item.tag !== '메인' ? <Check size={12} aria-hidden="true" /> : null}
+                {item.tag}
+              </span>
               <strong>{item.title}</strong>
               <p>{item.desc}</p>
             </article>
@@ -326,13 +337,13 @@ function ContactSection() {
           </h2>
           <p className="work-contact-body">{workContact.body}</p>
           <div className="work-contact-actions">
-            <a className="btn btn-primary" href={NOTION_CONTACT_URL} target="_blank" rel="noreferrer">
-              노션으로 문의하기
-              <ArrowUpRight size={17} />
-            </a>
-            <a className="btn btn-inverse" href={mailHref} target="_blank" rel="noreferrer">
-              이메일 보내기
+            <a className="btn btn-primary" href={MAIL_HREF}>
+              이메일로 문의하기
               <Mail size={17} />
+            </a>
+            <a className="btn btn-inverse" href={CASE_STUDY_HREF}>
+              대표 사례 보기
+              <ArrowRight size={17} />
             </a>
           </div>
         </div>
@@ -345,9 +356,7 @@ function ContactSection() {
           ))}
           <div>
             <span>Email</span>
-            <a href={mailHref} target="_blank" rel="noreferrer">
-              {CONTACT_EMAIL}
-            </a>
+            <a href={MAIL_HREF}>{CONTACT_EMAIL}</a>
           </div>
         </aside>
       </div>

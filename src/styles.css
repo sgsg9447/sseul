@@ -6613,6 +6613,41 @@ img {
   min-height: 100vh;
 }
 
+/* Sub-page back nav (e.g. /work/case) */
+.work-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+  padding: 20px 0 0;
+}
+
+.work-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--fg-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.work-back:hover {
+  color: var(--accent);
+}
+
+.work-subnav-tag {
+  color: var(--fg-muted);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
 /* ── Hero ─────────────────────────────────────────────────────────────── */
 .work-hero {
   display: grid;
@@ -7274,14 +7309,50 @@ img {
 }
 
 /* ── Case highlight ───────────────────────────────────────────────────── */
+.work-case-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: clamp(28px, 4vh, 44px);
+}
+
+.work-case-stat {
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--cream);
+}
+
+.work-case-stat strong {
+  display: block;
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
+  line-height: 1.04;
+}
+
+.work-case-stat:first-child strong {
+  color: var(--accent);
+}
+
+.work-case-stat span {
+  display: block;
+  margin-top: 8px;
+  color: var(--fg-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .work-case-body {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   gap: clamp(24px, 3.5vw, 48px);
   align-items: start;
 }
 
 .work-case-visual {
+  aspect-ratio: 16 / 11;
   overflow: hidden;
   border: 1px solid var(--border-strong);
   border-radius: var(--r-lg);
@@ -7290,6 +7361,7 @@ img {
 
 .work-case-visual img {
   width: 100%;
+  height: 100%;
   display: block;
   object-fit: cover;
   object-position: top center;
@@ -7373,15 +7445,22 @@ img {
 
 .work-scope-tag {
   width: fit-content;
-  padding: 4px 9px;
-  border-radius: var(--r-sm);
-  background: var(--light-sand);
-  color: var(--fg-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 11px;
+  border-radius: var(--r-pill);
+  background: #e3efd9;
+  color: #3b6d11;
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.4px;
   text-transform: uppercase;
+}
+
+.work-scope-tag svg {
+  stroke-width: 2.6;
 }
 
 .work-scope-card.is-main .work-scope-tag {
@@ -7595,8 +7674,13 @@ img {
 
 @media (max-width: 680px) {
   .work-section-inner,
-  .work-contact-inner {
+  .work-contact-inner,
+  .work-subnav {
     width: min(100% - 40px, 1200px);
+  }
+
+  .work-case-stats {
+    grid-template-columns: 1fr;
   }
 
   .work-ba-shots {

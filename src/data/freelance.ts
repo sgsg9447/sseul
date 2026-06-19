@@ -2,11 +2,11 @@
 // 디자인 시스템과 이미지 자산은 기존 포트폴리오(목공 케이스)에서 그대로 재사용한다.
 // 홈(메인 페이지)은 건드리지 않고, 이 라우트만 독립적으로 구성한다.
 
-// 작업 문의·소통이 모이는 노션 채널. 실제 공유 링크로 교체하세요.
-export const NOTION_CONTACT_URL = 'https://www.notion.so/';
+// 문의는 이메일로 받고, 계약이 되면 작업 소통은 노션 채널에서 한다.
 export const CONTACT_EMAIL = 'sgsg9447@gmail.com';
-export const CASE_STUDY_HREF = '/#case-study';
-export const DELIVERABLES_HREF = '/deliverables';
+export const MAIL_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('웹사이트 리뉴얼 문의')}`;
+export const CASE_STUDY_HREF = '/work/case';
+export const DELIVERABLES_HREF = '/work/deliverables';
 
 export const workHero = {
   eyebrow: 'WEB RENEWAL · 웹사이트 리뉴얼 외주',
@@ -20,7 +20,7 @@ export const workHero = {
       { label: '이런 분께', value: '오래되고 불편한 사이트를 고치고 싶은 분' },
       { label: '작업 범위', value: '기획 · 디자인 · 개발 단독 진행' },
       { label: '진행 방식', value: '킥오프 → 시안 → 개발 → 검토 → 완료' },
-      { label: '소통', value: '노션 채널 한 곳에서' },
+      { label: '연락', value: '이메일 문의 · 작업은 노션' },
     ],
   },
 };
@@ -125,6 +125,13 @@ export const caseIntro = {
   body: '국비지원 목공 직업훈련기관 웹사이트 리뉴얼 — 운영자를 인터뷰하고 직접 써보며 이탈 지점을 찾아, 기획·설계·디자인·개발을 단독으로 진행했습니다.',
 };
 
+// 강조 지표 — 일주일 이내 단독 완성 + 문제 분석의 밀도
+export const caseStats: { value: string; label: string }[] = [
+  { value: '1주 이내', label: '기획·디자인·개발 단독 완성' },
+  { value: '20개', label: '직접 쓰며 찾은 문제점' },
+  { value: '4개', label: '근본 원인으로 압축' },
+];
+
 export const casePoints: { tag: string; title: string; desc: string }[] = [
   { tag: '문제', title: '있는데, 제 역할을 못 하던 사이트', desc: '과정·일정·비용이 전부 이미지·게시글. 비교도, 신청도, 운영도 막혀 있었습니다.' },
   { tag: '한 일', title: '데이터로 모델링하고, 동선으로 설계', desc: '과정·일정·신청·문의를 데이터로 분리하고, 탐색→판단→신청 흐름을 다시 짰습니다.' },
@@ -147,10 +154,10 @@ export const scopeItems: { tag: string; title: string; desc: string }[] = [
 export const workContact = {
   eyebrow: 'START · 시작하기',
   titleLines: ['작은 질문부터', '편하게 시작하세요.'],
-  body: '문의부터 작업까지 노션 한 곳에서. 메일·메신저로 흩어지지 않게, 모든 소통과 문서를 한 채널에 모읍니다.',
+  body: '문의는 이메일로 편하게 주세요. 계약이 되면 노션 채널에서 문서와 소통을 한 곳에 모아 함께 작업합니다.',
   card: [
-    { label: 'Contact', value: '노션 채널 / 이메일' },
+    { label: '문의', value: '이메일' },
+    { label: '작업 소통', value: '노션 채널 (계약 후)' },
     { label: 'Base', value: 'Seoul, Korea' },
-    { label: '작업 범위', value: '기획 · 디자인 · 개발' },
   ],
 };
