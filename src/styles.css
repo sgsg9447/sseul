@@ -6847,6 +6847,43 @@ img {
   color: var(--accent);
 }
 
+/* ── Insight statement (히어로 다음) ──────────────────────────────────── */
+.work-insight {
+  padding: clamp(44px, 7vh, 80px) 0;
+  border-top: 1px solid var(--border);
+  background: var(--off-white);
+}
+
+.work-insight-inner {
+  width: min(960px, calc(100% - 80px));
+  margin: 0 auto;
+  text-align: center;
+}
+
+.work-insight-lead {
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font-korean-heading);
+  font-size: clamp(21px, 2.7vw, 31px);
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: -0.5px;
+  text-wrap: balance;
+}
+
+.work-insight-emph {
+  margin: 16px 0 0;
+  color: var(--fg-body);
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.work-insight-emph b {
+  color: var(--accent);
+  font-weight: 800;
+}
+
 /* ── Section shell ────────────────────────────────────────────────────── */
 .work-section {
   padding: clamp(64px, 9vh, 116px) 0;
@@ -7433,12 +7470,12 @@ img {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   gap: clamp(24px, 3.5vw, 48px);
-  align-items: stretch;
+  align-items: start;
 }
 
-/* 데스크톱에서는 카드 묶음 높이에 맞춰 사진이 늘어난다(끝 라인 정렬).
-   모바일(1열)에서는 아래 미디어쿼리에서 비율로 고정. */
+/* 원본 전체를 보여주지 않고 상단(히어로) 위주로 잘라낸 단정한 미리보기. */
 .work-case-visual {
+  aspect-ratio: 16 / 11;
   overflow: hidden;
   border: 1px solid var(--border-strong);
   border-radius: var(--r-lg);
@@ -7498,7 +7535,7 @@ img {
   flex-wrap: wrap;
   align-items: center;
   gap: 16px;
-  margin-top: clamp(22px, 3.4vh, 34px);
+  margin-top: 6px;
 }
 
 /* ── Scope ────────────────────────────────────────────────────────────── */
@@ -7821,11 +7858,6 @@ img {
   .work-deliver-grid,
   .work-case-body {
     grid-template-columns: 1fr;
-  }
-
-  /* 1열에서는 stretch가 높이를 못 잡으므로 사진은 비율로 고정 */
-  .work-case-visual {
-    aspect-ratio: 16 / 11;
   }
 
   .work-scope-grid {

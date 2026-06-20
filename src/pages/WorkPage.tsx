@@ -29,6 +29,7 @@ import {
   startSteps,
   workContact,
   workHero,
+  workInsight,
 } from '../data/freelance';
 
 function WorkHero() {
@@ -84,6 +85,22 @@ function WorkHero() {
           <ArrowUpRight size={15} />
         </a>
       </aside>
+    </section>
+  );
+}
+
+function WorkInsight() {
+  const [pre, post] = workInsight.emph.split('전환되는 사이트');
+  return (
+    <section className="work-insight">
+      <div className="work-insight-inner">
+        <p className="work-insight-lead">{workInsight.lead}</p>
+        <p className="work-insight-emph">
+          {pre}
+          <b>전환되는 사이트</b>
+          {post}
+        </p>
+      </div>
     </section>
   );
 }
@@ -308,19 +325,19 @@ function CaseSection() {
                 <p>{point.desc}</p>
               </article>
             ))}
+            <div className="work-case-links">
+              <a className="btn btn-secondary" href={CASE_STUDY_HREF}>
+                케이스 자세히 보기
+                <ArrowRight size={16} />
+              </a>
+              <a className="work-deliver-link" href={LIVE_SITE_URL} target="_blank" rel="noreferrer">
+                라이브 사이트 ↗
+              </a>
+              <a className="work-deliver-link" href={DELIVERABLES_HREF}>
+                산출물 보기 →
+              </a>
+            </div>
           </div>
-        </div>
-        <div className="work-case-links">
-          <a className="btn btn-secondary" href={CASE_STUDY_HREF}>
-            케이스 자세히 보기
-            <ArrowRight size={16} />
-          </a>
-          <a className="work-deliver-link" href={LIVE_SITE_URL} target="_blank" rel="noreferrer">
-            라이브 사이트 ↗
-          </a>
-          <a className="work-deliver-link" href={DELIVERABLES_HREF}>
-            산출물 보기 →
-          </a>
         </div>
       </div>
     </section>
@@ -428,6 +445,7 @@ export function WorkPage() {
       <WorkHeader />
       <main>
         <WorkHero />
+        <WorkInsight />
         <BeforeAfter />
         <ProcessSection />
         <FeedbackSection />

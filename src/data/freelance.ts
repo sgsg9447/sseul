@@ -34,6 +34,12 @@ export const workHero = {
   },
 };
 
+// 히어로 다음 — "왜 사이트를 고쳐야 하나"를 못박는 한 문장.
+export const workInsight = {
+  lead: '광고비를 태워 사람을 데려와도, 동선이 불편하거나 볼 내용이 없으면 실제 전환으로 이어지지 않습니다.',
+  emph: '필요한 건 더 많은 트래픽이 아니라, 전환되는 사이트입니다.',
+};
+
 export type BaPair = {
   key: string;
   device: 'desktop' | 'mobile';
