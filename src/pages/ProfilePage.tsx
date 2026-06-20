@@ -207,7 +207,16 @@ function FaqSection() {
           {faqs.map((item) => (
             <div className="pf-faq-item" key={item.q}>
               <p className="pf-faq-q">{item.q}</p>
-              <p className="pf-faq-a">{item.a}</p>
+              <p className="pf-faq-a">
+                {item.a[0]}
+                {item.a[1] ? (
+                  <>
+                    {' '}
+                    <br className="br-mobile" />
+                    {item.a[1]}
+                  </>
+                ) : null}
+              </p>
             </div>
           ))}
         </div>
