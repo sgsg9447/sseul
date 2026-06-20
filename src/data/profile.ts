@@ -81,7 +81,7 @@ export const tiersIntro = {
 };
 
 // 상품 외 확장 — "이 세 가지만"이 아니라는 점을 알린다.
-export const tiersNote = '이력서·포트폴리오 외 자기소개서·발표자료 등 다른 작업도 협의 후 맞춰 드립니다.';
+export const tiersNote = '* 이력서·포트폴리오 외 자기소개서·발표자료 등 다른 작업도 협의 후 맞춰 드립니다.';
 
 export const tiers: Tier[] = [
   {
