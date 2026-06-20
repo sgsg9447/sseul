@@ -8,6 +8,9 @@ import profile from '../assets/profile.jpg';
 const TOTAL_PAGES = 1 + resumeDetailPages.length;
 
 export function ResumePage() {
+  // ?anon=1 (e.g. linked from /profile as a public sample) blurs company names.
+  const anon = new URLSearchParams(window.location.search).get('anon') === '1';
+
   // Native print-to-PDF. Isolates a single sheet when an id is passed so each
   // A4 page can be exported on its own; otherwise prints the whole document.
   const handlePrint = useCallback((sheetId?: string) => {
@@ -28,7 +31,7 @@ export function ResumePage() {
   }, []);
 
   return (
-    <div className="resume-page resume-view-page">
+    <div className={`resume-page resume-view-page${anon ? ' anon-doc' : ''}`}>
       <header className="resume-toolbar">
         <a className="resume-back" href="/">
           <ArrowLeft size={16} />
@@ -103,7 +106,7 @@ export function ResumePage() {
               {/* 제논 — full width */}
               <article className="resume-job">
                 <h3 className="resume-job-head">
-                  <strong>제논</strong>
+                  <strong className="resume-co">제논</strong>
                   <span className="resume-job-sep">/</span>
                   Frontend Engineer<span className="resume-job-focus"> · 제품 구조 설계</span>
                 </h3>
@@ -138,7 +141,7 @@ export function ResumePage() {
               <div className="resume-two-col">
                 <article className="resume-job">
                   <h3 className="resume-job-head">
-                    <strong>슬링</strong>
+                    <strong className="resume-co">슬링</strong>
                     <span className="resume-job-sep">/</span>
                     Frontend Engineer<span className="resume-job-focus"> · 운영 기획</span>
                   </h3>
@@ -171,7 +174,7 @@ export function ResumePage() {
 
                 <article className="resume-job">
                   <h3 className="resume-job-head">
-                    <strong>당근</strong>
+                    <strong className="resume-co">당근</strong>
                     <span className="resume-job-sep">/</span>
                     FE Intern<span className="resume-job-focus"> · 구현·검증</span>
                   </h3>
@@ -204,7 +207,7 @@ export function ResumePage() {
               {/* KOSSA — full width */}
               <article className="resume-job">
                 <h3 className="resume-job-head">
-                  <strong>KOSSA</strong>
+                  <strong className="resume-co">KOSSA</strong>
                   <span className="resume-job-sep">/</span>
                   Product Manager
                 </h3>

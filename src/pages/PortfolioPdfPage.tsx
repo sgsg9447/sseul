@@ -85,6 +85,9 @@ function PdfChapter({ no, label, title }: { no: string; label: string; title: Re
 }
 
 export function PortfolioPdfPage() {
+  // ?anon=1 (linked from /profile as a public sample) blurs company names.
+  const anon = new URLSearchParams(window.location.search).get('anon') === '1';
+
   const handlePrint = useCallback((sheetId?: string) => {
     const target = sheetId ? document.getElementById(sheetId) : null;
 
@@ -103,7 +106,7 @@ export function PortfolioPdfPage() {
   }, []);
 
   return (
-    <div className="resume-page portfolio-pdf-page">
+    <div className={`resume-page portfolio-pdf-page${anon ? ' anon-doc' : ''}`}>
       <header className="resume-toolbar">
         <a className="resume-back" href="/">
           <ArrowLeft size={16} />

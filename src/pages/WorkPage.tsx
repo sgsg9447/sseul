@@ -18,6 +18,7 @@ import {
   deliverColumns,
   deliverIntro,
   feedbackIntro,
+  feedbackNote,
   feedbackRows,
   feedbackTypes,
   notionBoard,
@@ -216,6 +217,7 @@ function FeedbackSection() {
               </span>
             </li>
           </ul>
+          <p className="work-fb-note">{feedbackNote}</p>
         </div>
       </div>
     </section>

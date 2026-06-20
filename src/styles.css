@@ -2140,6 +2140,14 @@ img {
   padding-top: 64px;
 }
 
+/* 익명화 샘플(/profile 진입, ?anon=1) — 실제 회사명만 블러 처리 */
+.anon-doc .resume-co,
+.anon-doc .career-co-name,
+.anon-doc .pf-exp-tag {
+  filter: blur(6px);
+  user-select: none;
+}
+
 /* Sticky toolbar (screen only) */
 .resume-toolbar {
   position: fixed;
@@ -7280,6 +7288,19 @@ img {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.work-fb-note {
+  margin: 4px 0 0;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  background: var(--cream);
+  color: var(--fg-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
 }
 
 /* ── Deliverables ─────────────────────────────────────────────────────── */

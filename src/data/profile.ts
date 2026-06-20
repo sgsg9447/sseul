@@ -7,9 +7,10 @@ export const PHONE = '010-7705-9447';
 export const TEL_HREF = `tel:${PHONE.replace(/-/g, '')}`;
 
 // 본인이 만든 결과물 — "제가 만든 걸 직접 보세요"의 증거로 연결한다.
-export const RESUME_HREF = '/resume';
-export const PORTFOLIO_HREF = '/portfolio-pdf';
-export const CAREER_HREF = '/career';
+// ?anon=1 로 진입하면 회사명을 블러 처리한다(공개 샘플용 익명화). 홈 포트폴리오는 영향 없음.
+export const RESUME_HREF = '/resume?anon=1';
+export const PORTFOLIO_HREF = '/portfolio-pdf?anon=1';
+export const CAREER_HREF = '/career?anon=1';
 
 // 정적 사이트라 백엔드 없이, mailto 본문을 미리 채워 문의가 '바로 견적 가능한' 형태로 도착하게 한다.
 const SUBJECT = '이력서·포트폴리오 제작 문의';
@@ -119,7 +120,7 @@ export const tiers: Tier[] = [
     price: '149,000',
     unit: '원~',
     regular: '정상가 350,000원',
-    features: ['1페이지 반응형 웹사이트', '직접 배포 · URL 전달', '모바일 최적화', 'PDF 버전 포함', '약 1주 내 완성'],
+    features: ['1페이지 반응형 웹사이트', '직접 배포 · URL 전달', '모바일 최적화', 'PDF 버전 포함', '3회 수정', '약 1주 내 완성'],
     cta: '이 구성으로 문의',
     note: '링크로 공유하는 포트폴리오',
   },

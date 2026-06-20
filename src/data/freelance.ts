@@ -104,6 +104,10 @@ export const feedbackIntro = {
   ],
 };
 
+// 수정 정책 — 기본 횟수 + 사소한 수정은 유연하다는 점.
+export const feedbackNote =
+  '기본 수정 2회 — 색·문구·간격 같은 사소한 수정은 횟수에 넣지 않고 유연하게 반영합니다.';
+
 export const feedbackTypes = ['오류', '개선', '취향', '질문'];
 export const feedbackRows: { screen: string; element: string; request: string; type: string; priority: string }[] = [
   { screen: 'HOME', element: '메인 배너', request: '모집 중 과정이 먼저 보였으면', type: '개선', priority: '상' },

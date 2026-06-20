@@ -8,10 +8,12 @@ const firstPrintPageCompanies = careerCompanies.slice(0, 2);
 const secondPrintPageCompanies = careerCompanies.slice(2);
 
 export function CareerPage() {
+  // ?anon=1 (linked from /profile as a public sample) blurs company names.
+  const anon = new URLSearchParams(window.location.search).get('anon') === '1';
   const handlePrint = useCallback(() => window.print(), []);
 
   return (
-    <div className="career-page">
+    <div className={`career-page${anon ? ' anon-doc' : ''}`}>
       {/*
         The résumé sets `@page { margin: 0 }` (its sheets are full-bleed A4).
         Career keeps the browser margin area at 0 to avoid default print

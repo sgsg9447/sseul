@@ -1,5 +1,8 @@
 import type { DetailPage } from '../../data/resumeDetail';
 
+// 실제 재직 회사명만 익명화 대상 — 프로젝트(목공·Waitroom)는 제외.
+const EMPLOYERS = ['제논', '슬링', '당근', 'KOSSA'];
+
 type ResumeDetailSheetProps = {
   page: DetailPage;
 };
@@ -12,7 +15,12 @@ export function ResumeDetailSheet({ page }: ResumeDetailSheetProps) {
       <div className="resume-detail">
         <div className="resume-d-head">
           <h2 className="resume-d-title">
-            <span className="resume-d-kicker">{page.kicker}</span> {page.company}
+            <span className="resume-d-kicker">{page.kicker}</span>{' '}
+            {EMPLOYERS.includes(page.company) ? (
+              <span className="resume-co">{page.company}</span>
+            ) : (
+              page.company
+            )}
           </h2>
           <p className="resume-d-sub">{page.sub}</p>
         </div>
