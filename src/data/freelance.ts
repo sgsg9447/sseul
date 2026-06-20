@@ -168,6 +168,9 @@ export const scopeItems: { tag: string; title: string; desc: string }[] = [
   { tag: '가능', title: '부분 개선', desc: '특정 화면이나 흐름만 손보는 작업도 좋습니다.' },
 ];
 
+// 문의 후 어떻게 진행되는지 — 비개발자 의뢰인의 "그다음 뭐?" 불안을 없애는 단서.
+export const startSteps: string[] = ['이메일로 문의', '상담 — 범위·일정', '견적·계약', '작업 시작'];
+
 export const workContact = {
   eyebrow: 'START · 시작하기',
   titleLines: ['작은 질문부터', '편하게 시작하세요.'],

@@ -22,6 +22,7 @@ import {
   processSteps,
   scopeIntro,
   scopeItems,
+  startSteps,
   workContact,
   workHero,
 } from '../data/freelance';
@@ -359,6 +360,17 @@ function ContactSection() {
             <br />
             {workContact.bodyLines[1]}
           </p>
+          <div className="work-start">
+            <span className="work-start-label">이렇게 시작해요</span>
+            <ol className="work-start-steps">
+              {startSteps.map((step, i) => (
+                <li key={step}>
+                  <span className="work-start-no">{i + 1}</span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
           <div className="work-contact-actions">
             <a className="btn btn-primary" href={MAIL_HREF}>
               이메일로 문의하기
