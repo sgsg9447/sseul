@@ -94,7 +94,10 @@ function TiersSection() {
         <p className="pf-launch">{tiersIntro.launch}</p>
         <div className="pf-tiers">
           {tiers.map((tier) => (
-            <article className={`pf-tier${tier.featured ? ' is-featured' : ''}`} key={tier.key}>
+            <article
+              className={`pf-tier${tier.featured ? ' is-featured' : ''}${tier.key === 'premium' ? ' is-premium' : ''}`}
+              key={tier.key}
+            >
               {tier.featured ? <span className="pf-tier-badge">가장 인기</span> : null}
               <div className="pf-tier-head">
                 <span className="pf-tier-tag">{tier.tag}</span>

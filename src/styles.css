@@ -7952,6 +7952,17 @@ img {
   box-shadow: 0 14px 34px -20px rgba(32, 21, 21, 0.45);
 }
 
+/* PREMIUM — 골드 액센트로 BASIC과 구분하되, STANDARD(주황 featured)보다는 약하게. */
+.pf-tier.is-premium {
+  border: 1.5px solid #e0a82e;
+  background: #fffaf0;
+}
+
+.pf-tier.is-premium .pf-tier-tag {
+  background: #f4c44e;
+  color: var(--zap-black);
+}
+
 .pf-tier-badge {
   position: absolute;
   top: -11px;
