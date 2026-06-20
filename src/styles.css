@@ -7740,6 +7740,12 @@ img {
     grid-template-columns: 1fr;
   }
 
+  /* 한 칸씩 쌓이는 모바일에서는 고정 높이를 풀어 내용에 맞게 줄인다
+     (가능 카드가 비어 보이지 않도록). */
+  .work-scope-card {
+    min-height: auto;
+  }
+
   .work-hero-actions .btn,
   .work-contact-actions .btn {
     width: 100%;
