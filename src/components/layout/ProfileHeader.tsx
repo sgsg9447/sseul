@@ -3,9 +3,9 @@ import logo from '../../assets/logo.svg';
 import { MAIL_HREF } from '../../data/profile';
 
 const navItems = [
-  { href: '/profile#tiers', label: '상품·가격' },
   { href: '/profile#samples', label: '작업물' },
   { href: '/profile#process', label: '진행 방식' },
+  { href: '/profile#tiers', label: '상품·가격' },
   { href: '/profile#faq', label: '자주 묻는 질문' },
 ];
 

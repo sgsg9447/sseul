@@ -293,9 +293,9 @@ export function ProfilePage() {
       <ProfileHeader />
       <main>
         <ProfileHero />
-        <TiersSection />
         <SamplesSection />
         <ProcessSection />
+        <TiersSection />
         <FaqSection />
         <ContactSection />
       </main>
