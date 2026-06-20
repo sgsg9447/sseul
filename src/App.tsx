@@ -8,6 +8,7 @@ import { WorkPage } from './pages/WorkPage';
 import { WorkCasePage } from './pages/WorkCasePage';
 import { ProfilePage } from './pages/ProfilePage';
 import { BrochurePage } from './pages/BrochurePage';
+import { ExampleRouter } from './examples/ExampleRouter';
 
 function normalize(pathname: string) {
   return pathname.replace(/\/+$/, '') || '/';
@@ -56,6 +57,10 @@ function App() {
 
   if (path === '/brochure') {
     return <BrochurePage />;
+  }
+
+  if (path === '/example' || path.startsWith('/example/')) {
+    return <ExampleRouter path={path} />;
   }
 
   return (
