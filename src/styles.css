@@ -7861,3 +7861,332 @@ img {
     text-transform: uppercase;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   /profile — 이력서·포트폴리오 제작 랜딩
+   공용 프리미티브(.work-section/-inner/-intro, .work-hero*, .work-contact*,
+   .btn, .eyebrow, .work-deliver-link)는 재사용하고, 신규 UI만 .pf-* 로 둔다.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 런칭 특가 배너 ───────────────────────────────────────────────────── */
+.pf-launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 8px 15px;
+  border: 1px dashed var(--accent);
+  border-radius: var(--r-pill);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ── 가격 티어 ────────────────────────────────────────────────────────── */
+.pf-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.pf-tier {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: clamp(24px, 2.4vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--cream);
+  transition: border-color 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.pf-tier:hover {
+  border-color: var(--border-strong);
+}
+
+.pf-tier.is-featured {
+  border: 2px solid var(--accent);
+  box-shadow: 0 14px 34px -20px rgba(32, 21, 21, 0.45);
+}
+
+.pf-tier-badge {
+  position: absolute;
+  top: -11px;
+  left: clamp(24px, 2.4vw, 34px);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.pf-tier-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pf-tier-tag {
+  padding: 5px 9px;
+  border-radius: var(--r-sm);
+  background: var(--zap-black);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.pf-tier.is-featured .pf-tier-tag {
+  background: var(--accent);
+}
+
+.pf-tier-name {
+  color: var(--fg);
+  font-family: var(--font-korean-heading);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.pf-tier-lead {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pf-tier-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.pf-tier-price strong {
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 40px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pf-tier-price span {
+  color: var(--fg-body);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.pf-tier-regular {
+  margin: -6px 0 0;
+  color: var(--fg-muted);
+  font-size: 13px;
+}
+
+.pf-tier-regular s {
+  text-decoration-color: var(--accent);
+}
+
+.pf-tier-feats {
+  display: grid;
+  gap: 10px;
+  margin: 6px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pf-tier-feats li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: var(--fg-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.pf-tier-feats svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--accent);
+}
+
+.pf-tier .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.pf-tier-note {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 12.5px;
+  text-align: center;
+}
+
+/* ── 작업물 샘플 ──────────────────────────────────────────────────────── */
+.pf-samples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.pf-sample {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  padding: clamp(22px, 2.4vw, 30px);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-lg);
+  background: var(--cream);
+  transition: border-color 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.pf-sample:hover {
+  border-color: var(--border-strong);
+}
+
+.pf-sample-tag {
+  width: fit-content;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.pf-sample strong {
+  color: var(--fg);
+  font-family: var(--font-korean-heading);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.pf-sample p {
+  margin: 0;
+  color: var(--fg-body);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.pf-sample .work-deliver-link {
+  margin-top: 4px;
+}
+
+/* ── 진행 단계 ────────────────────────────────────────────────────────── */
+.pf-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pf-step {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--cream);
+}
+
+.pf-step-no {
+  width: fit-content;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.pf-step strong {
+  color: var(--fg);
+  font-family: var(--font-korean-heading);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.pf-step p {
+  margin: 0;
+  color: var(--fg-body);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── FAQ ──────────────────────────────────────────────────────────────── */
+.pf-faq {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+}
+
+.pf-faq-item {
+  display: grid;
+  gap: 8px;
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--cream);
+}
+
+.pf-faq-q {
+  display: flex;
+  gap: 9px;
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font-korean-heading);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.pf-faq-q::before {
+  content: 'Q';
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.pf-faq-a {
+  margin: 0;
+  color: var(--fg-body);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+/* ── 반응형 ───────────────────────────────────────────────────────────── */
+@media (max-width: 980px) {
+  .pf-tiers {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-tier.is-featured {
+    order: -1;
+  }
+
+  .pf-samples,
+  .pf-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .pf-samples,
+  .pf-steps,
+  .pf-faq {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-tier .btn {
+    width: 100%;
+  }
+}
