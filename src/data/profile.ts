@@ -143,7 +143,7 @@ export const samples: { tag: string; title: string; desc: string; href: string; 
   {
     tag: '포트폴리오',
     title: '포트폴리오 PDF',
-    desc: '프로젝트를 한눈에 따라가도록 시각적으로 정리한 포폴 문서.',
+    desc: '프로젝트를 시각적으로 정리해 한눈에 보이는 포폴.',
     href: PORTFOLIO_HREF,
     linkLabel: '포트폴리오 보기 →',
   },
