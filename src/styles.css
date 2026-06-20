@@ -7861,6 +7861,17 @@ img {
     min-height: auto;
   }
 
+  /* 스텝이 줄바꿈되면 화살표가 줄 끝에 매달려 어색해진다 — 세로로 쌓고 화살표 숨김. */
+  .work-start-steps {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .work-start-steps li:not(:last-child)::after {
+    display: none;
+  }
+
   .work-hero-actions .btn,
   .work-contact-actions .btn {
     width: 100%;
