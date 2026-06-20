@@ -8086,13 +8086,9 @@ img {
 }
 
 .pf-tiers-note {
-  max-width: 660px;
-  margin: 24px auto 0;
-  padding: 14px 22px;
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--r-md);
-  background: var(--off-white);
-  color: var(--fg-body);
+  max-width: 720px;
+  margin: 26px auto 0;
+  color: var(--fg-muted);
   font-size: 14.5px;
   font-weight: 600;
   line-height: 1.6;
