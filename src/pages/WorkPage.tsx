@@ -308,19 +308,19 @@ function CaseSection() {
                 <p>{point.desc}</p>
               </article>
             ))}
-            <div className="work-case-links">
-              <a className="btn btn-secondary" href={CASE_STUDY_HREF}>
-                케이스 자세히 보기
-                <ArrowRight size={16} />
-              </a>
-              <a className="work-deliver-link" href={LIVE_SITE_URL} target="_blank" rel="noreferrer">
-                라이브 사이트 ↗
-              </a>
-              <a className="work-deliver-link" href={DELIVERABLES_HREF}>
-                산출물 보기 →
-              </a>
-            </div>
           </div>
+        </div>
+        <div className="work-case-links">
+          <a className="btn btn-secondary" href={CASE_STUDY_HREF}>
+            케이스 자세히 보기
+            <ArrowRight size={16} />
+          </a>
+          <a className="work-deliver-link" href={LIVE_SITE_URL} target="_blank" rel="noreferrer">
+            라이브 사이트 ↗
+          </a>
+          <a className="work-deliver-link" href={DELIVERABLES_HREF}>
+            산출물 보기 →
+          </a>
         </div>
       </div>
     </section>

@@ -7423,7 +7423,7 @@ img {
 }
 
 .work-case-note {
-  margin: 14px 0 0;
+  margin: 14px 0 clamp(28px, 4vh, 44px);
   color: var(--fg-muted);
   font-size: 13px;
   line-height: 1.6;
@@ -7433,11 +7433,12 @@ img {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   gap: clamp(24px, 3.5vw, 48px);
-  align-items: start;
+  align-items: stretch;
 }
 
+/* 데스크톱에서는 카드 묶음 높이에 맞춰 사진이 늘어난다(끝 라인 정렬).
+   모바일(1열)에서는 아래 미디어쿼리에서 비율로 고정. */
 .work-case-visual {
-  aspect-ratio: 16 / 11;
   overflow: hidden;
   border: 1px solid var(--border-strong);
   border-radius: var(--r-lg);
@@ -7497,7 +7498,7 @@ img {
   flex-wrap: wrap;
   align-items: center;
   gap: 16px;
-  margin-top: 6px;
+  margin-top: clamp(22px, 3.4vh, 34px);
 }
 
 /* ── Scope ────────────────────────────────────────────────────────────── */
@@ -7820,6 +7821,11 @@ img {
   .work-deliver-grid,
   .work-case-body {
     grid-template-columns: 1fr;
+  }
+
+  /* 1열에서는 stretch가 높이를 못 잡으므로 사진은 비율로 고정 */
+  .work-case-visual {
+    aspect-ratio: 16 / 11;
   }
 
   .work-scope-grid {
