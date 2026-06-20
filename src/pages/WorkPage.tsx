@@ -385,6 +385,9 @@ function ContactSection() {
               ))}
             </ol>
           </div>
+          <p className="work-rush">
+            <strong>{workContact.rush.lead}</strong> {workContact.rush.body}
+          </p>
           <div className="work-contact-actions">
             <a className="btn btn-primary" href={MAIL_HREF}>
               이메일로 문의하기

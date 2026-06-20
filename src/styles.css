@@ -7640,6 +7640,26 @@ img {
   font-weight: 800;
 }
 
+.work-rush {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px;
+  margin: 26px 0 0;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 79, 0, 0.5);
+  border-radius: var(--r-md);
+  background: rgba(255, 79, 0, 0.12);
+  color: var(--cream);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.work-rush strong {
+  color: var(--accent);
+  font-weight: 800;
+}
+
 .work-contact-actions {
   display: flex;
   flex-wrap: wrap;
