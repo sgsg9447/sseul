@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Mail } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Mail } from 'lucide-react';
 import { WorkHeader } from '../components/layout/WorkHeader';
 import { BeforeAfter } from '../sections/work/BeforeAfter';
 import screenHome from '../assets/screen-home.png';
@@ -7,7 +7,10 @@ import {
   CASE_STUDY_HREF,
   CONTACT_EMAIL,
   DELIVERABLES_HREF,
+  LIVE_SITE_URL,
   MAIL_HREF,
+  PHONE,
+  TEL_HREF,
   caseIntro,
   casePoints,
   caseStats,
@@ -75,6 +78,10 @@ function WorkHero() {
             </div>
           ))}
         </dl>
+        <a className="work-hero-live" href={LIVE_SITE_URL} target="_blank" rel="noreferrer">
+          최근 작업 · 라이브 사이트 보기
+          <ArrowUpRight size={15} />
+        </a>
       </aside>
     </section>
   );
@@ -225,7 +232,11 @@ function DeliverablesSection() {
             {deliverIntro.eyebrow}
           </p>
           <h2>{deliverIntro.title}</h2>
-          <p className="work-intro-body">{deliverIntro.body}</p>
+          <p className="work-intro-body">
+            {deliverIntro.bodyLines[0]}{' '}
+            <br className="br-mobile" />
+            {deliverIntro.bodyLines[1]}
+          </p>
         </div>
 
         <div className="work-deliver-grid">
@@ -299,6 +310,9 @@ function CaseSection() {
               <a className="btn btn-secondary" href={CASE_STUDY_HREF}>
                 케이스 자세히 보기
                 <ArrowRight size={16} />
+              </a>
+              <a className="work-deliver-link" href={LIVE_SITE_URL} target="_blank" rel="noreferrer">
+                라이브 사이트 ↗
               </a>
               <a className="work-deliver-link" href={DELIVERABLES_HREF}>
                 산출물 보기 →
@@ -392,6 +406,10 @@ function ContactSection() {
           <div>
             <span>Email</span>
             <a href={MAIL_HREF}>{CONTACT_EMAIL}</a>
+          </div>
+          <div>
+            <span>전화</span>
+            <a href={TEL_HREF}>{PHONE}</a>
           </div>
         </aside>
       </div>

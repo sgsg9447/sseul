@@ -5,8 +5,12 @@
 // 문의는 이메일로 받고, 계약이 되면 작업 소통은 노션 채널에서 한다.
 export const CONTACT_EMAIL = 'sgsg9447@gmail.com';
 export const MAIL_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('웹사이트 리뉴얼 문의')}`;
+export const PHONE = '010-7705-9447';
+export const TEL_HREF = `tel:${PHONE.replace(/-/g, '')}`;
 export const CASE_STUDY_HREF = '/work/case';
 export const DELIVERABLES_HREF = '/work/deliverables';
+// 실제 배포된 결과물(목공학원 사이트) — 라이브 증거로 연결한다.
+export const LIVE_SITE_URL = 'https://yoseph365.vercel.app/';
 
 export const workHero = {
   eyebrow: 'WEB RENEWAL · 웹사이트 리뉴얼 외주',
@@ -25,7 +29,7 @@ export const workHero = {
       { label: '이런 분께', value: '오래되고 불편한 사이트를 고치고 싶은 분' },
       { label: '작업 범위', value: '기획 · 디자인 · 개발 단독 진행' },
       { label: '진행 방식', value: '킥오프 → 시안 → 개발 → 검토 → 완료' },
-      { label: '연락', value: '이메일 문의 · 작업은 노션' },
+      { label: '연락', value: '이메일 문의 · 작업은 편한 채널로' },
     ],
   },
 };
@@ -110,7 +114,11 @@ export const feedbackRows: { screen: string; element: string; request: string; t
 export const deliverIntro = {
   eyebrow: 'DELIVERABLES · 받는 것',
   title: '결과물과 산출물을 함께 드립니다',
-  body: '파일만 던지지 않습니다. 동작하는 사이트와 함께, 왜 이렇게 만들었는지 따라갈 수 있는 작업 문서를 전달합니다.',
+  // 웹: 한 줄 / 모바일: 두 문장으로 끊어 보여준다.
+  bodyLines: [
+    '파일만 던지지 않습니다.',
+    '동작하는 사이트와 함께, 왜 이렇게 만들었는지 따라갈 수 있는 작업 문서를 전달합니다.',
+  ],
 };
 
 export const deliverColumns: { label: string; tag: string; items: string[]; href?: string; linkLabel?: string }[] = [
@@ -176,12 +184,12 @@ export const workContact = {
   titleLines: ['작은 질문부터', '편하게 시작하세요.'],
   // 항상 2줄로 끊어 보여준다.
   bodyLines: [
-    '문의는 이메일로 편하게 주세요.',
-    '계약이 되면 노션 채널에서 문서와 소통을 한 곳에 모아 함께 작업합니다.',
+    '문의는 이메일이나 전화로 편하게 주세요.',
+    '계약이 되면 노션·슬랙·카톡 등 편한 채널에서 문서와 소통을 한 곳에 모읍니다.',
   ],
   card: [
-    { label: '문의', value: '이메일' },
-    { label: '작업 소통', value: '노션 채널 (계약 후)' },
+    { label: '문의', value: '이메일 · 전화' },
+    { label: '작업 소통', value: '노션 · 슬랙 · 카톡 등' },
     { label: 'Base', value: 'Seoul, Korea' },
   ],
 };
