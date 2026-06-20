@@ -8362,6 +8362,7 @@ img {
   font-size: 13.5px;
   line-height: 1.7;
   color: var(--fg-body);
+  word-break: keep-all;
 }
 
 .bro-chips {

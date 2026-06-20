@@ -101,7 +101,11 @@ export function BrochurePage() {
                 <span className="bro-hl">{hero.title.hl}</span>
                 {hero.title.rest}
               </h1>
-              <p className="bro-lede">{hero.lede}</p>
+              <p className="bro-lede">
+                {hero.ledeLines[0]}
+                <br />
+                {hero.ledeLines[1]}
+              </p>
               <div className="bro-chips">
                 {hero.chips.map((chip) => (
                   <span className="bro-chip" key={chip}>
