@@ -8085,6 +8085,20 @@ img {
   text-align: center;
 }
 
+.pf-tiers-note {
+  max-width: 660px;
+  margin: 24px auto 0;
+  padding: 14px 22px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-md);
+  background: var(--off-white);
+  color: var(--fg-body);
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+}
+
 /* ── 작업물 샘플 ──────────────────────────────────────────────────────── */
 .pf-samples {
   display: grid;

@@ -19,6 +19,7 @@ import {
   startSteps,
   tiers,
   tiersIntro,
+  tiersNote,
 } from '../data/profile';
 
 function ProfileHero() {
@@ -127,6 +128,7 @@ function TiersSection() {
             </article>
           ))}
         </div>
+        <p className="pf-tiers-note">{tiersNote}</p>
       </div>
     </section>
   );
