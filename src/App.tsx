@@ -7,6 +7,7 @@ import { DeliverablesPage } from './pages/DeliverablesPage';
 import { WorkPage } from './pages/WorkPage';
 import { WorkCasePage } from './pages/WorkCasePage';
 import { ProfilePage } from './pages/ProfilePage';
+import { BrochurePage } from './pages/BrochurePage';
 
 function normalize(pathname: string) {
   return pathname.replace(/\/+$/, '') || '/';
@@ -51,6 +52,10 @@ function App() {
 
   if (path === '/profile') {
     return <ProfilePage />;
+  }
+
+  if (path === '/brochure') {
+    return <BrochurePage />;
   }
 
   return (

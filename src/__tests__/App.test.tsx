@@ -435,4 +435,39 @@ describe('sseul portfolio', () => {
     expect(screen.getByRole('heading', { level: 3, name: 'GenA' })).toBeInTheDocument();
     expect(screen.queryByText('Starting Points')).not.toBeInTheDocument();
   });
+
+  it('serves a print-ready cold-email brochure at /brochure', () => {
+    window.history.pushState(null, '', '/brochure');
+    const { container } = render(<App />);
+
+    // reuses the A4 print infrastructure (3 sheets) + toolbar
+    expect(container.querySelector('.brochure-page')).toBeInTheDocument();
+    expect(container.querySelectorAll('.resume-sheet')).toHaveLength(3);
+    expect(screen.getByRole('button', { name: /전체 PDF로 저장/ })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: /안 되던 웹사이트를.*다시 일하게.*만듭니다/ }),
+    ).toBeInTheDocument();
+
+    // the three packages with their launch prices
+    ['작은 한 장', '표준 리뉴얼', '풀 리뉴얼'].forEach((name) => {
+      expect(screen.getByRole('heading', { level: 3, name })).toBeInTheDocument();
+    });
+    expect(container.querySelectorAll('.bro-tier')).toHaveLength(3);
+    ['50', '150', '250'].forEach((price) => {
+      expect(screen.getByText(price)).toBeInTheDocument();
+    });
+
+    // monthly operations plans
+    ['라이트', '스탠다드', '풀케어'].forEach((plan) => {
+      expect(screen.getByText(plan)).toBeInTheDocument();
+    });
+
+    // real contact, wired for reply
+    expect(screen.getByRole('link', { name: /sgsg9447@gmail\.com/ })).toHaveAttribute(
+      'href',
+      expect.stringContaining('mailto:'),
+    );
+    expect(screen.getByRole('link', { name: /010-7705-9447/ })).toHaveAttribute('href', 'tel:01077059447');
+    expect(screen.getAllByRole('link', { name: /sseul\.me/ }).length).toBeGreaterThanOrEqual(2);
+  });
 });
