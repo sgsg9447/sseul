@@ -7928,13 +7928,13 @@ img {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .pf-tier {
   position: relative;
-  display: grid;
-  align-content: start;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
   padding: clamp(24px, 2.4vw, 34px);
   border: 1px solid var(--border);
@@ -8070,6 +8070,7 @@ img {
 .pf-tier .btn {
   width: 100%;
   justify-content: center;
+  margin-top: auto;
 }
 
 .pf-tier-note {
