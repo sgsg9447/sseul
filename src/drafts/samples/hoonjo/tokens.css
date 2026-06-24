@@ -1,0 +1,217 @@
+/* Hoonjo design tokens — a self-contained, scoped copy of the hoonjo-design
+   system (the .claude/skills/hoonjo-design bundle is read-only reference; the
+   runtime needs the tokens inside src/). Mirrors tokens/*.css with two changes
+   so this sample stays portable and collision-free with other /d samples:
+     1. :root  →  .hoonjo   (tokens scoped to this sample's subtree)
+     2. base element rules (body/h1/a/…) scoped under .hoonjo
+   Font @import / @font-face stay global — that's how the cascade works.
+
+   Engineering-editorial: cool near-white canvas, one deep trust-blue used
+   sparingly, Pretendard headlines, JetBrains Mono for measurement. */
+
+/* ---- Fonts (global by nature) ------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400..700;1,400..600&display=swap');
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2')
+      format('woff2-variations'),
+    url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff/PretendardVariable.woff')
+      format('woff-variations');
+}
+
+/* ---- Tokens (scoped to the sample root) --------------------------------- */
+.hoonjo {
+  /* Brand / accent — deep trust blue, used at most twice per viewport */
+  --blue: #3182f6;
+  --blue-bright: #7daffa;
+  --blue-hover: #2174ea;
+  --blue-deep: #1b64da;
+  --blue-soft: #eaf2fe;
+  --blue-line: #c5dcfb;
+
+  /* Surface — clean cool neutrals */
+  --canvas: #fafafb;
+  --paper: #ffffff;
+  --cloud: #f4f5f7;
+  --fog: #eaecef;
+  --steel: #c4c7ce;
+  --line: #e6e8ec;
+
+  /* Ink slab — cool near-black for closing bands & footer */
+  --ink: #18191c;
+  --ink-soft: #232428;
+  --ink-deep: #0b0c0e;
+
+  /* Text ramp — shift steps for hierarchy, never drop opacity */
+  --text: #18191c;
+  --text-secondary: #3a3c42;
+  --text-muted: #6b6e76;
+  --text-faint: #9a9da6;
+  --on-ink: #f5f6f8;
+  --on-ink-muted: #a4a7b0;
+  --on-blue: #ffffff;
+
+  /* Semantic — restrained, metric contexts only */
+  --positive: #1c7a4d;
+  --positive-soft: #e4f2ea;
+  --warn: #9a6312;
+  --danger: #b3262b;
+  --danger-soft: #f8e7e6;
+
+  --accent: var(--blue);
+  --accent-hover: var(--blue-hover);
+  --link: var(--blue);
+  --link-visited: var(--blue-deep);
+
+  /* Families — display is Pretendard (the myeongjo/serif read dated) */
+  --font-serif: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', system-ui, sans-serif;
+  --font-display: var(--font-serif);
+  --font-sans: var(--font-serif);
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Display / headline scale */
+  --display-xxl: 72px;
+  --display-xl: 54px;
+  --display-lg: 40px;
+  --display-md: 30px;
+  --display-sm: 23px;
+  --display-xs: 19px;
+
+  /* Body */
+  --body-lg: 18px;
+  --body-md: 16px;
+  --body-sm: 14px;
+  --body-xs: 12.5px;
+
+  /* Mono / engineering */
+  --metric-xxl: 56px;
+  --metric-lg: 34px;
+  --metric-md: 20px;
+  --mono-label: 12px;
+  --mono-sm: 13px;
+
+  --lh-tight: 1;
+  --lh-snug: 1.15;
+  --lh-body: 1.6;
+  --lh-mono: 1.45;
+
+  --track-eyebrow: 0.14em;
+  --track-label: 0.08em;
+  --track-display: -0.03em;
+  --track-tight: -0.01em;
+
+  /* Spacing — 8px base, 96px section rhythm (48px mobile) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --container-max: 1200px;
+  --container-pad: 24px;
+
+  /* Radius — sharp interactive (4px), soft containers (12px), round buttons */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 9999px;
+  --radius-button: 10px;
+  --radius-input: 10px;
+  --radius-card: var(--radius-lg);
+
+  /* Elevation — mostly flat, depth via hairlines + contrast */
+  --shadow-hairline: 0 0 0 1px var(--line);
+  --shadow-soft: 0 2px 10px rgba(17, 18, 22, 0.06);
+  --shadow-soft-lg: 0 4px 18px rgba(17, 18, 22, 0.08);
+  --shadow-modal: 0 10px 32px rgba(8, 9, 12, 0.16);
+  --ring-focus: 0 0 0 2px var(--canvas), 0 0 0 4px var(--blue);
+  --grid-line: rgba(49, 130, 246, 0.05);
+  --grid-line-strong: rgba(49, 130, 246, 0.09);
+}
+
+/* ---- Base element rules, scoped under the sample root ------------------- */
+.hoonjo {
+  background: var(--canvas);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--body-md);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.hoonjo :is(h1, h2, h3, h4, h5) {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-display);
+  margin: 0;
+  color: var(--text);
+}
+
+.hoonjo p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.hoonjo a {
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.hoonjo a:hover {
+  text-decoration: underline;
+}
+.hoonjo a:visited {
+  color: var(--link-visited);
+}
+
+.hoonjo code,
+.hoonjo kbd,
+.hoonjo samp,
+.hoonjo pre {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+.hoonjo button {
+  font-family: inherit;
+}
+
+.hoonjo :focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus);
+  border-radius: var(--radius-sm);
+}
+
+.hoonjo ::selection {
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+}
+
+.hoonjo img {
+  max-width: 100%;
+  display: block;
+}

@@ -3,3 +3,7 @@ dist/
 *.tsbuildinfo
 vite.config.d.ts
 vite.config.js
+.gstack/
+
+# local Claude skills (design-system bundles, assets) — not app code
+.claude/skills/

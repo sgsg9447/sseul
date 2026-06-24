@@ -24,4 +24,8 @@ export const drafts: Record<string, DraftEntry> = {
     title: '시안 — 샘플',
     Page: lazy(() => import('./samples/sample-01')),
   },
+  'hoonjo-b9e634': {
+    title: 'Hoonjo — Frontend Engineer',
+    Page: lazy(() => import('./samples/hoonjo')),
+  },
 };
