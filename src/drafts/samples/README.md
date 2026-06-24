@@ -13,8 +13,9 @@ samples/<name>/
   assets/       images/fonts used by this sample, imported relatively
 ```
 
-1. **No imports from outside the folder.** Not `../../examples`, not portfolio
-   data, not shared components. Only `./styles.css`, `./assets/*`, and npm deps.
+1. **No imports from outside the folder.** Not portfolio data, not shared
+   components, nothing under `../../`. Only `./styles.css`, `./assets/*`, and
+   npm deps.
 2. **Scope all CSS under one root class** (e.g. `.sample-01`). Samples are
    bundled together at build time, so unscoped/generic classes would collide.
    The root class also sets the sample's own background + font (no global reset).

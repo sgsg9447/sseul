@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
-/* Drafts-local hooks. Kept inside the drafts module on purpose: a sample (or
-   the whole /d system) must not depend on src/examples, which is on its way
-   out. Nothing here reaches outside the drafts folder. */
+/* Drafts-local hooks. Kept inside the drafts module on purpose so the /d
+   system and its samples stay self-contained — nothing here reaches outside
+   the drafts folder. */
 
 /* Keep draft/sample pages out of search engines while one is mounted.
    SPA routes can't rely on a static <meta> in index.html, so we inject a
