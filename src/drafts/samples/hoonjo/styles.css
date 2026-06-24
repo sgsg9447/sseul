@@ -50,10 +50,31 @@
     flex-direction: column;
     align-items: flex-start !important;
   }
+  /* timeline: period sits above the role instead of in a cramped side column */
+  .hoonjo .hoonjo-timeline-item {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  /* drop forced line breaks inside headings — let them wrap naturally */
+  .hoonjo .hoonjo-br {
+    display: none;
+  }
+}
+
+/* live-render dot — a slow ambient pulse, disabled under reduced motion */
+.hoonjo .hoonjo-live-dot {
+  animation: hoonjo-pulse 2.4s ease-in-out infinite;
+}
+@keyframes hoonjo-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hoonjo * {
     scroll-behavior: auto !important;
+  }
+  .hoonjo .hoonjo-live-dot {
+    animation: none;
   }
 }

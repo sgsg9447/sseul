@@ -4,8 +4,11 @@ import {
 } from './components';
 import type { WorkCase } from './content';
 import { profile, impact, flagship, cases, blackHole, timeline, stacks, oss } from './content';
+import { BlackHole } from './BlackHole';
 
 const CONTAINER = { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 24px' } as const;
+/* section rhythm — 96px desktop, eases to 56px on small screens (no media query) */
+const SECTION_Y = 'clamp(56px, 9vw, 96px)';
 
 /* in-page anchor with smooth scroll (kept in JS so we don't leak a global
    `html { scroll-behavior }` rule out of the .hoonjo subtree) */
@@ -75,7 +78,7 @@ export function Hero() {
   return (
     <section id="top">
       <BlueprintGrid axes cell={56} label="x:0  y:0  // structure" intensity="soft" style={{ borderBottom: '1px solid var(--line)' }}>
-        <div style={{ ...CONTAINER, padding: '96px 24px 0', position: 'relative' }}>
+        <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0`, position: 'relative' }}>
           <Eyebrow tone="blue">FRONTEND ENGINEER · SINCE {profile.since}</Eyebrow>
           <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(44px, 7vw, 76px)', lineHeight: 1.02, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0', maxWidth: '15ch' }}>
             {profile.tagline[0]}<br /><span style={{ fontWeight: 800 }}>구조</span>를 찾습니다.
@@ -158,29 +161,33 @@ function CaseCard({ c, flag = false }: { c: WorkCase; flag?: boolean }) {
 
 export function Work() {
   return (
-    <section id="work" style={{ ...CONTAINER, padding: '96px 24px' }}>
+    <section id="work" style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
       <SectionHeader index={1} eyebrow="SELECTED WORK" title="문제를 구조로, 구조를 숫자로" lead="각 작업은 문제 → 구조적 결정 → 측정된 결과 순서로 정리했습니다." />
       <div style={{ marginTop: 24 }}>
         <CaseCard c={flagship} flag />
         {cases.map((c) => <CaseCard key={c.title} c={c} />)}
       </div>
 
-      {/* Black-hole side project */}
+      {/* Black-hole side project — live WebGL render */}
       <article className="hoonjo-bh-grid" style={{ marginTop: 24, display: 'grid', gridTemplateColumns: '1fr 0.9fr', background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
-        <div style={{ padding: 'clamp(24px, 4vw, 40px)' }}>
+        <div style={{ padding: 'clamp(24px, 4vw, 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Eyebrow tone="blue">{blackHole.eyebrow}</Eyebrow>
-          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(24px, 2.6vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.15, color: 'var(--text)', margin: '16px 0 0' }}>
-            {blackHole.title[0]}<br />{blackHole.title[1]}
+          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(24px, 2.6vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.18, color: 'var(--text)', margin: '16px 0 0', textWrap: 'balance' }}>
+            {blackHole.title[0]}<br className="hoonjo-br" /> {blackHole.title[1]}
           </h3>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '18px 0 0', maxWidth: '46ch' }}>{blackHole.body}</p>
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)', margin: '12px 0 0', maxWidth: '46ch' }}>{blackHole.aside}</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 24 }}>
             {blackHole.tags.map((t) => <Tag key={t} variant="blue">{t}</Tag>)}
           </div>
         </div>
-        <div style={{ background: 'var(--ink)', position: 'relative', minHeight: 280, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-          <div aria-hidden style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 50% 45%, rgba(49,130,246,0.22), transparent 60%), radial-gradient(1px 1px at 20% 30%, #fff, transparent), radial-gradient(1px 1px at 70% 60%, #fff, transparent), radial-gradient(1px 1px at 40% 80%, #cdd6f4, transparent), radial-gradient(1px 1px at 85% 25%, #fff, transparent), radial-gradient(1.5px 1.5px at 60% 40%, #fff, transparent)' }} />
-          <div aria-hidden style={{ position: 'absolute', top: '38%', width: 96, height: 96, borderRadius: '50%', background: 'var(--ink-deep)', boxShadow: '0 0 0 2px rgba(49,130,246,0.5), 0 0 60px 12px rgba(49,130,246,0.25)' }} />
-          <div style={{ position: 'absolute', insetInline: 0, bottom: 0, padding: 18, display: 'flex', gap: 18, justifyContent: 'space-between', borderTop: '1px solid rgba(246,244,238,0.12)', background: 'rgba(12,11,8,0.45)' }}>
+        <div className="hoonjo-bh-stage" style={{ background: 'var(--ink-deep)', position: 'relative', minHeight: 'clamp(300px, 42vw, 380px)', overflow: 'hidden' }}>
+          <BlackHole />
+          <span style={{ position: 'absolute', top: 14, right: 14, display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--on-ink)', background: 'rgba(12,11,8,0.5)', border: '1px solid rgba(246,244,238,0.18)', borderRadius: 'var(--radius-pill)', padding: '5px 11px', WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)' }}>
+            <span className="hoonjo-live-dot" aria-hidden style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--blue-bright)' }} />
+            실시간 렌더
+          </span>
+          <div style={{ position: 'absolute', insetInline: 0, bottom: 0, padding: 18, display: 'flex', gap: 18, justifyContent: 'space-between', borderTop: '1px solid rgba(246,244,238,0.12)', background: 'rgba(12,11,8,0.5)', WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)' }}>
             {blackHole.stats.map(([k, v]) => (
               <div key={k}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--on-ink-muted)', whiteSpace: 'nowrap' }}>{k}</div>
@@ -198,8 +205,8 @@ export function Work() {
 export function Career() {
   return (
     <section id="career" style={{ background: 'var(--cloud)', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
-      <div style={{ ...CONTAINER, padding: '96px 24px' }}>
-        <SectionHeader index={2} eyebrow="CAREER" title="7년의 궤적" />
+      <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
+        <SectionHeader index={2} eyebrow="CAREER" title="7년, 네 곳을 거쳤습니다" lead="첫 직장의 PHP부터 정부 보안관제, 교육 플랫폼까지 — 맡은 화면을 동작하는 결과까지 끌고 갔습니다." />
         <div style={{ marginTop: 48, borderLeft: '1px solid var(--steel)', paddingLeft: 33, maxWidth: 820 }}>
           {timeline.map((t, i) => (
             <TimelineItem key={t.org} {...t} style={i === timeline.length - 1 ? { paddingBottom: 0 } : undefined} />
@@ -213,7 +220,7 @@ export function Career() {
 /* ---- Expertise ---------------------------------------------------------- */
 export function Expertise() {
   return (
-    <section id="stack" style={{ ...CONTAINER, padding: '96px 24px' }}>
+    <section id="stack" style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
       <SectionHeader index={3} eyebrow="EXPERTISE" title="어디서 강한가" lead="성능과 렌더링을 중심으로, 복잡한 상태를 다루는 일에 깊습니다." />
       <div className="hoonjo-stack-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginTop: 48 }}>
         {stacks.map((s) => <StackList key={s.label} label={s.label} items={s.items} />)}
@@ -236,7 +243,7 @@ export function OpenSource() {
   return (
     <section id="oss" style={{ background: 'var(--ink)', position: 'relative', overflow: 'hidden' }}>
       <div aria-hidden style={{ position: 'absolute', inset: 0, opacity: 0.5, backgroundImage: 'linear-gradient(rgba(49,130,246,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(49,130,246,0.10) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-      <div style={{ position: 'relative', ...CONTAINER, padding: '96px 24px' }}>
+      <div style={{ position: 'relative', ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
         <SectionHeader index={4} eyebrow="OPEN SOURCE" onInk title="사내 도구를, 누구나 쓰게" lead="제품에 묶여 있던 페이지네이션 엔진을 검증 수학만 이식하고 클린 재설계해 npm에 공개했습니다." />
         <div style={{ marginTop: 48, background: 'var(--ink-soft)', border: '1px solid rgba(246,244,238,0.16)', borderRadius: 'var(--radius-xl)', overflow: 'hidden' }}>
           <div className="hoonjo-repo-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr' }}>
@@ -258,7 +265,7 @@ export function OpenSource() {
               </div>
             </div>
             <div style={{ padding: 'clamp(24px, 4vw, 36px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 28 }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, lineHeight: 1.7, color: 'var(--on-ink)', background: 'var(--ink-deep)', border: '1px solid rgba(246,244,238,0.12)', borderRadius: 'var(--radius-md)', padding: '16px 18px' }}>
+              <div className="hoonjo-code" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, lineHeight: 1.7, color: 'var(--on-ink)', background: 'var(--ink-deep)', border: '1px solid rgba(246,244,238,0.12)', borderRadius: 'var(--radius-md)', padding: '16px 18px', overflowX: 'auto' }}>
                 <div style={{ color: 'var(--on-ink-muted)' }}><span style={{ color: 'var(--blue-bright)' }}>$</span> {oss.install}</div>
                 <div style={{ marginTop: 10 }}>
                   <span style={{ color: '#c792ea' }}>import</span> {'{ ColumnPager }'} <span style={{ color: '#c792ea' }}>from</span> <span style={{ color: '#a5d6a7' }}>'column-pager'</span>
@@ -279,7 +286,7 @@ export function OpenSource() {
 export function Contact() {
   return (
     <footer id="contact" style={{ background: 'var(--ink)', borderTop: '1px solid rgba(246,244,238,0.16)' }}>
-      <div style={{ ...CONTAINER, padding: '96px 24px 0' }}>
+      <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0` }}>
         <Eyebrow tone="onInk">CONTACT</Eyebrow>
         <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(34px, 5vw, 56px)', lineHeight: 1.05, letterSpacing: '-0.035em', color: 'var(--on-ink)', margin: '22px 0 0', maxWidth: '18ch' }}>
           어려운 화면이 있다면,<br /><span style={{ fontWeight: 800 }}>구조부터 같이 봅니다.</span>

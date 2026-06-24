@@ -250,7 +250,7 @@ export function TimelineItem({ period, role, org, description, tags = [], curren
   period: string; role: string; org?: string; description?: string; tags?: string[]; current?: boolean; style?: CSSProperties;
 }) {
   return (
-    <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: '150px 1fr', gap: 28, paddingBottom: 40, ...style }}>
+    <div className="hoonjo-timeline-item" style={{ position: 'relative', display: 'grid', gridTemplateColumns: '150px 1fr', gap: 28, paddingBottom: 40, ...style }}>
       <span aria-hidden style={{
         position: 'absolute', left: -33, top: 6, width: 11, height: 11, borderRadius: 1, transform: 'rotate(45deg)',
         background: current ? 'var(--blue)' : 'var(--canvas)', border: `1.5px solid ${current ? 'var(--blue)' : 'var(--steel)'}`,

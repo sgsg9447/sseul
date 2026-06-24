@@ -42,18 +42,18 @@ export type WorkCase = {
 export const flagship: WorkCase = {
   eyebrow: 'FLAGSHIP · OPEN SOURCE',
   badge: { variant: 'positive', label: 'npm 배포 · MIT' },
-  title: '사내 페이지네이션 엔진을 독립 OSS로',
+  title: '사내 페이지네이션 엔진을 독립 오픈소스로',
   problem:
-    '시험지 제작 도구의 A4 2단 자동 페이징이 도메인 코드와 한 덩어리(210줄 god-hook)로 엉켜 있었다. 같은 문제를 제품마다 세 번 다시 풀고 있었다.',
+    '시험지 제작 도구에는 “긴 콘텐츠를 A4 페이지로 자동으로 나누는” 로직이 한 훅에 210줄까지 비대해진 채 도메인 코드와 뒤엉켜 있었다. 같은 문제를 제품마다 처음부터 다시 풀고 있었다.',
   structure:
-    '검증된 측정·크롭 수학은 그대로 이식하고 아키텍처만 전면 재설계했다. core(순수 계산)/measure(DOM)/components(React) 3계층으로 분리하고 측정기를 포트로 주입. 회귀 위험을 없애려 “클린룸 재작성”이 아니라 “검증 로직 이식 + 구조 재설계”를 택했고, semantic-release로 main 머지 = 자동 버전·배포.',
+    '검증된 측정·분할 계산은 그대로 가져오고, 구조만 새로 설계했다. “순수 계산 / DOM 측정 / React 렌더” 세 층으로 분리하고, 측정부를 갈아끼울 수 있게 만들어 브라우저 없이도 테스트가 되게 했다. 위험을 줄이려 전체를 새로 쓰는 대신 검증된 로직만 옮겼고, main에 머지하면 버전·배포가 자동으로 나간다.',
   tags: ['TypeScript', 'React 18/19', 'Vite', 'Vitest', 'semantic-release'],
   metrics: [
-    { label: '재배치 · 100장 셔플', after: '55–66', unit: 'ms', gain: '측정 캐시 히트' },
-    { label: '편집 반영 · 1건', after: '11–16', unit: 'ms', gain: 'flushSync 동기 측정' },
-    { label: '결정적 테스트', after: '49', unit: '개', gain: 'Measurer 포트 주입' },
+    { label: '100장 순서 재배치', after: '55–66', unit: 'ms', gain: '변경 없는 항목은 재측정 생략' },
+    { label: '편집 1건 반영', after: '11–16', unit: 'ms', gain: '동기 측정으로 즉시 반영' },
+    { label: '결정적 테스트', after: '49', unit: '개', gain: '측정부를 교체 가능하게 추상화' },
   ],
-  metricsNote: '3세대 진화: V1 도메인 결합 → V2 범용 엔진 → V3 독립 OSS. 단독 개발(95%).',
+  metricsNote: '같은 문제를 세 번 풀며 도달한 3세대 엔진 — 사내 결합 → 범용화 → 독립 OSS. 단독 개발.',
   link: { label: 'GitHub · H8njo/column-pager', href: 'https://github.com/H8njo/column-pager' },
 };
 
@@ -79,7 +79,7 @@ export const cases: WorkCase[] = [
     problem:
       '문제를 골라 편집하면 A4 2단으로 자동 페이징해 서버 PDF로 출력하는 시험지 스튜디오. 측정용 DOM과 표시용 DOM이 1px만 어긋나도 페이징이 무너지고, 미리보기와 실제 PDF가 달랐다.',
     structure:
-      '“측정 DOM == 표시 DOM” 불변식을 세우고, 888×1256 고정 픽셀 + transform:scale로 환경과 무관하게 일치시켰다. dev/prod의 CSS 전달 차이는 document.styleSheets를 직접 순회해 흡수. 대용량 교재 PDF는 청크 렌더 + page.cleanup()으로 메모리를 묶어 OOM 없이 그렸다.',
+      '“측정용 화면과 실제 표시 화면이 1px도 어긋나면 안 된다”는 규칙을 세우고, A4를 888×1256 고정 픽셀로 박은 뒤 화면 크기에 맞춰 비율만 조정했다. 개발·운영 환경의 CSS 차이는 스타일시트를 직접 훑어 흡수했고, 대용량 교재 PDF는 보이는 만큼만 그리고 쓰고 나면 메모리에서 바로 비워 OOM(메모리 초과) 없이 처리했다.',
     tags: ['Next.js', 'Canvas 2D', 'PDF', '가상화', 'TanStack Query'],
     metrics: [
       { label: '미리보기 ↔ 서버 PDF', after: '픽셀 일치', gain: '888×1256 고정 + scale' },
@@ -90,17 +90,18 @@ export const cases: WorkCase[] = [
   },
 ];
 
-/* Black-hole side project — ink panel. */
+/* Black-hole side project — ink panel with a real live WebGL render. */
 export const blackHole = {
-  eyebrow: 'SIDE PROJECT · CRAFT',
-  title: ['인터스텔라에 빠져 만든 블랙홀,', '결국 수학을 배웠다'],
+  eyebrow: 'SIDE PROJECT · GRAPHICS',
+  title: ['빛이 휘는 블랙홀을', '셰이더로 직접 그렸습니다'],
   body:
-    '가르강튀아에서 빛이 휘는 걸 보고 만들었다. 물리는 포기하고 룩만 챙겼는데 좌표 수학에서 한참 데였다. Canvas 2D로 8,000–10,000개 별을 절차 생성하고, 그 캔버스를 매 프레임 WebGL 텍스처로 올려 프래그먼트 셰이더에서 UV를 휘게 만들었다.',
-  tags: ['WebGL', 'GLSL', 'Canvas 2D', '좌표 수학'],
+    '인터스텔라의 블랙홀처럼 중력이 빛을 휘게 만드는 효과를, 그래픽 라이브러리 없이 직접 구현했습니다. Canvas로 수천 개의 별을 그린 뒤 WebGL 셰이더가 화면을 픽셀 단위로 휘어, 빛이 굴절되는 모습을 만듭니다.',
+  aside: '옆 화면은 지금 브라우저에서 실시간으로 도는 결과입니다 — 영상도, 이미지도 아닙니다.',
+  tags: ['WebGL', 'GLSL 셰이더', 'Canvas 2D', '좌표 수학'],
   stats: [
-    ['별 개수', '8,000–10,000'],
-    ['렌더링', 'raw WebGL 1.0'],
-    ['규모', '24커밋 · 단독'],
+    ['별 개수', '8,000+'],
+    ['렌더', '실시간 · WebGL'],
+    ['라이브러리', '없음 (raw)'],
   ] as [string, string][],
 };
 
