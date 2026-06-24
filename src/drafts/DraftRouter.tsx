@@ -1,11 +1,12 @@
-import { useNoIndex } from './useNoIndex';
-import { usePageTitle } from '../examples/shared';
+import { Suspense, type ComponentType } from 'react';
+import { useNoIndex, usePageTitle } from './hooks';
 import { drafts } from './registry';
 import './drafts.css';
 
 /* Routes /d/<slug> to a hidden sample page. Every path under /d is noindexed,
    including unknown slugs, so a wrong guess never leaks that anything exists
-   at a nearby slug — it just looks like a dead link. */
+   at a nearby slug — it just looks like a dead link. Samples are lazy, so a
+   <Suspense> boundary covers the chunk load. */
 export function DraftRouter({ path }: { path: string }) {
   useNoIndex();
 
@@ -16,11 +17,14 @@ export function DraftRouter({ path }: { path: string }) {
     return <DraftNotFound />;
   }
 
-  const { title, Page } = entry;
-  return <DraftFrame title={title} Page={Page} />;
+  return (
+    <Suspense fallback={null}>
+      <DraftFrame title={entry.title} Page={entry.Page} />
+    </Suspense>
+  );
 }
 
-function DraftFrame({ title, Page }: { title: string; Page: React.ComponentType }) {
+function DraftFrame({ title, Page }: { title: string; Page: ComponentType }) {
   usePageTitle(title);
   return <Page />;
 }

@@ -1,57 +1,8 @@
-/* Drafts — hidden /d/<slug> sample pages.
-   Kept separate from examples.css so a sample can have its own visual world
-   without inheriting the gallery's styles. Per-sample CSS can live alongside
-   its component or extend the tokens here. */
+/* Router chrome for the /d system — the 404 screen only.
+   Sample styles do NOT live here; each sample owns its own scoped CSS inside
+   its folder (see samples/<name>/styles.css) so it stays self-contained and
+   extractable. This file is portfolio-internal and never handed off. */
 
-.draft {
-  min-height: 100vh;
-  background: #fbfaf8;
-  color: #1a1a1a;
-  font-family:
-    'Pretendard',
-    -apple-system,
-    BlinkMacSystemFont,
-    system-ui,
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Placeholder shown until real content lands ------------------------------ */
-.draft-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  text-align: center;
-  padding: 2rem;
-}
-
-.draft-placeholder-slug {
-  font-family: 'SFMono-Regular', ui-monospace, 'Menlo', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  color: #b8a98f;
-  margin: 0 0 1.5rem;
-  padding: 0.3rem 0.7rem;
-  border: 1px solid #e7e0d4;
-  border-radius: 999px;
-}
-
-.draft-placeholder h1 {
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.75rem;
-}
-
-.draft-placeholder-desc {
-  font-size: 1rem;
-  color: #6b6357;
-  margin: 0;
-}
-
-/* Not-found (unknown or expired slug) ------------------------------------- */
 .draft-404 {
   display: flex;
   align-items: center;
