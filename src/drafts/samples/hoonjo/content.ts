@@ -30,6 +30,7 @@ export const impact = {
 
 /* ── Flagship: the column-pager story (own dedicated section) ───────────── */
 export const flagship = {
+  id: 'work-column-pager',
   eyebrow: 'FLAGSHIP · OPEN SOURCE',
   company: '@Bookips',
   badge: 'npm 배포 · MIT',
@@ -65,6 +66,7 @@ export const flagship = {
 };
 
 export type WorkCase = {
+  id: string;
   eyebrow: string;
   company?: string;
   badge?: { variant: 'positive' | 'blue' | 'ink'; label: string };
@@ -79,6 +81,7 @@ export type WorkCase = {
 
 export const cases: WorkCase[] = [
   {
+    id: 'work-pdf',
     eyebrow: 'PERFORMANCE',
     company: '@Sling',
     title: '300페이지 PDF, 첫 화면을 10분에서 1초로',
@@ -95,6 +98,7 @@ export const cases: WorkCase[] = [
     metricsNote: '메모리를 줄이면 결과부터 다시 본다 — 품질을 낮췄다가 OCR이 경계를 못 잡던 걸 늦게 발견하고 배운 습관.',
   },
   {
+    id: 'work-portal',
     eyebrow: 'SYSTEM DESIGN',
     company: '@Zipida · 법무부',
     title: '컬럼 정의 1벌로 59개 화면을 찍어내다',
@@ -111,6 +115,7 @@ export const cases: WorkCase[] = [
     metricsNote: '이 Table 컴포넌트는 이후 다른 프로젝트들에서도 컬럼 배열만 갈아끼워 재사용됐다.',
   },
   {
+    id: 'work-design-system',
     eyebrow: 'LIBRARY · DX',
     company: '@Bookips',
     title: '아이콘 드롭하면 타입까지, 디자인 시스템 자동화',
@@ -127,6 +132,7 @@ export const cases: WorkCase[] = [
     metricsNote: '기본 컴포넌트에선 마법보다 예측 가능한 쪽이 거의 항상 맞다 — async onClick 자동 로딩을 controlled로 되돌린 결정.',
   },
   {
+    id: 'work-ml',
     eyebrow: 'COMPLEX STATE · FULLSTACK',
     company: '@Zipida · KISTI',
     title: '관제사가 코드 없이 탐지 모델을 학습시키는 마법사',
@@ -146,6 +152,7 @@ export const cases: WorkCase[] = [
 
 /* Black-hole side project — ink panel with a real live WebGL render. */
 export const blackHole = {
+  id: 'work-blackhole',
   eyebrow: 'SIDE PROJECT · GRAPHICS',
   company: '개인 프로젝트',
   title: ['빛이 휘는 블랙홀을', '셰이더로 직접 그렸습니다'],
@@ -199,22 +206,34 @@ export const timeline: Timeline[] = [
   },
 ];
 
-/* Expertise — a capability map, each strength tied to the work that proves it. */
-export const capabilities: { label: string; skills: string[]; proof: string }[] = [
+/* Expertise — a capability map; each strength links to the work that proves it
+   (proof items scroll to the matching work-* anchor). */
+export type ProofLink = { label: string; target: string };
+export const capabilities: { label: string; skills: string[]; proof: ProofLink[] }[] = [
   {
     label: '렌더링 · 성능',
     skills: ['Canvas 2D / WebGL', '측정-우선 레이아웃', '대용량 가상화', '메모리 바운드 처리'],
-    proof: 'column-pager · 대용량 PDF · 블랙홀',
+    proof: [
+      { label: 'column-pager', target: 'work-column-pager' },
+      { label: '대용량 PDF', target: 'work-pdf' },
+      { label: '블랙홀', target: 'work-blackhole' },
+    ],
   },
   {
     label: '시스템 설계 · 추상화',
     skills: ['메타데이터 구동 UI', '디자인 시스템 / 라이브러리', 'RBAC', 'API 타입 설계'],
-    proof: '59개 화면 포털 · 디자인 시스템 자동화',
+    proof: [
+      { label: '59개 화면 포털', target: 'work-portal' },
+      { label: '디자인 시스템 자동화', target: 'work-design-system' },
+    ],
   },
   {
     label: '복잡한 상태 · 풀스택',
     skills: ['상태머신 / URL-as-state', 'NestJS BFF', 'GraphQL · 이중 데이터소스', '비동기 파이프라인'],
-    proof: 'ML 학습 마법사 · 보안 포털',
+    proof: [
+      { label: 'ML 학습 마법사', target: 'work-ml' },
+      { label: '보안 포털', target: 'work-portal' },
+    ],
   },
 ];
 

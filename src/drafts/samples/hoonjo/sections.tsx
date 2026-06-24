@@ -131,7 +131,7 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 
 function CaseCard({ c }: { c: WorkCase }) {
   return (
-    <article style={{ marginTop: 24, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
+    <article id={c.id} style={{ marginTop: 24, scrollMarginTop: 84, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
       <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr' }}>
         <div style={{ padding: 'clamp(24px, 4vw, 40px)', borderRight: '1px solid var(--line)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
@@ -171,7 +171,7 @@ export function Work() {
       </div>
 
       {/* Black-hole side project — live WebGL render */}
-      <article className="hoonjo-bh-grid" style={{ marginTop: 24, display: 'grid', gridTemplateColumns: '1fr 0.9fr', background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
+      <article id={blackHole.id} className="hoonjo-bh-grid" style={{ marginTop: 24, scrollMarginTop: 84, display: 'grid', gridTemplateColumns: '1fr 0.9fr', background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
         <div style={{ padding: 'clamp(24px, 4vw, 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             <Eyebrow tone="blue">{blackHole.eyebrow}</Eyebrow>
@@ -241,7 +241,22 @@ export function Expertise() {
             </div>
             <div style={{ marginTop: 18, paddingTop: 14, borderTop: '1px solid var(--line)' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>증명한 작업</div>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 500, color: 'var(--blue-deep)', marginTop: 7, lineHeight: 1.5 }}>{c.proof}</div>
+              <div style={{ marginTop: 8, lineHeight: 1.7 }}>
+                {c.proof.map((p, i) => (
+                  <span key={p.target}>
+                    <a
+                      href={`#${p.target}`}
+                      onClick={(e) => scrollTo(e, p.target)}
+                      style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 500, color: 'var(--blue-deep)', textDecoration: 'none', borderBottom: '1px solid var(--blue-line)', paddingBottom: 1, cursor: 'pointer', transition: 'border-color 150ms ease' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.borderBottomColor = 'var(--blue)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.borderBottomColor = 'var(--blue-line)'; }}
+                    >
+                      {p.label}
+                    </a>
+                    {i < c.proof.length - 1 && <span style={{ color: 'var(--text-faint)', margin: '0 7px' }}>·</span>}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         ))}

@@ -7,7 +7,7 @@ import { flagship as f } from './content';
    Distilled from Hoonjo's own write-up. */
 export function Flagship() {
   return (
-    <article style={{ marginTop: 24, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
+    <article id={f.id} style={{ marginTop: 24, scrollMarginTop: 84, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
       {/* header band */}
       <div style={{ padding: 'clamp(24px, 4vw, 40px)', borderBottom: '1px solid var(--line)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
