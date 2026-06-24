@@ -1,9 +1,9 @@
 import { useState, type ReactNode } from 'react';
 import {
-  Button, Tag, Badge, Eyebrow, SectionHeader, BlueprintGrid, MetricTable, TimelineItem, StackList,
+  Button, Tag, Badge, Eyebrow, SectionHeader, BlueprintGrid, MetricTable, TimelineItem,
 } from './components';
 import type { WorkCase } from './content';
-import { profile, impact, cases, blackHole, timeline, stacks, oss } from './content';
+import { profile, impact, cases, blackHole, timeline, capabilities, oss } from './content';
 import { BlackHole } from './BlackHole';
 import { Flagship } from './Flagship';
 
@@ -229,9 +229,22 @@ export function Career() {
 export function Expertise() {
   return (
     <section id="stack" style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
-      <SectionHeader index={3} eyebrow="EXPERTISE" title="어디서 강한가" lead="성능과 렌더링을 중심으로, 복잡한 상태를 다루는 일에 깊습니다." />
-      <div className="hoonjo-stack-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginTop: 48 }}>
-        {stacks.map((s) => <StackList key={s.label} label={s.label} items={s.items} />)}
+      <SectionHeader index={3} eyebrow="EXPERTISE" title="어디서 강한가" lead="세 가지 축으로 강합니다. 각 역량은 위 작업으로 증명됩니다." />
+      <div className="hoonjo-stack-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28, marginTop: 48 }}>
+        {capabilities.map((c) => (
+          <div key={c.label} style={{ paddingTop: 18, borderTop: '2px solid var(--text)' }}>
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 19, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)' }}>{c.label}</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 10px', marginTop: 16 }}>
+              {c.skills.map((s) => (
+                <span key={s} style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--text-secondary)', background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xs)', padding: '6px 10px', lineHeight: 1, whiteSpace: 'nowrap' }}>{s}</span>
+              ))}
+            </div>
+            <div style={{ marginTop: 18, paddingTop: 14, borderTop: '1px solid var(--line)' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>증명한 작업</div>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 500, color: 'var(--blue-deep)', marginTop: 7, lineHeight: 1.5 }}>{c.proof}</div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

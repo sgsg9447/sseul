@@ -1,9 +1,9 @@
 import type { Metric } from './components';
 
 /* All copy + data for the Hoonjo portfolio, grounded in his real résumé and
-   project notes (Obsidian vault) + his own write-up of the column-pager story.
-   Numbers are his actual figures — no invented metrics. Edit here to tweak
-   content without touching layout. */
+   his own project write-ups. Numbers are his actual figures — no invented
+   metrics. Company convention: "@회사" marks the employer; the product/client
+   (솔북, ORZO, 법무부…) is named in prose so the two never blur. */
 
 export const profile = {
   name: 'Hoonjo',
@@ -18,25 +18,24 @@ export const profile = {
   heroTags: ['성능 최적화', '대용량 렌더링', '복잡한 상태', 'Canvas / WebGL'],
 };
 
-/* Hero featured-impact strip — real headline figures. */
+/* Hero featured-impact strip — the strongest real before→after pairs. */
 export const impact = {
-  lead: '사내에 묶여 있던 페이지네이션 엔진을, 검증된 계산만 옮기고 구조를 새로 짜 독립 오픈소스로 공개했습니다.',
+  lead: '“한 번에 다”를 “지금 필요한 것부터, 나머지는 뒤에서”로 바꿔, 멈춰 있던 화면을 다시 움직이게 만듭니다.',
   stats: [
-    { k: '재배치 · 100장', before: '전체 재측정', after: '55–66ms' },
-    { k: '화면 양산 · 정부 포털', before: '화면마다 페이지', after: '컬럼 정의 1벌' },
-    { k: '타일맵 최적화', before: '268MB', after: '10.7MB' },
+    { k: 'PDF 첫 화면 · 300p', before: '639,000ms', after: '1,310ms' },
+    { k: '정부 포털 화면', before: '화면마다 코딩', after: '정의 1벌' },
+    { k: '지도 타일맵', before: '268MB', after: '10.7MB' },
   ] as { k: string; before: string; after: string }[],
 };
 
 /* ── Flagship: the column-pager story (own dedicated section) ───────────── */
 export const flagship = {
   eyebrow: 'FLAGSHIP · OPEN SOURCE',
-  company: 'Bookips · Solvook',
+  company: '@Bookips',
   badge: 'npm 배포 · MIT',
-  role: 'Frontend · 단독 설계/개발',
   title: '사내 페이지네이션 엔진을 독립 오픈소스로',
   oneLiner:
-    '긴 글이든 카드든 — 어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동으로 나눠주는 엔진입니다. 사내 시험지 제작 도구에 박혀 있던 것을 떼어내 npm 패키지로 공개했습니다.',
+    '긴 글이든 카드든 — 어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동으로 나눠주는 엔진입니다. 교육 플랫폼 솔북(Solvook)의 시험지 제작 도구에 박혀 있던 것을 떼어내 npm 패키지로 공개했습니다.',
   problem:
     '교육 콘텐츠 편집기에서 문제를 A4 2단으로 조판해야 했는데, 기존 구현은 한 단보다 긴 카드(긴 지문)를 처리하지 못했다. 문제지는 인쇄돼 학생에게 가는 거라, 문장이 중간에 잘리면 그대로 불량품 — 2년 가까이 환불 문의가 이어졌다. 여러 명이 붙었지만 다들 같은 벽에서 멈췄다.',
   attempts: [
@@ -49,8 +48,8 @@ export const flagship = {
   insight:
     '새로 발명한 게 아니라, 망한 시도를 버리지 않고 각도만 바꿔 합쳤다 — 1번이 실패한 “자연스러운 줄 자르기”를 2번의 column-count가 공짜로 해준다는 걸, 카드 단위 크롭 도구로만 끌어 썼다.',
   generations: [
-    ['v1', '사내 문제 에디터', '다섯 번을 거쳐, 도메인에 박힌 채 동작한 원형'],
-    ['v2', '사내 다른 제품', '임의 콘텐츠로 일반화. 핵심 훅이 210줄까지 비대'],
+    ['v1', '솔북 문제 에디터', '다섯 번을 거쳐, 도메인에 박힌 채 동작한 원형'],
+    ['v2', '솔북 다른 제품', '임의 콘텐츠로 일반화. 핵심 훅이 210줄까지 비대'],
     ['v3', 'npm · column-pager', '앱에서 분리 → 순수 코어 / 측정 / 렌더 3계층 재설계'],
   ] as [string, string, string][],
   results: [
@@ -80,36 +79,68 @@ export type WorkCase = {
 
 export const cases: WorkCase[] = [
   {
-    eyebrow: 'PLATFORM ENGINEERING',
-    company: 'Zipida · 법무부',
-    title: '컬럼 정의 1벌로 59개 화면을 찍어내다',
+    eyebrow: 'PERFORMANCE',
+    company: '@Sling',
+    title: '300페이지 PDF, 첫 화면을 10분에서 1초로',
     problem:
-      '정부 보안관제 포털은 “테이블 + 검색 + 페이징 + CRUD”가 같은 모양으로 수십 개. 화면마다 손으로 짜면 소수 인원으로는 유지보수가 불가능했다.',
+      '교재 PDF 뷰어(ORZO)가 모든 페이지를 다 그릴 때까지 화면이 멈춰 있었다. 페이지당 약 2초 × 300장 → 첫 조작까지 약 10분 30초(639,000ms). 게다가 페이지마다 거대한 이미지를 동시에 들고 있어, 대용량 교재에선 탭이 그대로 얼었다.',
     structure:
-      '컬럼 메타데이터(정의)와 렌더링(엔진)을 분리했다. Table 컴포넌트 하나가 메타에서 목록·검색·정렬·엑셀·폼·권한을 전부 생성하고, 라우트 정의 1벌에서 메뉴·권한·체크키를 동시에 만들어낸다(RBAC). 정형 CRUD는 GraphQL, 통계·레거시 보안 데이터는 직접 SQL로 — 한 ORM에 가두지 않았다.',
-    tags: ['React', 'GraphQL', 'Strapi', 'RBAC', 'Fullstack'],
+      '“전체를 다 그릴 때까지 기다린다”는 구조 자체를 버렸다. 보이는 페이지부터 먼저 그리고 나머지는 2페이지씩 청크로 백그라운드에서 순차 렌더 — 메인 스레드가 안 막힌다. 다 그려지길 기다리지 않고, 아직 안 그려진 페이지를 건드리면 그 자리에서 즉석 렌더. 그릴 때마다 page.cleanup()으로 바로 비워, peak 메모리를 전체 페이지가 아니라 청크 크기에 묶었다.',
+    tags: ['브라우저 PDF', 'Canvas', '청크 렌더', '메모리', 'OpenCV'],
     metrics: [
-      { label: '화면 양산 · 1벌 정의', after: '59', unit: '개', gain: '중복 페이지 0' },
-      { label: '권한 게이트', after: '4', unit: '층', gain: '메뉴·라우트·fetch·API' },
-      { label: '내 커밋 · 프론트 주저자', after: '696', unit: '/1,299', gain: '약 2년' },
+      { label: '첫 조작까지 · TTI 300p', before: '639,000ms', after: '1,310', unit: 'ms', gain: '약 488배 단축' },
+      { label: '초기 로딩 · 페이지당', before: '2,132ms', after: '1,527', unit: 'ms', gain: '비례 구조 제거' },
+      { label: '대용량 작업 속도', after: '약 4', unit: '× 빠름', gain: '청크 + 즉시 해제' },
     ],
-    metricsNote: '본 DB(GraphQL) + 레거시 보안 DB를 함께 쓰는 이중 데이터소스 구조.',
+    metricsNote: '메모리를 줄이면 결과부터 다시 본다 — 품질을 낮췄다가 OCR이 경계를 못 잡던 걸 늦게 발견하고 배운 습관.',
   },
   {
-    eyebrow: 'RENDERING · PERFORMANCE',
-    company: 'Bookips · Solvook',
-    title: '화면 미리보기와 서버 PDF를 픽셀 단위로 일치',
+    eyebrow: 'SYSTEM DESIGN',
+    company: '@Zipida · 법무부',
+    title: '컬럼 정의 1벌로 59개 화면을 찍어내다',
     problem:
-      '문제를 골라 편집하면 A4 2단으로 자동 페이징해 서버 PDF로 출력하는 시험지 스튜디오. 측정용 화면과 표시용 화면이 1px만 어긋나도 페이징이 무너지고, 미리보기와 실제 PDF가 달랐다.',
+      '정부 보안관제 포털은 “테이블 + 검색 + 페이징 + CRUD”가 같은 모양으로 100개 넘는 도메인에 깔린다. 화면마다 손으로 짜면 두 명으로는 유지보수가 불가능했고, 같은 모양 화면 100개는 같은 버그를 100군데 심는 일이기도 했다.',
     structure:
-      '“측정용 화면과 표시용 화면이 1px도 어긋나면 안 된다”는 규칙을 세우고, A4를 888×1256 고정 픽셀로 박은 뒤 화면 크기에 맞춰 비율만 조정했다. 개발·운영 환경의 CSS 차이는 스타일시트를 직접 훑어 흡수했고, 대용량 교재 PDF는 보이는 만큼만 그리고 쓰고 나면 메모리에서 바로 비워 OOM(메모리 초과) 없이 처리했다.',
-    tags: ['Next.js', 'Canvas 2D', 'PDF', '가상화', 'TanStack Query'],
+      '컬럼 메타데이터(정의)와 렌더링(엔진)을 분리했다. Table 컴포넌트 하나가 메타에서 목록·검색·정렬·엑셀·폼·권한을 전부 생성한다(같은 status 컬럼이 표·검색·엑셀·폼에서 다섯 얼굴로). 권한은 라우트 정의 1벌에서 메뉴·권한트리·체크키를 동시에 파생 — 메뉴를 더하면 권한이 자동으로 따라온다. 추상화의 누수는 각오하고, 새는 자리를 주석으로 드러냈다.',
+    tags: ['React', 'GraphQL', '메타데이터 구동', 'RBAC', 'Fullstack'],
     metrics: [
-      { label: '미리보기 ↔ 서버 PDF', after: '픽셀 일치', gain: '888×1256 고정 + 비율 조정' },
-      { label: '대용량 PDF 렌더', after: 'OOM 0', gain: '보이는 만큼만 그리고 즉시 해제' },
-      { label: 'A4 자동 페이징', after: '2단', unit: '+ 문제 분할', gain: 'ColumnPager V1' },
+      { label: '화면 양산 · 1벌 정의', after: '59', unit: '개', gain: '두 명이 도메인 100여 개' },
+      { label: '신규 CRUD 화면', after: '정의 + 쿼리', gain: '버그도 한 곳에서 수정' },
+      { label: '내 커밋 · 프론트 주저자', after: '696', unit: '/1,299', gain: '약 2년' },
     ],
-    metricsNote: '여기서 출발한 페이징 엔진이 column-pager 오픈소스로 이어진다.',
+    metricsNote: '이 Table 컴포넌트는 이후 다른 프로젝트들에서도 컬럼 배열만 갈아끼워 재사용됐다.',
+  },
+  {
+    eyebrow: 'LIBRARY · DX',
+    company: '@Bookips',
+    title: '아이콘 드롭하면 타입까지, 디자인 시스템 자동화',
+    problem:
+      '여러 제품이 같은 UI·접근성을 공유해야 했다. 기존 Select는 단일 값이 본질인 Radix Select 위에 multi를 “흉내” 내, 정작 뭐가 선택됐는지·체크박스·aria도 없었다. 아이콘 160개는 디자이너가 준 SVG를 사람이 손으로 컴포넌트로 옮기는 사고 대기 상태였다.',
+    structure:
+      'Select는 API는 하나로 두되 내부를 두 엔진으로 갈랐다 — single은 Radix Select 래핑(폼 바인딩 공짜), multi는 Popover 위에 선택 모델을 직접 구현. discriminated union 타입이라 잘못 쓰면 런타임 전에 컴파일에서 막힌다. 아이콘은 폴더에 SVG를 드롭하고 generate를 돌리면 타입 있는 컴포넌트가 나오게 코드젠으로 뒤집고, push 전 type-check + 실제 빌드를 강제하는 게이트로 막았다.',
+    tags: ['Radix', 'Tailwind · CVA', '코드젠', 'Storybook', 'Rollup/Vite'],
+    metrics: [
+      { label: 'multi-select', after: '일급 모델', gain: '우회 → 체크박스·aria 정상' },
+      { label: '아이콘 추가', after: '폴더 드롭', gain: '손으로 쓰던 export 0' },
+      { label: '역할', after: '코드오너', gain: '모든 PR 리뷰·머지·릴리스' },
+    ],
+    metricsNote: '기본 컴포넌트에선 마법보다 예측 가능한 쪽이 거의 항상 맞다 — async onClick 자동 로딩을 controlled로 되돌린 결정.',
+  },
+  {
+    eyebrow: 'COMPLEX STATE · FULLSTACK',
+    company: '@Zipida · KISTI',
+    title: '관제사가 코드 없이 탐지 모델을 학습시키는 마법사',
+    problem:
+      '보안 관제사가 GUI만으로 ML 탐지 모델을 학습시키는 5단계 마법사. 사용자는 단계를 앞뒤로 들락거리고 새로고침·딥링크도 쓴다. 앞 단계를 바꾸면 뒤가 무효가 돼야 하는데, 학습은 몇 분~몇 시간짜리 비동기라 “지금 어디까지 됐나”를 정직히 보여줘야 했다.',
+    structure:
+      '현재 단계는 React state가 아니라 URL을 단일 소스로 삼았다 — 새로고침·뒤로가기·딥링크가 공짜로 동작한다. 데이터는 useImmerReducer로 들고, “리소스 id가 생기면 그 단계 완료”·“앞이 바뀌면 뒤를 비운다”를 리듀서에 명시했다(UI가 아니라 상태 로직에). 비동기 학습은 5단계 × 4상태를 progress 문자열로 추적해, Java/Python 이종 워커 큐 현황까지 한 화면에 비췄다.',
+    tags: ['상태머신', 'URL-as-state', 'immer', 'NestJS · Celery', 'Elasticsearch'],
+    metrics: [
+      { label: '모델 학습', after: '5단계 GUI', gain: '코드 없이 1건 학습·배포' },
+      { label: '파이프라인 상태', after: '5×4', unit: '추적', gain: '멈춤/진행 구분' },
+      { label: 'ES 기간 필터 버그', after: 'should→must', gain: '무시되던 필터 정상화' },
+    ],
+    metricsNote: '시작할 땐 ML 지식이 없었다 — 화면을 제대로 짜려고 crawl→feature→train 파이프라인을 어깨너머로 배웠다.',
   },
 ];
 
@@ -136,42 +167,55 @@ export const timeline: Timeline[] = [
   {
     period: '2024 — 현재',
     role: 'Frontend Engineer',
-    org: 'Bookips · Solvook',
+    org: '@Bookips',
     description:
-      '교육 콘텐츠 플랫폼. 시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인을 맡고, 사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포했다.',
+      '교육 콘텐츠 플랫폼 솔북(Solvook). 시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인을 맡고, 사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포했다. 디자인 시스템 코드오너.',
     tags: ['Next.js', 'TypeScript', 'Canvas', 'OSS'],
     current: true,
   },
   {
     period: '2023 — 2024',
     role: 'Frontend Engineer',
-    org: 'Sling · ORZO',
+    org: '@Sling',
     description:
-      '튜터용 수업 관리 웹앱. 대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리 최적화(보이는 만큼만 그리고 즉시 해제)를 맡았다.',
-    tags: ['Next.js', 'SWR', 'PDF', '메모리 최적화'],
+      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화(첫 화면 10분 → 1초)를 맡았다.',
+    tags: ['Next.js', 'PDF', '성능', '메모리'],
   },
   {
     period: '2020 — 2023',
     role: 'Frontend 주저자 / Fullstack',
-    org: 'Zipida',
+    org: '@Zipida',
     description:
-      '법무부·문체부·KISTI·현대오토에버 등 정부·기업 보안관제 포털. 컬럼 메타데이터로 화면을 양산하는 추상화, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF를 설계했다.',
+      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 등의 포털에서 메타데이터로 화면을 양산하는 추상화, 코드 없는 ML 학습 마법사, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF를 설계했다.',
     tags: ['React', 'GraphQL', 'NestJS', 'RBAC'],
   },
   {
     period: '2019 — 2020',
     role: 'Frontend Engineer',
-    org: '옐로오투오',
+    org: '@옐로오투오',
     description:
       '첫 직장. PHP 예약 시스템에서 시작해 React로 전환하며 컴포넌트 분리·반응형의 기반을 익혔다.',
     tags: ['React', 'PHP', '반응형'],
   },
 ];
 
-export const stacks: { label: string; items: string[] }[] = [
-  { label: 'Rendering · 성능', items: ['Canvas 2D', 'WebGL / GLSL', 'requestAnimationFrame', '대용량 가상화', '청크·온디맨드 렌더', '메모리 프로파일링'] },
-  { label: 'State · 복잡도', items: ['React 18/19', 'Next.js', 'TanStack Query', 'Zustand / Redux', '측정-우선 레이아웃', '캐싱 전략'] },
-  { label: 'Platform · Fullstack', items: ['TypeScript', 'NestJS BFF', 'GraphQL / Prisma', '디자인 시스템', 'semantic-release', 'React Native / Expo'] },
+/* Expertise — a capability map, each strength tied to the work that proves it. */
+export const capabilities: { label: string; skills: string[]; proof: string }[] = [
+  {
+    label: '렌더링 · 성능',
+    skills: ['Canvas 2D / WebGL', '측정-우선 레이아웃', '대용량 가상화', '메모리 바운드 처리'],
+    proof: 'column-pager · 대용량 PDF · 블랙홀',
+  },
+  {
+    label: '시스템 설계 · 추상화',
+    skills: ['메타데이터 구동 UI', '디자인 시스템 / 라이브러리', 'RBAC', 'API 타입 설계'],
+    proof: '59개 화면 포털 · 디자인 시스템 자동화',
+  },
+  {
+    label: '복잡한 상태 · 풀스택',
+    skills: ['상태머신 / URL-as-state', 'NestJS BFF', 'GraphQL · 이중 데이터소스', '비동기 파이프라인'],
+    proof: 'ML 학습 마법사 · 보안 포털',
+  },
 ];
 
 export const oss = {
