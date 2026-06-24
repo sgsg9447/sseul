@@ -3,8 +3,9 @@ import {
   Button, Tag, Badge, Eyebrow, SectionHeader, BlueprintGrid, MetricTable, TimelineItem, StackList,
 } from './components';
 import type { WorkCase } from './content';
-import { profile, impact, flagship, cases, blackHole, timeline, stacks, oss } from './content';
+import { profile, impact, cases, blackHole, timeline, stacks, oss } from './content';
 import { BlackHole } from './BlackHole';
+import { Flagship } from './Flagship';
 
 const CONTAINER = { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 24px' } as const;
 /* section rhythm — 96px desktop, eases to 56px on small screens (no media query) */
@@ -128,16 +129,17 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-function CaseCard({ c, flag = false }: { c: WorkCase; flag?: boolean }) {
+function CaseCard({ c }: { c: WorkCase }) {
   return (
     <article style={{ marginTop: 24, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
       <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr' }}>
         <div style={{ padding: 'clamp(24px, 4vw, 40px)', borderRight: '1px solid var(--line)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             <Eyebrow tone="blue">{c.eyebrow}</Eyebrow>
+            {c.company && <Badge variant="outline">{c.company}</Badge>}
             {c.badge && <Badge variant={c.badge.variant} dot>{c.badge.label}</Badge>}
           </div>
-          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: flag ? 'clamp(26px, 3vw, 34px)' : 'clamp(23px, 2.5vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{c.title}</h3>
+          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(23px, 2.5vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{c.title}</h3>
           <Field label="Problem">{c.problem}</Field>
           <Field label="Structure">{c.structure}</Field>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 26 }}>
@@ -163,15 +165,18 @@ export function Work() {
   return (
     <section id="work" style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
       <SectionHeader index={1} eyebrow="SELECTED WORK" title="문제를 구조로, 구조를 숫자로" lead="각 작업은 문제 → 구조적 결정 → 측정된 결과 순서로 정리했습니다." />
-      <div style={{ marginTop: 24 }}>
-        <CaseCard c={flagship} flag />
+      <Flagship />
+      <div>
         {cases.map((c) => <CaseCard key={c.title} c={c} />)}
       </div>
 
       {/* Black-hole side project — live WebGL render */}
       <article className="hoonjo-bh-grid" style={{ marginTop: 24, display: 'grid', gridTemplateColumns: '1fr 0.9fr', background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
         <div style={{ padding: 'clamp(24px, 4vw, 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <Eyebrow tone="blue">{blackHole.eyebrow}</Eyebrow>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <Eyebrow tone="blue">{blackHole.eyebrow}</Eyebrow>
+            <Badge variant="outline">{blackHole.company}</Badge>
+          </div>
           <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(24px, 2.6vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.18, color: 'var(--text)', margin: '16px 0 0', textWrap: 'balance' }}>
             {blackHole.title[0]}<br className="hoonjo-br" /> {blackHole.title[1]}
           </h3>
@@ -179,6 +184,9 @@ export function Work() {
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)', margin: '12px 0 0', maxWidth: '46ch' }}>{blackHole.aside}</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 24 }}>
             {blackHole.tags.map((t) => <Tag key={t} variant="blue">{t}</Tag>)}
+          </div>
+          <div style={{ marginTop: 26 }}>
+            <Button variant="outline" as="a" href={blackHole.repo} target="_blank" rel="noreferrer" iconRight="→">GitHub · H8njo/webgl-black-hole</Button>
           </div>
         </div>
         <div className="hoonjo-bh-stage" style={{ background: 'var(--ink-deep)', position: 'relative', minHeight: 'clamp(300px, 42vw, 380px)', overflow: 'hidden' }}>
