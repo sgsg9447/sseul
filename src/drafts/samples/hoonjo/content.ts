@@ -190,7 +190,7 @@ export const timeline: Timeline[] = [
   },
   {
     period: '2020 — 2023',
-    role: 'Frontend 주저자 / Fullstack',
+    role: 'Frontend Engineer / Fullstack',
     org: '@Zipida',
     description:
       '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 등의 포털에서 메타데이터로 화면을 양산하는 추상화, 코드 없는 ML 학습 마법사, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF를 설계했다.',
