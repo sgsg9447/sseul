@@ -1,141 +1,59 @@
-/* Hoonjo sample — layout styles. Tokens + scoped base come from ./tokens.css.
-   This placeholder composition is also a smoke test for the design system:
-   it exercises all three type roles (mono eyebrow, Pretendard display,
-   tabular-mono metric), the trust-blue, and the blueprint grid. Replace once
-   the real screen + content land. */
+/* Hoonjo portfolio — layout + responsive rules. Tokens + scoped base come
+   from ./tokens.css. Section components are inline-styled against the tokens;
+   the rules here are only the things inline styles can't do well: the root
+   reset and the responsive grid collapses (mirroring the design system's
+   ui_kit breakpoints), all scoped under .hoonjo so nothing leaks. */
 @import './tokens.css';
 
 .hoonjo {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* faint blueprint hairline grid — the engineering motif */
-  background-color: var(--canvas);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
 }
 
-.hoonjo-scaffold {
-  width: 100%;
-  max-width: 640px;
-  padding: var(--space-16) var(--container-pad);
+.hoonjo a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.hoonjo-eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--mono-label);
-  font-weight: var(--weight-medium);
-  letter-spacing: var(--track-eyebrow);
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: var(--space-5);
-}
-
-.hoonjo-display {
-  font-size: var(--display-xl);
-  letter-spacing: var(--track-display);
-  line-height: var(--lh-tight);
-  margin-bottom: var(--space-5);
-}
-
-.hoonjo-lead {
-  font-size: var(--body-lg);
-  line-height: var(--lh-body);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-10);
-  max-width: 34em;
-}
-
-/* Metric — numbers do the bragging: tabular mono, before → after */
-.hoonjo-metric {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-5) var(--space-6);
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: var(--space-10);
-}
-
-.hoonjo-metric-label {
-  font-family: var(--font-mono);
-  font-size: var(--mono-label);
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.hoonjo-metric-val {
-  font-family: var(--font-mono);
-  font-size: var(--metric-md);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: var(--track-tight);
-  color: var(--text-faint);
-}
-.hoonjo-metric-val b {
-  font-weight: var(--weight-medium);
-  color: var(--text);
-}
-.hoonjo-metric-val .is-after {
-  color: var(--positive);
-}
-
-.hoonjo-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  margin-bottom: var(--space-12);
-}
-
-/* Toss-round filled button — the one blue CTA.
-   Selector carries `a` so it outranks the base `.hoonjo a` / `:visited` link
-   color (else the white label renders blue-on-blue). */
-.hoonjo a.hoonjo-btn {
-  display: inline-flex;
-  align-items: center;
-  font-size: var(--body-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--on-blue);
-  background: var(--blue);
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-button);
-  transition:
-    background 150ms ease,
-    transform 100ms ease;
-}
-.hoonjo a.hoonjo-btn:hover {
-  background: var(--blue-hover);
-  text-decoration: none;
-}
-.hoonjo a.hoonjo-btn:active {
-  background: var(--blue-deep);
-  transform: scale(0.97);
-}
-
-.hoonjo-slug {
-  font-family: var(--font-mono);
-  font-size: var(--mono-sm);
-  color: var(--text-faint);
-}
-
-.hoonjo-note {
-  font-size: var(--body-sm);
-  color: var(--text-muted);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--line);
-}
-
-@media (max-width: 640px) {
-  .hoonjo-display {
-    font-size: var(--display-lg);
+/* Tablet / mobile — collapse the multi-column section grids to one column. */
+@media (max-width: 900px) {
+  .hoonjo .hoonjo-nav-links {
+    display: none !important;
   }
-  .hoonjo-actions {
+  .hoonjo .hoonjo-nav-burger {
+    display: inline-flex !important;
+  }
+  .hoonjo .hoonjo-case-grid,
+  .hoonjo .hoonjo-bh-grid,
+  .hoonjo .hoonjo-repo-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hoonjo .hoonjo-case-grid > div:first-child,
+  .hoonjo .hoonjo-bh-grid > div:last-child {
+    border-right: none !important;
+  }
+  .hoonjo .hoonjo-stack-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hoonjo .hoonjo-impact-strip {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .hoonjo .hoonjo-impact-strip > div {
+    border-right: none !important;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  .hoonjo .hoonjo-impact-strip {
+    grid-template-columns: 1fr !important;
+  }
+  .hoonjo .hoonjo-footer-row {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-start !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hoonjo * {
+    scroll-behavior: auto !important;
   }
 }
