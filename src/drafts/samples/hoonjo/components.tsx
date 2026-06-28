@@ -205,26 +205,26 @@ export function BlueprintGrid({ cell = 32, axes = false, label, intensity = 'sof
 /* ---- MetricStat / MetricTable ------------------------------------------- */
 export type Metric = { label: string; before?: string; after: string; unit?: string; gain?: string };
 
-export function MetricStat({ label, before, after, unit, gain, onInk = false }: Metric & { onInk?: boolean }) {
+export function MetricStat({ label, before, after, unit, gain, onInk = false, compact = false }: Metric & { onInk?: boolean; compact?: boolean }) {
   const muted = onInk ? 'var(--on-ink-muted)' : 'var(--text-muted)';
   const ink = onInk ? 'var(--on-ink)' : 'var(--text)';
   return (
     <div>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: muted }}>{label}</div>
-      <div style={{ fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums', marginTop: 12, lineHeight: 1.15 }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: compact ? 10.5 : 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: muted }}>{label}</div>
+      <div style={{ fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums', marginTop: compact ? 7 : 12, lineHeight: 1.12, display: compact ? 'flex' : 'block', alignItems: 'baseline', gap: compact ? 8 : 0, flexWrap: 'wrap' }}>
         {before != null && (
-          <div style={{ fontSize: 14, color: muted, textDecoration: 'line-through', textDecorationColor: 'var(--steel)' }}>{before}</div>
+          <div style={{ fontSize: compact ? 12.5 : 14, color: muted, textDecoration: 'line-through', textDecorationColor: 'var(--steel)' }}>{before}</div>
         )}
-        <div style={{ fontSize: 30, fontWeight: 600, color: ink, letterSpacing: '-0.01em', marginTop: before != null ? 4 : 0, whiteSpace: 'nowrap' }}>
-          {after}{unit && <span style={{ fontSize: 15, color: muted, fontWeight: 400, marginLeft: 2 }}>{unit}</span>}
+        <div style={{ fontSize: compact ? 23 : 30, fontWeight: 600, color: ink, letterSpacing: '-0.01em', marginTop: !compact && before != null ? 4 : 0, whiteSpace: 'nowrap' }}>
+          {after}{unit && <span style={{ fontSize: compact ? 13 : 15, color: muted, fontWeight: 400, marginLeft: 2 }}>{unit}</span>}
         </div>
       </div>
-      {gain && <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 500, color: 'var(--positive)', marginTop: 8 }}>{gain}</div>}
+      {gain && <div style={{ fontFamily: 'var(--font-mono)', fontSize: compact ? 11 : 12, fontWeight: 500, color: 'var(--positive)', marginTop: compact ? 5 : 8 }}>{gain}</div>}
     </div>
   );
 }
 
-export function MetricTable({ stats, columns, onInk = false, style = {} }: { stats: Metric[]; columns?: number; onInk?: boolean; style?: CSSProperties }) {
+export function MetricTable({ stats, columns, onInk = false, compact = false, style = {} }: { stats: Metric[]; columns?: number; onInk?: boolean; compact?: boolean; style?: CSSProperties }) {
   const cols = columns || Math.min(stats.length || 1, 3);
   const borderCol = onInk ? 'rgba(246,244,238,0.16)' : 'var(--line)';
   return (
@@ -234,11 +234,11 @@ export function MetricTable({ stats, columns, onInk = false, style = {} }: { sta
     }}>
       {stats.map((s, i) => (
         <div key={i} style={{
-          padding: '20px 22px',
+          padding: compact ? '13px 16px' : '20px 22px',
           borderRight: (i + 1) % cols === 0 ? 'none' : `1px solid ${borderCol}`,
           borderTop: i >= cols ? `1px solid ${borderCol}` : 'none',
         }}>
-          <MetricStat {...s} onInk={onInk} />
+          <MetricStat {...s} onInk={onInk} compact={compact} />
         </div>
       ))}
     </div>

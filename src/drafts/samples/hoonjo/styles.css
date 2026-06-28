@@ -66,6 +66,117 @@
   }
 }
 
+/* Works list — row hover */
+.hoonjo .hoonjo-work-row:hover {
+  background: var(--cloud);
+}
+.hoonjo .hoonjo-work-row:hover .hoonjo-work-arrow {
+  transform: translateX(4px);
+}
+.hoonjo .hoonjo-allworks:hover {
+  background: var(--cloud);
+  border-color: var(--blue-line);
+}
+
+/* Post body — markdown rendered with react-markdown */
+.hoonjo .hoonjo-md h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 48px 0 0;
+  padding-top: 30px;
+  border-top: 1px solid var(--line);
+}
+.hoonjo .hoonjo-md > h2:first-child {
+  margin-top: 36px;
+}
+.hoonjo .hoonjo-md h3 {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 30px 0 0;
+}
+.hoonjo .hoonjo-md p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.78;
+  color: var(--text-secondary);
+  margin: 18px 0 0;
+}
+.hoonjo .hoonjo-md ul,
+.hoonjo .hoonjo-md ol {
+  margin: 18px 0 0;
+  padding-left: 22px;
+}
+.hoonjo .hoonjo-md li {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--text-secondary);
+  margin: 9px 0 0;
+}
+.hoonjo .hoonjo-md li::marker {
+  color: var(--text-faint);
+}
+.hoonjo .hoonjo-md strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.hoonjo .hoonjo-md a {
+  color: var(--blue-deep);
+}
+.hoonjo .hoonjo-md code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--cloud);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--text);
+}
+.hoonjo .hoonjo-md pre {
+  margin: 22px 0 0;
+  background: var(--ink);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  overflow-x: auto;
+}
+.hoonjo .hoonjo-md pre code {
+  font-size: 12.5px;
+  line-height: 1.65;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--on-ink);
+  display: block;
+  white-space: pre;
+}
+.hoonjo .hoonjo-md blockquote {
+  margin: 24px 0 0;
+  padding: 16px 20px;
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-line);
+  border-radius: var(--radius-md);
+}
+.hoonjo .hoonjo-md blockquote p {
+  margin: 0;
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.hoonjo .hoonjo-md blockquote p + p {
+  margin-top: 10px;
+}
+.hoonjo .hoonjo-md hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 40px 0 0;
+}
+
 /* live-render dot — a slow ambient pulse, disabled under reduced motion */
 .hoonjo .hoonjo-live-dot {
   animation: hoonjo-pulse 2.4s ease-in-out infinite;
