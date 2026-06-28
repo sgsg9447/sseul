@@ -127,7 +127,7 @@ export function Hero() {
 
         <div style={{ ...CONTAINER, margin: '64px auto 0', padding: '0 24px 64px' }}>
           <div className="hoonjo-impact-strip" style={{
-            display: 'grid', gridTemplateColumns: 'minmax(0,2fr) repeat(3, minmax(0,1fr))',
+            display: 'grid', gridTemplateColumns: 'minmax(0,1.4fr) repeat(3, minmax(0,1fr))',
             background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden',
           }}>
             <div style={{ padding: '22px 24px', borderRight: '1px solid var(--line)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
