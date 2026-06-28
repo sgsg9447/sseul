@@ -28,7 +28,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   return (
     <header style={{
-      position: 'sticky', top: 0, zIndex: 40, background: 'rgba(250,250,251,0.82)',
+      position: 'sticky', top: 0, zIndex: 40, background: 'rgba(255,255,255,0.82)',
       backdropFilter: 'saturate(180%) blur(10px)', WebkitBackdropFilter: 'saturate(180%) blur(10px)',
       borderBottom: '1px solid var(--line)',
     }}>

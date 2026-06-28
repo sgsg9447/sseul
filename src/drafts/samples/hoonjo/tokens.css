@@ -46,14 +46,14 @@
   --green-soft: #e6f5ec;
   --green-line: #b6e3c8;
 
-  /* Surface — essentially white. Bands/panels sit a hair under the canvas so
-     they barely register; separation comes from hairlines, not gray fills. */
-  --canvas: #fefefe;
+  /* Surface — white. Canvas is pure white; bands/panels sit a whisper under it
+     so they're told apart by hairlines, not by any visible gray fill. */
+  --canvas: #ffffff;
   --paper: #ffffff;
-  --cloud: #fafbfc;
-  --fog: #f2f4f7;
+  --cloud: #fcfdfe;
+  --fog: #f6f8fa;
   --steel: #c2c8d1;
-  --line: #ebeef2;
+  --line: #e9ecf1;
 
   /* Ink slab — cool near-black for closing bands & footer */
   --ink: #18191c;
@@ -159,8 +159,8 @@
   --shadow-soft-lg: 0 4px 18px rgba(17, 18, 22, 0.08);
   --shadow-modal: 0 10px 32px rgba(8, 9, 12, 0.16);
   --ring-focus: 0 0 0 2px var(--canvas), 0 0 0 4px var(--blue);
-  --grid-line: rgba(49, 130, 246, 0.028);
-  --grid-line-strong: rgba(49, 130, 246, 0.05);
+  --grid-line: rgba(49, 130, 246, 0.018);
+  --grid-line-strong: rgba(49, 130, 246, 0.035);
 }
 
 /* ---- Base element rules, scoped under the sample root ------------------- */
