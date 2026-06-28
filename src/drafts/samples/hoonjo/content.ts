@@ -49,7 +49,7 @@ export const flagship = {
   badge: 'npm 배포 · MIT',
   title: '사내 페이지네이션 엔진을 독립 오픈소스로',
   oneLiner:
-    '긴 글이든 카드든 — 어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동으로 나눠주는 엔진입니다. 교육 플랫폼 솔북(Solvook)의 시험지 제작 도구에 박혀 있던 것을 떼어내 npm 패키지로 공개했습니다.',
+    '어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 엔진. 솔북(Solvook) 시험지 제작 도구에 박혀 있던 것을 떼어내 npm 패키지로 공개.',
   problem:
     '교육 콘텐츠 편집기에서 문제들을 A4 두 칸(2단) 레이아웃으로 배치해야 했는데, 기존 구현은 한 칸 높이를 넘는 긴 카드(긴 본문)를 처리하지 못했다. 만든 문제지는 인쇄돼 학생에게 가는 거라, 문장이 중간에 잘리면 그대로 불량품 — 주력 서비스에서 2년 가까이 환불 문의가 이어졌다. 여러 명이 붙었지만 다들 같은 벽에서 멈췄다.',
   attempts: [
@@ -89,8 +89,8 @@ export type WorkCase = {
   company?: string;
   badge?: { variant: 'positive' | 'blue' | 'ink'; label: string };
   title: string;
-  problem: string;
-  structure: string;
+  problem: string[];
+  structure: string[];
   tags: string[];
   metrics: Metric[];
   metricsNote?: string;
@@ -106,17 +106,25 @@ export const cases: WorkCase[] = [
     eyebrow: 'SYSTEM DESIGN',
     company: '@Zipida · 법무부',
     title: '컬럼 정의 1벌로 59개 화면을 찍어내다',
-    problem:
-      '정부 기관이 쓰는 관리자 포털(보안 관제 시스템)이었다. “목록 테이블 + 검색 + 페이징 + 추가·수정·삭제(CRUD)”가 똑같은 모양으로 100개 넘는 화면에 깔린다. 화면마다 손으로 짜면 두 명으로는 유지보수가 불가능했고, 같은 모양 화면 100개는 같은 버그를 100군데 심는 일이기도 했다.',
-    structure:
-      '컬럼 메타데이터(정의)와 렌더링(엔진)을 분리했다. Table 컴포넌트 하나가 메타에서 목록·검색·정렬·엑셀·폼·권한을 전부 생성한다(같은 status 컬럼이 표·검색·엑셀·폼에서 다섯 얼굴로). 권한은 라우트 정의 1벌에서 메뉴·권한트리·체크키를 동시에 파생 — 메뉴를 더하면 권한이 자동으로 따라온다. 추상화의 누수는 각오하고, 새는 자리를 주석으로 드러냈다.',
+    problem: [
+      '정부 보안관제 관리자 포털',
+      '목록·검색·페이징·CRUD 동일 패턴 100+ 화면',
+      '화면별 수작업 → 2인 유지보수 불가',
+      '같은 버그를 100곳에 복제하는 구조',
+    ],
+    structure: [
+      '컬럼 메타데이터(정의)와 렌더링(엔진) 분리',
+      'Table 1개가 목록·검색·정렬·엑셀·폼·권한 생성',
+      '라우트 정의 1벌 → 메뉴·권한트리·체크키 동시 파생',
+      '추상화 누수는 주석으로 드러내 관리',
+    ],
     tags: ['React', 'GraphQL', '메타데이터 구동', 'RBAC', 'Fullstack'],
     metrics: [
       { label: '화면 양산 · 1벌 정의', after: '59', unit: '개', gain: '두 명이 도메인 100여 개' },
       { label: '신규 CRUD 화면', after: '정의 + 쿼리', gain: '버그도 한 곳에서 수정' },
       { label: '내 커밋 · 프론트 주저자', after: '696', unit: '/1,299', gain: '약 2년' },
     ],
-    metricsNote: '이 Table 컴포넌트는 이후 다른 프로젝트들에서도 컬럼 배열만 갈아끼워 재사용됐다.',
+    metricsNote: '이 Table 컴포넌트는 이후 다른 프로젝트에서도 컬럼 배열만 교체해 재사용.',
     images: [
       { src: mojImg, alt: '법무부 보안관제 포털 — 일간 보고서' },
       { src: moj2, alt: '법무부 보안관제 포털 — 근무·업무 일정' },
@@ -129,10 +137,17 @@ export const cases: WorkCase[] = [
     eyebrow: 'LIBRARY · DX',
     company: '@Bookips',
     title: '아이콘 드롭하면 타입까지, 디자인 시스템 자동화',
-    problem:
-      '여러 제품이 같은 UI·접근성을 공유해야 했다. 기존 Select는 단일 값이 본질인 Radix Select 위에 multi를 “흉내” 내, 정작 뭐가 선택됐는지·체크박스·aria도 없었다. 아이콘 160개는 디자이너가 준 SVG를 사람이 손으로 컴포넌트로 옮기는 사고 대기 상태였다.',
-    structure:
-      'Select는 API는 하나로 두되 내부를 두 엔진으로 갈랐다 — single은 Radix Select 래핑(폼 바인딩 공짜), multi는 Popover 위에 선택 모델을 직접 구현. discriminated union 타입이라 잘못 쓰면 런타임 전에 컴파일에서 막힌다. 아이콘은 폴더에 SVG를 드롭하고 generate를 돌리면 타입 있는 컴포넌트가 나오게 코드젠으로 뒤집고, push 전 type-check + 실제 빌드를 강제하는 게이트로 막았다.',
+    problem: [
+      '여러 제품이 공유할 UI·접근성 필요',
+      '기존 Select — Radix 단일 위에 multi 흉내, 선택 상태·체크박스·aria 부재',
+      '아이콘 160개 SVG를 손으로 컴포넌트 이관 (사고 대기)',
+    ],
+    structure: [
+      'Select — API 1개, 내부 두 엔진 (single=Radix 래핑, multi=Popover 직접 구현)',
+      'discriminated union — 오용 시 컴파일에서 차단',
+      '아이콘 — 폴더에 SVG 드롭 → 코드젠으로 타입까지 자동 생성',
+      'push 전 type-check + 빌드 강제 게이트',
+    ],
     tags: ['Radix', 'Tailwind · CVA', '코드젠', 'Storybook', 'Rollup/Vite'],
     metrics: [
       { label: 'multi-select', after: '일급 모델', gain: '우회 → 체크박스·aria 정상' },
@@ -159,17 +174,25 @@ export const cases: WorkCase[] = [
     eyebrow: 'COMPLEX STATE · FULLSTACK',
     company: '@Zipida · KISTI',
     title: '관제사가 코드 없이 탐지 모델을 학습시키는 마법사',
-    problem:
-      '보안 관제 담당자(분석가)가 코드 없이 GUI만으로 “공격 탐지 ML 모델”을 학습시키는 5단계 마법사 화면. 사용자는 단계를 앞뒤로 들락거리고 새로고침·딥링크도 쓴다. 앞 단계를 바꾸면 뒤가 무효가 돼야 하는데, 학습은 몇 분~몇 시간짜리 비동기라 “지금 어디까지 됐나”를 정직히 보여줘야 했다.',
-    structure:
-      '현재 단계는 React state가 아니라 URL을 단일 소스로 삼았다 — 새로고침·뒤로가기·딥링크가 공짜로 동작한다. 데이터는 useImmerReducer로 들고, “리소스 id가 생기면 그 단계 완료”·“앞이 바뀌면 뒤를 비운다”를 리듀서에 명시했다(UI가 아니라 상태 로직에). 비동기 학습은 5단계 × 4상태를 progress 문자열로 추적해, Java/Python 이종 워커 큐 현황까지 한 화면에 비췄다.',
+    problem: [
+      '분석가가 코드 없이 탐지 ML 학습 — 5단계 마법사',
+      '단계 왕복·새로고침·딥링크 사용',
+      '앞 단계 변경 시 뒤 단계 무효화 필요',
+      '수분~수시간 비동기 학습 — 진행 상태 표시',
+    ],
+    structure: [
+      '현재 단계 — React state 아닌 URL 단일 소스 (새로고침·뒤로가기·딥링크 무료 동작)',
+      '데이터 — useImmerReducer, 완료·무효화 규칙을 리듀서에 명시',
+      '비동기 학습 5×4 상태를 progress로 추적',
+      'Java/Python 이종 워커 큐 현황까지 한 화면',
+    ],
     tags: ['상태머신', 'URL-as-state', 'immer', 'NestJS · Celery', 'Elasticsearch'],
     metrics: [
       { label: '모델 학습', after: '5단계 GUI', gain: '코드 없이 1건 학습·배포' },
       { label: '파이프라인 상태', after: '5×4', unit: '추적', gain: '멈춤/진행 구분' },
       { label: 'ES 기간 필터 버그', after: 'should→must', gain: '무시되던 필터 정상화' },
     ],
-    metricsNote: '시작할 땐 ML 지식이 없었다 — 화면을 제대로 짜려고 crawl→feature→train 파이프라인을 어깨너머로 배웠다.',
+    metricsNote: '시작할 땐 ML 지식이 없어, 화면을 제대로 짜려고 crawl→feature→train 파이프라인을 어깨너머로 학습.',
     images: [
       { src: kistiImg, alt: 'KISTI AI 관제 — 학습 특징 설정' },
       { src: kisti2, alt: 'KISTI AI 관제 — 모델 테스트' },
@@ -186,8 +209,8 @@ export const blackHole = {
   company: '개인 프로젝트',
   title: ['빛이 휘는 블랙홀을', '셰이더로 직접 그렸습니다'],
   body:
-    '인터스텔라의 블랙홀처럼 중력이 빛을 휘게 만드는 효과를, 그래픽 라이브러리 없이 직접 구현했습니다. Canvas로 수천 개의 별을 그린 뒤 WebGL 셰이더가 화면을 픽셀 단위로 휘어, 빛이 굴절되는 모습을 만듭니다.',
-  aside: '옆 화면은 지금 브라우저에서 실시간으로 도는 결과입니다 — 영상도, 이미지도 아닙니다.',
+    '중력이 빛을 휘게 만드는 효과를 그래픽 라이브러리 없이 직접 구현. Canvas로 수천 개의 별을 그린 뒤 WebGL 셰이더가 화면을 픽셀 단위로 휘어 빛의 굴절을 표현.',
+  aside: '옆 화면은 지금 브라우저에서 실시간으로 도는 결과 — 영상도 이미지도 아님.',
   tags: ['WebGL', 'GLSL 셰이더', 'Canvas 2D', '좌표 수학'],
   stats: [
     ['별 개수', '8,000+'],
@@ -206,7 +229,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Bookips',
     description:
-      '교육 콘텐츠 플랫폼 솔북(Solvook). 시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인을 맡고, 사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포했다. 디자인 시스템 코드오너.',
+      '교육 콘텐츠 플랫폼 솔북(Solvook). 시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인 담당, 사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포. 디자인 시스템 코드오너.',
     tags: ['Next.js', 'TypeScript', 'Canvas', 'OSS'],
     current: true,
   },
@@ -215,7 +238,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Sling',
     description:
-      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화(첫 화면 10분 → 1초)를 맡았다.',
+      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화 담당 (첫 화면 10분 → 1초).',
     tags: ['Next.js', 'PDF', '성능', '메모리'],
   },
   {
@@ -223,7 +246,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer / Fullstack',
     org: '@Zipida',
     description:
-      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 등의 포털에서 메타데이터로 화면을 양산하는 추상화, 코드 없는 ML 학습 마법사, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF를 설계했다.',
+      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 포털 — 메타데이터 화면 양산 추상화, 코드 없는 ML 학습 마법사, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF 설계.',
     tags: ['React', 'GraphQL', 'NestJS', 'RBAC'],
   },
   {
@@ -231,7 +254,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@옐로오투오',
     description:
-      '첫 직장. PHP 예약 시스템에서 시작해 React로 전환하며 컴포넌트 분리·반응형의 기반을 익혔다.',
+      '첫 직장. PHP 예약 시스템에서 시작해 React로 전환, 컴포넌트 분리·반응형 기반 습득.',
     tags: ['React', 'PHP', '반응형'],
   },
 ];
@@ -269,7 +292,7 @@ export const capabilities: { label: string; skills: string[]; proof: ProofLink[]
 export const oss = {
   repo: 'H8njo/column-pager',
   desc:
-    '긴 글이든 카드든, 어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동으로 나눠주는 도구입니다. 페이지 나누기(레이아웃 계산)만 책임지고, PDF 변환 같은 건 쓰는 쪽에 맡겨 가볍게 유지했습니다.',
+    '어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 도구. 페이지 나누기(레이아웃 계산)만 책임지고 PDF 변환 등은 사용처에 위임해 가볍게 유지.',
   tags: ['TypeScript', 'React 18/19', 'Tree-shakeable'],
   install: 'npm i column-pager',
   importLine: "import { ColumnPager } from 'column-pager'",

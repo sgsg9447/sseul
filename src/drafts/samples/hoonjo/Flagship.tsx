@@ -19,7 +19,7 @@ export function Flagship() {
           <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(24px, 2.7vw, 32px)', fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{f.title}</h3>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '16px 0 0', maxWidth: '48ch' }}>{f.oneLiner}</p>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-muted)', margin: '12px 0 0', maxWidth: '48ch' }}>
-            긴 본문이 안 잘리게 — 같은 문제를 <b style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>세 번</b> 풀며 도달한 3세대 엔진. 망한 시도를 버리지 않고 각도만 바꿔 합쳤습니다.
+            긴 본문이 안 잘리게 — 같은 문제를 <b style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>세 번</b> 풀며 도달한 3세대 엔진. 망한 시도를 버리지 않고 각도만 바꿔 합친 결과.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 22 }}>
             {TAGS.map((t) => <Tag key={t}>{t}</Tag>)}

@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 import {
   Button, Tag, Badge, Eyebrow, SectionHeader, BlueprintGrid, MetricRow, TimelineItem,
 } from './components';
@@ -92,7 +92,7 @@ function Portrait() {
       <img
         src={portrait}
         alt={profile.nameKo}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 24%', transform: 'scale(1.22)', transformOrigin: 'center 30%', filter: 'saturate(0.88)' }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 32%', filter: 'saturate(0.92)' }}
       />
     </div>
   );
@@ -149,11 +149,18 @@ export function Hero() {
 }
 
 /* ---- Work --------------------------------------------------------------- */
-function Field({ label, children }: { label: string; children: ReactNode }) {
+function Field({ label, items }: { label: string; items: string[] }) {
   return (
     <div style={{ marginTop: 22 }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>{label}</div>
-      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0, maxWidth: '46ch' }}>{children}</p>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 11 }}>{label}</div>
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 8, maxWidth: '50ch' }}>
+        {items.map((it, i) => (
+          <li key={i} style={{ display: 'flex', gap: 10, fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 1.5, color: 'var(--text-secondary)' }}>
+            <span aria-hidden style={{ flex: 'none', width: 5, height: 5, marginTop: 8, borderRadius: 1, background: 'var(--steel)', transform: 'rotate(45deg)' }} />
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -167,8 +174,8 @@ function CaseHeader({ c }: { c: WorkCase }) {
         {c.badge && <Badge variant={c.badge.variant} dot>{c.badge.label}</Badge>}
       </div>
       <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(23px, 2.5vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{c.title}</h3>
-      <Field label="Problem">{c.problem}</Field>
-      <Field label="Structure">{c.structure}</Field>
+      <Field label="Problem" items={c.problem} />
+      <Field label="Structure" items={c.structure} />
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 22 }}>
         {c.tags.map((t) => <Tag key={t}>{t}</Tag>)}
       </div>
