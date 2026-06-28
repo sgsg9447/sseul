@@ -5,9 +5,6 @@ import moj3 from './assets/moj-3.png';
 import kistiImg from './assets/kisti-ml.png';
 import kisti2 from './assets/kisti-2.jpg';
 import kisti3 from './assets/kisti-3.png';
-import solvookImg from './assets/solvook-expert.png';
-import solvook2 from './assets/solvook-2.png';
-import solvook3 from './assets/solvook-3.png';
 import colpager1 from './assets/colpager-1.jpg';
 import colpager2 from './assets/colpager-2.jpg';
 
@@ -36,11 +33,11 @@ export const profile = {
 
 /* Hero featured-impact strip — the strongest real before→after pairs. */
 export const impact = {
-  lead: '아래 작업을 관통하는 한 가지 패턴 — “한 번에 다” 하려다 멈춘 화면을, “필요한 것부터 먼저”로 바꾼 기록입니다.',
+  lead: '대표 작업을 관통하는 한 가지 — 흩어진 복잡함을 한 곳으로 모아, 화면을 구조로 바꾼 기록입니다.',
   stats: [
-    { k: 'PDF 첫 화면 · 300p', before: '639,000ms', after: '1,310ms' },
     { k: '같은 모양 화면 59개', before: '화면마다 코딩', after: '정의 하나로' },
     { k: '페이지네이션 엔진', before: '사내 전용', after: 'npm 공개' },
+    { k: '탐지 모델 학습', before: '직접 코딩', after: 'GUI 5단계' },
   ] as { k: string; before: string; after: string }[],
 };
 
@@ -82,7 +79,7 @@ export const flagship = {
     { src: colpager1, alt: 'column-pager 결과 — 본문분석 PDF 자동 조판' },
     { src: colpager2, alt: 'column-pager 결과 — 변형문제 PDF 자동 조판' },
   ] as ProjImage[],
-  postUrl: SITE_URL,
+  postUrl: 'https://h8njo.vercel.app/work/column-count-layout',
   link: { label: 'GitHub · H8njo/column-pager', href: 'https://github.com/H8njo/column-pager' },
 };
 
@@ -98,29 +95,12 @@ export type WorkCase = {
   metrics: Metric[];
   metricsNote?: string;
   images?: ProjImage[];
+  code?: { caption: string; lines: string };
   postUrl?: string;
   link?: { label: string; href: string };
 };
 
 export const cases: WorkCase[] = [
-  {
-    id: 'work-pdf',
-    eyebrow: 'PERFORMANCE',
-    company: '@Sling',
-    title: '300페이지 PDF, 첫 화면을 10분에서 1초로',
-    problem:
-      '교재 PDF 뷰어(ORZO)가 모든 페이지를 다 그릴 때까지 화면이 멈춰 있었다. 페이지당 약 2초 × 300장 → 첫 조작까지 약 10분 30초(639,000ms). 게다가 페이지마다 거대한 이미지를 동시에 들고 있어, 대용량 교재에선 탭이 그대로 얼었다.',
-    structure:
-      '“전체를 다 그릴 때까지 기다린다”는 구조 자체를 버렸다. 보이는 페이지부터 먼저 그리고 나머지는 2페이지씩 청크로 백그라운드에서 순차 렌더 — 메인 스레드가 안 막힌다. 다 그려지길 기다리지 않고, 아직 안 그려진 페이지를 건드리면 그 자리에서 즉석 렌더. 그릴 때마다 page.cleanup()으로 바로 비워, peak 메모리를 전체 페이지가 아니라 청크 크기에 묶었다.',
-    tags: ['브라우저 PDF', 'Canvas', '청크 렌더', '메모리', 'OpenCV'],
-    metrics: [
-      { label: '첫 조작까지 · TTI 300p', before: '639,000ms', after: '1,310', unit: 'ms', gain: '약 488배 단축' },
-      { label: '초기 로딩 · 페이지당', before: '2,132ms', after: '1,527', unit: 'ms', gain: '비례 구조 제거' },
-      { label: '대용량 작업 속도', after: '약 4', unit: '× 빠름', gain: '청크 + 즉시 해제' },
-    ],
-    metricsNote: '메모리를 줄이면 결과부터 다시 본다 — 품질을 낮췄다가 OCR이 경계를 못 잡던 걸 늦게 발견하고 배운 습관.',
-    postUrl: SITE_URL,
-  },
   {
     id: 'work-portal',
     eyebrow: 'SYSTEM DESIGN',
@@ -142,7 +122,7 @@ export const cases: WorkCase[] = [
       { src: moj2, alt: '법무부 보안관제 포털 — 근무·업무 일정' },
       { src: moj3, alt: '법무부 보안관제 포털 — 목록 화면' },
     ],
-    postUrl: SITE_URL,
+    postUrl: 'https://h8njo.vercel.app/work/security-portal',
   },
   {
     id: 'work-design-system',
@@ -160,12 +140,19 @@ export const cases: WorkCase[] = [
       { label: '역할', after: '코드오너', gain: '모든 PR 리뷰·머지·릴리스' },
     ],
     metricsNote: '기본 컴포넌트에선 마법보다 예측 가능한 쪽이 거의 항상 맞다 — async onClick 자동 로딩을 controlled로 되돌린 결정.',
-    images: [
-      { src: solvookImg, alt: '디자인 시스템 적용 — 본문분석 출제' },
-      { src: solvook2, alt: '디자인 시스템 적용 — 엑스퍼트 홈' },
-      { src: solvook3, alt: '디자인 시스템 적용 — 워크북 PDF 뷰어' },
-    ],
-    postUrl: SITE_URL,
+    code: {
+      caption: 'API는 하나, 잘못 쓰면 컴파일에서 막힌다',
+      lines: [
+        '// Select — 하나의 API, 내부는 두 엔진',
+        'type Single = { multiple?: false; value?: string }',
+        'type Multi  = { multiple: true;  value: string[] }',
+        'type SelectV2Props = Single | Multi',
+        '',
+        '// 아이콘: 폴더에 SVG 드롭 → 타입까지 자동 생성',
+        '$ pnpm generate   // 160개 export, 손작업 0',
+      ].join('\n'),
+    },
+    postUrl: 'https://h8njo.vercel.app/work/design-system',
   },
   {
     id: 'work-ml',
@@ -188,7 +175,7 @@ export const cases: WorkCase[] = [
       { src: kisti2, alt: 'KISTI AI 관제 — 모델 테스트' },
       { src: kisti3, alt: 'KISTI AI 관제 — 페이로드 특징 추가' },
     ],
-    postUrl: SITE_URL,
+    postUrl: 'https://h8njo.vercel.app/work/security-ai',
   },
 ];
 
@@ -208,7 +195,7 @@ export const blackHole = {
     ['라이브러리', '없음 (raw)'],
   ] as [string, string][],
   repo: 'https://github.com/H8njo/webgl-black-hole',
-  postUrl: SITE_URL,
+  postUrl: 'https://h8njo.vercel.app/work/webgl-blackhole',
 };
 
 export type Timeline = { period: string; role: string; org: string; description: string; tags: string[]; current?: boolean };
@@ -258,7 +245,6 @@ export const capabilities: { label: string; skills: string[]; proof: ProofLink[]
     skills: ['Canvas 2D / WebGL', '측정-우선 레이아웃', '대용량 가상화', '메모리 바운드 처리'],
     proof: [
       { label: 'column-pager', target: 'work-column-pager' },
-      { label: '대용량 PDF', target: 'work-pdf' },
       { label: '블랙홀', target: 'work-blackhole' },
     ],
   },

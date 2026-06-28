@@ -162,17 +162,33 @@ function ImpactStrip({ c }: { c: WorkCase }) {
   );
 }
 
+function CodePanel({ code }: { code: { caption: string; lines: string } }) {
+  return (
+    <div>
+      <div className="hoonjo-code" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, lineHeight: 1.8, background: 'var(--ink)', border: '1px solid var(--ink-soft)', borderRadius: 'var(--radius-md)', padding: '20px 22px', overflowX: 'auto' }}>
+        {code.lines.split('\n').map((ln, i) => {
+          const t = ln.trim();
+          const color = t.startsWith('//') ? 'var(--on-ink-muted)' : t.startsWith('$') ? 'var(--blue-bright)' : 'var(--on-ink)';
+          return <div key={i} style={{ color, whiteSpace: 'pre', minHeight: '1.4em' }}>{ln || ' '}</div>;
+        })}
+      </div>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)', marginTop: 10 }}>{code.caption}</div>
+    </div>
+  );
+}
+
 function CaseCard({ c }: { c: WorkCase }) {
   const hasImages = !!(c.images && c.images.length);
+  const hasVisual = hasImages || !!c.code;
   return (
     <article id={c.id} style={{ marginTop: 20, scrollMarginTop: 84, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
-      <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: hasImages ? '1.04fr 1.06fr' : '1fr' }}>
-        <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', borderRight: hasImages ? '1px solid var(--line)' : 'none' }}>
+      <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: hasVisual ? '1.04fr 1.06fr' : '1fr' }}>
+        <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', borderRight: hasVisual ? '1px solid var(--line)' : 'none' }}>
           <CaseHeader c={c} />
         </div>
-        {hasImages && (
+        {hasVisual && (
           <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', background: 'var(--cloud)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Gallery images={c.images!} />
+            {hasImages ? <Gallery images={c.images!} /> : c.code ? <CodePanel code={c.code} /> : null}
           </div>
         )}
       </div>
