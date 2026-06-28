@@ -85,7 +85,7 @@ export function Nav() {
 function Portrait() {
   return (
     <div className="hoonjo-portrait" style={{
-      position: 'relative', width: '100%', maxWidth: 330, aspectRatio: '4 / 5', justifySelf: 'end',
+      position: 'relative', width: '100%', maxWidth: 360, aspectRatio: '4 / 5', justifySelf: 'end',
       borderRadius: 'var(--radius-xl)', overflow: 'hidden', background: 'var(--cloud)',
       border: '1px solid var(--line)', boxShadow: 'var(--shadow-soft)',
     }}>
@@ -104,11 +104,11 @@ export function Hero() {
     <section id="top">
       <BlueprintGrid cell={80} intensity="soft" style={{ borderBottom: '1px solid var(--line)' }}>
         <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0`, position: 'relative' }}>
-          <div className="hoonjo-hero-top" style={{ display: 'grid', gridTemplateColumns: '1fr clamp(240px, 30%, 330px)', gap: 'clamp(32px, 5vw, 64px)', alignItems: 'center' }}>
+          <div className="hoonjo-hero-top" style={{ display: 'grid', gridTemplateColumns: '1fr clamp(260px, 32%, 360px)', gap: 'clamp(20px, 2.4vw, 36px)', alignItems: 'center' }}>
             <div>
               <Eyebrow tone="blue">FRONTEND ENGINEER · SINCE {profile.since}</Eyebrow>
-              <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(44px, 6vw, 70px)', lineHeight: 1.02, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0', maxWidth: '15ch' }}>
-                {profile.tagline[0]}<br /><span style={{ fontWeight: 800 }}>되게</span> 만듭니다.
+              <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(30px, 4.4vw, 52px)', lineHeight: 1.1, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0' }}>
+                {profile.tagline[0]} <span style={{ fontWeight: 800 }}>되게</span> 만듭니다.
               </h1>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.6, color: 'var(--text-secondary)', margin: '28px 0 0', maxWidth: '46ch', whiteSpace: 'pre-line' }}>
                 {profile.role}. {profile.lead}
@@ -131,8 +131,7 @@ export function Hero() {
             background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden',
           }}>
             <div style={{ padding: '22px 24px', borderRight: '1px solid var(--line)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>대표 임팩트</div>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 21, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', marginTop: 10, lineHeight: 1.4, whiteSpace: 'pre-line' }}>{impact.lead}</div>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 21, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', lineHeight: 1.4, whiteSpace: 'pre-line' }}>{impact.lead}</div>
             </div>
             {impact.stats.map((s, i) => (
               <div key={s.k} style={{ padding: '22px 24px', borderRight: i < 2 ? '1px solid var(--line)' : 'none' }}>
