@@ -157,7 +157,7 @@ function Field({ label, items }: { label: string; items: string[] }) {
         {items.map((it, i) => (
           <li key={i} style={{ display: 'flex', gap: 10, fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 1.5, color: 'var(--text-secondary)' }}>
             <span aria-hidden style={{ flex: 'none', width: 5, height: 5, marginTop: 8, borderRadius: 1, background: 'var(--steel)', transform: 'rotate(45deg)' }} />
-            <span>{it}</span>
+            <span style={{ whiteSpace: 'pre-line' }}>{it}</span>
           </li>
         ))}
       </ul>
@@ -235,7 +235,7 @@ function CaseCard({ c }: { c: WorkCase }) {
 export function Work() {
   return (
     <section id="work" style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
-      <SectionHeader index={1} eyebrow="SELECTED WORK" title="문제를 구조로, 구조를 숫자로" lead="대표 작업 여섯 개 — 실제 화면, 측정된 결과, 그리고 “전체 글 읽기”로 자세한 글까지." />
+      <SectionHeader index={1} eyebrow="SELECTED WORK" title="문제를 구조로, 구조를 숫자로" lead="실제 화면, 측정된 결과, 그리고 “전체 글 읽기”." />
       <Flagship />
       <div>
         {cases.map((c) => <CaseCard key={c.title} c={c} />)}
@@ -278,7 +278,7 @@ export function Work() {
         </div>
       </article>
 
-      <a href={blackHole.postUrl} target="_blank" rel="noreferrer" className="hoonjo-allworks" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 20, padding: '22px', border: '1px dashed var(--steel)', borderRadius: 'var(--radius-lg)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 500, color: 'var(--blue-deep)', transition: 'background 150ms ease, border-color 150ms ease' }}>
+      <a href="https://h8njo.vercel.app/" target="_blank" rel="noreferrer" className="hoonjo-allworks" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 20, padding: '22px', border: '1px dashed var(--steel)', borderRadius: 'var(--radius-lg)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 500, color: 'var(--blue-deep)', transition: 'background 150ms ease, border-color 150ms ease' }}>
         더 많은 작업과 자세한 글 — 전체 사이트에서 보기 <span style={{ fontFamily: 'var(--font-mono)' }}>↗</span>
       </a>
     </section>
@@ -290,7 +290,7 @@ export function Career() {
   return (
     <section id="career" style={{ background: 'var(--cloud)', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
       <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
-        <SectionHeader index={2} eyebrow="CAREER" title="7년, 네 곳을 거쳤습니다" lead="첫 직장의 PHP부터 정부 보안관제, 교육 플랫폼까지 — 맡은 화면을 동작하는 결과까지 끌고 갔습니다." />
+        <SectionHeader index={2} eyebrow="CAREER" title="7년, 네 곳을 거쳤습니다" lead="첫 직장 PHP부터 정부 보안관제, 교육 플랫폼까지." />
         <div style={{ marginTop: 48, borderLeft: '1px solid var(--steel)', paddingLeft: 33, maxWidth: 820 }}>
           {timeline.map((t, i) => (
             <TimelineItem key={t.org} {...t} style={i === timeline.length - 1 ? { paddingBottom: 0 } : undefined} />

@@ -47,9 +47,9 @@ export const flagship = {
   eyebrow: 'FLAGSHIP · OPEN SOURCE',
   company: '@Bookips',
   badge: 'npm 배포 · MIT',
-  title: '사내 페이지네이션 엔진을 독립 오픈소스로',
+  title: ['사내 페이지네이션 엔진을', '독립 오픈소스로'],
   oneLiner:
-    '어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 엔진. 솔북(Solvook) 시험지 제작 도구에 박혀 있던 것을 떼어내 npm 패키지로 공개.',
+    '인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 엔진. 사내 제작 도구 → npm 패키지.',
   problem:
     '교육 콘텐츠 편집기에서 문제들을 A4 두 칸(2단) 레이아웃으로 배치해야 했는데, 기존 구현은 한 칸 높이를 넘는 긴 카드(긴 본문)를 처리하지 못했다. 만든 문제지는 인쇄돼 학생에게 가는 거라, 문장이 중간에 잘리면 그대로 불량품 — 주력 서비스에서 2년 가까이 환불 문의가 이어졌다. 여러 명이 붙었지만 다들 같은 벽에서 멈췄다.',
   attempts: [
@@ -154,7 +154,6 @@ export const cases: WorkCase[] = [
       { label: '아이콘 추가', after: '폴더 드롭', gain: '손으로 쓰던 export 0' },
       { label: '역할', after: '코드오너', gain: '모든 PR 리뷰·머지·릴리스' },
     ],
-    metricsNote: '기본 컴포넌트에선 마법보다 예측 가능한 쪽이 거의 항상 맞다 — async onClick 자동 로딩을 controlled로 되돌린 결정.',
     code: {
       caption: 'API는 하나, 잘못 쓰면 컴파일에서 막힌다',
       lines: [
@@ -173,7 +172,7 @@ export const cases: WorkCase[] = [
     id: 'work-ml',
     eyebrow: 'COMPLEX STATE · FULLSTACK',
     company: '@Zipida · KISTI',
-    title: '관제사가 코드 없이 탐지 모델을 학습시키는 마법사',
+    title: '코드 없이 탐지 모델을 학습시키는 마법사',
     problem: [
       '분석가가 코드 없이 탐지 ML 학습 — 5단계 마법사',
       '단계 왕복·새로고침·딥링크 사용',
@@ -181,7 +180,7 @@ export const cases: WorkCase[] = [
       '수분~수시간 비동기 학습 — 진행 상태 표시',
     ],
     structure: [
-      '현재 단계 — React state 아닌 URL 단일 소스 (새로고침·뒤로가기·딥링크 무료 동작)',
+      '현재 단계 — React state 아닌 URL 단일 소스\n(새로고침·뒤로가기·딥링크 무료 동작)',
       '데이터 — useImmerReducer, 완료·무효화 규칙을 리듀서에 명시',
       '비동기 학습 5×4 상태를 progress로 추적',
       'Java/Python 이종 워커 큐 현황까지 한 화면',
@@ -192,7 +191,7 @@ export const cases: WorkCase[] = [
       { label: '파이프라인 상태', after: '5×4', unit: '추적', gain: '멈춤/진행 구분' },
       { label: 'ES 기간 필터 버그', after: 'should→must', gain: '무시되던 필터 정상화' },
     ],
-    metricsNote: '시작할 땐 ML 지식이 없어, 화면을 제대로 짜려고 crawl→feature→train 파이프라인을 어깨너머로 학습.',
+    metricsNote: '시작할 땐 ML 지식이 없어, 화면을 제대로 짜려고 crawl→feature→train 파이프라인까지 직접 익혔다.',
     images: [
       { src: kistiImg, alt: 'KISTI AI 관제 — 학습 특징 설정' },
       { src: kisti2, alt: 'KISTI AI 관제 — 모델 테스트' },
@@ -207,10 +206,10 @@ export const blackHole = {
   id: 'work-blackhole',
   eyebrow: 'SIDE PROJECT · GRAPHICS',
   company: '개인 프로젝트',
-  title: ['빛이 휘는 블랙홀을', '셰이더로 직접 그렸습니다'],
+  title: ['빛이 휘는 블랙홀을', '셰이더로 직접 구현'],
   body:
-    '중력이 빛을 휘게 만드는 효과를 그래픽 라이브러리 없이 직접 구현. Canvas로 수천 개의 별을 그린 뒤 WebGL 셰이더가 화면을 픽셀 단위로 휘어 빛의 굴절을 표현.',
-  aside: '옆 화면은 지금 브라우저에서 실시간으로 도는 결과 — 영상도 이미지도 아님.',
+    '중력이 빛을 휘게 하는 효과를 그래픽 라이브러리 없이 직접 구현. Canvas 별 수천 개 위에 WebGL 셰이더로 빛의 굴절을 표현.',
+  aside: '옆 화면은 지금 브라우저에서 실시간으로 도는 결과입니다.',
   tags: ['WebGL', 'GLSL 셰이더', 'Canvas 2D', '좌표 수학'],
   stats: [
     ['별 개수', '8,000+'],
