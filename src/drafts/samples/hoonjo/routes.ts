@@ -3,9 +3,9 @@
    (/resume, /career, /portfolio-pdf) are plain full-page links; the slug router
    already strips the sub-path and lands every /d/<slug>/* on this sample, so we
    just branch on the sub-path here. */
-export type DocRoute = 'resume' | 'career' | 'portfolio-pdf';
+export type DocRoute = 'resume' | 'portfolio-pdf';
 
-const DOC_ROUTES: DocRoute[] = ['resume', 'career', 'portfolio-pdf'];
+const DOC_ROUTES: DocRoute[] = ['resume', 'portfolio-pdf'];
 
 /** `/d/<slug>` for the current page (no trailing sub-path), or '' off-route. */
 export function docBase(): string {

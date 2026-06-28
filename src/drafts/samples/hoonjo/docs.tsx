@@ -1,12 +1,14 @@
 import type { ReactNode } from 'react';
+import type { Metric } from './components';
 import { Tag, MetricRow } from './components';
-import { profile, timeline, capabilities, flagship, cases, oss } from './content';
+import { profile, timeline, capabilities, flagship, cases, blackHole, impact, oss } from './content';
+import type { ProjImage } from './content';
 import { docBase } from './routes';
 
-/* Print-to-PDF document pages served at /d/<slug>/{resume,career,portfolio-pdf}.
-   Same idea as the main site's résumé/career/portfolio routes: a clean on-screen
-   doc with a toolbar that prints to PDF. All copy is reused from content.ts so
-   the documents never drift from the portfolio. */
+/* Print-to-PDF documents served at /d/<slug>/{resume,portfolio-pdf}.
+   이력서 is a CV (page 1) + the projects in detail on a second print page;
+   포트폴리오 PDF is the whole portfolio in document form, so the PDF alone reads
+   as the full portfolio. All copy comes from content.ts so nothing drifts. */
 
 /* ---- shared shell ------------------------------------------------------- */
 function DocShell({ tab, children }: { tab: string; children: ReactNode }) {
@@ -26,26 +28,31 @@ function DocShell({ tab, children }: { tab: string; children: ReactNode }) {
   );
 }
 
-function DocHeader({ summary }: { summary?: string }) {
+function DocHeader({ tagline, summary }: { tagline?: string; summary?: string }) {
   return (
-    <header style={{ paddingBottom: 26, borderBottom: '2px solid var(--text)' }}>
+    <header style={{ paddingBottom: 24, borderBottom: '2px solid var(--text)' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
         <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 34, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)', margin: 0 }}>{profile.nameKo}</h1>
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--text-muted)' }}>{profile.name}</span>
       </div>
       <div style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'var(--text-secondary)', marginTop: 8 }}>{profile.role}</div>
+      {tagline && <div style={{ fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', marginTop: 14 }}>{tagline}</div>}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px', marginTop: 14, fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)' }}>
         <a href={`mailto:${profile.email}`} style={{ color: 'var(--blue-deep)' }}>{profile.email}</a>
         <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: 'var(--blue-deep)' }}>{profile.githubHandle}</a>
       </div>
-      {summary && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '16px 0 0', maxWidth: '60ch' }}>{summary}</p>}
+      {summary && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '16px 0 0', maxWidth: '62ch' }}>{summary}</p>}
     </header>
   );
 }
 
-function DocSection({ label, children }: { label: string; children: ReactNode }) {
+function SectionLabel({ children }: { children: ReactNode }) {
+  return <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{children}</div>;
+}
+
+function DocSection({ label, breakPage, children }: { label: string; breakPage?: boolean; children: ReactNode }) {
   return (
-    <section className="hoonjo-doc-section" style={{ marginTop: 34 }}>
+    <section className="hoonjo-doc-section" style={{ marginTop: 34, ...(breakPage ? { breakBefore: 'page' } : null) }}>
       <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', margin: '0 0 16px', paddingBottom: 8, borderBottom: '1px solid var(--line)' }}>{label}</h2>
       {children}
     </section>
@@ -65,125 +72,156 @@ function Bullets({ items }: { items: string[] }) {
   );
 }
 
-const ALL_PROJECTS = [
-  { title: flagship.title, company: flagship.company, problem: [flagship.problem], structure: ['앱에서 분리 → 순수 코어 / 측정 / 렌더 3계층으로 클린 재설계', '망한 시도를 버리지 않고 각도만 바꿔 합친 3세대 엔진'], metrics: flagship.results, tags: ['TypeScript', 'React 18/19', '측정-우선 레이아웃', 'semantic-release'] },
-  ...cases.map((c) => ({ title: c.title, company: c.company, problem: c.problem, structure: c.structure, metrics: c.metrics, tags: c.tags })),
+/* ---- project data (bullet-friendly, reused from content) ---------------- */
+type Project = { title: string; company?: string; problem: string[]; structure: string[]; metrics: Metric[]; tags: string[]; images?: ProjImage[] };
+
+const FLAGSHIP_PROBLEM = [
+  'A4 2단 레이아웃에서 한 칸 높이를 넘는 긴 카드(긴 본문)를 기존 구현이 처리 못 함',
+  '인쇄물이라 문장이 잘리면 그대로 불량품 — 2년 가까이 환불 문의',
+  '여러 명이 붙었지만 다들 같은 벽에서 멈춤',
+];
+const FLAGSHIP_STRUCTURE = [
+  '앱에서 분리 → 순수 코어 / 측정 / 렌더 3계층으로 클린 재설계',
+  '망한 시도를 버리지 않고 각도만 바꿔 합친 3세대 엔진',
+  '결정적 테스트 49개로 측정부를 교체 가능하게 추상화',
 ];
 
-/* ---- 이력서 ------------------------------------------------------------- */
+const PROJECTS: Project[] = [
+  { title: flagship.title, company: flagship.company, problem: FLAGSHIP_PROBLEM, structure: FLAGSHIP_STRUCTURE, metrics: flagship.results, tags: ['TypeScript', 'React 18/19', '측정-우선 레이아웃', 'semantic-release'], images: flagship.images },
+  ...cases.map((c): Project => ({ title: c.title, company: c.company, problem: c.problem, structure: c.structure, metrics: c.metrics, tags: c.tags, images: c.images })),
+];
+
+function ProjectBlock({ p, withImages = false }: { p: Project; withImages?: boolean }) {
+  return (
+    <section className="hoonjo-doc-section" style={{ paddingTop: 22, borderTop: '1px solid var(--line)' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+        <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 20, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', margin: 0 }}>{p.title}</h3>
+        {p.company && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)' }}>{p.company}</span>}
+      </div>
+      {withImages && p.images && p.images.length > 0 && (
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(p.images.length, 3)}, 1fr)`, gap: 10, marginTop: 16 }}>
+          {p.images.map((im, i) => (
+            <img key={i} src={im.src} alt={im.alt} style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: 'var(--radius-md)', border: '1px solid var(--line)' }} />
+          ))}
+        </div>
+      )}
+      <div className="hoonjo-doc-ps" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 16 }}>
+        <div><SectionLabel>Problem</SectionLabel><div style={{ marginTop: 9 }}><Bullets items={p.problem} /></div></div>
+        <div><SectionLabel>Structure</SectionLabel><div style={{ marginTop: 9 }}><Bullets items={p.structure} /></div></div>
+      </div>
+      <div style={{ marginTop: 18, paddingTop: 16, borderTop: '1px solid var(--line)' }}>
+        <SectionLabel>Impact</SectionLabel>
+        <div style={{ marginTop: 14 }}><MetricRow stats={p.metrics} /></div>
+      </div>
+      {withImages && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
+          {p.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function CareerList() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+      {timeline.map((t) => (
+        <div key={t.org} className="hoonjo-doc-row" style={{ display: 'grid', gridTemplateColumns: '130px 1fr', gap: 20 }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)', paddingTop: 2 }}>{t.period}</div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, fontWeight: 600, color: 'var(--text)' }}>{t.role}</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--text-muted)' }}>· {t.org}</span>
+            </div>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '6px 0 0', whiteSpace: 'pre-line' }}>{t.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Skills() {
+  return (
+    <div className="hoonjo-doc-skills" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 22 }}>
+      {capabilities.map((c) => (
+        <div key={c.label}>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, fontWeight: 600, color: 'var(--text)' }}>{c.label}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 10 }}>
+            {c.skills.map((s) => <Tag key={s}>{s}</Tag>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---- 이력서: CV page + projects on a second print page ------------------ */
 export function Resume() {
   return (
     <DocShell tab="이력서">
       <DocHeader summary={`${profile.role}. 성능·복잡한 상태·까다로운 렌더링을 측정 가능한 결과로 풀고, 반복되는 일을 재사용 가능한 구조로 바꾸는 데 강합니다.`} />
-
-      <DocSection label="경력">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-          {timeline.map((t) => (
-            <div key={t.org} className="hoonjo-doc-row" style={{ display: 'grid', gridTemplateColumns: '130px 1fr', gap: 20 }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)', paddingTop: 2 }}>{t.period}</div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
-                  <span style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, fontWeight: 600, color: 'var(--text)' }}>{t.role}</span>
-                  <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--text-muted)' }}>· {t.org}</span>
-                </div>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '6px 0 0', whiteSpace: 'pre-line' }}>{t.description}</p>
-              </div>
-            </div>
-          ))}
+      <DocSection label="경력"><CareerList /></DocSection>
+      <DocSection label="전문 영역"><Skills /></DocSection>
+      <DocSection label="대표 프로젝트" breakPage>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
+          {PROJECTS.map((p) => <ProjectBlock key={p.title} p={p} />)}
         </div>
       </DocSection>
+    </DocShell>
+  );
+}
 
-      <DocSection label="전문 영역">
-        <div className="hoonjo-doc-skills" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 22 }}>
-          {capabilities.map((c) => (
-            <div key={c.label}>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, fontWeight: 600, color: 'var(--text)' }}>{c.label}</div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 10 }}>
-                {c.skills.map((s) => <Tag key={s}>{s}</Tag>)}
-              </div>
+/* ---- 포트폴리오 PDF: the whole portfolio as one document ----------------- */
+export function PortfolioPdf() {
+  return (
+    <DocShell tab="포트폴리오 PDF">
+      <DocHeader tagline="안 되던 화면을 되게 만듭니다." summary={profile.lead.replace(/\n/g, ' ')} />
+
+      <DocSection label="대표 임팩트">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }} className="hoonjo-doc-skills">
+          {impact.stats.map((s) => (
+            <div key={s.k}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{s.k}</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--text-muted)', textDecoration: 'line-through', textDecorationColor: 'var(--steel)', marginTop: 8 }}>{s.before}</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 600, color: 'var(--text)', marginTop: 3 }}>{s.after}</div>
             </div>
           ))}
         </div>
       </DocSection>
 
       <DocSection label="대표 프로젝트">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {ALL_PROJECTS.map((p) => (
-            <div key={p.title} style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, fontWeight: 600, color: 'var(--text)' }}>{p.title}</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-muted)' }}>{p.company}</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--positive)' }}>
-                {p.metrics[0].after}{p.metrics[0].unit ?? ''} · {p.metrics[0].label}
-              </span>
-            </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+          {PROJECTS.map((p) => <ProjectBlock key={p.title} p={p} withImages />)}
+        </div>
+      </DocSection>
+
+      <DocSection label="사이드 프로젝트">
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 19, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{blackHole.title.join(' ')}</h3>
+          <a href={blackHole.repo} target="_blank" rel="noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--blue-deep)' }}>github ↗</a>
+        </div>
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '10px 0 0', whiteSpace: 'pre-line' }}>{blackHole.body}</p>
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginTop: 14 }}>
+          {blackHole.stats.map(([k, v]) => (
+            <div key={k}><span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>{k} · </span><span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>{v}</span></div>
           ))}
         </div>
       </DocSection>
-    </DocShell>
-  );
-}
 
-/* ---- 경력기술서 --------------------------------------------------------- */
-export function CareerDoc() {
-  return (
-    <DocShell tab="경력기술서">
-      <DocHeader summary="문제 → 구조 → 측정된 결과. 대표 프로젝트별로 무엇이 막혀 있었고, 어떻게 구조화했고, 무엇이 얼마나 나아졌는지를 정리했습니다." />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 34, marginTop: 30 }}>
-        {ALL_PROJECTS.map((p) => (
-          <section key={p.title} className="hoonjo-doc-section" style={{ paddingTop: 22, borderTop: '1px solid var(--line)' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 20, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', margin: 0 }}>{p.title}</h2>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)' }}>{p.company}</span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 16 }} className="hoonjo-doc-ps">
-              <div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 9 }}>Problem</div>
-                <Bullets items={p.problem} />
-              </div>
-              <div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 9 }}>Structure</div>
-                <Bullets items={p.structure} />
-              </div>
-            </div>
-            <div style={{ marginTop: 18, paddingTop: 16, borderTop: '1px solid var(--line)' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 14 }}>Impact</div>
-              <MetricRow stats={p.metrics} />
-            </div>
-          </section>
-        ))}
-      </div>
-    </DocShell>
-  );
-}
+      <DocSection label="경력" breakPage><CareerList /></DocSection>
+      <DocSection label="전문 영역"><Skills /></DocSection>
 
-/* ---- 포트폴리오 PDF ----------------------------------------------------- */
-export function PortfolioPdf() {
-  return (
-    <DocShell tab="포트폴리오 PDF">
-      <DocHeader summary={profile.lead.replace(/\n/g, ' ')} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginTop: 28 }}>
-        {ALL_PROJECTS.map((p) => (
-          <section key={p.title} className="hoonjo-doc-section" style={{ background: 'var(--cloud)', border: '1px solid var(--line)', borderRadius: 'var(--radius-lg)', padding: '22px 24px' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 19, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{p.title}</h2>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-muted)' }}>{p.company}</span>
-            </div>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '10px 0 0', whiteSpace: 'pre-line' }}>{p.problem[0]}</p>
-            <div style={{ marginTop: 16 }}><MetricRow stats={p.metrics} /></div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
-              {p.tags.map((t) => <Tag key={t}>{t}</Tag>)}
-            </div>
-          </section>
-        ))}
-        <section className="hoonjo-doc-section" style={{ paddingTop: 18, borderTop: '1px solid var(--line)' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 10 }}>Open Source</div>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 500, color: 'var(--text)' }}>{oss.repo}</span>
-            <a href={oss.href} target="_blank" rel="noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--blue-deep)' }}>github ↗</a>
-          </div>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '8px 0 0', whiteSpace: 'pre-line' }}>{oss.desc}</p>
-        </section>
-      </div>
+      <DocSection label="오픈소스">
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 500, color: 'var(--text)' }}>{oss.repo}</span>
+          <a href={oss.href} target="_blank" rel="noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--blue-deep)' }}>github ↗</a>
+        </div>
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '8px 0 0', whiteSpace: 'pre-line' }}>{oss.desc}</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 14 }}>
+          {oss.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+        </div>
+      </DocSection>
     </DocShell>
   );
 }

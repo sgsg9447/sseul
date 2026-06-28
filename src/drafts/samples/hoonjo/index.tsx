@@ -1,7 +1,7 @@
 import './styles.css';
 import { LightboxProvider } from './Lightbox';
 import { MainPortfolio } from './sections';
-import { Resume, CareerDoc, PortfolioPdf } from './docs';
+import { Resume, PortfolioPdf } from './docs';
 import { currentDoc } from './routes';
 
 /* hoonjo — senior frontend engineer portfolio (served at /d/hoonjo-b9e634).
@@ -16,8 +16,6 @@ export default function Hoonjo() {
     <div className="hoonjo">
       {doc === 'resume' ? (
         <Resume />
-      ) : doc === 'career' ? (
-        <CareerDoc />
       ) : doc === 'portfolio-pdf' ? (
         <PortfolioPdf />
       ) : (

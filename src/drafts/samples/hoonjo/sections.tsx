@@ -407,7 +407,7 @@ export function Contact() {
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 36 }}>
           <Button variant="primary" as="a" href={`mailto:${profile.email}`} iconRight="→">메일 보내기</Button>
-          {([['이력서', 'resume'], ['경력기술서', 'career'], ['포트폴리오 PDF', 'portfolio-pdf']] as [string, string][]).map(([label, sub]) => (
+          {([['이력서', 'resume'], ['포트폴리오 PDF', 'portfolio-pdf']] as [string, string][]).map(([label, sub]) => (
             <Button key={sub} variant="ink" as="a" href={`${docBase()}/${sub}`} style={{ border: '1px solid rgba(246,244,238,0.28)', background: 'transparent', color: 'var(--on-ink)' }}>{label}</Button>
           ))}
         </div>
