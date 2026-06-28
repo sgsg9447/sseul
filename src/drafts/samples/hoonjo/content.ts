@@ -33,7 +33,7 @@ export const profile = {
 
 /* Hero featured-impact strip — the strongest real before→after pairs. */
 export const impact = {
-  lead: '대표 작업을 관통하는 한 가지 — 흩어진 복잡함을 한 곳으로 모아, 화면을 구조로 바꾼 기록입니다.',
+  lead: '세 작업의 공통점 — 손으로 반복하던 일을 재사용 가능한 구조로 바꿔, 측정되는 숫자로 줄인 결과.',
   stats: [
     { k: '같은 모양 화면 59개', before: '화면마다 코딩', after: '정의 하나로' },
     { k: '페이지네이션 엔진', before: '사내 전용', after: 'npm 공개' },
