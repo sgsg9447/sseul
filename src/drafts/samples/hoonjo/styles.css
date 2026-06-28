@@ -301,8 +301,12 @@
 }
 
 @media print {
+  @page {
+    margin: 14mm;
+  }
   .hoonjo .hoonjo-doc {
     background: #fff;
+    min-height: 0;
   }
   .hoonjo .hoonjo-doc-bar {
     display: none !important;
@@ -315,7 +319,16 @@
     box-shadow: none;
     padding: 0;
   }
-  .hoonjo .hoonjo-doc-section {
+  /* keep a block (a project, a career row, an image) from splitting across pages */
+  .hoonjo .hoonjo-doc-section,
+  .hoonjo .hoonjo-doc-row,
+  .hoonjo .hoonjo-doc img {
     break-inside: avoid;
+  }
+  /* preserve metric colors and card fills in the printed PDF */
+  .hoonjo .hoonjo-doc,
+  .hoonjo .hoonjo-doc * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }

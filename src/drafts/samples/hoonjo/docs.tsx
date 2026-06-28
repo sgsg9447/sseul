@@ -163,7 +163,7 @@ export function Resume() {
       <DocHeader summary={`${profile.role}. 성능·복잡한 상태·까다로운 렌더링을 측정 가능한 결과로 풀고, 반복되는 일을 재사용 가능한 구조로 바꾸는 데 강합니다.`} />
       <DocSection label="경력"><CareerList /></DocSection>
       <DocSection label="전문 영역"><Skills /></DocSection>
-      <DocSection label="대표 프로젝트" breakPage>
+      <DocSection label="대표 프로젝트">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
           {PROJECTS.map((p) => <ProjectBlock key={p.title} p={p} />)}
         </div>
@@ -209,7 +209,7 @@ export function PortfolioPdf() {
         </div>
       </DocSection>
 
-      <DocSection label="경력" breakPage><CareerList /></DocSection>
+      <DocSection label="경력"><CareerList /></DocSection>
       <DocSection label="전문 영역"><Skills /></DocSection>
 
       <DocSection label="오픈소스">
