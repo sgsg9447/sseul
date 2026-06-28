@@ -36,24 +36,24 @@
   --blue-soft: #eaf2fe;
   --blue-line: #c5dcfb;
 
-  /* Secondary accent — warm brass. The "proof / featured" voice, used only as
-     sparse emphasis points: section index numerals, the impact label, the
-     active "now" marker, the featured badge, and one highlight word per band.
-     Never a primary action — those stay --blue. Distinct from the metric
-     green/red, which stay confined to before→after deltas. */
-  --gold: #c47d2c;
-  --gold-bright: #e3a651;
-  --gold-deep: #9a5a16;
-  --gold-soft: #f8efe0;
-  --gold-line: #ecd7b4;
+  /* Secondary accent — clean green (the tone the client picked from the badge).
+     The "proof / live / featured" voice: section index numerals, the impact
+     label, the active "now" marker, the featured badge, status dots, and one
+     highlight word per band. Pairs with --blue, which stays primary. */
+  --green: #16a563;
+  --green-bright: #43c98a;
+  --green-deep: #157346;
+  --green-soft: #e6f5ec;
+  --green-line: #b6e3c8;
 
-  /* Surface — clean cool neutrals */
-  --canvas: #fafafb;
+  /* Surface — essentially white. Bands/panels sit a hair under the canvas so
+     they barely register; separation comes from hairlines, not gray fills. */
+  --canvas: #fefefe;
   --paper: #ffffff;
-  --cloud: #f4f5f7;
-  --fog: #eaecef;
-  --steel: #c4c7ce;
-  --line: #e6e8ec;
+  --cloud: #fafbfc;
+  --fog: #f2f4f7;
+  --steel: #c2c8d1;
+  --line: #ebeef2;
 
   /* Ink slab — cool near-black for closing bands & footer */
   --ink: #18191c;
@@ -69,9 +69,10 @@
   --on-ink-muted: #a4a7b0;
   --on-blue: #ffffff;
 
-  /* Semantic — restrained, metric contexts only */
-  --positive: #1c7a4d;
-  --positive-soft: #e4f2ea;
+  /* Semantic — metric deltas. Positive shares the secondary-green family so
+     the gains read as one green language with the accent. */
+  --positive: var(--green-deep);
+  --positive-soft: var(--green-soft);
   --warn: #9a6312;
   --danger: #b3262b;
   --danger-soft: #f8e7e6;
@@ -158,8 +159,8 @@
   --shadow-soft-lg: 0 4px 18px rgba(17, 18, 22, 0.08);
   --shadow-modal: 0 10px 32px rgba(8, 9, 12, 0.16);
   --ring-focus: 0 0 0 2px var(--canvas), 0 0 0 4px var(--blue);
-  --grid-line: rgba(49, 130, 246, 0.05);
-  --grid-line-strong: rgba(49, 130, 246, 0.09);
+  --grid-line: rgba(49, 130, 246, 0.028);
+  --grid-line-strong: rgba(49, 130, 246, 0.05);
 }
 
 /* ---- Base element rules, scoped under the sample root ------------------- */
