@@ -164,15 +164,15 @@ function ImpactStrip({ c }: { c: WorkCase }) {
 
 function CodePanel({ code }: { code: { caption: string; lines: string } }) {
   return (
-    <div>
-      <div className="hoonjo-code" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, lineHeight: 1.8, background: 'var(--ink)', border: '1px solid var(--ink-soft)', borderRadius: 'var(--radius-md)', padding: '20px 22px', overflowX: 'auto' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
+      <div className="hoonjo-code" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 13.5, lineHeight: 1.95, background: 'var(--ink)', border: '1px solid var(--ink-soft)', borderRadius: 'var(--radius-md)', padding: 'clamp(26px, 3vw, 34px)', overflowX: 'auto' }}>
         {code.lines.split('\n').map((ln, i) => {
           const t = ln.trim();
           const color = t.startsWith('//') ? 'var(--on-ink-muted)' : t.startsWith('$') ? 'var(--blue-bright)' : 'var(--on-ink)';
           return <div key={i} style={{ color, whiteSpace: 'pre', minHeight: '1.4em' }}>{ln || ' '}</div>;
         })}
       </div>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)', marginTop: 10 }}>{code.caption}</div>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)', marginTop: 14 }}>{code.caption}</div>
     </div>
   );
 }
