@@ -4,6 +4,7 @@ import { Tag, MetricRow } from './components';
 import { profile, timeline, capabilities, flagship, cases, blackHole, impact, oss } from './content';
 import type { ProjImage } from './content';
 import { docBase } from './routes';
+import portrait from './assets/portrait.jpg';
 
 /* Print-to-PDF documents served at /d/<slug>/{resume,portfolio-pdf}.
    이력서 is a CV (page 1) + the projects in detail on a second print page;
@@ -30,18 +31,21 @@ function DocShell({ tab, children }: { tab: string; children: ReactNode }) {
 
 function DocHeader({ tagline, summary }: { tagline?: string; summary?: string }) {
   return (
-    <header style={{ paddingBottom: 24, borderBottom: '2px solid var(--text)' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
-        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 34, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)', margin: 0 }}>{profile.nameKo}</h1>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--text-muted)' }}>{profile.name}</span>
+    <header className="hoonjo-doc-head" style={{ paddingBottom: 24, borderBottom: '2px solid var(--text)', display: 'flex', gap: 26, alignItems: 'flex-start' }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 34, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)', margin: 0 }}>{profile.nameKo}</h1>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--text-muted)' }}>{profile.name}</span>
+        </div>
+        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'var(--text-secondary)', marginTop: 8 }}>{profile.role}</div>
+        {tagline && <div style={{ fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', marginTop: 14 }}>{tagline}</div>}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px', marginTop: 14, fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)' }}>
+          <a href={`mailto:${profile.email}`} style={{ color: 'var(--blue-deep)' }}>{profile.email}</a>
+          <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: 'var(--blue-deep)' }}>{profile.githubHandle}</a>
+        </div>
+        {summary && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '16px 0 0', maxWidth: '62ch' }}>{summary}</p>}
       </div>
-      <div style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'var(--text-secondary)', marginTop: 8 }}>{profile.role}</div>
-      {tagline && <div style={{ fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', marginTop: 14 }}>{tagline}</div>}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px', marginTop: 14, fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)' }}>
-        <a href={`mailto:${profile.email}`} style={{ color: 'var(--blue-deep)' }}>{profile.email}</a>
-        <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: 'var(--blue-deep)' }}>{profile.githubHandle}</a>
-      </div>
-      {summary && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '16px 0 0', maxWidth: '62ch' }}>{summary}</p>}
+      <img className="hoonjo-doc-photo" src={portrait} alt={profile.nameKo} style={{ flex: 'none', width: 116, height: 138, objectFit: 'cover', objectPosition: 'center 22%', borderRadius: 'var(--radius-lg)', border: '1px solid var(--line)' }} />
     </header>
   );
 }
