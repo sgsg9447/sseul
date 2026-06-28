@@ -23,7 +23,7 @@ function scrollTo(e: React.MouseEvent, id: string) {
 }
 
 /* ---- Nav ---------------------------------------------------------------- */
-const NAV_LINKS: [string, string][] = [['작업', 'work'], ['경력', 'career'], ['전문 영역', 'stack'], ['오픈소스', 'oss'], ['연락', 'contact']];
+const NAV_LINKS: [string, string][] = [['프로젝트', 'work'], ['경력', 'career'], ['전문 영역', 'stack'], ['오픈소스', 'oss']];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -106,7 +106,7 @@ export function Hero() {
         <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0`, position: 'relative' }}>
           <div className="hoonjo-hero-top" style={{ display: 'grid', gridTemplateColumns: '1fr clamp(260px, 32%, 360px)', gap: 'clamp(20px, 2.4vw, 36px)', alignItems: 'center' }}>
             <div>
-              <Eyebrow tone="blue">FRONTEND ENGINEER · SINCE {profile.since}</Eyebrow>
+              <Eyebrow tone="blue">FRONTEND ENGINEER · 7 YEARS</Eyebrow>
               <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(30px, 4.4vw, 52px)', lineHeight: 1.1, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0' }}>
                 {profile.tagline[0]} <span style={{ fontWeight: 800 }}>되게</span> 만듭니다.
               </h1>
@@ -251,7 +251,6 @@ export function Work() {
             {blackHole.title[0]}<br className="hoonjo-br" /> {blackHole.title[1]}
           </h3>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '18px 0 0', maxWidth: '46ch' }}>{blackHole.body}</p>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)', margin: '12px 0 0', maxWidth: '46ch' }}>{blackHole.aside}</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 24 }}>
             {blackHole.tags.map((t) => <Tag key={t} variant="blue">{t}</Tag>)}
           </div>
