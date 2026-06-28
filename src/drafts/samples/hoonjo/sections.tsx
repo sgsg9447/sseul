@@ -152,6 +152,18 @@ function CaseCard({ c }: { c: WorkCase }) {
           )}
         </div>
         <div style={{ padding: 'clamp(24px, 4vw, 40px)', background: 'var(--cloud)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          {c.image && (
+            <figure style={{ margin: '0 0 26px' }}>
+              <img
+                src={c.image.src}
+                alt={c.image.alt}
+                loading="lazy"
+                decoding="async"
+                style={{ width: '100%', display: 'block', borderRadius: 'var(--radius-md)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-soft)', background: 'var(--paper)' }}
+              />
+              <figcaption style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.02em', color: 'var(--text-muted)', marginTop: 10 }}>{c.image.caption}</figcaption>
+            </figure>
+          )}
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 16 }}>Impact · 측정 결과</div>
           <MetricTable columns={1} stats={c.metrics} />
           {c.metricsNote && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.5, color: 'var(--text-muted)', marginTop: 16 }}>{c.metricsNote}</p>}

@@ -1,4 +1,7 @@
 import type { Metric } from './components';
+import mojImg from './assets/moj-portal.png';
+import kistiImg from './assets/kisti-ml.png';
+import solvookImg from './assets/solvook-expert.png';
 
 /* All copy + data for the Hoonjo portfolio, grounded in his real résumé and
    his own project write-ups. Numbers are his actual figures — no invented
@@ -76,6 +79,7 @@ export type WorkCase = {
   tags: string[];
   metrics: Metric[];
   metricsNote?: string;
+  image?: { src: string; alt: string; caption: string };
   link?: { label: string; href: string };
 };
 
@@ -113,6 +117,7 @@ export const cases: WorkCase[] = [
       { label: '내 커밋 · 프론트 주저자', after: '696', unit: '/1,299', gain: '약 2년' },
     ],
     metricsNote: '이 Table 컴포넌트는 이후 다른 프로젝트들에서도 컬럼 배열만 갈아끼워 재사용됐다.',
+    image: { src: mojImg, alt: '법무부 보안관제 포털 화면', caption: '실제 화면 · 법무부 보안관제 포털(지스포)' },
   },
   {
     id: 'work-design-system',
@@ -130,6 +135,7 @@ export const cases: WorkCase[] = [
       { label: '역할', after: '코드오너', gain: '모든 PR 리뷰·머지·릴리스' },
     ],
     metricsNote: '기본 컴포넌트에선 마법보다 예측 가능한 쪽이 거의 항상 맞다 — async onClick 자동 로딩을 controlled로 되돌린 결정.',
+    image: { src: solvookImg, alt: '디자인 시스템이 적용된 솔북 제품 화면', caption: '실제 화면 · 디자인 시스템이 적용된 솔북 엑스퍼트' },
   },
   {
     id: 'work-ml',
@@ -147,6 +153,7 @@ export const cases: WorkCase[] = [
       { label: 'ES 기간 필터 버그', after: 'should→must', gain: '무시되던 필터 정상화' },
     ],
     metricsNote: '시작할 땐 ML 지식이 없었다 — 화면을 제대로 짜려고 crawl→feature→train 파이프라인을 어깨너머로 배웠다.',
+    image: { src: kistiImg, alt: 'KISTI AI 관제 — 모델 학습 화면', caption: '실제 화면 · KISTI AI 관제 — 학습 특징 설정' },
   },
 ];
 
