@@ -127,12 +127,12 @@ export function Hero() {
 
         <div style={{ ...CONTAINER, margin: '64px auto 0', padding: '0 24px 64px' }}>
           <div className="hoonjo-impact-strip" style={{
-            display: 'grid', gridTemplateColumns: 'minmax(0,1.1fr) repeat(3, minmax(0,1fr))',
+            display: 'grid', gridTemplateColumns: 'minmax(0,1.5fr) repeat(3, minmax(0,1fr))',
             background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden',
           }}>
             <div style={{ padding: '22px 24px', borderRight: '1px solid var(--line)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>대표 임팩트</div>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, color: 'var(--text-secondary)', marginTop: 8, lineHeight: 1.5 }}>{impact.lead}</div>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--text-secondary)', marginTop: 8, lineHeight: 1.55, whiteSpace: 'pre-line' }}>{impact.lead}</div>
             </div>
             {impact.stats.map((s, i) => (
               <div key={s.k} style={{ padding: '22px 24px', borderRight: i < 2 ? '1px solid var(--line)' : 'none' }}>
