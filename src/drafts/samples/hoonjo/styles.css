@@ -64,6 +64,23 @@
   .hoonjo .hoonjo-br {
     display: none;
   }
+  /* metric strip: stack the cells instead of cramming 3 across */
+  .hoonjo .hoonjo-metric-row {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .hoonjo .hoonjo-metric-row > div {
+    border-left: none !important;
+    padding-left: 0 !important;
+    padding-top: 14px;
+    margin-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .hoonjo .hoonjo-metric-row > div:first-child {
+    padding-top: 0;
+    margin-top: 0;
+    border-top: none;
+  }
 }
 
 /* Works list — row hover */

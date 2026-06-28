@@ -65,6 +65,25 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/* A screenshot gallery — one large hero + a thumbnail row, all zoomable. */
+export function Gallery({ images }: { images: { src: string; alt: string }[] }) {
+  if (!images || images.length === 0) return null;
+  const [hero, ...rest] = images;
+  return (
+    <div className="hoonjo-gallery" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <ZoomImage src={hero.src} alt={hero.alt} style={{ width: '100%', display: 'block', borderRadius: 'var(--radius-md)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-soft)', background: 'var(--paper)' }} />
+      {rest.length > 0 && (
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${rest.length}, 1fr)`, gap: 10 }}>
+          {rest.map((im) => (
+            <ZoomImage key={im.src} src={im.src} alt={im.alt} style={{ width: '100%', height: 74, objectFit: 'cover', objectPosition: 'top', display: 'block', borderRadius: 'var(--radius-sm)', border: '1px solid var(--line)', background: 'var(--paper)' }} />
+          ))}
+        </div>
+      )}
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>실제 화면 {images.length}컷 · 클릭하면 확대</div>
+    </div>
+  );
+}
+
 /* A clickable image that opens itself in the lightbox. */
 export function ZoomImage({ src, alt, style, className }: { src: string; alt: string; style?: React.CSSProperties; className?: string }) {
   const { openImage } = useLightbox();

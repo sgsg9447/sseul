@@ -1,7 +1,20 @@
 import type { Metric } from './components';
 import mojImg from './assets/moj-portal.png';
+import moj2 from './assets/moj-2.jpg';
+import moj3 from './assets/moj-3.png';
 import kistiImg from './assets/kisti-ml.png';
+import kisti2 from './assets/kisti-2.jpg';
+import kisti3 from './assets/kisti-3.png';
 import solvookImg from './assets/solvook-expert.png';
+import solvook2 from './assets/solvook-2.png';
+import solvook3 from './assets/solvook-3.png';
+import colpager1 from './assets/colpager-1.jpg';
+import colpager2 from './assets/colpager-2.jpg';
+
+/* The real site each "전체 글 읽기" links out to (per-project URLs can override
+   via WorkCase.postUrl). */
+export const SITE_URL = 'https://h8njo.vercel.app';
+export type ProjImage = { src: string; alt: string };
 
 /* All copy + data for the Hoonjo portfolio, grounded in his real résumé and
    his own project write-ups. Numbers are his actual figures — no invented
@@ -65,6 +78,11 @@ export const flagship = {
     '재사용성을 확보한 덕에 후속 저작 도구, 나아가 AI 문제 생성 서비스(현재 메인 매출의 한 축)로 이어졌다 — 그즈음 매출이 전년의 약 150%가 됐다.',
   honesty:
     '표처럼 중간에서 쪼개면 안 되는 요소, 페이지를 넘는 카드 이동의 미세한 끊김은 아직 못 푼 한계로 문서에 그대로 적어뒀다. 못 푼 걸 안 푼 척하지 않는 게 라이브러리 쓰는 사람한테 정직한 거라고 본다.',
+  images: [
+    { src: colpager1, alt: 'column-pager 결과 — 본문분석 PDF 자동 조판' },
+    { src: colpager2, alt: 'column-pager 결과 — 변형문제 PDF 자동 조판' },
+  ] as ProjImage[],
+  postUrl: SITE_URL,
   link: { label: 'GitHub · H8njo/column-pager', href: 'https://github.com/H8njo/column-pager' },
 };
 
@@ -79,7 +97,8 @@ export type WorkCase = {
   tags: string[];
   metrics: Metric[];
   metricsNote?: string;
-  image?: { src: string; alt: string; caption: string };
+  images?: ProjImage[];
+  postUrl?: string;
   link?: { label: string; href: string };
 };
 
@@ -100,6 +119,7 @@ export const cases: WorkCase[] = [
       { label: '대용량 작업 속도', after: '약 4', unit: '× 빠름', gain: '청크 + 즉시 해제' },
     ],
     metricsNote: '메모리를 줄이면 결과부터 다시 본다 — 품질을 낮췄다가 OCR이 경계를 못 잡던 걸 늦게 발견하고 배운 습관.',
+    postUrl: SITE_URL,
   },
   {
     id: 'work-portal',
@@ -117,7 +137,12 @@ export const cases: WorkCase[] = [
       { label: '내 커밋 · 프론트 주저자', after: '696', unit: '/1,299', gain: '약 2년' },
     ],
     metricsNote: '이 Table 컴포넌트는 이후 다른 프로젝트들에서도 컬럼 배열만 갈아끼워 재사용됐다.',
-    image: { src: mojImg, alt: '법무부 보안관제 포털 화면', caption: '실제 화면 · 법무부 보안관제 포털(지스포)' },
+    images: [
+      { src: mojImg, alt: '법무부 보안관제 포털 — 일간 보고서' },
+      { src: moj2, alt: '법무부 보안관제 포털 — 근무·업무 일정' },
+      { src: moj3, alt: '법무부 보안관제 포털 — 목록 화면' },
+    ],
+    postUrl: SITE_URL,
   },
   {
     id: 'work-design-system',
@@ -135,7 +160,12 @@ export const cases: WorkCase[] = [
       { label: '역할', after: '코드오너', gain: '모든 PR 리뷰·머지·릴리스' },
     ],
     metricsNote: '기본 컴포넌트에선 마법보다 예측 가능한 쪽이 거의 항상 맞다 — async onClick 자동 로딩을 controlled로 되돌린 결정.',
-    image: { src: solvookImg, alt: '디자인 시스템이 적용된 솔북 제품 화면', caption: '실제 화면 · 디자인 시스템이 적용된 솔북 엑스퍼트' },
+    images: [
+      { src: solvookImg, alt: '디자인 시스템 적용 — 본문분석 출제' },
+      { src: solvook2, alt: '디자인 시스템 적용 — 엑스퍼트 홈' },
+      { src: solvook3, alt: '디자인 시스템 적용 — 워크북 PDF 뷰어' },
+    ],
+    postUrl: SITE_URL,
   },
   {
     id: 'work-ml',
@@ -153,7 +183,12 @@ export const cases: WorkCase[] = [
       { label: 'ES 기간 필터 버그', after: 'should→must', gain: '무시되던 필터 정상화' },
     ],
     metricsNote: '시작할 땐 ML 지식이 없었다 — 화면을 제대로 짜려고 crawl→feature→train 파이프라인을 어깨너머로 배웠다.',
-    image: { src: kistiImg, alt: 'KISTI AI 관제 — 모델 학습 화면', caption: '실제 화면 · KISTI AI 관제 — 학습 특징 설정' },
+    images: [
+      { src: kistiImg, alt: 'KISTI AI 관제 — 학습 특징 설정' },
+      { src: kisti2, alt: 'KISTI AI 관제 — 모델 테스트' },
+      { src: kisti3, alt: 'KISTI AI 관제 — 페이로드 특징 추가' },
+    ],
+    postUrl: SITE_URL,
   },
 ];
 
@@ -173,6 +208,7 @@ export const blackHole = {
     ['라이브러리', '없음 (raw)'],
   ] as [string, string][],
   repo: 'https://github.com/H8njo/webgl-black-hole',
+  postUrl: SITE_URL,
 };
 
 export type Timeline = { period: string; role: string; org: string; description: string; tags: string[]; current?: boolean };

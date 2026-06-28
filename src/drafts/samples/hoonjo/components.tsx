@@ -245,6 +245,26 @@ export function MetricTable({ stats, columns, onInk = false, compact = false, st
   );
 }
 
+/* ---- MetricRow — horizontal, bold; the prominent "impact" strip --------- */
+export function MetricRow({ stats }: { stats: Metric[] }) {
+  return (
+    <div className="hoonjo-metric-row" style={{ display: 'grid', gridTemplateColumns: `repeat(${stats.length}, 1fr)`, gap: 0 }}>
+      {stats.map((s, i) => (
+        <div key={i} style={{ paddingLeft: i > 0 ? 24 : 0, borderLeft: i > 0 ? '1px solid var(--line)' : 'none' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{s.label}</div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums', marginTop: 8, display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+            {s.before != null && <span style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'line-through', textDecorationColor: 'var(--steel)' }}>{s.before}</span>}
+            <span style={{ fontSize: 26, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.015em', whiteSpace: 'nowrap' }}>
+              {s.after}{s.unit && <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text-muted)', marginLeft: 2 }}>{s.unit}</span>}
+            </span>
+          </div>
+          {s.gain && <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 500, color: 'var(--positive)', marginTop: 6 }}>{s.gain}</div>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ---- TimelineItem ------------------------------------------------------- */
 export function TimelineItem({ period, role, org, description, tags = [], current = false, style = {} }: {
   period: string; role: string; org?: string; description?: string; tags?: string[]; current?: boolean; style?: CSSProperties;

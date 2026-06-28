@@ -1,14 +1,12 @@
 import { useState, type ReactNode } from 'react';
 import {
-  Button, Tag, Badge, Eyebrow, SectionHeader, BlueprintGrid, MetricTable, TimelineItem,
+  Button, Tag, Badge, Eyebrow, SectionHeader, BlueprintGrid, MetricRow, TimelineItem,
 } from './components';
 import type { WorkCase } from './content';
 import { profile, impact, cases, blackHole, timeline, capabilities, oss } from './content';
 import { BlackHole } from './BlackHole';
 import { Flagship } from './Flagship';
-import { ZoomImage } from './Lightbox';
-
-export type NavFn = (to: string) => void;
+import { Gallery } from './Lightbox';
 
 const CONTAINER = { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 24px' } as const;
 /* section rhythm — 96px desktop, eases to 56px on small screens (no media query) */
@@ -26,12 +24,8 @@ function scrollTo(e: React.MouseEvent, id: string) {
 /* ---- Nav ---------------------------------------------------------------- */
 const NAV_LINKS: [string, string][] = [['작업', 'work'], ['경력', 'career'], ['전문 영역', 'stack'], ['오픈소스', 'oss'], ['연락', 'contact']];
 
-export function Nav({ navigate }: { navigate: NavFn }) {
+export function Nav() {
   const [open, setOpen] = useState(false);
-  const navLink = {
-    fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--text-secondary)', padding: '8px 12px',
-    textDecoration: 'none', borderRadius: 'var(--radius-md)', transition: 'color 150ms ease, background 150ms ease',
-  } as const;
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 40, background: 'rgba(250,250,251,0.82)',
@@ -54,11 +48,6 @@ export function Nav({ navigate }: { navigate: NavFn }) {
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'transparent'; }}
             >{label}</a>
           ))}
-          <a href="/d/hoonjo-b9e634/works" onClick={(e) => { e.preventDefault(); navigate('/works'); }}
-            style={{ ...navLink, color: 'var(--blue-deep)', fontWeight: 500 }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--cloud)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
-          >전체 작업 ↗</a>
           <span style={{ width: 1, height: 22, background: 'var(--line)', margin: '0 10px' }} />
           <Button variant="primary" size="sm" as="a" href="#contact" onClick={(e: React.MouseEvent) => scrollTo(e, 'contact')}>연락하기</Button>
         </nav>
@@ -77,10 +66,6 @@ export function Nav({ navigate }: { navigate: NavFn }) {
               padding: '12px 0', borderBottom: '1px solid var(--line)', textDecoration: 'none',
             }}>{label}</a>
           ))}
-          <a href="/d/hoonjo-b9e634/works" onClick={(e) => { e.preventDefault(); navigate('/works'); setOpen(false); }} style={{
-            display: 'block', fontFamily: 'var(--font-sans)', fontSize: 18, fontWeight: 500, color: 'var(--blue-deep)',
-            padding: '12px 0', borderBottom: '1px solid var(--line)', textDecoration: 'none',
-          }}>전체 작업 ↗</a>
           <div style={{ marginTop: 16 }}>
             <Button variant="primary" as="a" href="#contact" onClick={(e: React.MouseEvent) => { scrollTo(e, 'contact'); setOpen(false); }} style={{ width: '100%' }}>연락하기</Button>
           </div>
@@ -145,54 +130,64 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-function CaseCard({ c, navigate }: { c: WorkCase; navigate: NavFn }) {
+function CaseHeader({ c }: { c: WorkCase }) {
+  return (
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+        <Eyebrow tone="blue">{c.eyebrow}</Eyebrow>
+        {c.company && <Badge variant="outline">{c.company}</Badge>}
+        {c.badge && <Badge variant={c.badge.variant} dot>{c.badge.label}</Badge>}
+      </div>
+      <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(23px, 2.5vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{c.title}</h3>
+      <Field label="Problem">{c.problem}</Field>
+      <Field label="Structure">{c.structure}</Field>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 22 }}>
+        {c.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
+        <Button variant="outline" as="a" href={c.postUrl} target="_blank" rel="noreferrer" iconRight="↗">전체 글 읽기</Button>
+        {c.link && <Button variant="text" as="a" href={c.link.href} target="_blank" rel="noreferrer">{c.link.label}</Button>}
+      </div>
+    </>
+  );
+}
+
+function ImpactStrip({ c }: { c: WorkCase }) {
+  return (
+    <div style={{ padding: 'clamp(20px, 2.8vw, 30px) clamp(24px, 3.4vw, 36px)', background: 'var(--cloud)', borderTop: '1px solid var(--line)' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 16 }}>Impact · 측정 결과</div>
+      <MetricRow stats={c.metrics} />
+      {c.metricsNote && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.5, color: 'var(--text-muted)', marginTop: 16 }}>{c.metricsNote}</p>}
+    </div>
+  );
+}
+
+function CaseCard({ c }: { c: WorkCase }) {
+  const hasImages = !!(c.images && c.images.length);
   return (
     <article id={c.id} style={{ marginTop: 20, scrollMarginTop: 84, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
-      <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr' }}>
-        <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', borderRight: '1px solid var(--line)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-            <Eyebrow tone="blue">{c.eyebrow}</Eyebrow>
-            {c.company && <Badge variant="outline">{c.company}</Badge>}
-            {c.badge && <Badge variant={c.badge.variant} dot>{c.badge.label}</Badge>}
-          </div>
-          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(23px, 2.5vw, 30px)', fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{c.title}</h3>
-          <Field label="Problem">{c.problem}</Field>
-          <Field label="Structure">{c.structure}</Field>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 22 }}>
-            {c.tags.map((t) => <Tag key={t}>{t}</Tag>)}
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
-            <Button variant="outline" as="a" href={`/d/hoonjo-b9e634/works/${c.id}`} onClick={(e: React.MouseEvent) => { e.preventDefault(); navigate(`/works/${c.id}`); }} iconRight="→">전체 글 읽기</Button>
-            {c.link && <Button variant="text" as="a" href={c.link.href} target="_blank" rel="noreferrer">{c.link.label}</Button>}
-          </div>
+      <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: hasImages ? '1.04fr 1.06fr' : '1fr' }}>
+        <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', borderRight: hasImages ? '1px solid var(--line)' : 'none' }}>
+          <CaseHeader c={c} />
         </div>
-        <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', background: 'var(--cloud)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          {c.image && (
-            <figure style={{ margin: '0 0 22px' }}>
-              <ZoomImage
-                src={c.image.src}
-                alt={c.image.alt}
-                style={{ width: '100%', display: 'block', borderRadius: 'var(--radius-md)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-soft)', background: 'var(--paper)' }}
-              />
-              <figcaption style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.02em', color: 'var(--text-muted)', marginTop: 9 }}>{c.image.caption} · 클릭 확대</figcaption>
-            </figure>
-          )}
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 12 }}>Impact · 측정 결과</div>
-          <MetricTable columns={1} stats={c.metrics} compact />
-          {c.metricsNote && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.5, color: 'var(--text-muted)', marginTop: 14 }}>{c.metricsNote}</p>}
-        </div>
+        {hasImages && (
+          <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', background: 'var(--cloud)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <Gallery images={c.images!} />
+          </div>
+        )}
       </div>
+      <ImpactStrip c={c} />
     </article>
   );
 }
 
-export function Work({ navigate }: { navigate: NavFn }) {
+export function Work() {
   return (
     <section id="work" style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
-      <SectionHeader index={1} eyebrow="SELECTED WORK" title="문제를 구조로, 구조를 숫자로" lead="대표 작업 여섯 개. 각 카드는 요약이고, “전체 글 읽기”에서 문제 → 구조 → 결과 → 회고를 깊게 풀었습니다." />
-      <Flagship navigate={navigate} />
+      <SectionHeader index={1} eyebrow="SELECTED WORK" title="문제를 구조로, 구조를 숫자로" lead="대표 작업 여섯 개 — 실제 화면, 측정된 결과, 그리고 “전체 글 읽기”로 자세한 글까지." />
+      <Flagship />
       <div>
-        {cases.map((c) => <CaseCard key={c.title} c={c} navigate={navigate} />)}
+        {cases.map((c) => <CaseCard key={c.title} c={c} />)}
       </div>
 
       {/* Black-hole side project — live WebGL render */}
@@ -211,7 +206,7 @@ export function Work({ navigate }: { navigate: NavFn }) {
             {blackHole.tags.map((t) => <Tag key={t} variant="blue">{t}</Tag>)}
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 26 }}>
-            <Button variant="outline" as="a" href={`/d/hoonjo-b9e634/works/${blackHole.id}`} onClick={(e: React.MouseEvent) => { e.preventDefault(); navigate(`/works/${blackHole.id}`); }} iconRight="→">전체 글 읽기</Button>
+            <Button variant="outline" as="a" href={blackHole.postUrl} target="_blank" rel="noreferrer" iconRight="↗">전체 글 읽기</Button>
             <Button variant="text" as="a" href={blackHole.repo} target="_blank" rel="noreferrer">GitHub ↗</Button>
           </div>
         </div>
@@ -232,8 +227,8 @@ export function Work({ navigate }: { navigate: NavFn }) {
         </div>
       </article>
 
-      <a href="/d/hoonjo-b9e634/works" onClick={(e) => { e.preventDefault(); navigate('/works'); }} className="hoonjo-allworks" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 20, padding: '22px', border: '1px dashed var(--steel)', borderRadius: 'var(--radius-lg)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 500, color: 'var(--blue-deep)', transition: 'background 150ms ease, border-color 150ms ease' }}>
-        전체 작업 아카이브 — 깊게 쓴 글 모두 보기 <span style={{ fontFamily: 'var(--font-mono)' }}>→</span>
+      <a href={blackHole.postUrl} target="_blank" rel="noreferrer" className="hoonjo-allworks" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 20, padding: '22px', border: '1px dashed var(--steel)', borderRadius: 'var(--radius-lg)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 500, color: 'var(--blue-deep)', transition: 'background 150ms ease, border-color 150ms ease' }}>
+        더 많은 작업과 자세한 글 — 전체 사이트에서 보기 <span style={{ fontFamily: 'var(--font-mono)' }}>↗</span>
       </a>
     </section>
   );
@@ -386,13 +381,13 @@ export function Contact() {
 }
 
 /* ---- Compose the main portfolio page ------------------------------------ */
-export function MainPortfolio({ navigate }: { navigate: NavFn }) {
+export function MainPortfolio() {
   return (
     <>
-      <Nav navigate={navigate} />
+      <Nav />
       <main>
         <Hero />
-        <Work navigate={navigate} />
+        <Work />
         <Career />
         <Expertise />
         <OpenSource />

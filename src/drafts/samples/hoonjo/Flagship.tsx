@@ -1,17 +1,15 @@
-import { Button, Tag, Badge, Eyebrow, MetricTable } from './components';
-import { PagedDoc } from './PagedDoc';
+import { Button, Tag, Badge, Eyebrow, MetricRow } from './components';
+import { Gallery } from './Lightbox';
 import { flagship as f } from './content';
 
-type NavFn = (to: string) => void;
 const TAGS = ['TypeScript', 'React 18/19', '측정-우선 레이아웃', 'semantic-release'];
 
-/* Flagship project card — concise on the main page; the full case study
-   (five attempts, generational evolution, results) lives in the post at
-   /works/work-column-pager. */
-export function Flagship({ navigate }: { navigate: NavFn }) {
+/* Flagship project card — concise on the main page, image-forward (real
+   column-pager PDF output), with the full write-up linked out to the site. */
+export function Flagship() {
   return (
     <article id={f.id} style={{ marginTop: 20, scrollMarginTop: 84, background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden' }}>
-      <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr' }}>
+      <div className="hoonjo-case-grid" style={{ display: 'grid', gridTemplateColumns: '1.04fr 1.06fr' }}>
         <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', borderRight: '1px solid var(--line)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             <Eyebrow tone="blue">{f.eyebrow}</Eyebrow>
@@ -27,18 +25,17 @@ export function Flagship({ navigate }: { navigate: NavFn }) {
             {TAGS.map((t) => <Tag key={t}>{t}</Tag>)}
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
-            <Button variant="outline" as="a" href={`/d/hoonjo-b9e634/works/${f.id}`} onClick={(e: React.MouseEvent) => { e.preventDefault(); navigate(`/works/${f.id}`); }} iconRight="→">전체 글 읽기</Button>
+            <Button variant="outline" as="a" href={f.postUrl} target="_blank" rel="noreferrer" iconRight="↗">전체 글 읽기</Button>
             <Button variant="text" as="a" href={f.link.href} target="_blank" rel="noreferrer">GitHub ↗</Button>
           </div>
         </div>
         <div style={{ padding: 'clamp(24px, 3.4vw, 36px)', background: 'var(--cloud)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <PagedDoc />
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, lineHeight: 1.5, color: 'var(--text-muted)', margin: '12px 0 22px', textAlign: 'center' }}>
-            column-pager가 만드는 결과 — 이 사이트도 같은 패키지로 렌더됩니다.
-          </p>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 12 }}>Impact · 측정 결과</div>
-          <MetricTable columns={1} stats={f.results} compact />
+          <Gallery images={f.images} />
         </div>
+      </div>
+      <div style={{ padding: 'clamp(20px, 2.8vw, 30px) clamp(24px, 3.4vw, 36px)', background: 'var(--cloud)', borderTop: '1px solid var(--line)' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 16 }}>Impact · 측정 결과</div>
+        <MetricRow stats={f.results} />
       </div>
     </article>
   );
