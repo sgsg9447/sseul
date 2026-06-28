@@ -221,3 +221,101 @@
     animation: none;
   }
 }
+
+/* ---- Document pages (이력서 / 경력기술서 / 포트폴리오 PDF) ----------------- */
+.hoonjo .hoonjo-doc {
+  min-height: 100vh;
+  background: var(--cloud);
+}
+.hoonjo .hoonjo-doc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 56px;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.hoonjo .hoonjo-doc-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.hoonjo .hoonjo-doc-back:hover {
+  color: var(--text);
+}
+.hoonjo .hoonjo-doc-tab {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.hoonjo .hoonjo-doc-print {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--blue);
+  border: none;
+  border-radius: var(--radius-button);
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+.hoonjo .hoonjo-doc-print:hover {
+  background: var(--blue-hover);
+}
+.hoonjo .hoonjo-doc-sheet {
+  max-width: 820px;
+  margin: 32px auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(28px, 5vw, 56px);
+}
+
+@media (max-width: 720px) {
+  .hoonjo .hoonjo-doc-skills,
+  .hoonjo .hoonjo-doc-ps {
+    grid-template-columns: 1fr !important;
+  }
+  .hoonjo .hoonjo-doc-row {
+    grid-template-columns: 1fr !important;
+    gap: 4px !important;
+  }
+  .hoonjo .hoonjo-doc-tab {
+    display: none;
+  }
+}
+
+@media print {
+  .hoonjo .hoonjo-doc {
+    background: #fff;
+  }
+  .hoonjo .hoonjo-doc-bar {
+    display: none !important;
+  }
+  .hoonjo .hoonjo-doc-sheet {
+    max-width: none;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+  .hoonjo .hoonjo-doc-section {
+    break-inside: avoid;
+  }
+}

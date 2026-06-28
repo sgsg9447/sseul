@@ -7,6 +7,7 @@ import { profile, impact, cases, blackHole, timeline, capabilities, oss } from '
 import { BlackHole } from './BlackHole';
 import { Flagship } from './Flagship';
 import { Gallery } from './Lightbox';
+import { docBase } from './routes';
 import portrait from './assets/portrait.jpg';
 
 const CONTAINER = { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 24px' } as const;
@@ -405,8 +406,10 @@ export function Contact() {
           성능, 복잡한 상태, 까다로운 렌더링 — 측정 가능한 결과가 필요한 일에 연락 주세요.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 36 }}>
-          <Button variant="primary" as="a" href={`mailto:${profile.email}`} iconRight="→">{profile.email}</Button>
-          <Button variant="ink" as="a" href={profile.github} target="_blank" rel="noreferrer" style={{ border: '1px solid rgba(246,244,238,0.28)', background: 'transparent', color: 'var(--on-ink)' }}>GitHub</Button>
+          <Button variant="primary" as="a" href={`mailto:${profile.email}`} iconRight="→">메일 보내기</Button>
+          {([['이력서', 'resume'], ['경력기술서', 'career'], ['포트폴리오 PDF', 'portfolio-pdf']] as [string, string][]).map(([label, sub]) => (
+            <Button key={sub} variant="ink" as="a" href={`${docBase()}/${sub}`} style={{ border: '1px solid rgba(246,244,238,0.28)', background: 'transparent', color: 'var(--on-ink)' }}>{label}</Button>
+          ))}
         </div>
 
         <div style={{ height: 1, background: 'rgba(246,244,238,0.14)', margin: '72px 0 0' }} />
