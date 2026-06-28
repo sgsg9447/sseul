@@ -18,6 +18,16 @@
   .hoonjo .hoonjo-nav-links {
     display: none !important;
   }
+  /* hero: stack, and lift the portrait above the headline as a small avatar */
+  .hoonjo .hoonjo-hero-top {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .hoonjo .hoonjo-portrait {
+    order: -1;
+    justify-self: start !important;
+    max-width: 200px;
+  }
   .hoonjo .hoonjo-nav-burger {
     display: inline-flex !important;
   }

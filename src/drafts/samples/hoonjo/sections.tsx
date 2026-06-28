@@ -7,6 +7,7 @@ import { profile, impact, cases, blackHole, timeline, capabilities, oss } from '
 import { BlackHole } from './BlackHole';
 import { Flagship } from './Flagship';
 import { Gallery } from './Lightbox';
+import portrait from './assets/portrait.jpg';
 
 const CONTAINER = { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 24px' } as const;
 /* section rhythm — 96px desktop, eases to 56px on small screens (no media query) */
@@ -75,25 +76,52 @@ export function Nav() {
   );
 }
 
+/* ---- Hero portrait -------------------------------------------------------
+   Neutral framed slot on the hero's right. Drop a background-removed PNG at
+   ./assets/portrait.png, import it, and replace the placeholder block with:
+     <img src={portrait} alt={profile.nameKo} style={{ width:'100%',
+       height:'100%', objectFit:'cover', objectPosition:'center 20%' }} />
+   The cutout on this neutral surface gives the "bg removed + neutral" look. */
+function Portrait() {
+  return (
+    <div className="hoonjo-portrait" style={{
+      position: 'relative', width: '100%', maxWidth: 330, aspectRatio: '4 / 5', justifySelf: 'end',
+      borderRadius: 'var(--radius-xl)', overflow: 'hidden', background: 'var(--cloud)',
+      border: '1px solid var(--line)', boxShadow: 'var(--shadow-soft)',
+    }}>
+      <img
+        src={portrait}
+        alt={profile.nameKo}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 24%', transform: 'scale(1.22)', transformOrigin: 'center 30%', filter: 'saturate(0.88)' }}
+      />
+    </div>
+  );
+}
+
 /* ---- Hero --------------------------------------------------------------- */
 export function Hero() {
   return (
     <section id="top">
       <BlueprintGrid cell={80} intensity="soft" style={{ borderBottom: '1px solid var(--line)' }}>
         <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0`, position: 'relative' }}>
-          <Eyebrow tone="blue">FRONTEND ENGINEER · SINCE {profile.since}</Eyebrow>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(44px, 7vw, 76px)', lineHeight: 1.02, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0', maxWidth: '15ch' }}>
-            {profile.tagline[0]}<br /><span style={{ fontWeight: 800 }}>구조</span>를 찾습니다.
-          </h1>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.6, color: 'var(--text-secondary)', margin: '28px 0 0', maxWidth: '46ch' }}>
-            {profile.role}. {profile.lead}
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 34 }}>
-            <Button variant="primary" as="a" href="#work" iconRight="→" onClick={(e: React.MouseEvent) => scrollTo(e, 'work')}>작업 보기</Button>
-            <Button variant="outline-ink" as="a" href="#oss" onClick={(e: React.MouseEvent) => scrollTo(e, 'oss')}>오픈소스</Button>
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 30 }}>
-            {profile.heroTags.map((t) => <Tag key={t} variant="ghost">{t}</Tag>)}
+          <div className="hoonjo-hero-top" style={{ display: 'grid', gridTemplateColumns: '1fr clamp(240px, 30%, 330px)', gap: 'clamp(32px, 5vw, 64px)', alignItems: 'center' }}>
+            <div>
+              <Eyebrow tone="blue">FRONTEND ENGINEER · SINCE {profile.since}</Eyebrow>
+              <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(44px, 6vw, 70px)', lineHeight: 1.02, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0', maxWidth: '15ch' }}>
+                {profile.tagline[0]}<br /><span style={{ fontWeight: 800 }}>구조</span>를 찾습니다.
+              </h1>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.6, color: 'var(--text-secondary)', margin: '28px 0 0', maxWidth: '46ch' }}>
+                {profile.role}. {profile.lead}
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 34 }}>
+                <Button variant="primary" as="a" href="#work" iconRight="→" onClick={(e: React.MouseEvent) => scrollTo(e, 'work')}>작업 보기</Button>
+                <Button variant="outline-ink" as="a" href="#oss" onClick={(e: React.MouseEvent) => scrollTo(e, 'oss')}>오픈소스</Button>
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 30 }}>
+                {profile.heroTags.map((t) => <Tag key={t} variant="ghost">{t}</Tag>)}
+              </div>
+            </div>
+            <Portrait />
           </div>
         </div>
 
