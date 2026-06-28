@@ -26,13 +26,26 @@
 
 /* ---- Tokens (scoped to the sample root) --------------------------------- */
 .hoonjo {
-  /* Brand / accent — deep trust blue, used at most twice per viewport */
+  /* Primary accent — clean trust blue. The "structure / action" voice:
+     identity mark, primary CTAs, links, the blueprint grid. At most twice
+     per viewport. */
   --blue: #3182f6;
   --blue-bright: #7daffa;
   --blue-hover: #2174ea;
   --blue-deep: #1b64da;
   --blue-soft: #eaf2fe;
   --blue-line: #c5dcfb;
+
+  /* Secondary accent — warm brass. The "proof / featured" voice, used only as
+     sparse emphasis points: section index numerals, the impact label, the
+     active "now" marker, the featured badge, and one highlight word per band.
+     Never a primary action — those stay --blue. Distinct from the metric
+     green/red, which stay confined to before→after deltas. */
+  --gold: #c47d2c;
+  --gold-bright: #e3a651;
+  --gold-deep: #9a5a16;
+  --gold-soft: #f8efe0;
+  --gold-line: #ecd7b4;
 
   /* Surface — clean cool neutrals */
   --canvas: #fafafb;

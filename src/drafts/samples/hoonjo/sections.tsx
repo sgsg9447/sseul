@@ -83,7 +83,7 @@ export function Hero() {
         <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0`, position: 'relative' }}>
           <Eyebrow tone="blue">FRONTEND ENGINEER · SINCE {profile.since}</Eyebrow>
           <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(44px, 7vw, 76px)', lineHeight: 1.02, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0', maxWidth: '15ch' }}>
-            {profile.tagline[0]}<br /><span style={{ fontWeight: 800 }}>구조</span>를 찾습니다.
+            {profile.tagline[0]}<br /><span style={{ fontWeight: 800, color: 'var(--gold)' }}>구조</span>를 찾습니다.
           </h1>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.6, color: 'var(--text-secondary)', margin: '28px 0 0', maxWidth: '46ch' }}>
             {profile.role}. {profile.lead}
@@ -103,7 +103,7 @@ export function Hero() {
             background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-soft)', overflow: 'hidden',
           }}>
             <div style={{ padding: '22px 24px', borderRight: '1px solid var(--line)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--blue)' }}>대표 임팩트</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--gold-deep)' }}>대표 임팩트</div>
               <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, color: 'var(--text-secondary)', marginTop: 8, lineHeight: 1.5 }}>{impact.lead}</div>
             </div>
             {impact.stats.map((s, i) => (
@@ -229,7 +229,7 @@ export function Work() {
         <div className="hoonjo-bh-stage" style={{ background: 'var(--ink-deep)', position: 'relative', minHeight: 'clamp(300px, 42vw, 380px)', overflow: 'hidden' }}>
           <BlackHole />
           <span style={{ position: 'absolute', top: 14, right: 14, display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--on-ink)', background: 'rgba(12,11,8,0.5)', border: '1px solid rgba(246,244,238,0.18)', borderRadius: 'var(--radius-pill)', padding: '5px 11px', WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)' }}>
-            <span className="hoonjo-live-dot" aria-hidden style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--blue-bright)' }} />
+            <span className="hoonjo-live-dot" aria-hidden style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--gold-bright)' }} />
             실시간 렌더
           </span>
           <div style={{ position: 'absolute', insetInline: 0, bottom: 0, padding: 18, display: 'flex', gap: 18, justifyContent: 'space-between', borderTop: '1px solid rgba(246,244,238,0.12)', background: 'rgba(12,11,8,0.5)', WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)' }}>
@@ -366,7 +366,7 @@ export function Contact() {
       <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0` }}>
         <Eyebrow tone="onInk">CONTACT</Eyebrow>
         <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(34px, 5vw, 56px)', lineHeight: 1.05, letterSpacing: '-0.035em', color: 'var(--on-ink)', margin: '22px 0 0', maxWidth: '18ch' }}>
-          어려운 화면이 있다면,<br /><span style={{ fontWeight: 800 }}>구조부터 같이 봅니다.</span>
+          어려운 화면이 있다면,<br /><span style={{ fontWeight: 800, color: 'var(--gold-bright)' }}>구조부터 같이 봅니다.</span>
         </h2>
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: 18, lineHeight: 1.6, color: 'var(--on-ink-muted)', margin: '24px 0 0', maxWidth: '44ch' }}>
           성능, 복잡한 상태, 까다로운 렌더링 — 측정 가능한 결과가 필요한 일에 연락 주세요.

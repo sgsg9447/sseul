@@ -110,12 +110,13 @@ export function Tag({ variant = 'outline', children, style = {} }: { variant?: T
 }
 
 /* ---- Badge -------------------------------------------------------------- */
-type BadgeVariant = 'outline' | 'ink' | 'blue' | 'positive' | 'danger';
+type BadgeVariant = 'outline' | 'ink' | 'blue' | 'gold' | 'positive' | 'danger';
 export function Badge({ variant = 'outline', dot = false, children, style = {} }: { variant?: BadgeVariant; dot?: boolean; children: ReactNode; style?: CSSProperties }) {
   const palettes: Record<BadgeVariant, { bg: string; color: string; border: string; dot: string }> = {
     outline: { bg: 'var(--paper)', color: 'var(--text)', border: 'var(--text)', dot: 'var(--text)' },
     ink: { bg: 'var(--ink)', color: 'var(--on-ink)', border: 'var(--ink)', dot: 'var(--blue-bright)' },
     blue: { bg: 'var(--blue-soft)', color: 'var(--blue-deep)', border: 'var(--blue-line)', dot: 'var(--blue)' },
+    gold: { bg: 'var(--gold-soft)', color: 'var(--gold-deep)', border: 'var(--gold-line)', dot: 'var(--gold)' },
     positive: { bg: 'var(--positive-soft)', color: 'var(--positive)', border: 'transparent', dot: 'var(--positive)' },
     danger: { bg: 'var(--danger-soft)', color: 'var(--danger)', border: 'transparent', dot: 'var(--danger)' },
   };
@@ -137,13 +138,15 @@ export function Badge({ variant = 'outline', dot = false, children, style = {} }
 type EyebrowTone = 'blue' | 'muted' | 'onInk';
 export function Eyebrow({ index, children, tone = 'blue', rule = false, style = {} }: { index?: number; children: ReactNode; tone?: EyebrowTone; rule?: boolean; style?: CSSProperties }) {
   const color = tone === 'muted' ? 'var(--text-muted)' : tone === 'onInk' ? 'var(--blue-bright)' : 'var(--blue)';
+  /* the leading numeral carries the warm secondary — a quiet two-tone tick */
+  const indexColor = tone === 'muted' ? 'var(--text-faint)' : tone === 'onInk' ? 'var(--gold-bright)' : 'var(--gold)';
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-mono)',
       fontSize: 12, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color, ...style,
     }}>
-      {index != null && <span style={{ color, opacity: 0.6 }}>{String(index).padStart(2, '0')}</span>}
-      {index != null && <span aria-hidden style={{ color, opacity: 0.4 }}>/</span>}
+      {index != null && <span style={{ color: indexColor }}>{String(index).padStart(2, '0')}</span>}
+      {index != null && <span aria-hidden style={{ color: indexColor, opacity: 0.5 }}>/</span>}
       <span style={{ whiteSpace: 'nowrap' }}>{children}</span>
       {rule && <span aria-hidden style={{ flex: 1, height: 1, background: 'currentColor', opacity: 0.25, marginLeft: 4 }} />}
     </div>
@@ -273,9 +276,9 @@ export function TimelineItem({ period, role, org, description, tags = [], curren
     <div className="hoonjo-timeline-item" style={{ position: 'relative', display: 'grid', gridTemplateColumns: '150px 1fr', gap: 28, paddingBottom: 40, ...style }}>
       <span aria-hidden style={{
         position: 'absolute', left: -33, top: 6, width: 11, height: 11, borderRadius: 1, transform: 'rotate(45deg)',
-        background: current ? 'var(--blue)' : 'var(--canvas)', border: `1.5px solid ${current ? 'var(--blue)' : 'var(--steel)'}`,
+        background: current ? 'var(--gold)' : 'var(--canvas)', border: `1.5px solid ${current ? 'var(--gold)' : 'var(--steel)'}`,
       }} />
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: current ? 'var(--blue)' : 'var(--text-muted)', letterSpacing: '0.02em', paddingTop: 3, lineHeight: 1.4 }}>{period}</div>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: current ? 'var(--gold-deep)' : 'var(--text-muted)', letterSpacing: '0.02em', paddingTop: 3, lineHeight: 1.4 }}>{period}</div>
       <div>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
           <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: 21, fontWeight: 600, color: 'var(--text)', lineHeight: 1.2, margin: 0 }}>{role}</h4>
