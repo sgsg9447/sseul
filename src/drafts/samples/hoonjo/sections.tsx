@@ -110,7 +110,7 @@ export function Hero() {
               <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(44px, 6vw, 70px)', lineHeight: 1.02, letterSpacing: '-0.035em', color: 'var(--text)', margin: '26px 0 0', maxWidth: '15ch' }}>
                 {profile.tagline[0]}<br /><span style={{ fontWeight: 800 }}>구조</span>를 찾습니다.
               </h1>
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.6, color: 'var(--text-secondary)', margin: '28px 0 0', maxWidth: '46ch' }}>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.6, color: 'var(--text-secondary)', margin: '28px 0 0', maxWidth: '46ch', whiteSpace: 'pre-line' }}>
                 {profile.role}. {profile.lead}
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 34 }}>

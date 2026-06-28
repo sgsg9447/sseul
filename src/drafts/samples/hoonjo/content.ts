@@ -27,7 +27,7 @@ export const profile = {
   github: 'https://github.com/H8njo',
   githubHandle: 'github.com/H8njo',
   tagline: ['남들이 멈춘 곳에서', '구조를 찾습니다.'],
-  lead: '성능, 복잡한 상태, 까다로운 렌더링 — 측정 가능한 결과로 어려운 프론트엔드 문제를 풉니다.',
+  lead: '성능, 복잡한 상태, 까다로운 렌더링\n: 측정 가능한 결과로 어려운 프론트엔드 문제를 풉니다.',
   heroTags: ['성능 최적화', '대용량 렌더링', '복잡한 상태', 'Canvas / WebGL'],
 };
 
