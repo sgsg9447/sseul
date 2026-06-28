@@ -47,9 +47,9 @@ export const flagship = {
   eyebrow: 'FLAGSHIP · OPEN SOURCE',
   company: '@Bookips',
   badge: 'npm 배포 · MIT',
-  title: ['사내 페이지네이션 엔진을', '독립 오픈소스로'],
+  title: '사내 페이지네이션 엔진 → 오픈소스',
   oneLiner:
-    '인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 엔진. 사내 제작 도구 → npm 패키지.',
+    '인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 엔진.\n사내 제작 도구 → npm 패키지.',
   problem:
     '교육 콘텐츠 편집기에서 문제들을 A4 두 칸(2단) 레이아웃으로 배치해야 했는데, 기존 구현은 한 칸 높이를 넘는 긴 카드(긴 본문)를 처리하지 못했다. 만든 문제지는 인쇄돼 학생에게 가는 거라, 문장이 중간에 잘리면 그대로 불량품 — 주력 서비스에서 2년 가까이 환불 문의가 이어졌다. 여러 명이 붙었지만 다들 같은 벽에서 멈췄다.',
   attempts: [
@@ -105,7 +105,7 @@ export const cases: WorkCase[] = [
     id: 'work-portal',
     eyebrow: 'SYSTEM DESIGN',
     company: '@Zipida · 법무부',
-    title: '컬럼 정의 1벌로 59개 화면을 찍어내다',
+    title: '컬럼 정의 1벌로 찍어낸 59개 화면',
     problem: [
       '정부 보안관제 관리자 포털',
       '목록·검색·페이징·CRUD 동일 패턴 100+ 화면',
@@ -136,14 +136,14 @@ export const cases: WorkCase[] = [
     id: 'work-design-system',
     eyebrow: 'LIBRARY · DX',
     company: '@Bookips',
-    title: '아이콘 드롭하면 타입까지, 디자인 시스템 자동화',
+    title: '아이콘 드롭으로 디자인 시스템 자동화',
     problem: [
       '여러 제품이 공유할 UI·접근성 필요',
       '기존 Select — Radix 단일 위에 multi 흉내, 선택 상태·체크박스·aria 부재',
       '아이콘 160개 SVG를 손으로 컴포넌트 이관 (사고 대기)',
     ],
     structure: [
-      'Select — API 1개, 내부 두 엔진 (single=Radix 래핑, multi=Popover 직접 구현)',
+      'Select — API 1개, 내부 두 엔진\n(single=Radix 래핑, multi=Popover 직접 구현)',
       'discriminated union — 오용 시 컴파일에서 차단',
       '아이콘 — 폴더에 SVG 드롭 → 코드젠으로 타입까지 자동 생성',
       'push 전 type-check + 빌드 강제 게이트',
@@ -228,7 +228,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Bookips',
     description:
-      '교육 콘텐츠 플랫폼 솔북(Solvook). 시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인 담당, 사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포. 디자인 시스템 코드오너.',
+      '교육 콘텐츠 플랫폼 솔북(Solvook).\n시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인 담당,\n사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포.\n디자인 시스템 코드오너.',
     tags: ['Next.js', 'TypeScript', 'Canvas', 'OSS'],
     current: true,
   },
@@ -237,7 +237,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Sling',
     description:
-      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화 담당 (첫 화면 10분 → 1초).',
+      '튜터용 수업 관리 앱 ORZO.\n대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화 담당 (첫 화면 10분 → 1초).',
     tags: ['Next.js', 'PDF', '성능', '메모리'],
   },
   {
@@ -245,7 +245,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer / Fullstack',
     org: '@Zipida',
     description:
-      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 포털 — 메타데이터 화면 양산 추상화, 코드 없는 ML 학습 마법사, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF 설계.',
+      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 포털\n메타데이터 화면 양산 추상화, 코드 없는 ML 학습 마법사,\n본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF 설계.',
     tags: ['React', 'GraphQL', 'NestJS', 'RBAC'],
   },
   {
@@ -253,7 +253,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@옐로오투오',
     description:
-      '첫 직장. PHP 예약 시스템에서 시작해 React로 전환, 컴포넌트 분리·반응형 기반 습득.',
+      'PHP 예약 시스템에서 시작해 React로 전환,\n컴포넌트 분리·반응형 기반 습득.',
     tags: ['React', 'PHP', '반응형'],
   },
 ];
@@ -291,7 +291,7 @@ export const capabilities: { label: string; skills: string[]; proof: ProofLink[]
 export const oss = {
   repo: 'H8njo/column-pager',
   desc:
-    '어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 도구. 페이지 나누기(레이아웃 계산)만 책임지고 PDF 변환 등은 사용처에 위임해 가볍게 유지.',
+    '어떤 React 화면이든 인쇄물처럼 “고정 크기 페이지”로 자동 분할하는 도구.\n페이지 나누기(레이아웃 계산)만 책임지고 PDF 변환 등은 사용처에 위임해 가볍게 유지.',
   tags: ['TypeScript', 'React 18/19', 'Tree-shakeable'],
   install: 'npm i column-pager',
   importLine: "import { ColumnPager } from 'column-pager'",

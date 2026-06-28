@@ -304,7 +304,7 @@ export function Career() {
 export function Expertise() {
   return (
     <section id="stack" style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
-      <SectionHeader index={3} eyebrow="EXPERTISE" title="어디서 강한가" lead="세 가지 축으로 강합니다. 각 역량은 위 작업으로 증명됩니다." />
+      <SectionHeader index={3} eyebrow="EXPERTISE" title="어디서 강한가" />
       <div className="hoonjo-stack-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28, marginTop: 48 }}>
         {capabilities.map((c) => (
           <div key={c.label} style={{ paddingTop: 18, borderTop: '2px solid var(--text)' }}>
@@ -355,7 +355,7 @@ export function OpenSource() {
     <section id="oss" style={{ background: 'var(--ink)', position: 'relative', overflow: 'hidden' }}>
       <div aria-hidden style={{ position: 'absolute', inset: 0, opacity: 0.5, backgroundImage: 'linear-gradient(rgba(49,130,246,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(49,130,246,0.10) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       <div style={{ position: 'relative', ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
-        <SectionHeader index={4} eyebrow="OPEN SOURCE" onInk title="사내 도구를, 누구나 쓰게" lead="제품에 묶여 있던 페이지네이션 엔진을 검증 수학만 이식하고 클린 재설계해 npm에 공개했습니다." />
+        <SectionHeader index={4} eyebrow="OPEN SOURCE" onInk title="사내 도구를, 누구나 쓰게" lead="제품에 묶여 있던 엔진을 클린 재설계해 npm에 공개." />
         <div style={{ marginTop: 48, background: 'var(--ink-soft)', border: '1px solid rgba(246,244,238,0.16)', borderRadius: 'var(--radius-xl)', overflow: 'hidden' }}>
           <div className="hoonjo-repo-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr' }}>
             <div style={{ padding: 'clamp(24px, 4vw, 36px)', borderRight: '1px solid rgba(246,244,238,0.12)' }}>
@@ -365,7 +365,7 @@ export function OpenSource() {
                 </span>
                 <Badge variant="ink" dot>MIT</Badge>
               </div>
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--on-ink-muted)', margin: '16px 0 0', maxWidth: '46ch' }}>{oss.desc}</p>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--on-ink-muted)', margin: '16px 0 0', whiteSpace: 'pre-line' }}>{oss.desc}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 22 }}>
                 {oss.tags.map((t) => (
                   <span key={t} style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--on-ink-muted)', border: '1px solid rgba(246,244,238,0.18)', borderRadius: 'var(--radius-xs)', padding: '4px 9px', whiteSpace: 'nowrap' }}>{t}</span>
@@ -399,10 +399,10 @@ export function Contact() {
     <footer id="contact" style={{ background: 'var(--ink)', borderTop: '1px solid rgba(246,244,238,0.16)' }}>
       <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px 0` }}>
         <Eyebrow tone="onInk">CONTACT</Eyebrow>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(34px, 5vw, 56px)', lineHeight: 1.05, letterSpacing: '-0.035em', color: 'var(--on-ink)', margin: '22px 0 0', maxWidth: '18ch' }}>
-          어려운 화면이 있다면,<br /><span style={{ fontWeight: 800 }}>구조부터 같이 봅니다.</span>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(28px, 4vw, 50px)', lineHeight: 1.1, letterSpacing: '-0.035em', color: 'var(--on-ink)', margin: '22px 0 0' }}>
+          어려운 화면이 있다면, <span style={{ fontWeight: 800 }}>구조부터 같이 봅니다.</span>
         </h2>
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 18, lineHeight: 1.6, color: 'var(--on-ink-muted)', margin: '24px 0 0', maxWidth: '44ch' }}>
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 18, lineHeight: 1.6, color: 'var(--on-ink-muted)', margin: '24px 0 0' }}>
           성능, 복잡한 상태, 까다로운 렌더링 — 측정 가능한 결과가 필요한 일에 연락 주세요.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 36 }}>

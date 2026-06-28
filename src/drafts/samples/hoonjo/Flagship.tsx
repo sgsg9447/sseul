@@ -16,8 +16,8 @@ export function Flagship() {
             <Badge variant="outline">{f.company}</Badge>
             <Badge variant="green" dot>{f.badge}</Badge>
           </div>
-          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(24px, 2.7vw, 32px)', fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{f.title[0]}<br />{f.title[1]}</h3>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '16px 0 0', maxWidth: '48ch' }}>{f.oneLiner}</p>
+          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(24px, 2.7vw, 32px)', fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.12, color: 'var(--text)', margin: '16px 0 0' }}>{f.title}</h3>
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '16px 0 0', maxWidth: '48ch', whiteSpace: 'pre-line' }}>{f.oneLiner}</p>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-muted)', margin: '12px 0 0', maxWidth: '48ch' }}>
             긴 본문이 안 잘리게 — 같은 문제를 <b style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>세 번</b> 풀며 도달한 3세대 엔진.
           </p>
