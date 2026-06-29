@@ -62,20 +62,51 @@
 
 ---
 
+## 후속 변경 로그 (클라이언트 라이브 리뷰)
+
+라이브에서 한 줄씩 보며 디자인·카피·문서를 다듬은 기록.
+
+### A. 색 — 파랑(메인) + 초록(서브) + 흰 바탕
+"파랑 하나만 고정이라 촌스럽다"에서 시작해 골드·아이리스·테라코타 등 여러 세컨 컬러를 거쳐 **블루(메인) + 초록(작은 기능 포인트)** 으로 정착. 핵심 교훈:
+- **큰 헤드라인 글자에 색을 칠하면 어떤 색이든 싸 보인다** → 헤드라인은 잉크(검정).
+- 채도 높은 세컨 액센트는 'AI/SaaS 템플릿' 느낌 → 초록은 **배지·상태 점·지표 증감** 같은 작은 자리에만.
+- **"회색 같은 느낌"이 촌스러움의 주범** → 캔버스 순백(`#ffffff`), 패널 `--cloud #fcfdfe`(흰색에 가깝게), 청사진 그리드 거의 제거(opacity 0.018, 축선·좌표 라벨 삭제).
+
+### B. 히어로 — 담백한 카피 + 실제 얼굴
+- "남들이 멈춘 곳에서 구조를 찾습니다"가 AI 포스터 같다 → **"안 되던 화면을 되게 만듭니다."**(한 줄, 강조 "되게") + 버즈워드 뺀 서브("…렌더링 / : 직접 측정하고, 끝까지 동작하게").
+- eyebrow `SINCE 2019` → **`7 YEARS`**(7년차 강조).
+- 우측에 **실제 인물 사진**(2단 히어로). 줌 과하면 "얼굴만 둥둥" → 어깨까지 자연스럽게, 텍스트↔사진 간격 축소(사진 살짝 키움).
+- 네비 정리: 프로젝트·경력·전문 영역·오픈소스 + 연락하기 버튼.
+
+### C. 카피 — 키워드 불렛 + 체언 종결 + 줄바꿈 정리
+- 케이스 Problem/Structure는 줄글 → **키워드 불렛(다이아 마커)**. 나머지 설명도 "~다" 종결을 명사형으로.
+- 제목·소개를 한 줄 또는 의도된 2줄로(플래그십 "사내 페이지네이션 엔진 → 오픈소스" 등). 회고처럼 튀던 각주·어색한 표현("어깨너머", "영상도 이미지도 아님") 제거.
+- "대표 임팩트" 라벨 빼고 옆 지표와 같은 크기/굵기의 한 줄 **"반복을 구조로, 결과를 숫자로."**
+
+### D. 문서 라우트 — 이력서 / 포트폴리오 PDF (인쇄→PDF)
+메인 사이트처럼 contact에 **메일 보내기 · 이력서 · 포트폴리오 PDF** → `/d/<slug>/resume`, `/portfolio-pdf`.
+- `routes.ts`: 슬러그에 안 묶이게 URL에서 읽음(`docBase`/`currentDoc`). 슬러그 라우터가 `/d/<slug>/*`를 이 샘플로 보내므로 `index.tsx`가 서브경로로 분기.
+- `docs.tsx`: 모든 내용을 `content.ts`에서 생성(본문과 안 어긋남). **이력서**=요약·경력·전문영역 + 대표 프로젝트(불렛). **포트폴리오 PDF**=본문 전체(대표 임팩트·프로젝트 실제 스크린샷·사이드 프로젝트·경력·전문영역·OSS)라 **이 PDF 하나로 포트폴리오**가 됨. 경력기술서는 이력서에 합쳐 폐기.
+- 헤더에 **인물 사진**. `window.print()`로 저장, `@media print`: 툴바 숨김 · `@page { margin:14mm }` · `break-inside:avoid` · `print-color-adjust:exact`. 강제 페이지 나눔은 제거(첫 페이지 절반 비는 문제) — 내용이 자연히 흐르게.
+
+---
+
 ## 구조 (자급식 폴더)
 
 ```
 src/drafts/samples/hoonjo/
-├── index.tsx        # .hoonjo 루트 + 라이트박스 프로바이더 + MainPortfolio
-├── sections.tsx     # Nav/Hero/Work(케이스 카드·코드 패널)/Career/Expertise/OpenSource/Contact
+├── index.tsx        # .hoonjo 루트 + 서브경로 분기(메인 / resume / portfolio-pdf)
+├── sections.tsx     # Nav/Hero(인물 2단)/Work(케이스 카드·코드 패널)/Career/Expertise/OpenSource/Contact
+├── docs.tsx         # /resume · /portfolio-pdf 문서 페이지(인쇄→PDF) — content.ts에서 생성
+├── routes.ts        # slug-비종속 경로 헬퍼(docBase / currentDoc)
 ├── Flagship.tsx     # column-pager 카드 (실제 PDF 갤러리)
 ├── BlackHole.tsx    # 실시간 WebGL 중력렌즈 렌더
 ├── Lightbox.tsx     # 이미지 클릭 확대 + Gallery 컴포넌트
 ├── components.tsx   # 디자인 시스템 프리미티브 TS 포팅 (+ MetricRow)
 ├── content.ts       # 모든 카피·데이터·postUrl (여기만 고치면 내용 수정)
-├── assets/          # 실제 제품 스크린샷 (법무부·KISTI·column-pager PDF)
+├── assets/          # 실제 제품 스크린샷 + portrait.jpg(인물)
 ├── tokens.css       # 디자인 토큰(.hoonjo 스코프) + 웹폰트
-└── styles.css       # 레이아웃·반응형·마크다운(미사용 잔여 가능)
+└── styles.css       # 레이아웃·반응형 + 문서/인쇄(@page·print-color-adjust)
 ```
 
 **검증:** 매 단계 `tsc` + `vite build` + DOM 점검(+가능하면 스크린샷), WebGL은 `readPixels`. 단, 메인이 길고 WebGL이 있어 헤드리스 스크린샷이 스크롤 아래를 못 뜨므로 실제 브라우저 확인이 필요.
