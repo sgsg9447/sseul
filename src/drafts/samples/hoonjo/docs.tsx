@@ -249,9 +249,12 @@ function ExperienceBlock({ c }: { c: ExpCompany }) {
                     </li>
                   ))}
                 </ul>
-                {h.metric && (
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, lineHeight: 1.5, color: 'var(--text-muted)', marginTop: 7 }}>
-                    <span style={{ color: 'var(--positive)', fontWeight: 600 }}>▸ </span>{h.metric}
+                {h.results && h.results.length > 0 && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: 11 }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--positive)', marginRight: 2 }}>성과</span>
+                    {h.results.map((r) => (
+                      <span key={r} style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600, color: 'var(--text)', background: 'var(--positive-soft)', border: '1px solid var(--green-line)', borderRadius: 'var(--radius-xs)', padding: '5px 10px', lineHeight: 1.3 }}>{r}</span>
+                    ))}
                   </div>
                 )}
               </div>

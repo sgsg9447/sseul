@@ -312,8 +312,9 @@ export const resumeSkills: { label: string; items: string[] }[] = [
   { label: '주요 스택', items: ['TypeScript', 'React 18/19', 'Next.js', 'NestJS', 'Vite / Rollup', 'semantic-release'] },
 ];
 
-/* 성과는 문장이 아니라 불릿 포인트로 — 한눈에 스캔되게. */
-export type ExpHighlight = { head: string; points: string[]; metric?: string };
+/* 성과는 문장이 아니라 불릿 포인트로 — 한눈에 스캔되게.
+   results는 임팩트 수치라 숨기지 않고 칩으로 강조한다. */
+export type ExpHighlight = { head: string; points: string[]; results?: string[] };
 export type ExpCompany = {
   period: string;
   company: string;
@@ -340,7 +341,7 @@ export const resumeExperience: ExpCompany[] = [
           '같은 문제를 세 번 푼 3세대 엔진 — 검증된 측정 로직은 이식, 아키텍처만 전면 재설계',
           '앱에서 분리해 독립 npm 패키지로 배포',
         ],
-        metric: '단독 개발 · 결정적 테스트 49개 · semantic-release 자동 배포 · 2년 이어지던 인쇄 불량 환불 문의 해소',
+        results: ['단독 개발', '결정적 테스트 49개', 'semantic-release 자동 배포', '2년 이어지던 인쇄 불량 환불 문의 해소'],
       },
       {
         head: '콘텐츠 제작 도구 프론트엔드 단독 개발 (Solvook Creator)',
@@ -349,7 +350,7 @@ export const resumeExperience: ExpCompany[] = [
           '가변 높이 아이템을 청크(30개) 단위로 측정해 다단 페이지로 조판',
           '7종 데코레이터(밑줄·화살표·메모…)를 discriminated union으로 타입세이프 모델링',
         ],
-        metric: '프론트 단독 · 1,682 커밋 (전체의 95%) · 기능 10개',
+        results: ['프론트 단독', '1,682 커밋 (전체의 95%)', '기능 10개'],
       },
       {
         head: '시험지 제작 스튜디오 페이징·PDF (Solvook Expert)',
@@ -408,7 +409,7 @@ export const resumeExperience: ExpCompany[] = [
           '라우트 정의 1벌 → 메뉴·권한트리·체크키 동시 파생 (RBAC)',
           '정형 CRUD는 GraphQL, 통계·레거시 보안 데이터는 raw SQL로 분리',
         ],
-        metric: '프론트 주저자 · 59개 화면 재사용 · 696 / 1,299 커밋 · 약 2년',
+        results: ['프론트 주저자', '59개 화면 재사용', '696 / 1,299 커밋', '약 2년'],
       },
       {
         head: '코드 없이 탐지 ML을 학습시키는 마법사 (KISTI AI 관제) · 풀스택',
@@ -417,7 +418,7 @@ export const resumeExperience: ExpCompany[] = [
           'react-awesome-query-builder로 Elasticsearch bool 쿼리를 GUI 조립',
           '패킷 payload(HEX)를 디코딩 → 엔트로피 → TCP flag 추출해 ML 특징으로 변환',
         ],
-        metric: '풀스택 기여 54% · 비개발자용 5단계 GUI 학습 · NestJS·Prisma+Knex',
+        results: ['풀스택 기여 54%', '비개발자용 5단계 GUI 학습', 'NestJS·Prisma+Knex'],
       },
       {
         head: '현대오토에버 EDR 포털 · 풀스택 (BFF 보안 경계)',
