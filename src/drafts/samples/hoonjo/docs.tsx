@@ -387,6 +387,8 @@ export function PortfolioPdf() {
         </div>
       </DocSection>
 
+      {/* 오픈소스 + 전문 영역은 페이지 중간에서 잘리지 않게 한 페이지로 묶는다 */}
+      <div className="hoonjo-doc-break" style={{ breakInside: 'avoid' }}>
       <DocSection label="오픈소스">
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 500, color: 'var(--text)' }}>{oss.repo}</span>
@@ -398,7 +400,8 @@ export function PortfolioPdf() {
         </div>
       </DocSection>
 
-      <DocSection label="전문 영역"><Skills /></DocSection>
+        <DocSection label="전문 영역"><Skills /></DocSection>
+      </div>
     </DocShell>
   );
 }
