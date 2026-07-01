@@ -253,7 +253,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@옐로오투오',
     description:
-      'PHP 예약 시스템에서 시작해 React로 전환하며 컴포넌트 분리·반응형 설계 기반을 익힌 커리어 시작점.',
+      'PHP 예약 시스템에서 시작해 React로 전환하며 컴포넌트 분리·반응형 설계 기반을 익혔습니다.',
     tags: ['React', 'PHP', '반응형'],
   },
 ];
@@ -448,7 +448,7 @@ export const resumeExperience: ExpCompany[] = [
         head: '펜션 예약 시스템 단독 개발 → React 전환',
         points: [
           '가격 엔진·예약 UI·관리자·엑셀·SMS까지 예약 도메인 전체 단독 구현 (PHP·그누보드)',
-          'React 전환으로 컴포넌트 분리·반응형 설계 기반 습득 — 커리어 시작점',
+          'React 전환으로 컴포넌트 분리·반응형 설계 기반 습득',
         ],
       },
     ],

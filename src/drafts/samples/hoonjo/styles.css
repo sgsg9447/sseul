@@ -325,12 +325,12 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    padding: 15mm 14mm;
+    padding: 16mm 14mm;
   }
   /* a section that starts a fresh page gets a top cushion so its first line
      isn't flush against the paper edge (page margins can't repeat via @page). */
   .hoonjo .hoonjo-doc-break {
-    padding-top: 8mm;
+    padding-top: 10mm;
   }
   /* keep a block (a project, a career row, an image) from splitting across pages */
   .hoonjo .hoonjo-doc-section,

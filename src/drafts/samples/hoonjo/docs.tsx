@@ -238,10 +238,11 @@ function ResumeSkills() {
   );
 }
 
-/* 회사 하나 = 기간(왼쪽) + 회사/제품/역할 헤더 + 스택 + 성과 불릿(오른쪽). */
-function ExperienceBlock({ c }: { c: ExpCompany }) {
+/* 회사 하나 = 기간(왼쪽) + 회사/제품/역할 헤더 + 스택 + 성과 불릿(오른쪽).
+   first면 위 구분선을 뺀다 — 섹션 제목 밑줄과 겹쳐 이중선이 되는 걸 막기 위해. */
+function ExperienceBlock({ c, first = false }: { c: ExpCompany; first?: boolean }) {
   return (
-    <section className="hoonjo-exp" style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 22, paddingTop: 22, borderTop: '1px solid var(--line)' }}>
+    <section className="hoonjo-exp" style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 22, paddingTop: first ? 4 : 22, borderTop: first ? 'none' : '1px solid var(--line)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: c.current ? 'var(--green-deep)' : 'var(--text-muted)', paddingTop: 3 }}>
         {c.current && <span aria-hidden style={{ width: 7, height: 7, borderRadius: 1, transform: 'rotate(45deg)', background: 'var(--green)', flex: 'none' }} />}
         {c.period}
@@ -255,13 +256,13 @@ function ExperienceBlock({ c }: { c: ExpCompany }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
           {c.stack.map((t) => <Tag key={t}>{t}</Tag>)}
         </div>
-        <ul style={{ listStyle: 'none', margin: '16px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 13 }}>
+        <ul style={{ listStyle: 'none', margin: '14px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 11 }}>
           {c.highlights.map((h) => (
             <li key={h.head} className="hoonjo-exp-hl" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 10 }}>
               <span aria-hidden style={{ width: 5, height: 5, marginTop: 7, borderRadius: 1, background: 'var(--blue)', transform: 'rotate(45deg)', flex: 'none' }} />
               <div>
                 <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, fontWeight: 600, lineHeight: 1.45, color: 'var(--text)' }}>{h.head}</div>
-                <ul style={{ listStyle: 'none', margin: '7px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <ul style={{ listStyle: 'none', margin: '6px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 3 }}>
                   {h.points.map((pt, i) => (
                     <li key={i} style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 8, fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)' }}>
                       <span aria-hidden style={{ color: 'var(--text-faint)' }}>–</span>
@@ -270,7 +271,7 @@ function ExperienceBlock({ c }: { c: ExpCompany }) {
                   ))}
                 </ul>
                 {h.results && h.results.length > 0 && (
-                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '7px 8px', marginTop: 12 }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '7px 8px', marginTop: 10 }}>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--green-deep)' }}>
                       <span aria-hidden style={{ width: 5, height: 5, transform: 'rotate(45deg)', background: 'var(--green)', flex: 'none' }} />
                       성과
@@ -312,11 +313,19 @@ export function Resume() {
       <ResumeHeader />
       <DocSection label="핵심 역량"><ResumeSkills /></DocSection>
       <DocSection label="학력 · 교육"><Education /></DocSection>
+      {/* 경력을 2개 페이지 그룹으로 나눠, 인쇄 시 각 페이지가 위쪽 여백(cushion)을
+          갖고 아래는 자연 여백이 남도록 — 회사 블록은 페이지 중간에서 잘리지 않는다. */}
       <DocSection label="경력 기술" breakPage>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {resumeExperience.map((c) => <ExperienceBlock key={c.company} c={c} />)}
+          <ExperienceBlock c={resumeExperience[0]} first />
+          <ExperienceBlock c={resumeExperience[1]} />
         </div>
       </DocSection>
+      <section className="hoonjo-doc-section hoonjo-doc-break" style={{ marginTop: 8, breakBefore: 'page' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {resumeExperience.slice(2).map((c) => <ExperienceBlock key={c.company} c={c} />)}
+        </div>
+      </section>
     </DocShell>
   );
 }
@@ -344,7 +353,6 @@ export function PortfolioPdf() {
       </DocSection>
 
       <DocSection label="경력"><CareerList /></DocSection>
-      <DocSection label="전문 영역"><Skills /></DocSection>
 
       <DocSection label="대표 프로젝트" breakPage>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
@@ -389,6 +397,8 @@ export function PortfolioPdf() {
           {oss.tags.map((t) => <Tag key={t}>{t}</Tag>)}
         </div>
       </DocSection>
+
+      <DocSection label="전문 영역"><Skills /></DocSection>
     </DocShell>
   );
 }
