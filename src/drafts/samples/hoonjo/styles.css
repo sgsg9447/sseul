@@ -330,7 +330,7 @@
   /* a section that starts a fresh page gets a top cushion so its first line
      isn't flush against the paper edge (page margins can't repeat via @page). */
   .hoonjo .hoonjo-doc-break {
-    padding-top: 10mm;
+    padding-top: 14mm;
   }
   /* keep a block (a project, a career row, an image) from splitting across pages */
   .hoonjo .hoonjo-doc-section,

@@ -354,13 +354,18 @@ export function PortfolioPdf() {
 
       <DocSection label="경력"><CareerList /></DocSection>
 
+      {/* 프로젝트는 각자 한 페이지 — 이어지는 페이지도 위쪽 여백(cushion)을 갖게
+          두 번째부터 페이지를 새로 시작한다(첫 프로젝트는 섹션 제목과 같은 페이지). */}
       <DocSection label="대표 프로젝트" breakPage>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-          {PROJECTS.map((p) => <ProjectBlock key={p.title} p={p} withImages />)}
-        </div>
+        <ProjectBlock p={PROJECTS[0]} withImages />
+        {PROJECTS.slice(1).map((p) => (
+          <div key={p.title} className="hoonjo-doc-break" style={{ breakBefore: 'page', marginTop: 32 }}>
+            <ProjectBlock p={p} withImages />
+          </div>
+        ))}
       </DocSection>
 
-      <DocSection label="사이드 프로젝트">
+      <DocSection label="사이드 프로젝트" breakPage>
         <div className="hoonjo-doc-ps" style={{ display: 'grid', gridTemplateColumns: '1fr 0.82fr', gap: 24, alignItems: 'stretch' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
@@ -387,8 +392,8 @@ export function PortfolioPdf() {
         </div>
       </DocSection>
 
-      {/* 오픈소스 + 전문 영역은 페이지 중간에서 잘리지 않게 한 페이지로 묶는다 */}
-      <div className="hoonjo-doc-break" style={{ breakInside: 'avoid' }}>
+      {/* 오픈소스 + 전문 영역은 한 페이지로 묶고, 페이지 위쪽 여백도 갖게 새 페이지에서 시작 */}
+      <div className="hoonjo-doc-break" style={{ breakBefore: 'page', breakInside: 'avoid' }}>
       <DocSection label="오픈소스">
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 500, color: 'var(--text)' }}>{oss.repo}</span>
