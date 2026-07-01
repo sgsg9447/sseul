@@ -183,21 +183,30 @@ function ResumeHeader() {
         <img src={portrait} alt={profile.nameKo} style={{ flex: 'none', width: 104, height: 124, objectFit: 'cover', objectPosition: 'center 22%', borderRadius: 'var(--radius-lg)', border: '1px solid var(--line)' }} />
       </div>
       <div style={{ margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 7, maxWidth: '72ch' }}>
-        {resumeSummary.map((line, i) => (
-          <p key={i} style={{
-            fontFamily: 'var(--font-sans)',
-            lineHeight: 1.5,
-            margin: 0,
-            marginTop: line.kind === 'hook' ? 3 : line.kind === 'close' ? 5 : 0,
-            fontSize: line.kind === 'lead' ? 18 : line.kind === 'hook' ? 15.5 : line.kind === 'close' ? 14.5 : 14,
-            fontWeight: line.kind === 'lead' ? 700 : line.kind === 'body' ? 400 : 600,
-            letterSpacing: line.kind === 'lead' ? '-0.01em' : undefined,
-            color: line.kind === 'body' ? 'var(--text-secondary)' : 'var(--text)',
-          }}>
-            {line.kind === 'close' && <span style={{ color: 'var(--blue-deep)', fontFamily: 'var(--font-mono)', marginRight: 6 }}>:</span>}
-            {line.t}
-          </p>
-        ))}
+        {resumeSummary.map((line, i) => {
+          if (line.kind === 'close') {
+            const [pre, post] = line.t.split(' : ');
+            return (
+              <p key={i} style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.55, margin: '5px 0 0' }}>
+                <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>{pre}</span>
+                <span style={{ color: 'var(--blue-deep)', fontFamily: 'var(--font-mono)', margin: '0 9px' }}>:</span>
+                <span style={{ color: 'var(--text)', fontWeight: 600 }}>{post}</span>
+              </p>
+            );
+          }
+          return (
+            <p key={i} style={{
+              fontFamily: 'var(--font-sans)',
+              lineHeight: 1.5,
+              margin: 0,
+              marginTop: line.kind === 'hook' ? 3 : 0,
+              fontSize: line.kind === 'lead' ? 18 : line.kind === 'hook' ? 15.5 : 14,
+              fontWeight: line.kind === 'lead' ? 700 : line.kind === 'body' ? 400 : 600,
+              letterSpacing: line.kind === 'lead' ? '-0.01em' : undefined,
+              color: line.kind === 'body' ? 'var(--text-secondary)' : 'var(--text)',
+            }}>{line.t}</p>
+          );
+        })}
       </div>
     </header>
   );
@@ -250,10 +259,13 @@ function ExperienceBlock({ c }: { c: ExpCompany }) {
                   ))}
                 </ul>
                 {h.results && h.results.length > 0 && (
-                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: 11 }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--positive)', marginRight: 2 }}>성과</span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '7px 8px', marginTop: 12 }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--green-deep)' }}>
+                      <span aria-hidden style={{ width: 5, height: 5, transform: 'rotate(45deg)', background: 'var(--green)', flex: 'none' }} />
+                      성과
+                    </span>
                     {h.results.map((r) => (
-                      <span key={r} style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600, color: 'var(--text)', background: 'var(--positive-soft)', border: '1px solid var(--green-line)', borderRadius: 'var(--radius-xs)', padding: '5px 10px', lineHeight: 1.3 }}>{r}</span>
+                      <span key={r} style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, fontWeight: 600, color: 'var(--text)', background: 'var(--cloud)', border: '1px solid var(--line)', borderRadius: 'var(--radius-xs)', padding: '4px 10px', lineHeight: 1.35 }}>{r}</span>
                     ))}
                   </div>
                 )}
