@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { Mail } from 'lucide-react';
 import logo from '../../assets/logo.svg';
 
@@ -13,21 +13,6 @@ const navItems = [
 export function Header() {
   const [activeSection, setActiveSection] = useState('top');
 
-  const handleContactClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-
-    const contactSection = document.getElementById('contact');
-    const headerHeight = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 0;
-    if (!contactSection) return;
-
-    window.history.pushState(null, '', '#contact');
-    window.scrollTo({
-      top: window.scrollY + contactSection.getBoundingClientRect().top - headerHeight,
-      behavior: 'smooth',
-    });
-    setActiveSection('contact');
-  };
-
   useEffect(() => {
     // Map each nav item to its actual <section> element, plus the contact section.
     const tracked = [
@@ -36,8 +21,19 @@ export function Header() {
     ];
 
     const updateActiveSection = () => {
-      // The active section is the last one whose top has scrolled past 40% of
-      // the viewport — i.e. the section you're actually looking at.
+      // When scrolled to the very bottom, the last section (contact) is what
+      // you're looking at — even though a full-height page can't lift its top
+      // above the 40% line. Without this, clicking Contact scrolls to the
+      // bottom but leaves the previous section (Experience) highlighted.
+      const doc = document.documentElement;
+      const atBottom = window.scrollY > 0 && window.innerHeight + window.scrollY >= doc.scrollHeight - 2;
+      if (atBottom) {
+        setActiveSection(tracked[tracked.length - 1].id);
+        return;
+      }
+
+      // Otherwise the active section is the last one whose top has scrolled
+      // past 40% of the viewport — i.e. the section you're actually looking at.
       const line = window.innerHeight * 0.4;
       let current = tracked[0].id;
 
@@ -78,7 +74,6 @@ export function Header() {
         className="header-cta"
         href="#contact"
         aria-current={activeSection === 'contact' ? 'page' : undefined}
-        onClick={handleContactClick}
       >
         <Mail size={16} />
         Contact
