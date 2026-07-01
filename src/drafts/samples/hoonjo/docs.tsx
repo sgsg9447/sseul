@@ -172,7 +172,6 @@ function ResumeHeader() {
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)', margin: 0 }}>{profile.nameKo}</h1>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--text-muted)' }}>{profile.name}</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-faint)' }}>· 1996년생</span>
           </div>
           <div style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, color: 'var(--text-secondary)', marginTop: 7 }}>{profile.role}</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 16px', marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 12.5 }}>
@@ -183,7 +182,18 @@ function ResumeHeader() {
         </div>
         <img src={portrait} alt={profile.nameKo} style={{ flex: 'none', width: 104, height: 124, objectFit: 'cover', objectPosition: 'center 22%', borderRadius: 'var(--radius-lg)', border: '1px solid var(--line)' }} />
       </div>
-      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.7, color: 'var(--text-secondary)', margin: '18px 0 0', maxWidth: '70ch' }}>{resumeSummary}</p>
+      <div style={{ margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 6, maxWidth: '74ch' }}>
+        {resumeSummary.map((line, i) => (
+          <p key={i} style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: i === 0 ? 16 : 14.5,
+            fontWeight: i === 0 ? 600 : 400,
+            lineHeight: 1.6,
+            color: i === 0 ? 'var(--text)' : 'var(--text-secondary)',
+            margin: 0,
+          }}>{line}</p>
+        ))}
+      </div>
     </header>
   );
 }
@@ -192,9 +202,11 @@ function ResumeSkills() {
   return (
     <div className="hoonjo-doc-skills" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px 30px' }}>
       {resumeSkills.map((s) => (
-        <div key={s.label} style={{ display: 'grid', gridTemplateColumns: '132px 1fr', gap: 14, alignItems: 'baseline' }} className="hoonjo-doc-row">
-          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 600, color: 'var(--text)' }}>{s.label}</div>
-          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)' }}>{s.items}</div>
+        <div key={s.label} style={{ display: 'grid', gridTemplateColumns: '132px 1fr', gap: 14, alignItems: 'start' }} className="hoonjo-doc-row">
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 600, color: 'var(--text)', paddingTop: 3 }}>{s.label}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            {s.items.map((it) => <Tag key={it}>{it}</Tag>)}
+          </div>
         </div>
       ))}
     </div>
@@ -224,7 +236,14 @@ function ExperienceBlock({ c }: { c: ExpCompany }) {
               <span aria-hidden style={{ width: 5, height: 5, marginTop: 7, borderRadius: 1, background: 'var(--blue)', transform: 'rotate(45deg)', flex: 'none' }} />
               <div>
                 <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, fontWeight: 600, lineHeight: 1.45, color: 'var(--text)' }}>{h.head}</div>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.62, color: 'var(--text-secondary)', margin: '5px 0 0' }}>{h.body}</p>
+                <ul style={{ listStyle: 'none', margin: '7px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  {h.points.map((pt, i) => (
+                    <li key={i} style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 8, fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)' }}>
+                      <span aria-hidden style={{ color: 'var(--text-faint)' }}>–</span>
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
                 {h.metric && (
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, lineHeight: 1.5, color: 'var(--text-muted)', marginTop: 7 }}>
                     <span style={{ color: 'var(--positive)', fontWeight: 600 }}>▸ </span>{h.metric}

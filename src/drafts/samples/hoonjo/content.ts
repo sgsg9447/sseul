@@ -294,17 +294,24 @@ export const capabilities: { label: string; skills: string[]; proof: ProofLink[]
    포트폴리오와 겹치지 않게 학력까지 담는다. 수치는 Obsidian 커리어 볼트에서
    추출한 실측값(커밋·화면 수 등)만 쓴다. */
 
-export const resumeSummary =
-  '7년차 프론트엔드 엔지니어. 성능·대용량 렌더링·복잡한 상태처럼 남들이 막힌 화면을 직접 측정해 되게 만들고, 반복되는 작업을 재사용 가능한 구조와 라이브러리로 바꾸는 데 강합니다. 정부·기업 보안관제 SI에서 메타데이터로 화면을 양산한 풀스택 경험부터, 교육 콘텐츠 플랫폼에서 사내 조판 엔진을 오픈소스로 공개하기까지 — 도메인이 바뀌어도 문제를 구조로 푸는 방식은 같습니다.';
-
-export const resumeSkills: { label: string; items: string }[] = [
-  { label: '렌더링 · 성능', items: 'Canvas 2D / WebGL · 측정-우선 PDF 조판 · 대용량 가상화 · 메모리 바운드 처리' },
-  { label: '시스템 설계 · 추상화', items: '메타데이터 구동 UI · 디자인 시스템 / 라이브러리 · RBAC 권한 · 타입 안전 API 설계' },
-  { label: '복잡한 상태 · 풀스택', items: '상태머신 / URL-as-state · NestJS BFF · GraphQL · 이중 데이터소스 · 비동기 파이프라인' },
-  { label: '주요 스택', items: 'TypeScript · React 18/19 · Next.js · NestJS · Vite / Rollup · semantic-release' },
+/* 한 줄에 하나씩 읽히도록 문장 단위로 끊는다(첫 줄은 리드). */
+export const resumeSummary: string[] = [
+  '7년차 프론트엔드 엔지니어.',
+  '성능·대용량 렌더링·복잡한 상태처럼 남들이 막힌 화면을 직접 측정해 되게 만들고, 반복되는 작업을 재사용 가능한 구조와 라이브러리로 바꾸는 데 강합니다.',
+  '정부·기업 보안관제 SI에서 메타데이터로 화면을 양산한 풀스택 경험부터, 교육 콘텐츠 플랫폼에서 사내 조판 엔진을 오픈소스로 공개하기까지',
+  ': 도메인이 바뀌어도 문제를 구조로 푸는 방식은 같습니다.',
 ];
 
-export type ExpHighlight = { head: string; body: string; metric?: string };
+/* 텍스트 뭉치가 아니라 뱃지로 스캔되게 항목을 배열로 둔다. */
+export const resumeSkills: { label: string; items: string[] }[] = [
+  { label: '렌더링 · 성능', items: ['Canvas 2D / WebGL', '측정-우선 PDF 조판', '대용량 가상화', '메모리 바운드 처리'] },
+  { label: '시스템 설계 · 추상화', items: ['메타데이터 구동 UI', '디자인 시스템 / 라이브러리', 'RBAC 권한', '타입 안전 API 설계'] },
+  { label: '복잡한 상태 · 풀스택', items: ['상태머신 / URL-as-state', 'NestJS BFF', 'GraphQL · 이중 데이터소스', '비동기 파이프라인'] },
+  { label: '주요 스택', items: ['TypeScript', 'React 18/19', 'Next.js', 'NestJS', 'Vite / Rollup', 'semantic-release'] },
+];
+
+/* 성과는 문장이 아니라 불릿 포인트로 — 한눈에 스캔되게. */
+export type ExpHighlight = { head: string; points: string[]; metric?: string };
 export type ExpCompany = {
   period: string;
   company: string;
@@ -326,22 +333,37 @@ export const resumeExperience: ExpCompany[] = [
     highlights: [
       {
         head: '사내 페이지네이션 엔진을 오픈소스로 공개 — column-pager (npm · MIT)',
-        body: '반복되던 A4 다단(2단) 자동 조판 로직을 순수 코어 / 측정 / 렌더 3계층으로 재설계해 독립 npm 패키지로 분리·배포. 같은 문제를 세 번 풀며 도달한 3세대 엔진으로, 검증된 측정 로직은 이식하고 아키텍처만 전면 재설계했습니다.',
+        points: [
+          'A4 다단(2단) 자동 조판 로직을 순수 코어 / 측정 / 렌더 3계층으로 재설계',
+          '같은 문제를 세 번 푼 3세대 엔진 — 검증된 측정 로직은 이식, 아키텍처만 전면 재설계',
+          '앱에서 분리해 독립 npm 패키지로 배포',
+        ],
         metric: '단독 개발 · 결정적 테스트 49개 · semantic-release 자동 배포 · 2년 이어지던 인쇄 불량 환불 문의 해소',
       },
       {
         head: '콘텐츠 제작 도구 프론트엔드 단독 개발 (Solvook Creator)',
-        body: '지문 분석·워크북·변형문제를 편집해 출판물 수준 PDF로 출력하는 제작 도구. 가변 높이 아이템을 청크(30개) 단위로 측정해 다단 페이지로 흘려보내는 조판 엔진과, 7종 데코레이터(밑줄·화살표·메모…)를 discriminated union으로 타입세이프하게 모델링.',
+        points: [
+          '지문 분석·워크북·변형문제를 편집해 출판물 수준 PDF로 출력하는 제작 도구',
+          '가변 높이 아이템을 청크(30개) 단위로 측정해 다단 페이지로 조판',
+          '7종 데코레이터(밑줄·화살표·메모…)를 discriminated union으로 타입세이프 모델링',
+        ],
         metric: '프론트 단독 · 1,682 커밋 (전체의 95%) · 기능 10개',
       },
       {
         head: '시험지 제작 스튜디오 페이징·PDF (Solvook Expert)',
-        body: 'A4 2단 자동 페이징에서 “측정 DOM == 표시 DOM” 불변식을 세우고, 888×1256 고정 픽셀 + transform:scale로 화면 미리보기와 서버 PDF를 픽셀 단위로 일치시킴. column-pager 엔진의 최초 발원지.',
-        metric: '미리보기 = 서버 PDF 픽셀 일치',
+        points: [
+          'A4 2단 자동 페이징에서 “측정 DOM == 표시 DOM” 불변식 확립',
+          '888×1256 고정 픽셀 + transform:scale로 화면 미리보기 = 서버 PDF 픽셀 일치',
+          'column-pager 엔진의 최초 발원지',
+        ],
       },
       {
         head: '공용 디자인 시스템 공동 메인테이너 (@bookips/sds)',
-        body: 'single/multi Select를 하나의 판별 유니온 API로 통합해 오용을 컴파일 타임에 차단하고, Figma SVG를 svgr 코드젠으로 자동 컴포넌트화(아이콘 160개), push 전 type-check·빌드 게이트로 릴리스 품질을 관리.',
+        points: [
+          'single/multi Select를 하나의 판별 유니온 API로 통합 — 오용은 컴파일 타임 차단',
+          'Figma SVG를 svgr 코드젠으로 자동 컴포넌트화 (아이콘 160개)',
+          'push 전 type-check·빌드 게이트로 릴리스 품질 관리',
+        ],
       },
     ],
   },
@@ -354,12 +376,19 @@ export const resumeExperience: ExpCompany[] = [
     highlights: [
       {
         head: '대용량 교재 PDF를 브라우저에서 OOM 없이 렌더 (ORZO Class)',
-        body: '교재 PDF에서 문제 영역을 크롭하는 튜터용 수업 관리 앱에서, 전체 페이지 자동 선택 시 메모리 폭증을 청크 처리 + page.cleanup()으로 고정하고, gate를 제거한 캐시 우선 온디맨드 렌더로 전환해 대용량 문서의 첫 렌더를 안정화.',
-        metric: '메모리 바운드 청크 처리 · 온디맨드 렌더',
+        points: [
+          '전체 페이지 자동 선택 시 메모리 폭증을 청크 처리 + page.cleanup()으로 고정',
+          'gate 제거 → 캐시 우선 온디맨드 렌더로 전환',
+          '대용량 문서 첫 렌더 안정화 (메모리-정확도 트레이드오프 설계)',
+        ],
       },
       {
         head: '인증 모델 전환 · 팀 개발 관행 개선 (ORZO Admin)',
-        body: '클라이언트 인메모리 ID 토큰을 서버 발급 Firebase 세션 쿠키 + SSR 인증 가드로 전환해 보안·SSR 정합성을 확보. async/await, 상태 끌어올리기, 네이밍 등 팀 개발 관행을 정리해 공유.',
+        points: [
+          '클라 인메모리 ID 토큰 → 서버 발급 Firebase 세션 쿠키 + SSR 인증 가드',
+          '서버 로그아웃(refresh token revoke)으로 보안·SSR 정합성 확보',
+          'async/await·상태 끌어올리기·네이밍 등 팀 개발 관행 정리·공유',
+        ],
       },
     ],
   },
@@ -372,22 +401,37 @@ export const resumeExperience: ExpCompany[] = [
     highlights: [
       {
         head: '컬럼 정의 1벌로 59개 화면을 양산 (법무부 보안관제 포털)',
-        body: '2년간 프론트 주저자로 참여. Table 컴포넌트 하나가 컬럼 메타에서 목록·검색·정렬·엑셀·모달폼·권한을 전부 생성하고, 라우트 정의 1벌에서 메뉴·권한트리·체크키를 동시 파생(RBAC). 정형 CRUD는 GraphQL, 통계·레거시 보안 데이터는 raw SQL로 분리해 한 ORM에 가두지 않았습니다.',
-        metric: '59개 화면 재사용 · 696 / 1,299 커밋 · 약 2년',
+        points: [
+          'Table 컴포넌트 1개가 컬럼 메타에서 목록·검색·정렬·엑셀·모달폼·권한 생성',
+          '라우트 정의 1벌 → 메뉴·권한트리·체크키 동시 파생 (RBAC)',
+          '정형 CRUD는 GraphQL, 통계·레거시 보안 데이터는 raw SQL로 분리',
+        ],
+        metric: '프론트 주저자 · 59개 화면 재사용 · 696 / 1,299 커밋 · 약 2년',
       },
       {
         head: '코드 없이 탐지 ML을 학습시키는 마법사 (KISTI AI 관제) · 풀스택',
-        body: 'crawl·feature·train 5단계 학습 파이프라인을 URL-as-state + immer 상태머신으로 구현하고, react-awesome-query-builder로 Elasticsearch bool 쿼리를 GUI 조립. 패킷 payload(HEX)를 디코딩→엔트로피→TCP flag 추출해 ML 특징으로 변환. NestJS·Prisma+Knex 하이브리드.',
-        metric: '풀스택 기여 54% · 비개발자용 5단계 GUI 학습',
+        points: [
+          'crawl·feature·train 5단계 학습 파이프라인을 URL-as-state + immer 상태머신으로 구현',
+          'react-awesome-query-builder로 Elasticsearch bool 쿼리를 GUI 조립',
+          '패킷 payload(HEX)를 디코딩 → 엔트로피 → TCP flag 추출해 ML 특징으로 변환',
+        ],
+        metric: '풀스택 기여 54% · 비개발자용 5단계 GUI 학습 · NestJS·Prisma+Knex',
       },
       {
         head: '현대오토에버 EDR 포털 · 풀스택 (BFF 보안 경계)',
-        body: '비밀번호 해시·파일명 인코딩·권한별 쿼리 필터를 프론트가 아닌 NestJS BFF 프록시에서 통제(프론트는 평문 비밀번호조차 만지지 않음). 조회 전용 정형 데이터는 PostgreSQL, 가변 스키마는 MongoDB로 나눈 이중 DB 전략.',
-        metric: 'BFF 보안 경계 · PostgreSQL + MongoDB 이중 DB',
+        points: [
+          '비밀번호 해시·파일명 인코딩·권한 필터를 NestJS BFF 프록시에서 통제 (프론트는 평문 비밀번호 미접근)',
+          '조회 전용 정형 데이터 = PostgreSQL / 가변 스키마 = MongoDB 이중 DB 전략',
+        ],
       },
       {
         head: '그 외 보안관제·풀스택 프로젝트',
-        body: '문체부 내·외부 관제 포털(CommonPage CRUD 엔진 · 4층 RBAC · 30분 유휴 자동 로그아웃), 사이버 훈련 CTF 동적 점수 ledger(Go gRPC·Redis), 통일부 6,000건 클라 → 서버사이드 페이징 전환, COVID-19 추적 RN 앱(커스텀 Redux 미들웨어·지도 시각화), Rittal B2B 커머스 프론트(react-snap SSR·GA 대시보드) 등.',
+        points: [
+          '문체부 내·외부 관제 포털 (CommonPage CRUD 엔진 · 4층 RBAC · 30분 유휴 자동 로그아웃)',
+          '사이버 훈련 CTF 동적 점수 ledger (Go gRPC·Redis)',
+          '통일부 6,000건 클라 → 서버사이드 페이징 전환',
+          'COVID-19 추적 RN 앱 (커스텀 Redux 미들웨어·지도 시각화), Rittal B2B 커머스 (react-snap SSR·GA 대시보드)',
+        ],
       },
     ],
   },
@@ -400,7 +444,10 @@ export const resumeExperience: ExpCompany[] = [
     highlights: [
       {
         head: '펜션 예약 시스템 단독 개발 → React 전환',
-        body: '가격 엔진·예약 UI·관리자·엑셀·SMS까지 예약 도메인 전체를 단독으로 구현(PHP·그누보드). 이후 React로 전환하며 컴포넌트 분리와 반응형 설계의 기반을 익힌 커리어 시작점.',
+        points: [
+          '가격 엔진·예약 UI·관리자·엑셀·SMS까지 예약 도메인 전체 단독 구현 (PHP·그누보드)',
+          'React 전환으로 컴포넌트 분리·반응형 설계 기반 습득 — 커리어 시작점',
+        ],
       },
     ],
   },
