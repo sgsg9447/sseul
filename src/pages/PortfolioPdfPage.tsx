@@ -43,7 +43,6 @@ import screenMHome from '../assets/screen-m-home.png';
 
 const TOTAL_PAGES = 8;
 const contactEmail = 'sgsg9447@gmail.com';
-const contactPhone = '010-7705-9447';
 const portfolioSite = 'sseul.me';
 const portfolioSiteHref = 'https://sseul.me/';
 
@@ -169,10 +168,6 @@ export function PortfolioPdfPage() {
                     <dd>
                       <a href={portfolioSiteHref}>{portfolioSite}</a>
                     </dd>
-                  </div>
-                  <div>
-                    <dt>Phone</dt>
-                    <dd>{contactPhone}</dd>
                   </div>
                 </dl>
               </div>

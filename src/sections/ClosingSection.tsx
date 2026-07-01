@@ -2,8 +2,6 @@ import { FileDown, FileText, Mail, ScrollText } from 'lucide-react';
 
 const contactEmail = 'sgsg9447@gmail.com';
 const contactHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${contactEmail}`;
-const contactPhone = '010-7705-9447';
-const contactPhoneHref = `tel:${contactPhone.replace(/-/g, '')}`;
 
 export function ClosingSection() {
   return (
@@ -56,7 +54,6 @@ export function ClosingSection() {
             <a href={contactHref} target="_blank" rel="noreferrer">
               {contactEmail}
             </a>
-            <a href={contactPhoneHref}>{contactPhone}</a>
           </div>
           <div>
             <span>Base</span>
