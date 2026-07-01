@@ -182,16 +182,21 @@ function ResumeHeader() {
         </div>
         <img src={portrait} alt={profile.nameKo} style={{ flex: 'none', width: 104, height: 124, objectFit: 'cover', objectPosition: 'center 22%', borderRadius: 'var(--radius-lg)', border: '1px solid var(--line)' }} />
       </div>
-      <div style={{ margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 6, maxWidth: '74ch' }}>
+      <div style={{ margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 7, maxWidth: '72ch' }}>
         {resumeSummary.map((line, i) => (
           <p key={i} style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: i === 0 ? 16 : 14.5,
-            fontWeight: i === 0 ? 600 : 400,
-            lineHeight: 1.6,
-            color: i === 0 ? 'var(--text)' : 'var(--text-secondary)',
+            lineHeight: 1.5,
             margin: 0,
-          }}>{line}</p>
+            marginTop: line.kind === 'hook' ? 3 : line.kind === 'close' ? 5 : 0,
+            fontSize: line.kind === 'lead' ? 18 : line.kind === 'hook' ? 15.5 : line.kind === 'close' ? 14.5 : 14,
+            fontWeight: line.kind === 'lead' ? 700 : line.kind === 'body' ? 400 : 600,
+            letterSpacing: line.kind === 'lead' ? '-0.01em' : undefined,
+            color: line.kind === 'body' ? 'var(--text-secondary)' : 'var(--text)',
+          }}>
+            {line.kind === 'close' && <span style={{ color: 'var(--blue-deep)', fontFamily: 'var(--font-mono)', marginRight: 6 }}>:</span>}
+            {line.t}
+          </p>
         ))}
       </div>
     </header>
