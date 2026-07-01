@@ -122,7 +122,7 @@ export const cases: WorkCase[] = [
     metrics: [
       { label: '화면 양산 · 1벌 정의', after: '59', unit: '개', gain: '두 명이 도메인 100여 개' },
       { label: '신규 CRUD 화면', after: '정의 + 쿼리', gain: '버그도 한 곳에서 수정' },
-      { label: '내 커밋 · 프론트 주저자', after: '696', unit: '/1,299', gain: '약 2년' },
+      { label: '내 커밋 · 프론트 개발', after: '696', unit: '/1,299', gain: '약 2년' },
     ],
     metricsNote: '이 Table 컴포넌트는 이후 다른 프로젝트에서도 컬럼 배열만 교체해 재사용.',
     images: [
@@ -228,7 +228,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Bookips',
     description:
-      '교육 콘텐츠 플랫폼 솔북(Solvook).\n시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인 담당,\n사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포.\n디자인 시스템 코드오너.',
+      '교육 콘텐츠 플랫폼 솔북(Solvook). 시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인을 맡고, 사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포. 디자인 시스템 공동 메인테이너.',
     tags: ['Next.js', 'TypeScript', 'Canvas', 'OSS'],
     current: true,
   },
@@ -237,7 +237,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Sling',
     description:
-      '튜터용 수업 관리 앱 ORZO.\n대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화 담당 (첫 화면 10분 → 1초).',
+      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화를 맡았습니다 (첫 화면 10분 → 1초).',
     tags: ['Next.js', 'PDF', '성능', '메모리'],
   },
   {
@@ -245,7 +245,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer / Fullstack',
     org: '@Zipida',
     description:
-      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 포털\n메타데이터 화면 양산 추상화, 코드 없는 ML 학습 마법사,\n본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF 설계.',
+      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 포털에서 메타데이터 화면 양산 추상화, 코드 없는 ML 학습 마법사, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF 설계.',
     tags: ['React', 'GraphQL', 'NestJS', 'RBAC'],
   },
   {
@@ -253,7 +253,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@옐로오투오',
     description:
-      'PHP 예약 시스템에서 시작해 React로 전환,\n컴포넌트 분리·반응형 기반 습득.',
+      'PHP 예약 시스템에서 시작해 React로 전환하며 컴포넌트 분리·반응형 설계 기반을 익힌 커리어 시작점.',
     tags: ['React', 'PHP', '반응형'],
   },
 ];
@@ -398,7 +398,7 @@ export const resumeExperience: ExpCompany[] = [
     period: '2020 — 2023',
     company: 'Zipida',
     product: '정부·기업 보안관제 SI · 풀스택',
-    role: '프론트엔드 주저자 · 풀스택',
+    role: '프론트엔드 개발 · 풀스택',
     stack: ['React', 'Apollo GraphQL', 'NestJS', 'Strapi', 'Elasticsearch', 'Redux'],
     highlights: [
       {
@@ -408,7 +408,7 @@ export const resumeExperience: ExpCompany[] = [
           '라우트 정의 1벌 → 메뉴·권한트리·체크키 동시 파생 (RBAC)',
           '정형 CRUD는 GraphQL, 통계·레거시 보안 데이터는 raw SQL로 분리',
         ],
-        results: ['프론트 주저자', '59개 화면 재사용', '696 / 1,299 커밋', '약 2년'],
+        results: ['프론트 개발', '59개 화면 재사용', '696 / 1,299 커밋', '약 2년'],
       },
       {
         head: '코드 없이 탐지 ML을 학습시키는 마법사 (KISTI AI 관제) · 풀스택',

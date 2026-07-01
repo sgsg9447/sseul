@@ -306,8 +306,11 @@
 }
 
 @media print {
+  /* margin:0 leaves the browser no room to draw its own header/footer
+     (date · title · url · page number), so they disappear; we put the real
+     page margins back as padding on the sheet instead. */
   @page {
-    margin: 14mm;
+    margin: 0;
   }
   .hoonjo .hoonjo-doc {
     background: #fff;
@@ -322,7 +325,12 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    padding: 0;
+    padding: 15mm 14mm;
+  }
+  /* a section that starts a fresh page gets a top cushion so its first line
+     isn't flush against the paper edge (page margins can't repeat via @page). */
+  .hoonjo .hoonjo-doc-break {
+    padding-top: 13mm;
   }
   /* keep a block (a project, a career row, an image) from splitting across pages */
   .hoonjo .hoonjo-doc-section,

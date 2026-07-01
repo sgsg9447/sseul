@@ -4,6 +4,7 @@ import { Tag, MetricRow } from './components';
 import { profile, timeline, capabilities, flagship, cases, blackHole, impact, oss, resumeSummary, resumeSkills, resumeExperience, education } from './content';
 import type { ProjImage, ExpCompany } from './content';
 import { docBase } from './routes';
+import { BlackHole } from './BlackHole';
 import portrait from './assets/portrait.jpg';
 
 /* Print-to-PDF documents served at /d/<slug>/{resume,portfolio-pdf}.
@@ -56,7 +57,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
 
 function DocSection({ label, breakPage, children }: { label: string; breakPage?: boolean; children: ReactNode }) {
   return (
-    <section className="hoonjo-doc-section" style={{ marginTop: 34, ...(breakPage ? { breakBefore: 'page' } : null) }}>
+    <section className={`hoonjo-doc-section${breakPage ? ' hoonjo-doc-break' : ''}`} style={{ marginTop: 34, ...(breakPage ? { breakBefore: 'page' } : null) }}>
       <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', margin: '0 0 16px', paddingBottom: 8, borderBottom: '1px solid var(--line)' }}>{label}</h2>
       {children}
     </section>
@@ -77,7 +78,7 @@ function Bullets({ items }: { items: string[] }) {
 }
 
 /* ---- project data (bullet-friendly, reused from content) ---------------- */
-type Project = { title: string; company?: string; problem: string[]; structure: string[]; metrics: Metric[]; tags: string[]; images?: ProjImage[] };
+type Project = { title: string; company?: string; problem: string[]; structure: string[]; metrics: Metric[]; tags: string[]; images?: ProjImage[]; code?: { caption: string; lines: string } };
 
 const FLAGSHIP_PROBLEM = [
   'A4 2단 레이아웃에서 한 칸 높이를 넘는 긴 카드(긴 본문)를 기존 구현이 처리 못 함',
@@ -92,7 +93,7 @@ const FLAGSHIP_STRUCTURE = [
 
 const PROJECTS: Project[] = [
   { title: flagship.title, company: flagship.company, problem: FLAGSHIP_PROBLEM, structure: FLAGSHIP_STRUCTURE, metrics: flagship.results, tags: ['TypeScript', 'React 18/19', '측정-우선 레이아웃', 'semantic-release'], images: flagship.images },
-  ...cases.map((c): Project => ({ title: c.title, company: c.company, problem: c.problem, structure: c.structure, metrics: c.metrics, tags: c.tags, images: c.images })),
+  ...cases.map((c): Project => ({ title: c.title, company: c.company, problem: c.problem, structure: c.structure, metrics: c.metrics, tags: c.tags, images: c.images, code: c.code })),
 ];
 
 function ProjectBlock({ p, withImages = false }: { p: Project; withImages?: boolean }) {
@@ -107,6 +108,16 @@ function ProjectBlock({ p, withImages = false }: { p: Project; withImages?: bool
           {p.images.map((im, i) => (
             <img key={i} src={im.src} alt={im.alt} style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: 'var(--radius-md)', border: '1px solid var(--line)' }} />
           ))}
+        </div>
+      )}
+      {withImages && (!p.images || p.images.length === 0) && p.code && (
+        <div style={{ marginTop: 16, background: 'var(--ink)', border: '1px solid var(--ink-soft)', borderRadius: 'var(--radius-md)', padding: '18px 20px', overflowX: 'auto' }}>
+          {p.code.lines.split('\n').map((ln, i) => {
+            const t = ln.trim();
+            const color = t.startsWith('//') ? 'var(--on-ink-muted)' : t.startsWith('$') ? 'var(--blue-bright)' : 'var(--on-ink)';
+            return <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.8, color, whiteSpace: 'pre', minHeight: '1.3em' }}>{ln || ' '}</div>;
+          })}
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--on-ink-muted)', marginTop: 12, paddingTop: 10, borderTop: '1px solid rgba(246,244,238,0.14)' }}>{p.code.caption}</div>
         </div>
       )}
       <div className="hoonjo-doc-ps" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 16 }}>
@@ -189,7 +200,7 @@ function ResumeHeader() {
             return (
               <p key={i} style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.55, margin: '5px 0 0' }}>
                 <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>{pre}</span>
-                <span style={{ color: 'var(--blue-deep)', fontFamily: 'var(--font-mono)', margin: '0 9px' }}>:</span>
+                <span style={{ color: 'var(--blue-deep)', fontFamily: 'var(--font-mono)', margin: '0 10px' }}>→</span>
                 <span style={{ color: 'var(--text)', fontWeight: 600 }}>{post}</span>
               </p>
             );
@@ -300,12 +311,12 @@ export function Resume() {
     <DocShell tab="이력서">
       <ResumeHeader />
       <DocSection label="핵심 역량"><ResumeSkills /></DocSection>
-      <DocSection label="경력 기술">
+      <DocSection label="학력 · 교육"><Education /></DocSection>
+      <DocSection label="경력 기술" breakPage>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {resumeExperience.map((c) => <ExperienceBlock key={c.company} c={c} />)}
         </div>
       </DocSection>
-      <DocSection label="학력 · 교육"><Education /></DocSection>
     </DocShell>
   );
 }
@@ -317,12 +328,16 @@ export function PortfolioPdf() {
       <DocHeader tagline="안 되던 화면을 되게 만듭니다." summary={profile.lead.replace(/\n/g, ' ')} />
 
       <DocSection label="대표 임팩트">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }} className="hoonjo-doc-skills">
-          {impact.stats.map((s) => (
-            <div key={s.k}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{s.k}</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--text-muted)', textDecoration: 'line-through', textDecorationColor: 'var(--steel)', marginTop: 8 }}>{s.before}</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 600, color: 'var(--text)', marginTop: 3 }}>{s.after}</div>
+        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, color: 'var(--text-secondary)', margin: '-4px 0 16px' }}>{impact.lead}</div>
+        <div className="hoonjo-doc-skills" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', background: 'var(--ink)', border: '1px solid var(--ink-soft)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+          {impact.stats.map((s, i) => (
+            <div key={s.k} style={{ padding: '22px 24px', borderRight: i < impact.stats.length - 1 ? '1px solid rgba(246,244,238,0.14)' : 'none' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--on-ink-muted)' }}>{s.k}</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--on-ink-muted)', textDecoration: 'line-through', textDecorationColor: 'rgba(246,244,238,0.45)', marginTop: 16 }}>{s.before}</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 9, marginTop: 6 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--blue-bright)' }}>→</span>
+                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 23, fontWeight: 700, letterSpacing: '-0.01em', color: 'var(--on-ink)' }}>{s.after}</span>
+              </div>
             </div>
           ))}
         </div>
@@ -335,15 +350,29 @@ export function PortfolioPdf() {
       </DocSection>
 
       <DocSection label="사이드 프로젝트">
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 19, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{blackHole.title.join(' ')}</h3>
-          <a href={blackHole.repo} target="_blank" rel="noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--blue-deep)' }}>github ↗</a>
-        </div>
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '10px 0 0', whiteSpace: 'pre-line' }}>{blackHole.body}</p>
-        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginTop: 14 }}>
-          {blackHole.stats.map(([k, v]) => (
-            <div key={k}><span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>{k} · </span><span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>{v}</span></div>
-          ))}
+        <div className="hoonjo-doc-ps" style={{ display: 'grid', gridTemplateColumns: '1fr 0.82fr', gap: 24, alignItems: 'stretch' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 19, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{blackHole.title.join(' ')}</h3>
+              <a href={blackHole.repo} target="_blank" rel="noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--blue-deep)' }}>github ↗</a>
+            </div>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '10px 0 0' }}>{blackHole.body}</p>
+            <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginTop: 16 }}>
+              {blackHole.stats.map(([k, v]) => (
+                <div key={k}><span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>{k} · </span><span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>{v}</span></div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
+              {blackHole.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+            </div>
+          </div>
+          <div style={{ position: 'relative', minHeight: 216, background: 'var(--ink-deep)', border: '1px solid var(--ink-soft)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
+            <BlackHole />
+            <span style={{ position: 'absolute', top: 12, right: 12, display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 9.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--on-ink)', background: 'rgba(12,11,8,0.5)', border: '1px solid rgba(246,244,238,0.18)', borderRadius: 'var(--radius-pill)', padding: '4px 9px' }}>
+              <span aria-hidden style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green-bright)' }} />
+              실시간 렌더
+            </span>
+          </div>
         </div>
       </DocSection>
 
