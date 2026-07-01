@@ -87,7 +87,7 @@ export const baRows: { k: string; before: string; after: string }[] = [
 export const packageIntro = {
   eyebrow: '제작 패키지',
   title: '필요한 만큼, 작게 시작할 수 있어요',
-  promo: '런칭 기념 · 초기 3팀 한정 50% 할인 — 포트폴리오 공개 동의 시 적용',
+  promo: '런칭 기념 · 초기 3팀 한정 최대 70% 할인 — 포트폴리오 공개 동의 시 적용',
 };
 
 export type Pkg = {
@@ -109,7 +109,7 @@ export const packages: Pkg[] = [
     name: '작은 한 장',
     desc: '소개 한 장 페이지. 사이트가 없는 1인 사업자·프리랜서에게 딱.',
     was: '100만',
-    now: '50',
+    now: '30',
     unit: '만원',
     term: '시안 1~2일 · 오픈 1주 내',
     feats: ['한 장 반응형 페이지', '검색·공유 최적화', '전화·문의 연결'],
@@ -118,7 +118,7 @@ export const packages: Pkg[] = [
     name: '표준 리뉴얼',
     desc: '5~7페이지 반응형. 오래된 사이트를 가진 가게·기관에.',
     was: '300만',
-    now: '150',
+    now: '100',
     unit: '만원',
     term: '시안 1주 내 · 오픈 2~3주',
     feats: ['여러 페이지 반응형', '검색최적화 · 문의 폼', '소스 코드 전달'],
@@ -127,7 +127,7 @@ export const packages: Pkg[] = [
     name: '풀 리뉴얼',
     desc: '기획·관리자·분기 로직까지. 직접 운영이 필요한 곳에.',
     was: '500만~',
-    now: '250',
+    now: '200',
     unit: '만원~',
     term: '시안 2주 내 · 오픈 4~6주 · 별도 견적',
     feats: ['관리자 화면 · 구조 설계', '맞춤 기능 · 분기 로직', '구조 문서(IA) 제공'],

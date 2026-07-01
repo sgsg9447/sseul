@@ -453,21 +453,23 @@ describe('sseul portfolio', () => {
       expect(screen.getByRole('heading', { level: 3, name })).toBeInTheDocument();
     });
     expect(container.querySelectorAll('.bro-tier')).toHaveLength(3);
-    ['50', '150', '250'].forEach((price) => {
+    ['30', '100', '200'].forEach((price) => {
       expect(screen.getByText(price)).toBeInTheDocument();
     });
+
+    // launch promo reflects the actual (up to 70%) price cut
+    expect(screen.getByText(/최대 70% 할인/)).toBeInTheDocument();
 
     // monthly operations plans
     ['라이트', '스탠다드', '풀케어'].forEach((plan) => {
       expect(screen.getByText(plan)).toBeInTheDocument();
     });
 
-    // real contact, wired for reply
-    expect(screen.getByRole('link', { name: /sgsg9447@gmail\.com/ })).toHaveAttribute(
-      'href',
-      expect.stringContaining('mailto:'),
-    );
-    expect(screen.getByRole('link', { name: /010-7705-9447/ })).toHaveAttribute('href', 'tel:01077059447');
-    expect(screen.getAllByRole('link', { name: /sseul\.me/ }).length).toBeGreaterThanOrEqual(2);
+    // public brochure carries no direct contact channels (reply goes through the platform)
+    expect(container.querySelector('.bro-contact')).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /010-7705-9447/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /sgsg9447@gmail\.com/ })).not.toBeInTheDocument();
+    // brand site still shown on the cover
+    expect(screen.getAllByRole('link', { name: /sseul\.me/ }).length).toBeGreaterThanOrEqual(1);
   });
 });

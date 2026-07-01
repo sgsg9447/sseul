@@ -5,12 +5,8 @@ import profile from '../assets/profile.jpg';
 import asisMain from '../assets/asis-main.png';
 import screenHome from '../assets/screen-home.png';
 import {
-  CONTACT_EMAIL,
-  MAIL_HREF,
-  PHONE,
   SITE,
   SITE_HREF,
-  TEL_HREF,
   WORK_HREF,
   baRows,
   beforeAfterIntro,
@@ -301,29 +297,6 @@ export function BrochurePage() {
                   <span className="bro-cta-hl">편하게 시작</span>하세요
                 </h2>
                 <p>{cta.body}</p>
-              </div>
-              <div className="bro-contact">
-                <a href={MAIL_HREF}>
-                  <span className="bro-ic" aria-hidden="true">
-                    @
-                  </span>
-                  <b>{CONTACT_EMAIL}</b>
-                  <span className="bro-contact-tag">이메일</span>
-                </a>
-                <a href={TEL_HREF}>
-                  <span className="bro-ic" aria-hidden="true">
-                    ☎
-                  </span>
-                  <b>{PHONE}</b>
-                  <span className="bro-contact-tag">전화</span>
-                </a>
-                <a href={SITE_HREF}>
-                  <span className="bro-ic" aria-hidden="true">
-                    ↗
-                  </span>
-                  <b>{SITE}</b>
-                  <span className="bro-contact-tag">포트폴리오</span>
-                </a>
               </div>
             </section>
 
