@@ -145,7 +145,7 @@ export const cases: WorkCase[] = [
     structure: [
       'Select — API 1개, 내부 두 엔진\n(single=Radix 래핑, multi=Popover 직접 구현)',
       'discriminated union — 오용 시 컴파일에서 차단',
-      '아이콘 — 폴더에 SVG 드롭 → 코드젠으로 타입까지 자동 생성',
+      '폴더에 SVG 드롭 → 코드젠으로 타입까지 자동 생성',
       'push 전 type-check + 빌드 강제 게이트',
     ],
     tags: ['Radix', 'Tailwind · CVA', '코드젠', 'Storybook', 'Rollup/Vite'],
@@ -214,7 +214,7 @@ export const blackHole = {
   stats: [
     ['별 개수', '8,000+'],
     ['렌더', '실시간 · WebGL'],
-    ['라이브러리', '없음 (raw)'],
+    ['외부 라이브러리', '없음'],
   ] as [string, string][],
   repo: 'https://github.com/H8njo/webgl-black-hole',
   postUrl: 'https://h8njo.vercel.app/work/webgl-blackhole',
@@ -228,7 +228,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Bookips',
     description:
-      '교육 콘텐츠 플랫폼 솔북(Solvook). A4 자동 페이징·서버 PDF 파이프라인, 사내 엔진을 OSS(column-pager)로 공개, 디자인 시스템 공동 메인테이너.',
+      '교육 콘텐츠 플랫폼 솔북(Solvook). A4 자동 페이징·서버 PDF 파이프라인,\n사내 엔진을 OSS(column-pager)로 공개, 디자인 시스템 공동 메인테이너.',
     tags: ['Next.js', 'TypeScript', 'Canvas', 'OSS'],
     current: true,
   },
@@ -237,7 +237,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Sling',
     description:
-      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 OOM 없이 렌더하는 메모리·성능 최적화 (첫 화면 10분 → 1초).',
+      '튜터용 수업 관리 앱 ORZO.\n대용량 교재 PDF를 OOM 없이 렌더하는 메모리·성능 최적화 (첫 화면 10분 → 1초).',
     tags: ['Next.js', 'PDF', '성능', '메모리'],
   },
   {
@@ -245,7 +245,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer / Fullstack',
     org: '@Zipida',
     description:
-      '정부·기업 보안관제 SI(법무부·KISTI·현대오토에버). 메타데이터 화면 양산, 코드 없는 ML 학습 마법사, 이중 데이터소스·NestJS BFF 설계.',
+      '정부·기업 보안관제 SI(법무부·KISTI·현대오토에버). 메타데이터 화면 양산, 코드 없는 ML 학습 마법사,\n이중 데이터소스·NestJS BFF 설계.',
     tags: ['React', 'GraphQL', 'NestJS', 'RBAC'],
   },
   {

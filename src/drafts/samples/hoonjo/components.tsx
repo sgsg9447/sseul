@@ -285,7 +285,7 @@ export function TimelineItem({ period, role, org, description, tags = [], curren
           <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: 21, fontWeight: 600, color: 'var(--text)', lineHeight: 1.2, margin: 0 }}>{role}</h4>
           {org && <span style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--text-muted)' }}>· {org}</span>}
         </div>
-        {description && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)', marginTop: 10, whiteSpace: 'pre-line' }}>{description}</p>}
+        {description && <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)', marginTop: 10 }}>{description.replace(/\n/g, ' ')}</p>}
         {tags.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 14 }}>
             {tags.map((t) => (

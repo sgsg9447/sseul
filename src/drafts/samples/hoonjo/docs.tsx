@@ -82,7 +82,7 @@ type Project = { title: string; company?: string; problem: string[]; structure: 
 
 const FLAGSHIP_PROBLEM = [
   'A4 2단 레이아웃에서 한 칸 높이를 넘는 긴 카드(긴 본문)를 기존 구현이 처리 못 함',
-  '인쇄물이라 문장이 잘리면 그대로 불량품 — 2년 가까이 환불 문의',
+  '인쇄물이라 문장이 잘리면 그대로 불량품\n— 2년 가까이 환불 문의',
   '여러 명이 붙었지만 다들 같은 벽에서 멈춤',
 ];
 const FLAGSHIP_STRUCTURE = [
@@ -141,7 +141,7 @@ function CareerList() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       {timeline.map((t) => (
-        <div key={t.org} className="hoonjo-doc-row" style={{ display: 'grid', gridTemplateColumns: '130px 1fr', gap: 20 }}>
+        <div key={t.org} className="hoonjo-doc-row" style={{ display: 'grid', gridTemplateColumns: '98px 1fr', gap: 18 }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)', paddingTop: 2 }}>{t.period}</div>
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
