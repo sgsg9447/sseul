@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import type { Metric } from './components';
 import { Tag, MetricRow } from './components';
-import { profile, timeline, capabilities, flagship, cases, blackHole, impact, oss } from './content';
-import type { ProjImage } from './content';
+import { profile, timeline, capabilities, flagship, cases, blackHole, impact, oss, resumeSummary, resumeSkills, resumeExperience, education } from './content';
+import type { ProjImage, ExpCompany } from './content';
 import { docBase } from './routes';
 import portrait from './assets/portrait.jpg';
 
@@ -160,18 +160,113 @@ function Skills() {
   );
 }
 
-/* ---- 이력서: CV page + projects on a second print page ------------------ */
+/* ---- 이력서 전용 파트 ---------------------------------------------------- */
+/* 포트폴리오 PDF와 확실히 구분되는, "회사 위주"로 읽는 CV 헤더.
+   포트폴리오의 큰 세리프 태그라인 대신 요약 문단·연락처를 담아 문서처럼 읽힌다. */
+function ResumeHeader() {
+  return (
+    <header style={{ paddingBottom: 24, borderBottom: '2px solid var(--text)' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--blue-deep)' }}>이력서 · Résumé</div>
+      <div style={{ display: 'flex', gap: 26, alignItems: 'flex-start', marginTop: 14 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+            <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)', margin: 0 }}>{profile.nameKo}</h1>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--text-muted)' }}>{profile.name}</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-faint)' }}>· 1996년생</span>
+          </div>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 15.5, color: 'var(--text-secondary)', marginTop: 7 }}>{profile.role}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 16px', marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 12.5 }}>
+            <a href={`mailto:${profile.email}`} style={{ color: 'var(--blue-deep)' }}>{profile.email}</a>
+            <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: 'var(--blue-deep)' }}>{profile.githubHandle}</a>
+            <a href="https://h8njo.vercel.app" target="_blank" rel="noreferrer" style={{ color: 'var(--blue-deep)' }}>h8njo.vercel.app</a>
+          </div>
+        </div>
+        <img src={portrait} alt={profile.nameKo} style={{ flex: 'none', width: 104, height: 124, objectFit: 'cover', objectPosition: 'center 22%', borderRadius: 'var(--radius-lg)', border: '1px solid var(--line)' }} />
+      </div>
+      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, lineHeight: 1.7, color: 'var(--text-secondary)', margin: '18px 0 0', maxWidth: '70ch' }}>{resumeSummary}</p>
+    </header>
+  );
+}
+
+function ResumeSkills() {
+  return (
+    <div className="hoonjo-doc-skills" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px 30px' }}>
+      {resumeSkills.map((s) => (
+        <div key={s.label} style={{ display: 'grid', gridTemplateColumns: '132px 1fr', gap: 14, alignItems: 'baseline' }} className="hoonjo-doc-row">
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 600, color: 'var(--text)' }}>{s.label}</div>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--text-secondary)' }}>{s.items}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* 회사 하나 = 기간(왼쪽) + 회사/제품/역할 헤더 + 스택 + 성과 불릿(오른쪽). */
+function ExperienceBlock({ c }: { c: ExpCompany }) {
+  return (
+    <section className="hoonjo-exp" style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 22, paddingTop: 22, borderTop: '1px solid var(--line)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: c.current ? 'var(--green-deep)' : 'var(--text-muted)', paddingTop: 3 }}>
+        {c.current && <span aria-hidden style={{ width: 7, height: 7, borderRadius: 1, transform: 'rotate(45deg)', background: 'var(--green)', flex: 'none' }} />}
+        {c.period}
+      </div>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 21, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text)', margin: 0 }}>{c.company}</h3>
+          <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--text-muted)' }}>{c.product}</span>
+        </div>
+        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 500, color: 'var(--text-secondary)', marginTop: 4 }}>{c.role}</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
+          {c.stack.map((t) => <Tag key={t}>{t}</Tag>)}
+        </div>
+        <ul style={{ listStyle: 'none', margin: '18px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {c.highlights.map((h) => (
+            <li key={h.head} className="hoonjo-exp-hl" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 10 }}>
+              <span aria-hidden style={{ width: 5, height: 5, marginTop: 7, borderRadius: 1, background: 'var(--blue)', transform: 'rotate(45deg)', flex: 'none' }} />
+              <div>
+                <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, fontWeight: 600, lineHeight: 1.45, color: 'var(--text)' }}>{h.head}</div>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.62, color: 'var(--text-secondary)', margin: '5px 0 0' }}>{h.body}</p>
+                {h.metric && (
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, lineHeight: 1.5, color: 'var(--text-muted)', marginTop: 7 }}>
+                    <span style={{ color: 'var(--positive)', fontWeight: 600 }}>▸ </span>{h.metric}
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function Education() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      {education.map((e) => (
+        <div key={e.school} className="hoonjo-doc-row" style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 22 }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)', paddingTop: 2 }}>{e.period}</div>
+          <div>
+            <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, fontWeight: 600, color: 'var(--text)' }}>{e.school}</div>
+            <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--text-secondary)', marginTop: 3 }}>{e.detail}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---- 이력서: 회사 위주로 읽는 CV (포트폴리오 PDF와 구분되는 문서) --------- */
 export function Resume() {
   return (
     <DocShell tab="이력서">
-      <DocHeader summary={`${profile.role}. 성능·복잡한 상태·까다로운 렌더링을 측정 가능한 결과로 풀고, 반복되는 일을 재사용 가능한 구조로 바꾸는 데 강합니다.`} />
-      <DocSection label="경력"><CareerList /></DocSection>
-      <DocSection label="전문 영역"><Skills /></DocSection>
-      <DocSection label="대표 프로젝트">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
-          {PROJECTS.map((p) => <ProjectBlock key={p.title} p={p} />)}
+      <ResumeHeader />
+      <DocSection label="핵심 역량"><ResumeSkills /></DocSection>
+      <DocSection label="경력 기술">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {resumeExperience.map((c) => <ExperienceBlock key={c.company} c={c} />)}
         </div>
       </DocSection>
+      <DocSection label="학력 · 교육"><Education /></DocSection>
     </DocShell>
   );
 }
