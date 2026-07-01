@@ -290,7 +290,7 @@ export function Career() {
     <section id="career" style={{ background: 'var(--cloud)', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
       <div style={{ ...CONTAINER, padding: `${SECTION_Y} 24px` }}>
         <SectionHeader index={2} eyebrow="CAREER" title="7년, 네 곳을 거쳤습니다" lead="첫 직장 PHP부터 정부 보안관제, 교육 플랫폼까지." />
-        <div style={{ marginTop: 48, borderLeft: '1px solid var(--steel)', paddingLeft: 33, maxWidth: 820 }}>
+        <div style={{ marginTop: 48, borderLeft: '1px solid var(--steel)', paddingLeft: 33 }}>
           {timeline.map((t, i) => (
             <TimelineItem key={t.org} {...t} style={i === timeline.length - 1 ? { paddingBottom: 0 } : undefined} />
           ))}
