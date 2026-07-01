@@ -228,7 +228,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Bookips',
     description:
-      '교육 콘텐츠 플랫폼 솔북(Solvook). 시험지 제작 스튜디오의 A4 자동 페이징·서버 PDF 파이프라인을 맡고, 사내 페이지네이션 엔진을 독립 OSS(column-pager)로 분리·배포. 디자인 시스템 공동 메인테이너.',
+      '교육 콘텐츠 플랫폼 솔북(Solvook). A4 자동 페이징·서버 PDF 파이프라인, 사내 엔진을 OSS(column-pager)로 공개, 디자인 시스템 공동 메인테이너.',
     tags: ['Next.js', 'TypeScript', 'Canvas', 'OSS'],
     current: true,
   },
@@ -237,7 +237,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer',
     org: '@Sling',
     description:
-      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 브라우저에서 OOM 없이 렌더하는 메모리·성능 최적화를 맡았습니다 (첫 화면 10분 → 1초).',
+      '튜터용 수업 관리 앱 ORZO. 대용량 교재 PDF를 OOM 없이 렌더하는 메모리·성능 최적화 (첫 화면 10분 → 1초).',
     tags: ['Next.js', 'PDF', '성능', '메모리'],
   },
   {
@@ -245,7 +245,7 @@ export const timeline: Timeline[] = [
     role: 'Frontend Engineer / Fullstack',
     org: '@Zipida',
     description:
-      '정부·기업 보안관제 SI. 법무부·KISTI·현대오토에버 포털에서 메타데이터 화면 양산 추상화, 코드 없는 ML 학습 마법사, 본 DB + 레거시 보안 DB 이중 데이터소스, NestJS BFF 설계.',
+      '정부·기업 보안관제 SI(법무부·KISTI·현대오토에버). 메타데이터 화면 양산, 코드 없는 ML 학습 마법사, 이중 데이터소스·NestJS BFF 설계.',
     tags: ['React', 'GraphQL', 'NestJS', 'RBAC'],
   },
   {
@@ -441,7 +441,7 @@ export const resumeExperience: ExpCompany[] = [
     period: '2019 — 2020',
     company: '옐로오투오',
     product: '웹 에이전시',
-    role: '프론트엔드 (커리어 시작)',
+    role: '프론트엔드',
     stack: ['React', 'PHP', 'MySQL', 'jQuery'],
     highlights: [
       {

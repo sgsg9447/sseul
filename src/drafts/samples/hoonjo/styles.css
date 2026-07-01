@@ -330,7 +330,7 @@
   /* a section that starts a fresh page gets a top cushion so its first line
      isn't flush against the paper edge (page margins can't repeat via @page). */
   .hoonjo .hoonjo-doc-break {
-    padding-top: 13mm;
+    padding-top: 8mm;
   }
   /* keep a block (a project, a career row, an image) from splitting across pages */
   .hoonjo .hoonjo-doc-section,
@@ -338,8 +338,9 @@
   .hoonjo .hoonjo-doc img {
     break-inside: avoid;
   }
-  /* résumé: company blocks are taller than a page, so let them flow — but never
-     split a single achievement bullet across two pages */
+  /* résumé: keep a whole company block together where it fits on a page
+     (blocks taller than a page break at the achievement-bullet boundaries) */
+  .hoonjo .hoonjo-exp,
   .hoonjo .hoonjo-exp-hl {
     break-inside: avoid;
   }

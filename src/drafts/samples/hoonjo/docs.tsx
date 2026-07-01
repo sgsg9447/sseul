@@ -57,8 +57,8 @@ function SectionLabel({ children }: { children: ReactNode }) {
 
 function DocSection({ label, breakPage, children }: { label: string; breakPage?: boolean; children: ReactNode }) {
   return (
-    <section className={`hoonjo-doc-section${breakPage ? ' hoonjo-doc-break' : ''}`} style={{ marginTop: 34, ...(breakPage ? { breakBefore: 'page' } : null) }}>
-      <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', margin: '0 0 16px', paddingBottom: 8, borderBottom: '1px solid var(--line)' }}>{label}</h2>
+    <section className={`hoonjo-doc-section${breakPage ? ' hoonjo-doc-break' : ''}`} style={{ marginTop: 26, ...(breakPage ? { breakBefore: 'page' } : null) }}>
+      <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', margin: '0 0 14px', paddingBottom: 8, borderBottom: '1px solid var(--line)' }}>{label}</h2>
       {children}
     </section>
   );
@@ -139,7 +139,7 @@ function ProjectBlock({ p, withImages = false }: { p: Project; withImages?: bool
 
 function CareerList() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       {timeline.map((t) => (
         <div key={t.org} className="hoonjo-doc-row" style={{ display: 'grid', gridTemplateColumns: '130px 1fr', gap: 20 }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)', paddingTop: 2 }}>{t.period}</div>
@@ -255,7 +255,7 @@ function ExperienceBlock({ c }: { c: ExpCompany }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
           {c.stack.map((t) => <Tag key={t}>{t}</Tag>)}
         </div>
-        <ul style={{ listStyle: 'none', margin: '18px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <ul style={{ listStyle: 'none', margin: '16px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 13 }}>
           {c.highlights.map((h) => (
             <li key={h.head} className="hoonjo-exp-hl" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 10 }}>
               <span aria-hidden style={{ width: 5, height: 5, marginTop: 7, borderRadius: 1, background: 'var(--blue)', transform: 'rotate(45deg)', flex: 'none' }} />
@@ -328,10 +328,10 @@ export function PortfolioPdf() {
       <DocHeader tagline="안 되던 화면을 되게 만듭니다." summary={profile.lead.replace(/\n/g, ' ')} />
 
       <DocSection label="대표 임팩트">
-        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, color: 'var(--text-secondary)', margin: '-4px 0 16px' }}>{impact.lead}</div>
+        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14.5, color: 'var(--text-secondary)', margin: '-4px 0 12px' }}>{impact.lead}</div>
         <div className="hoonjo-doc-skills" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', background: 'var(--ink)', border: '1px solid var(--ink-soft)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
           {impact.stats.map((s, i) => (
-            <div key={s.k} style={{ padding: '22px 24px', borderRight: i < impact.stats.length - 1 ? '1px solid rgba(246,244,238,0.14)' : 'none' }}>
+            <div key={s.k} style={{ padding: '18px 22px', borderRight: i < impact.stats.length - 1 ? '1px solid rgba(246,244,238,0.14)' : 'none' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--on-ink-muted)' }}>{s.k}</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--on-ink-muted)', textDecoration: 'line-through', textDecorationColor: 'rgba(246,244,238,0.45)', marginTop: 16 }}>{s.before}</div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 9, marginTop: 6 }}>
@@ -343,7 +343,10 @@ export function PortfolioPdf() {
         </div>
       </DocSection>
 
-      <DocSection label="대표 프로젝트">
+      <DocSection label="경력"><CareerList /></DocSection>
+      <DocSection label="전문 영역"><Skills /></DocSection>
+
+      <DocSection label="대표 프로젝트" breakPage>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
           {PROJECTS.map((p) => <ProjectBlock key={p.title} p={p} withImages />)}
         </div>
@@ -375,9 +378,6 @@ export function PortfolioPdf() {
           </div>
         </div>
       </DocSection>
-
-      <DocSection label="경력"><CareerList /></DocSection>
-      <DocSection label="전문 영역"><Skills /></DocSection>
 
       <DocSection label="오픈소스">
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
